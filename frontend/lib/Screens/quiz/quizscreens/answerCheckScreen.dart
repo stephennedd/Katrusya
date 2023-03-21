@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/resultScreen.dart';
+import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:get/get.dart';
 
-import '../Themes/custom_text_styles.dart';
-import 'components/BackgroundDecoration.dart';
-import 'components/ContentArea.dart';
-import 'components/CustomAppBar.dart';
-import 'components/answer_card.dart';
+import '../../../Themes/custom_text_styles.dart';
+import '../../components/BackgroundDecoration.dart';
+import '../../components/ContentArea.dart';
+import '../../components/CustomAppBar.dart';
+import '../quizcomponents/AnswerCard.dart';
 
 class AnswerCheckScreen extends GetView<QuestionsController> {
   const AnswerCheckScreen({super.key});

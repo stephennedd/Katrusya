@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/components/AnswerCard.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 

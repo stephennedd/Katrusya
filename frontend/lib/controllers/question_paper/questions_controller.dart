@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import 'package:frontend/Screens/resultScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Screens/watchCourseScreen.dart';
 import 'package:frontend/controllers/question_paper/data_uploader.dart';
-import 'package:frontend/model/LoadingStatus.dart';
-import 'package:frontend/model/question_paper_model.dart';
+import 'package:frontend/models/LoadingStatus.dart';
+import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
 
 class QuestionsController extends GetxController {
-  DataUpLoader controller = Get.put(DataUpLoader());
+  // DataUpLoader controller = Get.put(DataUpLoader());
 
   final questionIndex = 0.obs;
   bool get isFirstQuestion => questionIndex.value > 0;
@@ -24,7 +25,10 @@ class QuestionsController extends GetxController {
 
   @override
   void onReady() {
+    //DataUpLoader controller = Get.put(DataUpLoader());
     loadingStatus.value = LoadingStatus.loading;
+    // final _questionPaper =
+    //     ModalRoute.of(Get.context)!.settings.arguments as QuestionPaperModel;
     final _questionPaper = Get.arguments as QuestionPaperModel;
     // final _questionPaper = controller.questionsData[0] as QuestionPaperModel;
     questionPaperModel = _questionPaper;

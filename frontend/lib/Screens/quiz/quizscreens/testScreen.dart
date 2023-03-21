@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Screens/components/BackgroundDecoration.dart';
 import 'package:frontend/Screens/components/CustomAppBar.dart';
 import 'package:frontend/Screens/components/MainButton.dart';
-import 'package:frontend/Screens/components/QuestionPlaceHolder.dart';
-import 'package:frontend/Screens/testOverviewScreen.dart';
-import 'package:frontend/Screens/components/answer_card.dart';
-import 'package:frontend/Screens/components/countdown_timer.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/QuestionPlaceHolder.dart';
+import 'package:frontend/Screens/quiz/quizscreens/testOverviewScreen.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/CountdownTimer.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/controllers/question_paper/data_uploader.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
-import 'package:frontend/model/LoadingStatus.dart';
+import 'package:frontend/models/LoadingStatus.dart';
+import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
 
-import 'components/ContentArea.dart';
+import '../../components/ContentArea.dart';
 
 class TestScreen extends GetView<QuestionsController> {
   const TestScreen({super.key});
@@ -20,7 +21,6 @@ class TestScreen extends GetView<QuestionsController> {
 
   @override
   Widget build(BuildContext context) {
-    // DataUpLoader controller2 = Get.put(DataUpLoader());
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(

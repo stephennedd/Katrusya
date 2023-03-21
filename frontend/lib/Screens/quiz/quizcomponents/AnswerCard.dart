@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 
+enum AnswerStatus { correct, wrong, answered, notanswered }
+
 class AnswerCard extends StatelessWidget {
   final String answer;
   final VoidCallback onTap;

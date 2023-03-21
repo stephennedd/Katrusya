@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/components/AnswerCard.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/Screens/components/BackgroundDecoration.dart';
 import 'package:frontend/Screens/components/ContentArea.dart';
 import 'package:frontend/Screens/components/CustomAppBar.dart';
 import 'package:frontend/Screens/components/MainButton.dart';
-import 'package:frontend/Screens/components/QuestionNumberCard.dart';
-import 'package:frontend/Screens/components/countdown_timer.dart';
-import 'package:frontend/Screens/questionsScreen.dart';
-import 'package:frontend/Screens/resultScreen.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/QuestionNumberCard.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/CountdownTimer.dart';
+import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';

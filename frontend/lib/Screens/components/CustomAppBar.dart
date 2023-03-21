@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/testOverviewScreen.dart';
+import 'package:frontend/Screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:get/get.dart';
@@ -53,7 +53,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color:
                             Colors.black), // Set the color of the back button
                     onPressed: onMenuActionTap ??
-                        () => Get.toNamed(TestOverviewScreen.routeName),
+                        () => Navigator.pushNamed(
+                            context, TestOverviewScreen.routeName),
+                    //Get.toNamed(TestOverviewScreen.routeName),
                   ),
                 )
             ],

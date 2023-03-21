@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/homescreens/MyCourses.dart';
-import 'package:frontend/Screens/testScreen.dart';
+import 'package:frontend/Screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/controllers/question_paper/data_uploader.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
@@ -510,6 +509,10 @@ class _WatchCourseState extends State<WatchCourse> {
       old.removeListener(_onControllerUpdate);
       old.pause();
     }
+
+    print(controller.questionsData[0]);
+    // Navigator.pushNamed(context, TestScreen.routeName,
+    //     arguments: controller.questionsData[0]);
     Get.toNamed(TestScreen.routeName, arguments: controller.questionsData[0]);
   }
 

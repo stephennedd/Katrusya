@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Feautured extends StatefulWidget {
+  static const String routeName = "/featuredScreen";
   const Feautured({super.key});
 
   @override

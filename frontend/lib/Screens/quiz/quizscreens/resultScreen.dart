@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/Screens/components/AnswerCard.dart';
+import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/Screens/components/BackgroundDecoration.dart';
 import 'package:frontend/Screens/components/ContentArea.dart';
 import 'package:frontend/Screens/components/CustomAppBar.dart';
@@ -12,7 +12,7 @@ import 'package:frontend/controllers/question_paper/questions_controller_extensi
 import 'package:get/get.dart';
 
 import 'answerCheckScreen.dart';
-import 'components/QuestionNumberCard.dart';
+import '../quizcomponents/QuestionNumberCard.dart';
 
 class ResultScreen extends GetView<QuestionsController> {
   const ResultScreen({super.key});

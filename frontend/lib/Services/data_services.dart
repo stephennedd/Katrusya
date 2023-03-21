@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:frontend/model/question_paper_model.dart';
+import 'package:frontend/models/question_paper_model.dart';
 import 'package:http/http.dart' as http;
 
 class DataServices {
