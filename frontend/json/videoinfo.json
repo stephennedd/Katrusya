@@ -1,0 +1,37 @@
+[
+    {
+        "title": "Lesson 1",
+        "time": "20 minutes",
+        "thumbnail": "images/image1.webp",
+        "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+        "isQuiz": false
+    },
+    {
+        "title": "Lesson 2",
+        "time": "15 minutes",
+        "thumbnail": "images/image2.jpg",
+        "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+        "isQuiz": false
+    },
+    {
+        "title": "Lesson 3",
+        "time": "10 minutes",
+        "thumbnail": "images/image3.jpg",
+        "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+        "isQuiz": false
+    },
+    {
+        "title": "Lesson 4",
+        "time": "8 minutes",
+        "thumbnail": "images/image4.png",
+        "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+        "isQuiz": false
+    },
+    {
+        "title": "Quiz",
+        "time": "20 minutes",
+        "thumbnail": "images/image1.webp",
+        "videoUrl": "",
+        "isQuiz": true
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id":1,
+        "question": "How old are you?",
+        "answers": [
+           "19","20","21","22"
+        ],
+        "correctAnswer": "20",
+        "selectedAnswer": ""
+    },
+    {
+        "id":2,
+        "question": "What is your name?",
+        "answers": [
+           "Yehor","Stephen","Ivan","Kostya"
+        ],
+        "correctAnswer": "20",
+        "selectedAnswer": ""
+    }
+]
