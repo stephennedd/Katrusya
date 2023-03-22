@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class DataUpLoader extends GetxController {
   final service = new DataServices();
-  String _baseUsl = 'http://localhost:3000';
+  String _baseUsl = 'http://145.2.226.196:3000';
   @override
   void onReady() {
     getTestsBasedOnSectionId(1);
@@ -25,6 +25,7 @@ class DataUpLoader extends GetxController {
         await service.getTestsBasedOnSectionId(sectionId);
     questionsData = tests;
     loadingStatus.value = LoadingStatus.completed;
+    print(tests);
     return tests;
 
     // final manifestoContent = await DefaultAssetBundle.of(Get.context!)

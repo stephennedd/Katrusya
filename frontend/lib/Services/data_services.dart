@@ -4,7 +4,7 @@ import 'package:frontend/models/question_paper_model.dart';
 import 'package:http/http.dart' as http;
 
 class DataServices {
-  String _baseUsl = 'http://localhost:3000';
+  String _baseUsl = 'http://145.2.226.196:3000';
   Future<List<QuestionPaperModel>> getTestsBasedOnSectionId(sectionId) async {
     var apiUrl = '/sections/${sectionId}/test';
 
