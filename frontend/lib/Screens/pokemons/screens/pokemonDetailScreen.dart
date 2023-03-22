@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/home.dart';
 import 'package:frontend/Screens/homescreens/Featured.dart';
+import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Screens/watchCourseScreen.dart';
 import '../../../controllers/pokemons/pokemon_basic_controller.dart';
 import '../../../controllers/pokemons/pokemon_favorite_controller.dart';
@@ -121,14 +123,15 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context)
-                                    .pushNamed(WatchCourse.routeName);
+                                    //.pushNamed(WatchCourse.routeName);
+                                    .pushNamed(RootApp.routeName);
                               },
-                              child: Text('Select'),
                               style: ButtonStyle(
                                 minimumSize: MaterialStateProperty.all<Size>(
                                     Size(120, 40)),
                                 // You can adjust the width and height of the button by changing the values in Size
                               ),
+                              child: Text('Select'),
                             ),
                           ),
                         ],

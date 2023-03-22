@@ -1,3 +1,4 @@
+import 'package:frontend/Screens/home.dart';
 import 'package:frontend/Screens/pokemons/screens/favoriteScreen.dart';
 import 'package:frontend/Screens/pokemons/screens/pokemonDetailScreen.dart';
 import 'package:frontend/Screens/pokemons/screens/pokemonsHomeScreen.dart';
@@ -18,6 +19,7 @@ import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:get/get.dart';
 
 import '../Screens/quiz/quizscreens/answerCheckScreen.dart';
+
 
 class AppRoutes {
   static List<GetPage> routes() => [

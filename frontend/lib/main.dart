@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/home.dart';
 import 'package:frontend/Screens/homeScreen.dart';
 import 'package:frontend/Screens/homescreens/Featured.dart';
 import 'package:frontend/Screens/homescreens/MyCourses.dart';
@@ -11,6 +12,7 @@ import 'package:frontend/Screens/pokemons/screens/settings_screen.dart';
 import 'package:frontend/Screens/quiz/quizscreens/answerCheckScreen.dart';
 import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Screens/quiz/quizscreens/testOverviewScreen.dart';
+import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Screens/splashScreen.dart';
 import 'package:frontend/Screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/Screens/watchCourseScreen.dart';
@@ -57,6 +59,7 @@ class MyApp extends StatelessWidget {
           theme: provider.themeData,
           title: 'Flutter Demo',
           initialRoute: PokemonHomeScreen.routeName,
+          home: const RootApp(),
           routes: {
             PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
             PokemonDetailScreen.routeName: (context) =>
@@ -65,6 +68,8 @@ class MyApp extends StatelessWidget {
             FavoriteScreen.routeName: (context) => const FavoriteScreen(),
             SearchScreen.routeName: (context) => const SearchScreen(),
             WatchCourse.routeName: (context) => const WatchCourse(),
+            HomePage.routeName: (context) => const HomePage(),
+            RootApp.routeName: (context) => const RootApp(),
           },
         );
       }),

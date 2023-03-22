@@ -1,0 +1,91 @@
+import 'package:frontend/screens/home.dart';
+import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/widgets/bottombar_item.dart';
+import 'package:flutter/material.dart';
+
+class RootApp extends StatefulWidget {
+  const RootApp({Key? key}) : super(key: key);
+  static const String routeName = "/root";
+
+  @override
+  State<RootApp> createState() => _RootAppState();
+}
+
+class _RootAppState extends State<RootApp> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: buildBody(),
+      bottomNavigationBar: buildBottomBar(),
+    );
+  }
+
+  Widget buildBody() {
+    return IndexedStack(
+      index: activePageIndex,
+      children: List.generate(tabItems.length,
+              (index) => tabItems[index]["page"])
+    );
+  }
+
+  List tabItems = [
+    {
+      "icon" : "assets/icons/home.svg", "page" : HomePage()
+    },
+    {
+      "icon" : "assets/icons/search.svg",
+      "page" : Container(child: Center(child: Text("Search"),),)
+    },
+    {
+      "icon" : "assets/icons/play.svg",
+      "page" : Container(child: Center(child: Text("My Courses"),),)
+    },
+    {
+      "icon" : "assets/icons/heart.svg",
+      "page" : Container(child: Center(child: Text("Wishlist"),),)
+    },
+    {
+      "icon" : "assets/icons/profile.svg",
+      "page" : Container(child: Center(child: Text("Profile"),),)
+    }
+  ];
+
+  int activePageIndex = 0;
+  Widget buildBottomBar() {
+    return Container(
+      width: double.infinity,
+      height: 75,
+      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+      decoration: BoxDecoration(
+        color: bottomBarColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor.withOpacity(.3),
+            spreadRadius: 2,
+            blurRadius: 2,
+            offset: const Offset(1, 1)
+          )
+        ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:
+          List.generate(tabItems.length,
+                  (index) => BottomBarItem(icon: tabItems[index]["icon"], isActive: activePageIndex == index,
+            onTap: (){
+              onPageIndexChanged(index);
+            })
+          )
+      ),
+    );
+  }
+
+  onPageIndexChanged(index) {
+    setState(() {
+      activePageIndex = index;
+    });
+  }
+}
