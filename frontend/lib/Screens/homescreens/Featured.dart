@@ -1,7 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/MyList.dart';
-import 'package:frontend/Screens/detailsScreen.dart';
+import 'package:frontend/screens/detailsScreen.dart';
 import 'package:frontend/Services/DataController.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

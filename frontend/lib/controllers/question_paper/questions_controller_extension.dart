@@ -1,4 +1,7 @@
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
+import 'package:get/get.dart';
+
+import 'package:frontend/controllers/data_sender_controller.dart';
 
 extension QuestionsControllerExtension on QuestionsController {
   int get correctQuestionCount => allQuestions

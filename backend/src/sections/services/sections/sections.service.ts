@@ -24,7 +24,8 @@ export class SectionsService {
     for (const question of questions) {
         const answers = await knex('answers')
           .select()
-          .where('question_id', question.id);
+          .where('question_id', question.id)
+          .orderBy('identifier');
         question.answers = answers;
       }
 

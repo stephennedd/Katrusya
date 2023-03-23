@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/signinoptions/SignIn.dart';
+import 'package:frontend/screens/signinoptions/SignIn.dart';
 import 'package:page_transition/page_transition.dart';
 
 class LandingPage extends StatefulWidget {

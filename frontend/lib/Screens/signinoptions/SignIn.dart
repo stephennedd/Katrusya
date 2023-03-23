@@ -1,8 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:frontend/Screens/homeScreen.dart';
-import 'package:frontend/Screens/signinoptions/SignUp.dart';
+import 'package:frontend/screens/homeScreen.dart';
+import 'package:frontend/screens/signinoptions/SignUp.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SignIn extends StatefulWidget {

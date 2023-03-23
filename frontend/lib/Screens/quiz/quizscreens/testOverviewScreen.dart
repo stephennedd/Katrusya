@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
-import 'package:frontend/Screens/components/BackgroundDecoration.dart';
-import 'package:frontend/Screens/components/ContentArea.dart';
-import 'package:frontend/Screens/components/CustomAppBar.dart';
-import 'package:frontend/Screens/components/MainButton.dart';
-import 'package:frontend/Screens/quiz/quizcomponents/QuestionNumberCard.dart';
-import 'package:frontend/Screens/quiz/quizcomponents/CountdownTimer.dart';
-import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
+import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
+import 'package:frontend/screens/components/BackgroundDecoration.dart';
+import 'package:frontend/screens/components/ContentArea.dart';
+import 'package:frontend/screens/components/CustomAppBar.dart';
+import 'package:frontend/screens/components/MainButton.dart';
+import 'package:frontend/screens/quiz/quizcomponents/QuestionNumberCard.dart';
+import 'package:frontend/screens/quiz/quizcomponents/CountdownTimer.dart';
+import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
+import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
 
 class TestOverviewScreen extends GetView<QuestionsController> {
@@ -112,7 +113,10 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                           Expanded(
                               child: MainButton(
                             onTap: () {
-                              controller.complete();
+                              controller.completeTest(
+                                  1,
+                                  controller.questionPaperModel.id,
+                                  controller.points);
                             },
                             title: 'Complete',
                           ))

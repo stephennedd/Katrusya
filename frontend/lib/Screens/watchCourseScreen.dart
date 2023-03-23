@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/homescreens/MyCourses.dart';
-import 'package:frontend/Screens/quiz/quizscreens/testScreen.dart';
-import 'package:frontend/controllers/question_paper/data_uploader.dart';
+import 'package:frontend/screens/homescreens/MyCourses.dart';
+import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
+import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
@@ -59,21 +59,6 @@ class _WatchCourseState extends State<WatchCourse> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     appBar: AppBar(
-    //       backgroundColor: Colors.black,
-    //       title: Text(
-    //         'My Course',
-    //         style: TextStyle(color: Colors.white),
-    //       ),
-    //     ),
-    //     body: Container(
-    //       alignment: Alignment.center,
-    //       child: VideoDisplay(
-    //         videoUrl:
-    //             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-    //       ),
-    //     ));
     return Scaffold(
       body: Container(
           decoration: _playArea == false
@@ -509,11 +494,7 @@ class _WatchCourseState extends State<WatchCourse> {
       old.removeListener(_onControllerUpdate);
       old.pause();
     }
-
-    print(controller.questionsData[0]);
-    // Navigator.pushNamed(context, TestScreen.routeName,
-    //     arguments: controller.questionsData[0]);
-    Get.toNamed(TestScreen.routeName, arguments: controller.questionsData[0]);
+    Get.toNamed(TestScreen.routeName, arguments: controller.questionsData);
   }
 
   String convertTwo(int value) {

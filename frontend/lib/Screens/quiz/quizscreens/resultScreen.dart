@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/Screens/quiz/quizcomponents/AnswerCard.dart';
-import 'package:frontend/Screens/components/BackgroundDecoration.dart';
-import 'package:frontend/Screens/components/ContentArea.dart';
-import 'package:frontend/Screens/components/CustomAppBar.dart';
-import 'package:frontend/Screens/components/MainButton.dart';
-import 'package:frontend/Screens/watchCourseScreen.dart';
+import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
+import 'package:frontend/screens/components/BackgroundDecoration.dart';
+import 'package:frontend/screens/components/ContentArea.dart';
+import 'package:frontend/screens/components/CustomAppBar.dart';
+import 'package:frontend/screens/components/MainButton.dart';
+import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
