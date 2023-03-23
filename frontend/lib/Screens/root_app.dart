@@ -2,6 +2,7 @@ import 'package:frontend/screens/home.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/widgets/bottombar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/search.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -33,8 +34,7 @@ class _RootAppState extends State<RootApp> {
       "icon" : "assets/icons/home.svg", "page" : HomePage()
     },
     {
-      "icon" : "assets/icons/search.svg",
-      "page" : Container(child: Center(child: Text("Search"),),)
+      "icon" : "assets/icons/search.svg", "page" : SearchPage()
     },
     {
       "icon" : "assets/icons/play.svg",
@@ -64,9 +64,9 @@ class _RootAppState extends State<RootApp> {
         ),
         boxShadow: [
           BoxShadow(
-            color: shadowColor.withOpacity(.3),
-            spreadRadius: 2,
-            blurRadius: 2,
+            color: shadowColor.withOpacity(.1),
+            spreadRadius: 1,
+            blurRadius: 1,
             offset: const Offset(1, 1)
           )
         ]),
