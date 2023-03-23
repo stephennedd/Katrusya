@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
-import 'package:frontend/Screens/watchCourseScreen.dart';
-import 'package:frontend/controllers/question_paper/data_sender_controller.dart';
-import 'package:frontend/controllers/question_paper/data_uploader.dart';
+import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
+import 'package:frontend/screens/watchCourseScreen.dart';
+import 'package:frontend/controllers/data_sender_controller.dart';
+import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/models/LoadingStatus.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
@@ -99,8 +99,13 @@ class QuestionsController extends GetxController {
   void completeTest(userId, testId, numberOfHpPoints) async {
     _timer!.cancel();
     DataSenderController dataSenderController = Get.put(DataSenderController());
+    var data = {
+      "user_id": userId,
+      "test_id": testId,
+      "number_of_hp_points": numberOfHpPoints
+    };
     await dataSenderController.sendTheUserResultsPerTest(
-        userId, testId, numberOfHpPoints);
+        "/users/testResults", data);
     Get.offAndToNamed(ResultScreen.routeName);
   }
 }

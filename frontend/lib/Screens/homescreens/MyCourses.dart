@@ -4,8 +4,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/Screens/MyList.dart';
-import 'package:frontend/Screens/components/ProgressingBar.dart';
-import 'package:frontend/Screens/watchCourseScreen.dart';
+import 'package:frontend/screens/components/ProgressingBar.dart';
+import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get/get.dart';
 
