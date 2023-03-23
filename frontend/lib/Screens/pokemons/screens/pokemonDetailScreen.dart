@@ -123,8 +123,8 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context)
-                                    //.pushNamed(WatchCourse.routeName);
-                                    .pushNamed(RootApp.routeName);
+                                    .pushNamed(WatchCourse.routeName);
+                                // .pushNamed(RootApp.routeName);
                               },
                               style: ButtonStyle(
                                 minimumSize: MaterialStateProperty.all<Size>(

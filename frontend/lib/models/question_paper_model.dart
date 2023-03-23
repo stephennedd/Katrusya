@@ -1,5 +1,5 @@
 class QuestionPaperModel {
-  // String id;
+  int id;
   String title;
   String? imageUrl;
   String description;
@@ -9,6 +9,7 @@ class QuestionPaperModel {
   QuestionPaperModel(
       {
       // required this.id,
+      required this.id,
       required this.title,
       this.imageUrl,
       required this.description,
@@ -16,8 +17,7 @@ class QuestionPaperModel {
       this.questions});
 
   QuestionPaperModel.fromJson(Map<String, dynamic> json)
-      :
-        //id = json['id'] as String,
+      : id = json['id'],
         title = json['title'] as String,
         imageUrl = json['image_url'],
         description = json['description'] as String,
@@ -28,7 +28,7 @@ class QuestionPaperModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    //data['id'] = this.id;
+    data['id'] = this.id;
     data['title'] = this.title;
     data['image_url'] = this.imageUrl;
     data['description'] = this.description;
@@ -39,6 +39,7 @@ class QuestionPaperModel {
   @override
   String toString() {
     return '{\n'
+        '    "title": "$id",\n'
         '    "title": "$title",\n'
         '    "image_url": "$imageUrl",\n'
         '    "Description": "$description",\n'

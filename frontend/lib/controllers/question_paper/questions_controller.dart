@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Screens/watchCourseScreen.dart';
+import 'package:frontend/controllers/question_paper/data_sender_controller.dart';
 import 'package:frontend/controllers/question_paper/data_uploader.dart';
 import 'package:frontend/models/LoadingStatus.dart';
 import 'package:frontend/models/question_paper_model.dart';
@@ -95,8 +96,11 @@ class QuestionsController extends GetxController {
     });
   }
 
-  void complete() {
+  void completeTest(userId, testId, numberOfHpPoints) async {
     _timer!.cancel();
+    DataSenderController dataSenderController = Get.put(DataSenderController());
+    await dataSenderController.sendTheUserResultsPerTest(
+        userId, testId, numberOfHpPoints);
     Get.offAndToNamed(ResultScreen.routeName);
   }
 }
