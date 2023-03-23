@@ -1,0 +1,9 @@
+{
+    "id":1,
+ "name": "Yehor",
+ "avatar": "",
+  "email": "smisha3000@gmail.com",
+  "password": "ritjngirjnfriejfnreijn",
+  "is_active": true,
+  "email_verified_at": "gmail"
+}

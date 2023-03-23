@@ -10,6 +10,8 @@ import { DatabaseService } from './databases/database.service';
 import { SectionsController } from './sections/controllers/sections/sections.controller';
 import { SectionsService } from './sections/services/sections/sections.service';
 import { CorsMiddleware } from './middlewares/cors.middleware';
+import { UsersController } from './users/controllers/users/users.controller';
+import { UsersService } from './users/services/users/users.service';
 
 @Module({
   imports: [
@@ -18,12 +20,13 @@ import { CorsMiddleware } from './middlewares/cors.middleware';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AppController, AuthController, SectionsController,],
+  controllers: [AppController, AuthController, SectionsController, UsersController,],
   providers: [AppService,
     SectionsService,
     DatabaseService,
      AuthService,
-     CorsMiddleware],
+     CorsMiddleware,
+     UsersService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
