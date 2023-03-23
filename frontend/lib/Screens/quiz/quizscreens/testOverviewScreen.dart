@@ -10,6 +10,7 @@ import 'package:frontend/Screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
+import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
 
 class TestOverviewScreen extends GetView<QuestionsController> {
@@ -112,7 +113,10 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                           Expanded(
                               child: MainButton(
                             onTap: () {
-                              controller.complete();
+                              controller.completeTest(
+                                  1,
+                                  controller.questionPaperModel.id,
+                                  controller.points);
                             },
                             title: 'Complete',
                           ))

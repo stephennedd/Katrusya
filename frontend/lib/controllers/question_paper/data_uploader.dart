@@ -10,23 +10,22 @@ import 'package:http/http.dart' as http;
 
 class DataUpLoader extends GetxController {
   final service = new DataServices();
-  String _baseUsl = 'http://145.2.226.196:3000';
+  String _baseUsl = 'http://localhost:3000';
   @override
   void onReady() {
     getTestsBasedOnSectionId(1);
     super.onReady();
   }
 
-  List<QuestionPaperModel> questionsData = [];
+  late QuestionPaperModel questionsData;
   final loadingStatus = LoadingStatus.loading.obs;
 
-  Future<List<dynamic>> getTestsBasedOnSectionId(sectionId) async {
-    List<QuestionPaperModel> tests =
-        await service.getTestsBasedOnSectionId(sectionId);
-    questionsData = tests;
+  Future<QuestionPaperModel> getTestsBasedOnSectionId(sectionId) async {
+    QuestionPaperModel test = await service.getTestBasedOnSectionId(sectionId);
+    questionsData = test;
     loadingStatus.value = LoadingStatus.completed;
-    print(tests);
-    return tests;
+    print(test);
+    return test;
 
     // final manifestoContent = await DefaultAssetBundle.of(Get.context!)
     //     .loadString("AssetManifest.json");
@@ -43,5 +42,10 @@ class DataUpLoader extends GetxController {
     // }
     // questionsData = questionPapers;
     // loadingStatus.value = LoadingStatus.completed;
+  }
+
+  Future<void> sendTheUserResultsPerTest(
+      userId, testId, numberOfHpPoints) async {
+    await service.addUserResultsPerTest(testId, userId, numberOfHpPoints);
   }
 }
