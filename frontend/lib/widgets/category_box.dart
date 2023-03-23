@@ -3,39 +3,53 @@ import 'package:flutter_svg/svg.dart';
 import '../Themes/app_colors.dart';
 
 class CategoryBox extends StatelessWidget {
-  const CategoryBox({Key? key, required this.data}) : super(key: key);
+  const CategoryBox({Key? key, required this.data, this.onTap, this.isSelected = false, this.activeColor = primaryDark, this.color = Colors.white}) : super(key: key);
   final data;
+  final bool isSelected;
+  final Color activeColor;
+  final Color color;
+  final GestureTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-              padding: EdgeInsets.all(15),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isSelected ? activeColor : color,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                      color: shadowColor.withOpacity(.2),
+                      color: shadowColor.withOpacity(.1),
                       spreadRadius: 1,
                       blurRadius: 1,
-                      offset: Offset(1,1)
+                      offset: const Offset(0,0)
                   )
                 ],
               ),
-              child: SvgPicture.asset(data["icon"], width: 30, height: 30, color: primaryDark,),
-        ),
-        SizedBox(
-          height: 10,
-        ), Text(
-          data["name"],
-          maxLines: 1,
-          overflow: TextOverflow.fade,
-          style: TextStyle(color: textColor,
-          fontWeight: FontWeight.w500),
-        )
-      ],
+              child: SvgPicture.asset(
+                data["icon"],
+                width: 30,
+                height: 30,
+                colorFilter: ColorFilter.mode(isSelected ? primary : activeColor, BlendMode.srcIn),
+              ),
+          ),
+          const SizedBox(
+            height: 10,
+          ), Text(
+            data["name"],
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            style: const TextStyle(color: textColor,
+            fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
     );
   }
 }
