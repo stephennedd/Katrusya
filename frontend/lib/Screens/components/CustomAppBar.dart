@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/quiz/quizscreens/testOverviewScreen.dart';
+import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:get/get.dart';

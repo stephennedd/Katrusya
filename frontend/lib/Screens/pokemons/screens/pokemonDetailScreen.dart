@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/home.dart';
-import 'package:frontend/Screens/homescreens/Featured.dart';
-import 'package:frontend/Screens/root_app.dart';
-import 'package:frontend/Screens/watchCourseScreen.dart';
+import 'package:frontend/screens/home.dart';
+import 'package:frontend/screens/homescreens/Featured.dart';
+import 'package:frontend/screens/root_app.dart';
+import 'package:frontend/screens/watchCourseScreen.dart';
 import '../../../controllers/pokemons/pokemon_basic_controller.dart';
 import '../../../controllers/pokemons/pokemon_favorite_controller.dart';
 import '../../../utils/pokemons/colors_generator.dart';
