@@ -16,7 +16,7 @@ class NotificationBox extends StatelessWidget {
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: appBarColor,
-            border: Border.all(color: Colors.grey.withOpacity(.3))),
+            ),
         child: notifiedNumber > 0
             ? Badge(
                 alignment: AlignmentDirectional.topStart,

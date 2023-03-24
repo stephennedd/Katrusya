@@ -136,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                 })));
   }
 
+  int selectedCategoryIndex = 0;
   Widget getCategories() {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
@@ -147,7 +148,14 @@ class _HomePageState extends State<HomePage> {
         categories.length,
         (index) => Padding(
           padding: const EdgeInsets.only(right: 15),
-          child: CategoryBox(data: categories[index]),
+          child: CategoryBox(
+              isSelected: selectedCategoryIndex == index,
+              onTap: () {
+                setState(() {
+                  selectedCategoryIndex = index;
+                });
+              },
+              data: categories[index]),
         ),
       )),
     );

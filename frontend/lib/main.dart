@@ -68,7 +68,6 @@ class MyApp extends StatelessWidget {
             FavoriteScreen.routeName: (context) => const FavoriteScreen(),
             SearchScreen.routeName: (context) => const SearchScreen(),
             WatchCourse.routeName: (context) => const WatchCourse(),
-            HomePage.routeName: (context) => const HomePage(),
             RootApp.routeName: (context) => const RootApp(),
           },
         );
