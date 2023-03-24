@@ -2,7 +2,14 @@ import { Knex } from "knex";
 
 
 const courseData = require("../courseData.json");
-const userData = require("../userData.json")
+const userData = require("../userData.json");
+const categoryData = require("../categoryData.json")
+
+interface Category {
+  id:number;
+  name:string;
+  icon:string;
+}
 
 interface User {
  name: string;
@@ -82,6 +89,12 @@ export async function seed(knex: Knex): Promise<void> {
   email_verified_at: userData.email_verified_at
   });
 
+  for(let i = 0;i<categoryData.categories.length;i++){
+    await knex("categories").insert({
+    name: categoryData.categories[i].name,
+    icon: categoryData.categories[i].icon
+  });}
+
   // insert courses
   let courses: Course[] = [];
   for(let i = 0;i<courseData.courses.length;i++){
@@ -97,6 +110,16 @@ export async function seed(knex: Knex): Promise<void> {
     is_recommended: courseData.courses[i].is_recommended,
     is_featured: courseData.courses[i].is_featured,
   });
+}
+
+// insert course_category entries for each course and its associated categories
+for(let i = 0;i<courseData.courses.length;i++){
+  for(let j = 0;j<courseData.courses[i].category_ids.length;j++){
+    await knex("course_categories").insert({
+      course_id: courseData.courses[i].id,
+      category_id: courseData.courses[i].category_ids[j]
+    });
+  }
 }
   
 let sections: Section[] = [];

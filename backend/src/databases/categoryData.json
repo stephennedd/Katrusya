@@ -1,0 +1,13 @@
+{
+    "categories":[
+        {"id":1,"name": "All", "icon": "assets/icons/category/all.svg"},
+        {"id":2,"name": "Coding", "icon": "assets/icons/category/coding.svg"},
+        {"id":3,"name": "Education", "icon": "assets/icons/category/education.svg"},
+        {"id":4,"name": "Design", "icon": "assets/icons/category/design.svg"},
+        {"id":5,"name": "Business", "icon": "assets/icons/category/business.svg"},
+        {"id":6,"name": "Cooking", "icon": "assets/icons/category/cooking.svg"},
+        {"id":7,"name": "Music", "icon": "assets/icons/category/music.svg"},
+        {"id":8,"name": "Art", "icon": "assets/icons/category/art.svg"},
+        {"id":9,"name": "Finance", "icon": "assets/icons/category/finance.svg"}
+    ]
+}

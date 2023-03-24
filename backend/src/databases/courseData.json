@@ -11,6 +11,7 @@
     "is_recommended": false,
     "is_featured": true,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
+    "category_ids": [1,4],
     "sections": [
         {
             "id": 1,
@@ -171,8 +172,13 @@
     "review" : "5",
     "is_favorited" : true,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
+    "category_ids": [1,2],
     "is_recommended": false,
     "is_featured": true,
+    "category": {
+        "name": "Coding", 
+        "icon": "assets/icons/category/coding.svg"
+    },
     "sections": [
         {
             "id": 2,
@@ -335,6 +341,7 @@
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
     "is_recommended": false,
     "is_featured": true,
+    "category_ids": [1,8],
     "sections": [
         {
             "id": 3,
@@ -497,6 +504,7 @@
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
     "is_recommended": false,
     "is_featured": true,
+    "category_ids": [1,8],
     "sections": [
         {
             "id": 4,
@@ -659,6 +667,7 @@
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
     "is_recommended": false,
     "is_featured": true,
+    "category_ids": [1,7],
     "sections": [
         {
             "id": 5,
@@ -821,6 +830,7 @@
     "is_recommended": true,
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
+    "category_ids": [1,8],
     "sections": [
         {
             "id": 6,
@@ -983,6 +993,7 @@
     "is_recommended": true,
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
+    "category_ids": [1,5],
     "sections": [
         {
             "id": 7,
@@ -1145,6 +1156,7 @@
     "is_recommended": true,
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
+    "category_ids": [1,5],
     "sections": [
         {
             "id": 8,
@@ -1307,6 +1319,7 @@
     "is_recommended": true,
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
+    "category_ids": [1,9],
     "sections": [
         {
             "id": 9,

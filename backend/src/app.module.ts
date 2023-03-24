@@ -15,6 +15,7 @@ import { UsersService } from './users/services/users/users.service';
 import { CoursesModule } from './courses/courses.module';
 import { SectionsModule } from './sections/sections.module';
 import { UsersModule } from './users/users.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module';
     CoursesModule,
     SectionsModule,
     UsersModule,
+    CategoriesModule,
   ],
   controllers: [AppController, AuthController,],
   providers: [AppService,

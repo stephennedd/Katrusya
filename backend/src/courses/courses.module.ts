@@ -8,3 +8,4 @@ import { CoursesService } from './services/courses/courses.service';
   providers: [CoursesService, DatabaseService]
 })
 export class CoursesModule {}
+

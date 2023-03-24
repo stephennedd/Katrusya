@@ -20,4 +20,14 @@ export class CoursesService {
       .select('*');
       return featuredCourses;
         }
+
+        async getCoursesBasedOnCategoryName(categoryName:string): Promise<any>{
+            const knex = this.dbService.getKnexInstance();
+            const courses = await knex('courses')
+              .join('course_categories', 'courses.id', 'course_categories.course_id')
+              .join('categories', 'categories.id', 'course_categories.category_id')
+              .where('categories.name', categoryName)
+              .select('courses.*');
+            return courses;
+            }
 }
