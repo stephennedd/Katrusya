@@ -13,6 +13,7 @@ await knex.schema.createTable('courses', function (t) {
     t.string('review');
     t.boolean('is_favorited');
     t.boolean('is_recommended');
+   // t.boolean('is_recommended').defaultTo(false).notNullable().index();
     t.boolean('is_featured');
     // t.integer('user_id').unsigned();
     // t.foreign('user_id').references('id').inTable('users');
