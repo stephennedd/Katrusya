@@ -4,8 +4,16 @@ import { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
 await knex.schema.createTable('courses', function (t) {
     t.increments();
-    t.string('title');
-    t.string('description');
+    t.string('name');
+    t.string('description',2000);
+    t.string('image',2000);
+    t.string('price');
+    t.string('duration');
+    t.string('session');
+    t.string('review');
+    t.boolean('is_favorited');
+    t.boolean('is_recommended');
+    t.boolean('is_featured');
     // t.integer('user_id').unsigned();
     // t.foreign('user_id').references('id').inTable('users');
     t.timestamps();
