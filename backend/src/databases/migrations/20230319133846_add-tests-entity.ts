@@ -4,11 +4,36 @@ import { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
 await knex.schema.createTable('courses', function (t) {
     t.increments();
-    t.string('title');
-    t.string('description');
+    t.string('name');
+    t.string('description',2000);
+    t.string('image',2000);
+    t.string('price');
+    t.string('duration');
+    t.string('session');
+    t.string('review');
+    t.boolean('is_favorited');
+    t.boolean('is_recommended');
+    t.boolean('is_featured');
     // t.integer('user_id').unsigned();
     // t.foreign('user_id').references('id').inTable('users');
     t.timestamps();
+});
+
+await knex.schema.createTable('categories', function (t) {
+  t.increments();
+  t.string('name');
+  t.string('icon',1000);
+  t.timestamps();
+});
+
+await knex.schema.createTable('course_categories', function (t) {
+  t.increments();
+  t.integer('course_id').unsigned();
+  t.foreign('course_id').references('id').inTable('courses');
+  t.integer('category_id').unsigned();
+  t.foreign('category_id').references('id').inTable('categories');
+  t.unique(['course_id', 'category_id']); // ensure unique combinations of course_id and category_id
+  t.timestamps();
 });
 
 
@@ -78,5 +103,7 @@ await knex.schema.createTable('courses', function (t) {
       await knex.schema.dropTable('tests');
       await knex.schema.dropTable('lessons');
         await knex.schema.dropTable('sections');
+        await knex.schema.dropTable('course_categories');
+        await knex.schema.dropTable('categories');
         await knex.schema.dropTable('courses');
     }

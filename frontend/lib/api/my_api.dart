@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +44,52 @@ class CallApi {
       if (response.statusCode == 200) {
         dynamic decoded = await json.decode(response.body);
         return QuestionPaperModel.fromJson(decoded);
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getRecommendedCourses() async {
+    String apiUrl = "/courses/recommended";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> coursesJson = decoded as List<dynamic>;
+        List<CourseModel> courses = coursesJson
+            .map((courseJson) => CourseModel.fromJson(courseJson))
+            .toList();
+        return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getFeaturedCourses() async {
+    String apiUrl = "/courses/featured";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> coursesJson = decoded as List<dynamic>;
+        List<CourseModel> courses = coursesJson
+            .map((courseJson) => CourseModel.fromJson(courseJson))
+            .toList();
+        return courses;
       } else {
         print("Something went wrong");
         throw Error();

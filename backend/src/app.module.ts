@@ -12,6 +12,10 @@ import { SectionsService } from './sections/services/sections/sections.service';
 import { CorsMiddleware } from './middlewares/cors.middleware';
 import { UsersController } from './users/controllers/users/users.controller';
 import { UsersService } from './users/services/users/users.service';
+import { CoursesModule } from './courses/courses.module';
+import { SectionsModule } from './sections/sections.module';
+import { UsersModule } from './users/users.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -19,14 +23,15 @@ import { UsersService } from './users/services/users/users.service';
       secret: 'your-secret-key-here',
       signOptions: { expiresIn: '1h' },
     }),
+    CoursesModule,
+    SectionsModule,
+    UsersModule,
+    CategoriesModule,
   ],
-  controllers: [AppController, AuthController, SectionsController, UsersController,],
+  controllers: [AppController, AuthController,],
   providers: [AppService,
-    SectionsService,
-    DatabaseService,
      AuthService,
-     CorsMiddleware,
-     UsersService],
+     CorsMiddleware,],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

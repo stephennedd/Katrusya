@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:frontend/controllers/courses/course_controller.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/category_box.dart';
 import 'package:frontend/widgets/featured_item.dart';
@@ -6,6 +7,7 @@ import 'package:frontend/widgets/notification_box.dart';
 import 'package:frontend/widgets/recommended_item.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CourseController courseController = Get.put(CourseController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,55 +29,56 @@ class _HomePageState extends State<HomePage> {
 
   AppBar getAppBar() {
     return AppBar(
-      elevation: 0 ,
+      elevation: 0,
       backgroundColor: appBarColor,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(height: 5,),
-              // TODO get logged in users username and show here instead of hardcoded name
-              Text("Hi Stephen!", style: TextStyle(
-                color: textColor,
-                fontSize: 25,
-                fontWeight: FontWeight.w800,
-                fontFamily: 'Nexa-Trial'
-              ),
-              ),
-            ]
-          ),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
+            SizedBox(
+              height: 5,
+            ),
+            // TODO get logged in users username and show here instead of hardcoded name
+            Text(
+              "Hi Stephen!",
+              style: TextStyle(
+                  color: textColor,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'Nexa-Trial'),
+            ),
+          ]),
           NotificationBox(
-              notifiedNumber: 2,
-              onTap: (){
-                print("wallet pressed");
-              },
+            notifiedNumber: 2,
+            onTap: () {
+              print("wallet pressed");
+            },
           )
         ],
       ),
     );
   }
 
-  Widget buildBody(){
+  Widget buildBody() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           getCategories(),
-          const Padding(padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-          child: Text(
-            "Featured",
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w800,
-              fontSize: 26,
-              fontFamily: 'Nexa-Trial'
-            ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+            child: Text(
+              "Featured",
+              style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 26,
+                  fontFamily: 'Nexa-Trial'),
             ),
           ),
           getFeatured(),
-          Padding(padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
@@ -84,16 +88,12 @@ class _HomePageState extends State<HomePage> {
                       color: textColor,
                       fontWeight: FontWeight.w800,
                       fontSize: 24,
-                      fontFamily: 'Nexa-Trial'
-                  ),
+                      fontFamily: 'Nexa-Trial'),
                 ),
                 Text(
                   "See all",
                   style: TextStyle(
-                      color: labelColor,
-                      fontSize: 16,
-                      fontFamily: 'Poppins'
-                  ),
+                      color: labelColor, fontSize: 16, fontFamily: 'Poppins'),
                 ),
               ],
             ),
@@ -109,33 +109,31 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(left: 15),
       scrollDirection: Axis.horizontal,
       child: Row(
-        //TODO get the list of recommended courses from database
-        children: List.generate(recommends.length,
-                (index) => Container(
-                  margin: const EdgeInsets.only(top: 3, right: 15, bottom: 5),
-                  child: RecommendItem(
-                    data: recommends[index],
-                    onTap: (){
-                      print(index);
-                    },
-                  ),
-                ))
-      ),
+          children: List.generate(
+              courseController.recommendedCourses.length,
+              (index) => Container(
+                    margin: const EdgeInsets.only(top: 3, right: 15, bottom: 5),
+                    child: RecommendItem(
+                      data: courseController.recommendedCourses[index],
+                      onTap: () {
+                        print(index);
+                      },
+                    ),
+                  ))),
     );
   }
-  
+
   Widget getFeatured() {
     return CarouselSlider(
         options: CarouselOptions(
-          height: 290, enlargeCenterPage: true, disableCenter: true),
-        // TODO get data from database
-        items: List.generate(features.length,
-                (index) => FeaturedItem(data: features[index],
-                  onTap: (){
-                    print(index);
-                  })
-        )
-      );
+            height: 290, enlargeCenterPage: true, disableCenter: true),
+        items: List.generate(
+            courseController.featuredCourses.length,
+            (index) => FeaturedItem(
+                data: courseController.featuredCourses[index],
+                onTap: () {
+                  print(index);
+                })));
   }
 
   int selectedCategoryIndex = 0;
@@ -144,23 +142,22 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
       child: Row(
-        children:
-            // TODO add backend connection here to get categories from database
-          List.generate(categories.length, (index) =>
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: CategoryBox(
-                  isSelected: selectedCategoryIndex == index,
-                  onTap: () {
-                    setState(() {
-                      selectedCategoryIndex = index;
-                    });
-                  },
-                    data: categories[index]),
-              ),
-          )
-      ),
+          children:
+              // TODO add backend connection here to get categories from database
+              List.generate(
+        categories.length,
+        (index) => Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: CategoryBox(
+              isSelected: selectedCategoryIndex == index,
+              onTap: () {
+                setState(() {
+                  selectedCategoryIndex = index;
+                });
+              },
+              data: categories[index]),
+        ),
+      )),
     );
   }
-
 }

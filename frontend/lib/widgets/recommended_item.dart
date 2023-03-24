@@ -22,10 +22,8 @@ class RecommendItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.1),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: Offset(1,1)
-              ),
-            ]
-        ),
+                  offset: Offset(1, 1)),
+            ]),
         child: Row(
           children: [
             SizedBox(
@@ -35,18 +33,20 @@ class RecommendItem extends StatelessWidget {
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(image: imageProvider, fit: BoxFit.cover)
-                  ),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover)),
                 ),
-                imageUrl: data["image"],
+                imageUrl: data.image,
               ),
             ),
-            const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data["name"],
+                  data.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -57,23 +57,26 @@ class RecommendItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  data["price"],
+                  data.price,
                   maxLines: 1,
                   style: const TextStyle(
-                      color: textColor,
-                      fontFamily: "Poppins",
-                      fontSize: 15
-                  ),
+                      color: textColor, fontFamily: "Poppins", fontSize: 15),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
-                    getAttribute(data["session"], Icons.play_circle_outline, labelColor),
-                    const SizedBox(width: 10,),
-                    getAttribute(data["duration"], Icons.schedule_outlined, labelColor),
-                    const SizedBox(width: 10,)
+                    getAttribute(
+                        data.session, Icons.play_circle_outline, labelColor),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    getAttribute(
+                        data.duration, Icons.schedule_outlined, labelColor),
+                    const SizedBox(
+                      width: 10,
+                    )
                   ],
                 ),
               ],
@@ -94,10 +97,7 @@ class RecommendItem extends StatelessWidget {
         Text(
           info,
           style: const TextStyle(
-              fontFamily: "Poppins",
-              color: labelColor,
-              fontSize: 13
-          ),
+              fontFamily: "Poppins", color: labelColor, fontSize: 13),
         )
       ],
     );
