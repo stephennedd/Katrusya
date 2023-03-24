@@ -1,7 +1,9 @@
+import 'package:frontend/controllers/courses/course_controller.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/widgets/bottombar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -22,31 +24,44 @@ class _RootAppState extends State<RootApp> {
 
   Widget buildBody() {
     return IndexedStack(
-      index: activePageIndex,
-      children: List.generate(tabItems.length,
-              (index) => tabItems[index]["page"])
-    );
+        index: activePageIndex,
+        children:
+            List.generate(tabItems.length, (index) => tabItems[index]["page"]));
   }
 
   List tabItems = [
+    {"icon": "assets/icons/home.svg", "page": HomePage()},
     {
-      "icon" : "assets/icons/home.svg", "page" : HomePage()
+      "icon": "assets/icons/search.svg",
+      "page": Container(
+        child: Center(
+          child: Text("Search"),
+        ),
+      )
     },
     {
-      "icon" : "assets/icons/search.svg",
-      "page" : Container(child: Center(child: Text("Search"),),)
+      "icon": "assets/icons/play.svg",
+      "page": Container(
+        child: Center(
+          child: Text("My Courses"),
+        ),
+      )
     },
     {
-      "icon" : "assets/icons/play.svg",
-      "page" : Container(child: Center(child: Text("My Courses"),),)
+      "icon": "assets/icons/heart.svg",
+      "page": Container(
+        child: Center(
+          child: Text("Wishlist"),
+        ),
+      )
     },
     {
-      "icon" : "assets/icons/heart.svg",
-      "page" : Container(child: Center(child: Text("Wishlist"),),)
-    },
-    {
-      "icon" : "assets/icons/profile.svg",
-      "page" : Container(child: Center(child: Text("Profile"),),)
+      "icon": "assets/icons/profile.svg",
+      "page": Container(
+        child: Center(
+          child: Text("Profile"),
+        ),
+      )
     }
   ];
 
@@ -57,29 +72,28 @@ class _RootAppState extends State<RootApp> {
       height: 75,
       padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
       decoration: BoxDecoration(
-        color: bottomBarColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: shadowColor.withOpacity(.3),
-            spreadRadius: 2,
-            blurRadius: 2,
-            offset: const Offset(1, 1)
-          )
-        ]),
+          color: bottomBarColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: shadowColor.withOpacity(.3),
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(1, 1))
+          ]),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:
-          List.generate(tabItems.length,
-                  (index) => BottomBarItem(icon: tabItems[index]["icon"], isActive: activePageIndex == index,
-            onTap: (){
-              onPageIndexChanged(index);
-            })
-          )
-      ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(
+              tabItems.length,
+              (index) => BottomBarItem(
+                  icon: tabItems[index]["icon"],
+                  isActive: activePageIndex == index,
+                  onTap: () {
+                    onPageIndexChanged(index);
+                  }))),
     );
   }
 

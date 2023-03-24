@@ -35,10 +35,10 @@ class FeaturedItem extends StatelessWidget {
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(image: imageProvider, fit: BoxFit.cover)
-                  ),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover)),
                 ),
-                imageUrl: data["image"],
+                imageUrl: data.image,
               ),
             ),
             Positioned(
@@ -50,13 +50,12 @@ class FeaturedItem extends StatelessWidget {
                     color: primaryDark,
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(
-                  data["price"],
+                  data.price,
                   style: const TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: primary
-                  ),
+                      color: primary),
                 ),
               ),
             ),
@@ -69,14 +68,14 @@ class FeaturedItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data["name"],
-                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                      data.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: textColor
-                      ),
+                          color: textColor),
                     ),
                     const SizedBox(
                       height: 10,
@@ -84,12 +83,15 @@ class FeaturedItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getAttribute(data["session"], Icons.play_circle_outline, labelColor),
+                        getAttribute(data.session, Icons.play_circle_outline,
+                            labelColor),
                         const SizedBox(width: 10),
-                        getAttribute(data["duration"], Icons.schedule_outlined, labelColor),
+                        getAttribute(
+                            data.duration, Icons.schedule_outlined, labelColor),
                         const SizedBox(width: 10),
-                        getAttribute(data["review"], Icons.star, Colors.yellow),
-                      ],),
+                        getAttribute(data.review, Icons.star, Colors.yellow),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -110,14 +112,9 @@ class FeaturedItem extends StatelessWidget {
         Text(
           info,
           style: const TextStyle(
-              fontFamily: "Poppins",
-              color: labelColor,
-              fontSize: 13
-          ),
+              fontFamily: "Poppins", color: labelColor, fontSize: 13),
         )
       ],
     );
   }
 }
-
-

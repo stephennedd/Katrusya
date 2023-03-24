@@ -9,7 +9,7 @@ import 'package:frontend/screens/quiz/quizcomponents/CountdownTimer.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
-import 'package:frontend/models/LoadingStatus.dart';
+import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
 

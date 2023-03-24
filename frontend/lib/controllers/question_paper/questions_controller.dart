@@ -5,7 +5,7 @@ import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/controllers/data_sender_controller.dart';
 import 'package:frontend/controllers/data_uploader_controller.dart';
-import 'package:frontend/models/LoadingStatus.dart';
+import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
 
