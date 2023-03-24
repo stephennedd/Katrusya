@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 class CourseController extends GetxController {
   List<CourseModel> recommendedCourses = <CourseModel>[];
   List<CourseModel> featuredCourses = <CourseModel>[];
+  List<CourseModel> courses = <CourseModel>[];
 
   final loadingStatus = LoadingStatus.loading.obs;
 
@@ -15,6 +16,7 @@ class CourseController extends GetxController {
   void onReady() async {
     getRecommendedCourses();
     getFeaturedCourses();
+    getCourses();
     super.onReady();
   }
 
@@ -24,6 +26,14 @@ class CourseController extends GetxController {
     recommendedCourses = data;
     loadingStatus.value = LoadingStatus.completed;
     return recommendedCourses;
+  }
+
+  Future<List<CourseModel>> getCourses() async {
+    loadingStatus.value = LoadingStatus.loading;
+    List<CourseModel> data = await CallApi().getCourses();
+    courses = data;
+    loadingStatus.value = LoadingStatus.completed;
+    return courses;
   }
 
   Future<List<CourseModel>> getFeaturedCourses() async {

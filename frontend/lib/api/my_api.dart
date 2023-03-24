@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:http/http.dart' as http;
@@ -55,7 +56,7 @@ class CallApi {
   }
 
   getRecommendedCourses() async {
-    String apiUrl = "/courses/recommended";
+    String apiUrl = "/courses/?is_recommended=true";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -78,7 +79,7 @@ class CallApi {
   }
 
   getFeaturedCourses() async {
-    String apiUrl = "/courses/featured";
+    String apiUrl = "/courses/?is_featured=true";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -90,6 +91,52 @@ class CallApi {
             .map((courseJson) => CourseModel.fromJson(courseJson))
             .toList();
         return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCourses() async {
+    String apiUrl = "/courses";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> coursesJson = decoded as List<dynamic>;
+        List<CourseModel> courses = coursesJson
+            .map((courseJson) => CourseModel.fromJson(courseJson))
+            .toList();
+        return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCategories() async {
+    String apiUrl = "/categories";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> categoriesJson = decoded as List<dynamic>;
+        List<CategoryModel> categories = categoriesJson
+            .map((categoryJson) => CategoryModel.fromJson(categoryJson))
+            .toList();
+        return categories;
       } else {
         print("Something went wrong");
         throw Error();
