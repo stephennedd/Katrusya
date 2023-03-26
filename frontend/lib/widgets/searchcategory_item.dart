@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import '../Themes/app_colors.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({Key? key, required this.data, this.isSelected = false, this.onTap}) : super(key: key);
+  const CategoryItem(
+      {Key? key, required this.data, this.isSelected = false, this.onTap})
+      : super(key: key);
 
   final dynamic data;
   final bool isSelected;
@@ -26,14 +28,14 @@ class CategoryItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.05),
                   blurRadius: .05,
                   spreadRadius: .05,
-                  offset: const Offset(1, 1)
-              ),
+                  offset: const Offset(1, 1)),
             ]),
         child: Row(
           children: [
             SvgPicture.asset(
-              data["icon"],
-              colorFilter: ColorFilter.mode( isSelected ? primary : primaryDark, BlendMode.srcIn),
+              data.icon,
+              colorFilter: ColorFilter.mode(
+                  isSelected ? primary : primaryDark, BlendMode.srcIn),
               width: 16,
               height: 16,
             ),
@@ -41,13 +43,12 @@ class CategoryItem extends StatelessWidget {
               width: 5,
             ),
             Text(
-              data["name"],
+              data.name,
               style: TextStyle(
-                color: isSelected ? primary : primaryDark,
-                fontSize: 14,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500
-              ),
+                  color: isSelected ? primary : primaryDark,
+                  fontSize: 14,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),

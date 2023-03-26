@@ -3,7 +3,14 @@ import 'package:flutter_svg/svg.dart';
 import '../Themes/app_colors.dart';
 
 class CategoryBox extends StatelessWidget {
-  const CategoryBox({Key? key, required this.data, this.onTap, this.isSelected = false, this.activeColor = primaryDark, this.color = Colors.white}) : super(key: key);
+  const CategoryBox(
+      {Key? key,
+      required this.data,
+      this.onTap,
+      this.isSelected = false,
+      this.activeColor = primaryDark,
+      this.color = Colors.white})
+      : super(key: key);
   final data;
   final bool isSelected;
   final Color activeColor;
@@ -19,34 +26,35 @@ class CategoryBox extends StatelessWidget {
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.fastOutSlowIn,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: isSelected ? activeColor : color,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      color: shadowColor.withOpacity(.1),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: const Offset(0,0)
-                  )
-                ],
-              ),
-              child: SvgPicture.asset(
-                data["icon"],
-                width: 30,
-                height: 30,
-                colorFilter: ColorFilter.mode(isSelected ? primary : activeColor, BlendMode.srcIn),
-              ),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: isSelected ? activeColor : color,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                    color: shadowColor.withOpacity(.1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: const Offset(0, 0))
+              ],
+            ),
+            child: SvgPicture.asset(
+              data.icon,
+              width: 30,
+              height: 30,
+              colorFilter: ColorFilter.mode(
+                  isSelected ? primary : activeColor, BlendMode.srcIn),
+            ),
           ),
           const SizedBox(
             height: 10,
-          ), Text(
-            data["name"],
+          ),
+          Text(
+            data.name,
             maxLines: 1,
             overflow: TextOverflow.fade,
-            style: const TextStyle(color: textColor,
-            fontWeight: FontWeight.w500),
+            style:
+                const TextStyle(color: textColor, fontWeight: FontWeight.w500),
           )
         ],
       ),

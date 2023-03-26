@@ -6,7 +6,7 @@ import 'package:frontend/widgets/bookmark_box.dart';
 import '../Themes/app_colors.dart';
 
 class CourseItem extends StatelessWidget {
-  CourseItem({Key? key, required this.data, this.onFavorite }) : super(key: key);
+  CourseItem({Key? key, required this.data, this.onFavorite}) : super(key: key);
   dynamic data;
   GestureTapCallback? onFavorite;
 
@@ -35,16 +35,19 @@ class CourseItem extends StatelessWidget {
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(image: imageProvider, fit: BoxFit.cover)
-                ),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover)),
               ),
-              imageUrl: data["image"],
+              imageUrl: data.image,
             ),
           ),
           Positioned(
-              top: 180,
-              right: 15,
-              child: BookmarkBox( onTap: onFavorite, isFavorited: data["is_favorited"],),
+            top: 180,
+            right: 15,
+            child: BookmarkBox(
+              onTap: onFavorite,
+              isFavorited: data.isFavorited,
+            ),
           ),
           Positioned(
               top: 215,
@@ -55,29 +58,31 @@ class CourseItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data["name"],
+                      data.name,
                       style: const TextStyle(
                           fontFamily: "Poppins",
                           fontSize: 20,
-                          fontWeight: FontWeight.w600
-                      ),
+                          fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children :[
-                        getAttribute(Icons.sell_outlined, data["price"], labelColor),
-                        getAttribute(Icons.play_circle_outline, data["session"], labelColor),
-                        getAttribute(Icons.schedule_outlined, data["duration"], labelColor),
-                        getAttribute(Icons.star, data["review"].toString(), Colors.yellow),
+                      children: [
+                        getAttribute(
+                            Icons.sell_outlined, data.price, labelColor),
+                        getAttribute(Icons.play_circle_outline, data.session,
+                            labelColor),
+                        getAttribute(
+                            Icons.schedule_outlined, data.duration, labelColor),
+                        getAttribute(
+                            Icons.star, data.review.toString(), Colors.yellow),
                       ],
                     )
                   ],
                 ),
-              )
-          )
+              ))
         ],
       ),
     );
@@ -91,13 +96,12 @@ class CourseItem extends StatelessWidget {
           size: 18,
           color: color,
         ),
-        const SizedBox(width: 5,),
+        const SizedBox(
+          width: 5,
+        ),
         Text(
           name,
-          style: const TextStyle(
-              fontSize: 13,
-              color: labelColor
-          ),
+          style: const TextStyle(fontSize: 13, color: labelColor),
         )
       ],
     );

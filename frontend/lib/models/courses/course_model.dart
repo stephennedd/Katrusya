@@ -6,7 +6,7 @@ class CourseModel {
   String duration;
   String session;
   String review;
-  int isFavorited;
+  bool isFavorited;
   String description;
 
   CourseModel({
@@ -29,7 +29,7 @@ class CourseModel {
         duration = json['duration'] as String,
         session = json['session'] as String,
         review = json['review'] as String,
-        isFavorited = json['is_favorited'] as int,
+        isFavorited = json['is_favorited'] as bool,
         description = json['description'] as String;
 
   Map<String, dynamic> toJson() {

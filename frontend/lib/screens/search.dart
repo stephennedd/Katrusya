@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/course_item.dart';
 import 'package:frontend/widgets/searchcategory_item.dart';
+import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
+import 'package:get/get.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key, this.onTap}) : super(key: key);
@@ -14,6 +17,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  CategoryController categoryController = Get.put(CategoryController());
+  CourseController courseController = Get.put(CourseController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
           SliverToBoxAdapter(
             child: getCategories(),
           ),
-          SliverList(delegate: getCourses())
+          Obx(() => SliverList(delegate: getCourses())),
         ],
       ),
     );
@@ -44,15 +49,17 @@ class _SearchPageState extends State<SearchPage> {
         Text(
           "Search",
           style: TextStyle(
-          fontFamily: 'Nexa-Trial',
-          fontSize: 24,
-          color: textColor,
-          fontWeight: FontWeight.w800
-          ),
+              fontFamily: 'Nexa-Trial',
+              fontSize: 24,
+              color: textColor,
+              fontWeight: FontWeight.w800),
         )
       ],
     );
   }
+
+  // Create a FocusNode for the TextField
+  final searchFieldFocusNode = FocusNode();
 
   getSearchBox() {
     return Padding(
@@ -64,32 +71,32 @@ class _SearchPageState extends State<SearchPage> {
               height: 40,
               padding: const EdgeInsets.only(bottom: 3),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: shadowColor.withOpacity(.05),
-                    spreadRadius: .5,
-                    blurRadius: .5,
-                    offset: const Offset(0, 0),
-                  )
-                ]),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadowColor.withOpacity(.05),
+                      spreadRadius: .5,
+                      blurRadius: .5,
+                      offset: const Offset(0, 0),
+                    )
+                  ]),
               // TODO filter results based on search query
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey
-                  ),
-                  border: InputBorder.none,
-                  hintText: "Search",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Poppins',
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15
-                  )
-                ),
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    border: InputBorder.none,
+                    hintText: "Search",
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15)),
+                onSubmitted: (value) {
+                  courseController.getCourses(null, value);
+                  searchFieldFocusNode.requestFocus();
+                },
+                focusNode: searchFieldFocusNode,
               ),
             ),
           ),
@@ -97,9 +104,9 @@ class _SearchPageState extends State<SearchPage> {
             width: 10,
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               print("filter Pressed");
-          },
+            },
             child: Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -108,7 +115,8 @@ class _SearchPageState extends State<SearchPage> {
               ),
               child: SvgPicture.asset(
                 "assets/icons/filter.svg",
-                colorFilter: const ColorFilter.mode(primaryDark, BlendMode.srcIn),
+                colorFilter:
+                    const ColorFilter.mode(primaryDark, BlendMode.srcIn),
               ),
             ),
           )
@@ -123,39 +131,36 @@ class _SearchPageState extends State<SearchPage> {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.only(left: 15, top: 10, bottom: 5),
       child: Row(
-        // TODO get categories from database
-        children: List.generate(categories.length,
-            (index) => CategoryItem(
-                data: categories[index],
-                isSelected: selectedItemIndex == index,
-                onTap: () {
-                  setState(() {
-                    selectedItemIndex = index;
-                  });
-                },
-            ))
-      ),
+          children: List.generate(
+              categoryController.categories.length,
+              (index) => CategoryItem(
+                    data: categoryController.categories[index],
+                    isSelected: selectedItemIndex == index,
+                    onTap: () {
+                      courseController.getCourses(
+                          categoryController.categories[index].name, null);
+                      setState(() {
+                        selectedItemIndex = index;
+                      });
+                    },
+                  ))),
     );
   }
-  
+
   getCourses() {
     return SliverChildBuilderDelegate(
-      childCount: courses.length,
-          (context, index) {
+        childCount: courseController.courses.value.length, (context, index) {
       return Padding(
-        padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-        child: CourseItem(
-          // TODO get courses from database
-          data: courses[index],
-          onFavorite: () {
-            setState(() {
-              courses[index]["is_favorited"] = !courses[index]["is_favorited"];
-            });
-          },
-        )
-      );
+          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+          child: CourseItem(
+            data: courseController.courses.value[index],
+            onFavorite: () {
+              setState(() {
+                courseController.courses.value[index].isFavorited =
+                    !courseController.courses.value[index].isFavorited;
+              });
+            },
+          ));
     });
   }
-
-
 }

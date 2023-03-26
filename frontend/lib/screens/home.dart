@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:frontend/controllers/courses/course_controller.dart';
+import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/category_box.dart';
 import 'package:frontend/widgets/featured_item.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CourseController courseController = Get.put(CourseController());
+  CategoryController categoryController = Get.put(CategoryController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,46 +64,48 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBody() {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getCategories(),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-            child: Text(
-              "Featured",
-              style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 26,
-                  fontFamily: 'Nexa-Trial'),
-            ),
-          ),
-          getFeatured(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "Recommended",
+      child: Obx(() => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getCategories(),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+                child: Text(
+                  "Featured",
                   style: TextStyle(
                       color: textColor,
                       fontWeight: FontWeight.w800,
-                      fontSize: 24,
+                      fontSize: 26,
                       fontFamily: 'Nexa-Trial'),
                 ),
-                Text(
-                  "See all",
-                  style: TextStyle(
-                      color: labelColor, fontSize: 16, fontFamily: 'Poppins'),
+              ),
+              getFeatured(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Recommended",
+                      style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 24,
+                          fontFamily: 'Nexa-Trial'),
+                    ),
+                    Text(
+                      "See all",
+                      style: TextStyle(
+                          color: labelColor,
+                          fontSize: 16,
+                          fontFamily: 'Poppins'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          getRecommended()
-        ],
-      ),
+              ),
+              getRecommended()
+            ],
+          )),
     );
   }
 
@@ -143,20 +147,22 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
       child: Row(
-          children:
-              // TODO add backend connection here to get categories from database
-              List.generate(
-        categories.length,
+          children: List.generate(
+        categoryController.categories.length,
         (index) => Padding(
           padding: const EdgeInsets.only(right: 15),
           child: CategoryBox(
               isSelected: selectedCategoryIndex == index,
               onTap: () {
+                courseController.getFeaturedCourses(
+                    categoryController.categories[index].name);
+                courseController.getRecommendedCourses(
+                    categoryController.categories[index].name);
                 setState(() {
                   selectedCategoryIndex = index;
                 });
               },
-              data: categories[index]),
+              data: categoryController.categories[index]),
         ),
       )),
     );

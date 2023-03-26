@@ -1,5 +1,5 @@
-import 'package:frontend/Screens/start.dart';
 import 'package:frontend/controllers/courses/course_controller.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/widgets/bottombar_item.dart';

@@ -1,7 +1,27 @@
-export class User {
-    id: number;
-    username: string;
-    password: string;
-    email: string;
-    // add more fields here
-  }
+import { Exclude } from "class-transformer";
+
+export class UserEntity implements IEntity {
+  id: number;
+  username: string;
+  @Exclude()
+  password: string;
+  email: string;
+  isActive: boolean;
+  emailConfirmed: boolean;
+  avatar: string;
+  // add more fields here
+}
+
+
+export class UserOtpEntity implements IEntity {
+  id: number;
+  userId: Number;
+  activationCode: number;
+  isMobileOtp?: boolean;
+  isExpired: boolean;
+  requestCount: number;
+}
+
+export interface IEntity {
+  id: number;
+}

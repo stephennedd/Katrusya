@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/models/categories/category_model.dart';
+import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,8 +57,48 @@ class CallApi {
     }
   }
 
+  getCourses(CourseQueryParamsModel queryParams) async {
+    Uri apiUrl = Uri(
+      scheme: 'http',
+      host: 'localhost',
+      port: 3000,
+      path: '/courses',
+      queryParameters: {
+        if (queryParams.category != null) 'category': queryParams.category,
+        if (queryParams.isFeatured != null)
+          'is_featured': queryParams.isFeatured.toString(),
+        if (queryParams.isRecommended != null)
+          'is_recommended': queryParams.isRecommended.toString(),
+        if (queryParams.search != null && queryParams.search != "")
+          'search': queryParams.search.toString(),
+      },
+    );
+
+    http.Response response =
+        await http.get(Uri.parse(apiUrl.toString()), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> coursesJson = decoded as List<dynamic>;
+        // List<CourseModel> courses = coursesJson
+        //     .map((courseJson) => CourseModel.fromJson(courseJson))
+        //     .toList();
+        RxList<CourseModel> courses = RxList<CourseModel>.from(
+            coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)));
+        return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
   getRecommendedCourses() async {
-    String apiUrl = "/courses/recommended";
+    String apiUrl = "/courses/?is_recommended=true";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -78,7 +121,7 @@ class CallApi {
   }
 
   getFeaturedCourses() async {
-    String apiUrl = "/courses/featured";
+    String apiUrl = "/courses/?is_featured=true";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -90,6 +133,51 @@ class CallApi {
             .map((courseJson) => CourseModel.fromJson(courseJson))
             .toList();
         return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCoursesBasedOnCategory(category) async {
+    String apiUrl = "/courses?category=${category}";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> coursesJson = decoded as List<dynamic>;
+        RxList<CourseModel> courses = RxList<CourseModel>.from(
+            coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)));
+        return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCategories() async {
+    String apiUrl = "/categories";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> categoriesJson = decoded as List<dynamic>;
+        List<CategoryModel> categories = categoriesJson
+            .map((categoryJson) => CategoryModel.fromJson(categoryJson))
+            .toList();
+        return categories;
       } else {
         print("Something went wrong");
         throw Error();
