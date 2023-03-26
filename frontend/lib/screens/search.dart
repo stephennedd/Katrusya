@@ -24,6 +24,7 @@ class _SearchPageState extends State<SearchPage> {
             pinned: true,
             elevation: 0.5,
             title: getAppBar(),
+            automaticallyImplyLeading: false,
           ),
           SliverToBoxAdapter(
             child: getSearchBox(),

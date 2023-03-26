@@ -5,7 +5,7 @@ const config: Knex.Config = {
     connection: {
         host: 'localhost',
         user: 'root',
-        password: 'Liverpool599570',
+        password: 'StephenNedd',
         database: 'katrusya'
     },
     migrations: {

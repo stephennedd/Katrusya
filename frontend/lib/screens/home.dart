@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   AppBar getAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: appBarColor,
       title: Row(
