@@ -15,8 +15,9 @@ export class CoursesController {
 @UsePipes(new ValidationPipe())
 async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParamPipe) isRecommended: boolean,
 @Query('is_featured',ValidatePassBooleanQueryParamPipe) isFeatured: boolean,
-@Query('category') category: string) {
-    return this.coursesService.getCourses({category:category, is_recommended:isRecommended, is_featured:isFeatured});
+@Query('category') category: string,
+@Query('search') search: string,) {
+    return this.coursesService.getCourses({category:category, is_recommended:isRecommended, is_featured:isFeatured,search:search});
  // }
 }
 

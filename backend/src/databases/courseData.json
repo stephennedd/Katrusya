@@ -12,6 +12,7 @@
     "is_featured": true,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
     "category_ids": [1,4],
+    "course_tags": ["design","ui","ux"],
     "sections": [
         {
             "id": 1,
@@ -173,6 +174,7 @@
     "is_favorited" : true,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
     "category_ids": [1,2],
+    "course_tags": ["database","frontend","backend","computer"],
     "is_recommended": false,
     "is_featured": true,
     "category": {
@@ -342,6 +344,7 @@
     "is_recommended": false,
     "is_featured": true,
     "category_ids": [1,8],
+    "course_tags": ["english","writing","publishing","story"],
     "sections": [
         {
             "id": 3,
@@ -505,6 +508,7 @@
     "is_recommended": false,
     "is_featured": true,
     "category_ids": [1,8],
+    "course_tags": ["photo","pictures","taking photo","photography"],
     "sections": [
         {
             "id": 4,
@@ -668,6 +672,7 @@
     "is_recommended": false,
     "is_featured": true,
     "category_ids": [1,7],
+    "course_tags": ["guitar","music","instrument"],
     "sections": [
         {
             "id": 5,
@@ -831,6 +836,7 @@
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
     "category_ids": [1,8],
+    "course_tags": ["paint","masterpiece","drawing"],
     "sections": [
         {
             "id": 6,
@@ -994,6 +1000,7 @@
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
     "category_ids": [1,5],
+    "course_tags": ["instagram","facebook","youtube"],
     "sections": [
         {
             "id": 7,
@@ -1157,6 +1164,7 @@
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
     "category_ids": [1,5],
+    "course_tags": ["caster","raw materials"],
     "sections": [
         {
             "id": 8,
@@ -1320,6 +1328,7 @@
     "is_featured": false,
     "description" : "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",    
     "category_ids": [1,9],
+    "course_tags": ["managing"],
     "sections": [
         {
             "id": 9,

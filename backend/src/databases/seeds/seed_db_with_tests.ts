@@ -76,6 +76,7 @@ interface Lesson {
     is_favorited: boolean;
     is_recommended: boolean;
     is_featured: boolean;
+    tags: [string];
   }
 
 export async function seed(knex: Knex): Promise<void> {
@@ -98,6 +99,7 @@ export async function seed(knex: Knex): Promise<void> {
   // insert courses
   let courses: Course[] = [];
   for(let i = 0;i<courseData.courses.length;i++){
+    console.log(courseData.courses[i].course_tags);
     courses = await knex("courses").insert({
     name: courseData.courses[i].name,
     description: courseData.courses[i].description,
@@ -109,6 +111,7 @@ export async function seed(knex: Knex): Promise<void> {
     is_favorited: courseData.courses[i].is_favorited,
     is_recommended: courseData.courses[i].is_recommended,
     is_featured: courseData.courses[i].is_featured,
+    tags: JSON.stringify(courseData.courses[i].course_tags),
   });
 }
 

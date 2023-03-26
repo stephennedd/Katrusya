@@ -5,7 +5,8 @@ import { DatabaseService } from 'src/databases/database.service';
 interface QueryParams{
     category?: string,
     is_recommended?: boolean,
-    is_featured?: boolean
+    is_featured?: boolean,
+    search?:string
 }
 
 @Injectable()
@@ -68,6 +69,10 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
         if (queryParams.is_featured!==undefined) {
           query = query.where('is_featured', queryParams.is_featured? 1 : 0);
         }
+
+        if (queryParams.search!==undefined) {
+            query = query.whereRaw(`JSON_CONTAINS(tags->'$[*]', '["${queryParams.search}"]')`)
+          }
       
         // Execute the query
         if(queryParams.category){
