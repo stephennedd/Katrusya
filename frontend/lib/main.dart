@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/start.dart';
+import 'package:frontend/screens/forgot_password.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/screens/homeScreen.dart';
 import 'package:frontend/screens/homescreens/Featured.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/landingPage.dart';
+import 'package:frontend/screens/login.dart';
 import 'package:frontend/screens/pokemons/screens/favoriteScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonDetailScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonsHomeScreen.dart';
@@ -13,6 +16,7 @@ import 'package:frontend/screens/quiz/quizscreens/answerCheckScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/screens/root_app.dart';
+import 'package:frontend/screens/signup.dart';
 import 'package:frontend/screens/splashScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
@@ -69,6 +73,11 @@ class MyApp extends StatelessWidget {
             SearchScreen.routeName: (context) => const SearchScreen(),
             WatchCourse.routeName: (context) => const WatchCourse(),
             RootApp.routeName: (context) => const RootApp(),
+            HomePage.routeName: (context) => const HomePage(),
+            LoginPage.routeName: (context) => const LoginPage(),
+            StartPage.routeName: (context) => const StartPage(),
+            SignupPage.routeName: (context) => const SignupPage(),
+            ForgotPage.routeName: (context) => const ForgotPage(),
           },
         );
       }),

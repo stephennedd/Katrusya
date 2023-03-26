@@ -1,3 +1,4 @@
+//import 'package:frontend/controllers/courses/course_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/Themes/app_colors.dart';
@@ -32,16 +33,12 @@ class _RootAppState extends State<RootApp> {
 
   List tabItems = [
     {"icon": "assets/icons/home.svg", "page": HomePage()},
-    {"icon": "assets/icons/home.svg", "page": HomePage()},
     {"icon": "assets/icons/search.svg", "page": SearchPage()},
-    {
-      "icon": "assets/icons/play.svg",
-      "page": Container(
-        child: Center(
-          child: Text("My Courses"),
-        ),
-      )
-    },
+    {"icon": "assets/icons/play.svg", "page": Container(
+      child: Center(
+        child: Text("My Courses"),
+      ),
+    )},
     {
       "icon": "assets/icons/heart.svg",
       "page": Container(

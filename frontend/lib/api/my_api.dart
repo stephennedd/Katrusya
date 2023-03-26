@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
-  final String _baseUrl = 'http://localhost:3000';
+  final String _baseUrl = 'http://172.22.240.1:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',

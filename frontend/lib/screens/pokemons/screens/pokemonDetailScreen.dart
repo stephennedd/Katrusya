@@ -10,6 +10,7 @@ import '../../../utils/pokemons/constants.dart' as constants;
 import '../../../models/pokemons/pokemon_basic_data.dart';
 import 'package:provider/provider.dart';
 import '../../../controllers/pokemons/theme_controller.dart';
+import '../../start.dart';
 import '../widgets/white_sheet_widgets/white_sheet_widget.dart';
 
 class PokemonDetailScreen extends StatefulWidget {
@@ -124,7 +125,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                               onPressed: () {
                                 Navigator.of(context)
                                     //  .pushNamed(WatchCourse.routeName);
-                                    .pushNamed(RootApp.routeName);
+                                    .pushNamed(StartPage.routeName);
                               },
                               style: ButtonStyle(
                                 minimumSize: MaterialStateProperty.all<Size>(
