@@ -120,7 +120,7 @@ class _ForgotPageState extends State<ForgotPage> {
               textColor: primaryDark,
               onPressed: () {
                 if(_formKey.currentState!.validate()) {
-                  // TODO add user to users in database
+                  // TODO send user an update password link
                   Navigator.pushNamed(context, LoginPage.routeName);
                 }
               },
