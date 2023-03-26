@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ValidatePassBooleanQueryParam } from 'src/courses/pipes/validate-create-course/validate-pass-boolean-query-param.pipe';
+import { ValidatePassBooleanQueryParamPipe } from 'src/courses/pipes/validate-pass-boolean-query-param/validate-pass-boolean-query-param.pipe';
 import { CoursesService } from 'src/courses/services/courses/courses.service';
 
 @Controller('courses')
@@ -13,15 +13,11 @@ export class CoursesController {
 
 @Get('')
 @UsePipes(new ValidationPipe())
-async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParam) isRecommended: boolean,
-@Query('is_featured',ValidatePassBooleanQueryParam) isFeatured: boolean) {
-  if(isRecommended!==undefined){
-    return this.coursesService.getRecommendedCourses(isRecommended);
-  } else if(isFeatured!==undefined){
-    return this.coursesService.getFeaturedCourses(isFeatured);
-  } else {
-    return this.coursesService.getCourses();
-  }
+async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParamPipe) isRecommended: boolean,
+@Query('is_featured',ValidatePassBooleanQueryParamPipe) isFeatured: boolean,
+@Query('category') category: string) {
+    return this.coursesService.getCourses({category:category, is_recommended:isRecommended, is_featured:isFeatured});
+ // }
 }
 
 //   @Get('/featured')
@@ -29,8 +25,8 @@ async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParam) isRecomm
 //     return this.coursesService.getFeauturedCourses();
 //   }
 
-  @Get(':categoryName')
-  async getCoursesBasedOnCategoryName(@Param('categoryName') categoryName: string){
-    return this.coursesService.getCoursesBasedOnCategoryName(categoryName);
-  }
+//   @Get(':categoryName')
+//   async getCoursesBasedOnCategoryName(@Param('categoryName') categoryName: string){
+//     return this.coursesService.getCoursesBasedOnCategoryName(categoryName);
+//   }
 }

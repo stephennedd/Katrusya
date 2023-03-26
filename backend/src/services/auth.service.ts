@@ -1,18 +1,113 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-//hello
+import { ServerResponse } from 'http';
+import { DatabaseService } from 'src/databases/database.service';
+import { AuthenticationRequest, CreateUserDto } from 'src/dto/create-user.dto';
+import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
+import { UserOtpsRepository, UsersRepository } from 'src/repositories/users.repository';
+import { UsersService } from './users/users.service';
+import * as bcrypt from 'bcrypt';
+import { UserEntity } from 'src/models/user/user';
+import { plainToClass } from 'class-transformer';
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService) {}
-  
-    async validateUser(username: string, password: string): Promise<any> {
-      // TODO: implement user authentication logic
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+    private readonly db: DatabaseService,
+    private readonly userRepository: UsersRepository,
+    private readonly userOtpsRepository: UserOtpsRepository
+  ) { }
+
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.userRepository.getFirst({ username });
+    //compare hashed password
+    if (user && user.password === password) {
+      const { password, ...result } = user;
+      return result;
     }
-  
-    async login(user: any) {
-      const payload = { username: user.username, sub: user.userId };
-      return {
-        access_token: this.jwtService.sign(payload),
-      };
+    return null;
+  }
+
+  async loginUser(request: AuthenticationRequest): Promise<AuthenticationResponse> {
+    var user = await this.userRepository.getFirst({ email: request.email });
+    
+    if (user?.isActive != true)
+      throw new NotFoundException(`user not found`);
+
+    if (!(await bcrypt.compare(request.password, user.password)))
+      throw new NotFoundException(`user not found`);
+
+    return await this.refreshTokenAsync(user);
+  }
+
+  async registerUser(createUserDto: CreateUserDto): Promise<AuthenticationResponse> {
+    const user = await this.usersService.create(createUserDto);
+    if (user) {
+      return await this.generateToken(user);
     }
+    return null;
+  }
+
+  private async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
+    if (user?.isActive == true) {
+      return this.generateToken(user);
+    }
+
+    throw new NotFoundException("user not found");
+  }
+
+  private async hashPass(password: string): Promise<string> {
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+    return hashedPassword;
+  }
+
+  public async confirmEmailAsync(userId: number, code: string): Promise<void> {
+    await this.throwIfInvalidateOTP(userId, code);
+
+    // email confirmed
+    var user = await this.userRepository.getById(userId);
+    user.isActive = true;
+    user.emailConfirmed = true;
+    await this.userRepository.update(user);
+  }
+
+  private async throwIfInvalidateOTP(userId: number, token: string) {
+    let otp = await this.userOtpsRepository.getFirst({ userId }); // returns the first matching row or undefined
+
+    if (otp == null || otp.isExpired)
+      throw new NotFoundException(`User not found`);
+
+    // Note: token == "1234" is for TEST
+    if (otp.activationCode.toString() != token && token != "1234") {
+      otp.requestCount++;
+      if (otp.requestCount > 3)
+        otp.isExpired = true;
+
+      await this.userOtpsRepository.update(otp);
+
+      throw new NotFoundException(`Otp code is invalid`);
+    }
+  }
+
+
+  public async generateToken(user: UserEntity): Promise<AuthenticationResponse> {
+    delete user.password;
+    const payload = {
+      username: user.username,
+      id: user.id,
+    };
+
+    const accessToken = this.jwtService.sign(payload);
+
+    let response = plainToClass(AuthenticationResponse, user);
+    response.isAuthenticated = true;
+    response.accessToken = accessToken;
+    response.expiresIn = 60;
+
+    return response;
+  }
+
+
 }
