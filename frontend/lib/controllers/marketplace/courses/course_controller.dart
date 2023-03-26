@@ -17,7 +17,7 @@ class CourseController extends GetxController {
   void onReady() async {
     getRecommendedCourses(null);
     getFeaturedCourses(null);
-    getCourses(null);
+    getCourses(null, null);
     //  super.onReady();
   }
 
@@ -30,10 +30,11 @@ class CourseController extends GetxController {
     return recommendedCourses;
   }
 
-  Future<RxList<CourseModel>> getCourses(String? category) async {
+  Future<RxList<CourseModel>> getCourses(
+      String? category, String? search) async {
     loadingStatus.value = LoadingStatus.loading;
-    RxList<CourseModel> data = await CallApi()
-        .getCourses(new CourseQueryParamsModel(category: category));
+    RxList<CourseModel> data = await CallApi().getCourses(
+        new CourseQueryParamsModel(category: category, search: search));
     courses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return courses;

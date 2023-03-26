@@ -57,6 +57,9 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  // Create a FocusNode for the TextField
+  final searchFieldFocusNode = FocusNode();
+
   getSearchBox() {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
@@ -78,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
                     )
                   ]),
               // TODO filter results based on search query
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
                     border: InputBorder.none,
@@ -88,6 +91,11 @@ class _SearchPageState extends State<SearchPage> {
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
                         fontSize: 15)),
+                onSubmitted: (value) {
+                  courseController.getCourses(null, value);
+                  searchFieldFocusNode.requestFocus();
+                },
+                focusNode: searchFieldFocusNode,
               ),
             ),
           ),
@@ -129,7 +137,7 @@ class _SearchPageState extends State<SearchPage> {
                     isSelected: selectedItemIndex == index,
                     onTap: () {
                       courseController.getCourses(
-                          categoryController.categories[index].name);
+                          categoryController.categories[index].name, null);
                       setState(() {
                         selectedItemIndex = index;
                       });

@@ -69,6 +69,8 @@ class CallApi {
           'is_featured': queryParams.isFeatured.toString(),
         if (queryParams.isRecommended != null)
           'is_recommended': queryParams.isRecommended.toString(),
+        if (queryParams.search != null && queryParams.search != "")
+          'search': queryParams.search.toString(),
       },
     );
 
@@ -140,29 +142,6 @@ class CallApi {
       throw Error();
     }
   }
-
-  // getCourses() async {
-  //   String apiUrl = "/courses";
-  //   http.Response response =
-  //       await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
-
-  //   try {
-  //     if (response.statusCode == 200) {
-  //       dynamic decoded = await json.decode(response.body);
-  //       List<dynamic> coursesJson = decoded as List<dynamic>;
-  //       RxList<CourseModel> courses = RxList<CourseModel>.from(
-  //         coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)),
-  //       );
-  //       return courses;
-  //     } else {
-  //       print("Something went wrong");
-  //       throw Error();
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     throw Error();
-  //   }
-  // }
 
   getCoursesBasedOnCategory(category) async {
     String apiUrl = "/courses?category=${category}";
