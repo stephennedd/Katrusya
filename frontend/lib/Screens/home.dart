@@ -63,46 +63,48 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBody() {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getCategories(),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-            child: Text(
-              "Featured",
-              style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 26,
-                  fontFamily: 'Nexa-Trial'),
-            ),
-          ),
-          getFeatured(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "Recommended",
+      child: Obx(() => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getCategories(),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+                child: Text(
+                  "Featured",
                   style: TextStyle(
                       color: textColor,
                       fontWeight: FontWeight.w800,
-                      fontSize: 24,
+                      fontSize: 26,
                       fontFamily: 'Nexa-Trial'),
                 ),
-                Text(
-                  "See all",
-                  style: TextStyle(
-                      color: labelColor, fontSize: 16, fontFamily: 'Poppins'),
+              ),
+              getFeatured(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Recommended",
+                      style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 24,
+                          fontFamily: 'Nexa-Trial'),
+                    ),
+                    Text(
+                      "See all",
+                      style: TextStyle(
+                          color: labelColor,
+                          fontSize: 16,
+                          fontFamily: 'Poppins'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          getRecommended()
-        ],
-      ),
+              ),
+              getRecommended()
+            ],
+          )),
     );
   }
 
@@ -151,6 +153,10 @@ class _HomePageState extends State<HomePage> {
           child: CategoryBox(
               isSelected: selectedCategoryIndex == index,
               onTap: () {
+                courseController.getFeaturedCourses(
+                    categoryController.categories[index].name);
+                courseController.getRecommendedCourses(
+                    categoryController.categories[index].name);
                 setState(() {
                   selectedCategoryIndex = index;
                 });

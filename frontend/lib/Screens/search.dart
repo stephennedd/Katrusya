@@ -36,7 +36,7 @@ class _SearchPageState extends State<SearchPage> {
           SliverToBoxAdapter(
             child: getCategories(),
           ),
-          SliverList(delegate: getCourses())
+          Obx(() => SliverList(delegate: getCourses())),
         ],
       ),
     );
@@ -128,6 +128,8 @@ class _SearchPageState extends State<SearchPage> {
                     data: categoryController.categories[index],
                     isSelected: selectedItemIndex == index,
                     onTap: () {
+                      courseController.getCourses(
+                          categoryController.categories[index].name);
                       setState(() {
                         selectedItemIndex = index;
                       });
@@ -137,16 +139,16 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   getCourses() {
-    return SliverChildBuilderDelegate(childCount: courses.length,
-        (context, index) {
+    return SliverChildBuilderDelegate(
+        childCount: courseController.courses.value.length, (context, index) {
       return Padding(
           padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
           child: CourseItem(
-            data: courseController.courses[index],
+            data: courseController.courses.value[index],
             onFavorite: () {
               setState(() {
-                courseController.courses[index].isFavorited =
-                    !courseController.courses[index].isFavorited;
+                courseController.courses.value[index].isFavorited =
+                    !courseController.courses.value[index].isFavorited;
               });
             },
           ));
