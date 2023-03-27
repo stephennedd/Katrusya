@@ -28,17 +28,20 @@ class FeaturedItem extends StatelessWidget {
             ]),
         child: Stack(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 190,
-              child: CachedNetworkImage(
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover)),
+            Hero(
+              tag: data.id.toString() + data.image,
+              child: SizedBox(
+                width: double.infinity,
+                height: 190,
+                child: CachedNetworkImage(
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover)),
+                  ),
+                  imageUrl: data.image,
                 ),
-                imageUrl: data.image,
               ),
             ),
             Positioned(

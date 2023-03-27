@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appBarColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -83,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                   ]),
               // TODO filter results based on search query
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
                     border: InputBorder.none,
                     hintText: "Search",

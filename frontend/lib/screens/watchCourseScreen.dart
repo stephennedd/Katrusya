@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/controllers/data_uploader_controller.dart';
+import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
@@ -60,6 +61,9 @@ class _WatchCourseState extends State<WatchCourse> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(
+        title: "Details",
+      ),
       body: Container(
           decoration: _playArea == false
               ? BoxDecoration(

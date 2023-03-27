@@ -11,7 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
   final String _baseUrl = 'http://172.22.240.1:3000';
-
+  final String ip = "172.22.240.1";
+  final String _hostname = "katrusya-1.ccb0er6bgysz.eu-north-1.rds.amazonaws.com";
   _setHeaders() => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -60,7 +61,7 @@ class CallApi {
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: 'localhost',
+      host: ip,
       port: 3000,
       path: '/courses',
       queryParameters: {

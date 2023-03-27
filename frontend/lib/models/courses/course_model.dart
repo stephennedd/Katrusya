@@ -1,5 +1,5 @@
 class CourseModel {
-  int id;
+  final int id;
   String name;
   String image;
   String price;
@@ -21,7 +21,7 @@ class CourseModel {
     required this.description,
   });
 
-  CourseModel.fromJson(Map<String, dynamic> json)
+ /* CourseModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'] as String,
         image = json['image'] as String,
@@ -30,7 +30,21 @@ class CourseModel {
         session = json['session'] as String,
         review = json['review'] as String,
         isFavorited = json['is_favorited'] as bool,
-        description = json['description'] as String;
+        description = json['description'] as String;*/
+
+  factory CourseModel.fromJson(Map<String, dynamic> json) {
+    return CourseModel(
+        id : json['id'],
+        name : json['name'] as String,
+        image : json['image'] as String,
+        price : json['price'] as String,
+        duration : json['duration'] as String,
+        session : json['session'] as String,
+        review : json['review'] as String,
+        isFavorited : json['is_favorited'] as bool,
+        description : json['description'] as String
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -60,4 +74,5 @@ class CourseModel {
         '    "description": "$description"\n'
         '}';
   }
+
 }

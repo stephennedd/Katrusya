@@ -54,6 +54,7 @@ dependencies:
   cached_network_image: ^3.2.3
   shared_preferences: ^2.0.18
   palette_generator: ^0.3.3+2
+  readmore: ^2.1.0
   # cupertino_icons: ^1.0.2
   # provider: ^6.0.4
   # palette_generator: ^0.3.3+2
