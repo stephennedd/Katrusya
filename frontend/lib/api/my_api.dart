@@ -11,8 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
   final String _baseUrl = 'http://172.22.240.1:3000';
-  final String ip = "172.22.240.1";
-  final String _hostname = "katrusya-1.ccb0er6bgysz.eu-north-1.rds.amazonaws.com";
+  final String ip = "192.168.178.151";
+
   _setHeaders() => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
