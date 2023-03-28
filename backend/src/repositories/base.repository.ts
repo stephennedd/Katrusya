@@ -21,10 +21,22 @@ export abstract class BaseRepository<T extends IEntity> {
     return this.db.getKnexInstance()(this.tableName).where(filter).first();
   }
 
+  async getUserBasedOnEmail(email): Promise<T> {
+    return this.db.getKnexInstance()(this.tableName).where({email}).first();
+  }
+
+  async getUserBasedOnUsername(username): Promise<T> {
+    return this.db.getKnexInstance()(this.tableName).where({username}).first();
+  }
+
+  async getUserBasedOnPhone(phone): Promise<T> {
+    return this.db.getKnexInstance()(this.tableName).where({phone}).first();
+  }
+
   async create(entity: T): Promise<T> {
     const [id] = await this.db.getKnexInstance()(this.tableName)
       .insert(entity)
-      .returning('*');
+      .select('*');
 
     return {...entity, id};
   }

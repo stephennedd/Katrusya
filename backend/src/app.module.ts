@@ -22,6 +22,8 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { EmailService } from './services/messagings/email.service';
 import { UserOtpsRepository, UsersRepository } from './repositories/users.repository';
 import { UsersService } from './services/users/users.service';
+import { JwtStrategy } from './auth.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -44,7 +46,8 @@ import { UsersService } from './services/users/users.service';
           strict: true,
         },
       },
-    }),    
+    }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),    
     JwtModule.register({
       secret: 'your-secret-key-here',
       signOptions: { expiresIn: '1h' },
@@ -64,7 +67,8 @@ import { UsersService } from './services/users/users.service';
      EmailService, 
      UsersRepository, 
      UserOtpsRepository, 
-     DatabaseService],
+     DatabaseService,
+    JwtStrategy],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

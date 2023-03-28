@@ -6,7 +6,7 @@ export class UserEntity implements IEntity {
   @Exclude()
   password: string;
   email: string;
-  isActive: boolean;
+  is_active: boolean;
   emailConfirmed: boolean;
   avatar: string;
   // add more fields here

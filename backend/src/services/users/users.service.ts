@@ -24,13 +24,36 @@ export class UsersService {
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(data.password, saltOrRounds);
     user.password = hashedPassword;
-    user.username = data.email;
+    user.username = data.username;
+    //isActive is true by default
+    user.is_active = true;
     // user.id = -1;
     // insert the user into the database
     let userEntity = await this.userRepository.create(user); 
 
     //send verification email
-    await this.SendVerificationPhoneAsync(userEntity);
+    //await this.SendVerificationPhoneAsync(userEntity);
+
+    return userEntity;
+  }
+
+  async getUserBasedOnEmail(email: String): Promise<UserEntity> {
+
+    let userEntity = await this.userRepository.getUserBasedOnEmail(email); 
+
+    return userEntity;
+  }
+
+  async getUserBasedOnUsername(username: String): Promise<UserEntity> {
+
+    let userEntity = await this.userRepository.getUserBasedOnUsername(username); 
+
+    return userEntity;
+  }
+
+  async getUserBasedOnPhone(phone: String): Promise<UserEntity> {
+
+    let userEntity = await this.userRepository.getUserBasedOnPhone(phone); 
 
     return userEntity;
   }

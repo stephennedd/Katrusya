@@ -99,7 +99,6 @@ export async function seed(knex: Knex): Promise<void> {
   // insert courses
   let courses: Course[] = [];
   for(let i = 0;i<courseData.courses.length;i++){
-    console.log(courseData.courses[i].course_tags);
     courses = await knex("courses").insert({
     name: courseData.courses[i].name,
     description: courseData.courses[i].description,

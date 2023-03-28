@@ -9,6 +9,9 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/users/login_model.dart';
+import '../models/users/user_model.dart';
+
 class CallApi {
   final String _baseUrl = 'http://172.22.240.1:3000';
   final String ip = "192.168.178.151";
@@ -56,6 +59,32 @@ class CallApi {
       print(e);
       throw Error();
     }
+  }
+
+  addUser(UserModel user) async {
+    var fullUrl = _baseUrl + "/auth/register";
+
+    var response = await http.post(Uri.parse(fullUrl),
+        body: jsonEncode(user), headers: _setHeaders());
+
+    return response;
+  }
+
+  loginUser(LoginModel loginnedUser) async {
+    var fullUrl = _baseUrl + "/auth/login";
+
+    var response = await http.post(Uri.parse(fullUrl),
+        body: jsonEncode(loginnedUser), headers: _setHeaders());
+
+    return response;
+
+    //if (response.statusCode == 201) {
+    // Login was successful, return true
+    //  return true;
+    // } else {
+    // Login failed, return false
+    //   return false;
+    // }
   }
 
   getCourses(CourseQueryParamsModel queryParams) async {
