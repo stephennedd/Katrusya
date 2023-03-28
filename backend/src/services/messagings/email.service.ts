@@ -22,6 +22,7 @@ export class EmailService {
 
     async sendTemplateEmail(to: string, subject: string, template: string, data: any) {
         try {
+            // this is causing the error
             await this.mailerService.sendMail({
                 to,
                 subject, 

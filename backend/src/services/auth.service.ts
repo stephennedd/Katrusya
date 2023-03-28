@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ServerResponse } from 'http';
 import { DatabaseService } from 'src/databases/database.service';
@@ -32,7 +32,7 @@ export class AuthService {
   async loginUser(request: AuthenticationRequest): Promise<AuthenticationResponse> {
     var user = await this.userRepository.getFirst({ email: request.email });
     
-    if (user?.isActive != true)
+    if (user?.is_active != true)
       throw new NotFoundException(`user not found`);
 
     if (!(await bcrypt.compare(request.password, user.password)))
@@ -42,6 +42,18 @@ export class AuthService {
   }
 
   async registerUser(createUserDto: CreateUserDto): Promise<AuthenticationResponse> {
+    const doesUserEmailExist = await this.usersService.getUserBasedOnEmail(createUserDto.email);
+    if(doesUserEmailExist){
+      throw new BadRequestException("user email already exists");
+    }
+    const doesUsernameExist = await this.usersService.getUserBasedOnUsername(createUserDto.username);
+    if(doesUsernameExist){
+      throw new BadRequestException("username already exists");
+    }
+    const doesPhoneExist = await this.usersService.getUserBasedOnPhone(createUserDto.phone);
+    if(doesPhoneExist){
+      throw new BadRequestException("phone already exists");
+    }
     const user = await this.usersService.create(createUserDto);
     if (user) {
       return await this.generateToken(user);
@@ -50,7 +62,7 @@ export class AuthService {
   }
 
   private async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
-    if (user?.isActive == true) {
+    if (user?.is_active == true) {
       return this.generateToken(user);
     }
 
@@ -68,7 +80,7 @@ export class AuthService {
 
     // email confirmed
     var user = await this.userRepository.getById(userId);
-    user.isActive = true;
+    user.is_active = true;
     user.emailConfirmed = true;
     await this.userRepository.update(user);
   }
