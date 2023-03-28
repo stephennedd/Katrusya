@@ -123,7 +123,10 @@ class _HomePageState extends State<HomePage> {
                     child: RecommendItem(
                       data: courseController.recommendedCourses[index],
                       onTap: () {
-                        print(index);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CourseLandingPage(
+                              course: courseController.recommendedCourses[index],
+                            )));
                       },
                     ),
                   ))),
@@ -133,6 +136,7 @@ class _HomePageState extends State<HomePage> {
   Widget getFeatured() {
     return CarouselSlider(
       options: CarouselOptions(
+        initialPage: 1,
         enableInfiniteScroll: false,
         height: 290,
         enlargeCenterPage: true,

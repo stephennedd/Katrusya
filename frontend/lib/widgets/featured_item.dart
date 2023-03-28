@@ -36,7 +36,7 @@ class FeaturedItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                             image: imageProvider, fit: BoxFit.cover)),
                   ),

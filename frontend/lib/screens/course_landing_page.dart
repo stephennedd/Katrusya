@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/screens/section.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
@@ -33,7 +34,12 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
+        hasAction: true,
+        icon:Icons.leaderboard_outlined,
         title: "Details",
+        onTap: () {
+          print("open leaderboard");
+        },
       ),
       body: buildBody(),
       bottomNavigationBar: getBottomBar(),
@@ -77,6 +83,8 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             child: Text(
               "Sections",
               style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: textColor
               ),
@@ -86,6 +94,8 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             child: Text(
               "Milestones",
               style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: textColor
               ),
@@ -98,7 +108,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
 
   Widget getTabBarPages() {
     return Container(
-      height: 200,
+      height: 250,
       width: double.infinity,
       child: TabBarView(
         physics: NeverScrollableScrollPhysics(),
@@ -116,7 +126,17 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
   Widget getSections() {
     return ListView.builder(
       itemCount: sections.length,
-      itemBuilder: (context, index) => SectionItem(data: sections[index])
+      itemBuilder: (context, index) => SectionItem(
+        data: sections[index],
+        onTap: () {
+          // navigate to new page
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SectionPage(
+                data: sections[index],
+              )
+          ));
+        },
+      )
     );
   }
 
@@ -136,7 +156,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 20,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: textColor
                 ),
               ),
@@ -173,7 +193,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 "Course Description",
                 style: TextStyle(
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   fontSize: 16,
                   color: textColor
                 ),
@@ -186,6 +206,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 14,
+                  fontWeight: FontWeight.w300,
                   color: labelColor
                 ),
                 trimLines: 2,
@@ -193,10 +214,12 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 trimCollapsedText: " Show more",
                 trimExpandedText: " Show less",
                 moreStyle: TextStyle(
-                  color: primary,
+                  fontWeight: FontWeight.w400,
+                  color: primaryDark,
                 ),
                 lessStyle: TextStyle(
-                  color: primary
+                  fontWeight: FontWeight.w400,
+                  color: primaryDark
                 ),
               )
             ],
@@ -220,7 +243,8 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
         Text(
             info,
             style: TextStyle(
-                color: labelColor
+              fontFamily: 'Poppins',
+              color: labelColor
             )),
       ],
     );
@@ -228,7 +252,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
 
   Widget getBottomBar() {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
+      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
@@ -253,6 +277,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 "price",
                 style: TextStyle(
                   fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: textColor
                 ),
@@ -262,7 +287,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 widget.course.price,
                 style: TextStyle(
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18
                 ),
               ),

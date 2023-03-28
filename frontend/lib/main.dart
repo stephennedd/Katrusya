@@ -17,6 +17,7 @@ import 'package:frontend/screens/quiz/quizscreens/answerCheckScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/screens/root_app.dart';
+import 'package:frontend/screens/section.dart';
 import 'package:frontend/screens/signup.dart';
 import 'package:frontend/screens/splashScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
@@ -78,7 +79,8 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (context) => const LoginPage(),
             StartPage.routeName: (context) => const StartPage(),
             SignupPage.routeName: (context) => const SignupPage(),
-            ForgotPage.routeName: (context) => const ForgotPage()
+            ForgotPage.routeName: (context) => const ForgotPage(),
+            SectionPage.routeName: (context) => SectionPage()
           },
         );
       }),

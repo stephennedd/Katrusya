@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
-class SectionItem extends StatelessWidget {
-  SectionItem({Key? key, required this.data, this.onTap}) : super(key: key);
-  final data;
+class LessonItem extends StatelessWidget {
+  LessonItem({Key? key, this.onTap, required this.data}) : super(key: key);
   GestureTapCallback? onTap;
+  final data;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -40,35 +40,35 @@ class SectionItem extends StatelessWidget {
                 isShadow: false,
               ),
             ),
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data["name"],
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                        fontFamily: 'Poppins',
                         fontSize: 15,
-                        fontWeight: FontWeight.w500,
                         color: textColor
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Row(
                     children: [
                       Icon(
-                        Icons.play_circle_outline,
+                        Icons.schedule_outlined,
                         size: 14,
                         color: labelColor,
                       ),
-                      SizedBox(width: 5,),
+                      const SizedBox(width: 5,),
                       Text(
-                        data["lessons"],
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 13,
-                          color: labelColor
+                        data["duration"],
+                        style: const TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                            color: labelColor
                         ),
                       ),
                     ],
@@ -77,7 +77,7 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded, color: labelColor,)
+            const Icon(Icons.play_arrow_rounded, color: primaryDark, size: 30,)
           ],
         ),
       ),
