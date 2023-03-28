@@ -15,6 +15,7 @@ class ForgotPage extends StatefulWidget {
 
 class _ForgotPageState extends State<ForgotPage> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +42,8 @@ class _ForgotPageState extends State<ForgotPage> {
             fontFamily: 'Nexa-Trial',
             fontSize: 26,
             color: textColor,
-            fontWeight: FontWeight.w700
-        ),),
+            fontWeight: FontWeight.w700),
+      ),
     );
   }
 
@@ -64,8 +65,7 @@ class _ForgotPageState extends State<ForgotPage> {
                       fontFamily: 'Nexa-Trial',
                       fontWeight: FontWeight.w800,
                       fontSize: 24,
-                      color: textColor
-                  ),
+                      color: textColor),
                 ),
                 const Text(
                   "Enter the email address associated with your account to change your password",
@@ -74,14 +74,11 @@ class _ForgotPageState extends State<ForgotPage> {
                       fontFamily: 'Nexa-Trial',
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
-                      color: textColor
-                  ),
+                      color: textColor),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
-
                 Form(
                     key: _formKey,
                     child: Column(
@@ -91,13 +88,13 @@ class _ForgotPageState extends State<ForgotPage> {
                           icon: "assets/icons/email.svg",
                           type: TextInputType.emailAddress,
                           validatorText: "an email",
+                          textController: emailController,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                       ],
-                    )
-                )
+                    ))
               ],
             ),
           ],
@@ -105,7 +102,6 @@ class _ForgotPageState extends State<ForgotPage> {
       ),
     );
   }
-
 
   Widget buildBottomNavBar() {
     return Padding(
@@ -119,7 +115,7 @@ class _ForgotPageState extends State<ForgotPage> {
               color: primary,
               textColor: primaryDark,
               onPressed: () {
-                if(_formKey.currentState!.validate()) {
+                if (_formKey.currentState!.validate()) {
                   // TODO send user an update password link
                   Navigator.pushNamed(context, LoginPage.routeName);
                 }
