@@ -137,6 +137,7 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: [
             ButtonSimple(
+              width: double.infinity,
               text: "sign up",
               color: primary,
               textColor: primaryDark,
@@ -182,8 +183,8 @@ class _SignupPageState extends State<SignupPage> {
                           );
                         });
                   }
-              },
-            ),
+                }
+              }),
           ],
         ),
       ),

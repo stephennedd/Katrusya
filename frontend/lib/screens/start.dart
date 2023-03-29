@@ -30,6 +30,7 @@ class _StartPageState extends State<StartPage> {
           child: Column(
             children: [
               ButtonSimple(
+                width: double.infinity,
                 text: "get started",
                 color: primary,
                 textColor: primaryDark,
@@ -43,6 +44,7 @@ class _StartPageState extends State<StartPage> {
               ),
 
               ButtonSimple(
+                width: double.infinity,
                 text: "already have an account",
                 color: Colors.white,
                 onPressed: () {
