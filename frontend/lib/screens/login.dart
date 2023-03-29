@@ -195,6 +195,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             ButtonSimple(
+              width: double.infinity,
               text: "login with Google",
               color: primaryDark,
               textColor: Colors.white,
@@ -214,6 +215,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             ButtonSimple(
+              width: double.infinity,
               text: "login",
               color: primary,
               onPressed: () async {

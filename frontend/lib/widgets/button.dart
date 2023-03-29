@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ButtonSimple extends StatelessWidget {
-  ButtonSimple({Key? key, required this.text, required this.color, this.textColor = Colors.black, this.onPressed}) : super(key: key);
+  ButtonSimple({Key? key,
+    required this.text,
+    required this.color,
+    this.textColor = Colors.black,
+    this.onPressed,
+    this.width
+  }) : super(key: key);
   final String text;
   Color textColor;
   Color color;
   GestureTapCallback? onPressed;
+  double? width;
 
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: width,
       height: 45,
       child: ElevatedButton(
           style: ButtonStyle(

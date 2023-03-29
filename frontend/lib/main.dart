@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: provider.themeData,
           title: 'Katrusya App',
-          initialRoute: RootApp.routeName,
+          initialRoute: StartPage.routeName,
           home: const RootApp(),
           routes: {
             PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),

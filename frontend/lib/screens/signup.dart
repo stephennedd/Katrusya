@@ -154,54 +154,54 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: [
             ButtonSimple(
-              text: "sign up",
-              color: primary,
-              textColor: primaryDark,
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  // Done: add user to users in database
-                  String username = usernameController.text;
-                  String phone = phoneController.text;
-                  String email = emailController.text;
-                  String password = passwordController.text;
-                  var response = await usersController.registerUser(
-                      new UserModel(
-                          username: username,
-                          phone: phone,
-                          email: email,
-                          password: password));
+                width: double.infinity,
+                text: "sign up",
+                color: primary,
+                textColor: primaryDark,
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    // Done: add user to users in database
+                    String username = usernameController.text;
+                    String phone = phoneController.text;
+                    String email = emailController.text;
+                    String password = passwordController.text;
+                    var response = await usersController.registerUser(
+                        new UserModel(
+                            username: username,
+                            phone: phone,
+                            email: email,
+                            password: password));
 
-                  // Navigator.pushNamed(context, LoginPage.routeName);
+                    // Navigator.pushNamed(context, LoginPage.routeName);
 
-                  if (response.statusCode == 201) {
-                    // successful login, navigate to the next page
-                    Navigator.pushNamed(context, LoginPage.routeName);
-                  } else {
-                    // unsuccessful login, display error message
-                    var responseBody = json.decode(response.body);
-                    String errorMessage = responseBody['message'];
-                    // ScaffoldMessenger.of(context)
-                    //     .showSnackBar(SnackBar(content: Text(errorMessage)));
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('There is an error'),
-                            content: Text(errorMessage),
-                            actions: [
-                              ElevatedButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ],
-                          );
-                        });
+                    if (response.statusCode == 201) {
+                      // successful login, navigate to the next page
+                      Navigator.pushNamed(context, LoginPage.routeName);
+                    } else {
+                      // unsuccessful login, display error message
+                      var responseBody = json.decode(response.body);
+                      String errorMessage = responseBody['message'];
+                      // ScaffoldMessenger.of(context)
+                      //     .showSnackBar(SnackBar(content: Text(errorMessage)));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('There is an error'),
+                              content: Text(errorMessage),
+                              actions: [
+                                ElevatedButton(
+                                  child: Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
                   }
-                }
-              },
-            ),
+                }),
           ],
         ),
       ),
