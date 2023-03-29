@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
+import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/category_box.dart';
 import 'package:frontend/widgets/featured_item.dart';
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: buildBody(),
       appBar: getAppBar(),
+      backgroundColor: appBarColor,
     );
   }
 
@@ -121,7 +123,10 @@ class _HomePageState extends State<HomePage> {
                     child: RecommendItem(
                       data: courseController.recommendedCourses[index],
                       onTap: () {
-                        print(index);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CourseLandingPage(
+                              course: courseController.recommendedCourses[index],
+                            )));
                       },
                     ),
                   ))),
@@ -130,15 +135,23 @@ class _HomePageState extends State<HomePage> {
 
   Widget getFeatured() {
     return CarouselSlider(
-        options: CarouselOptions(
-            height: 290, enlargeCenterPage: true, disableCenter: true),
-        items: List.generate(
-            courseController.featuredCourses.length,
-            (index) => FeaturedItem(
-                data: courseController.featuredCourses[index],
-                onTap: () {
-                  print(index);
-                })));
+      options: CarouselOptions(
+        initialPage: 1,
+        enableInfiniteScroll: false,
+        height: 290,
+        enlargeCenterPage: true,
+        disableCenter: true
+      ),
+      items: List.generate(
+        courseController.featuredCourses.length,
+        (index) => FeaturedItem(
+            data: courseController.featuredCourses[index],
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CourseLandingPage(
+                    course: courseController.featuredCourses[index],
+                  )));
+            })));
   }
 
   int selectedCategoryIndex = 0;

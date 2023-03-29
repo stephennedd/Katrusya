@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/login.dart';
+import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/text_input.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -32,30 +33,12 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppbar(),
+      appBar: MyAppBar(
+        title: "Katrusya",
+      ),
       body: buildBody(),
       bottomNavigationBar: buildBottomNavBar(),
       backgroundColor: Colors.white,
-    );
-  }
-
-  AppBar buildAppbar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      backgroundColor: appBarColor,
-      leading: const BackButton(
-        color: textColor,
-      ),
-      centerTitle: true,
-      title: const Text(
-        "Katrusya",
-        style: TextStyle(
-            fontFamily: 'Nexa-Trial',
-            fontSize: 26,
-            color: textColor,
-            fontWeight: FontWeight.w700),
-      ),
     );
   }
 
@@ -199,7 +182,6 @@ class _SignupPageState extends State<SignupPage> {
                           );
                         });
                   }
-                }
               },
             ),
           ],

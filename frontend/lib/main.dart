@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/start.dart';
+import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/forgot_password.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/screens/homeScreen.dart';
@@ -16,6 +17,7 @@ import 'package:frontend/screens/quiz/quizscreens/answerCheckScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/screens/root_app.dart';
+import 'package:frontend/screens/section.dart';
 import 'package:frontend/screens/signup.dart';
 import 'package:frontend/screens/splashScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
@@ -61,8 +63,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: provider.themeData,
-          title: 'Flutter Demo',
-          initialRoute: PokemonHomeScreen.routeName,
+          title: 'Katrusya App',
+          initialRoute: RootApp.routeName,
           home: const RootApp(),
           routes: {
             PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
@@ -78,6 +80,7 @@ class MyApp extends StatelessWidget {
             StartPage.routeName: (context) => const StartPage(),
             SignupPage.routeName: (context) => const SignupPage(),
             ForgotPage.routeName: (context) => const ForgotPage(),
+            SectionPage.routeName: (context) => SectionPage()
           },
         );
       }),

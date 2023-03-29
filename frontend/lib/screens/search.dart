@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
+import 'package:frontend/screens/course_landing_page.dart';
+import 'package:frontend/screens/homescreens/Featured.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/course_item.dart';
 import 'package:frontend/widgets/searchcategory_item.dart';
@@ -22,6 +24,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appBarColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -68,8 +71,8 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Expanded(
             child: Container(
-              height: 40,
-              padding: const EdgeInsets.only(bottom: 3),
+              height: 50,
+              padding: const EdgeInsets.only(bottom: 3, top: 3),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -83,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                   ]),
               // TODO filter results based on search query
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
                     border: InputBorder.none,
                     hintText: "Search",
@@ -159,6 +162,12 @@ class _SearchPageState extends State<SearchPage> {
                 courseController.courses.value[index].isFavorited =
                     !courseController.courses.value[index].isFavorited;
               });
+            },
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CourseLandingPage(
+                    course: courseController.courses.value[index],
+                  )));
             },
           ));
     });
