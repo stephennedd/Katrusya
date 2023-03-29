@@ -13,6 +13,7 @@ export async function up(knex: Knex): Promise<void> {
         t.string('password').nullable();
         t.boolean('is_active').defaultTo(false);
         t.string('email_verified_at').nullable();
+        t.boolean('email_confirmed').defaultTo(false);
         t.timestamps();
     });
 
@@ -20,6 +21,7 @@ export async function up(knex: Knex): Promise<void> {
         t.increments();
         t.string('activationCode').unique();
         t.boolean('isExpired');
+        t.bigInteger('expiryTime');
         t.boolean('isMobileOtp');
         t.integer('requestCount');
         t.integer('userId').unsigned().unique();

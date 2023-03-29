@@ -28,3 +28,13 @@ export class CreateUserDto {
   password: string;
 }
 
+export class CreateConfirmEmailDto {
+  @IsNotEmpty()
+  @ApiProperty()
+  userId: number;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  code: string;
+}
+

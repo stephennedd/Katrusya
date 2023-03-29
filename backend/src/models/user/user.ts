@@ -7,7 +7,9 @@ export class UserEntity implements IEntity {
   password: string;
   email: string;
   is_active: boolean;
-  emailConfirmed: boolean;
+  email_confirmed: boolean;
+  reset_token: string;
+  reset_token_expiry: Date;
   avatar: string;
   // add more fields here
 }
@@ -20,6 +22,7 @@ export class UserOtpEntity implements IEntity {
   isMobileOtp?: boolean;
   isExpired: boolean;
   requestCount: number;
+  expiryTime: number;
 }
 
 export interface IEntity {

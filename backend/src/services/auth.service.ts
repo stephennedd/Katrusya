@@ -9,10 +9,14 @@ import { UsersService } from './users/users.service';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from 'src/models/user/user';
 import { plainToClass } from 'class-transformer';
+import { v4 as uuidv4 } from 'uuid';
+import { EmailService } from './messagings/email.service';
+import { ChangePasswordDto } from 'src/dto/change-password.dto';
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
+    private mailerService: EmailService,
     private jwtService: JwtService,
     private readonly db: DatabaseService,
     private readonly userRepository: UsersRepository,
@@ -81,18 +85,20 @@ export class AuthService {
     // email confirmed
     var user = await this.userRepository.getById(userId);
     user.is_active = true;
-    user.emailConfirmed = true;
+    user.email_confirmed = true;
     await this.userRepository.update(user);
   }
 
-  private async throwIfInvalidateOTP(userId: number, token: string) {
+  private async throwIfInvalidateOTP(userId: number, code: string) {
     let otp = await this.userOtpsRepository.getFirst({ userId }); // returns the first matching row or undefined
 
-    if (otp == null || otp.isExpired)
+    if (otp == null)
       throw new NotFoundException(`User not found`);
+    else if(otp.isExpired)  
+      throw new NotFoundException('You have entered the incorrect code several times. Please, request a new code')
 
     // Note: token == "1234" is for TEST
-    if (otp.activationCode.toString() != token && token != "1234") {
+    if (otp.activationCode.toString() != code && code != "1234") {
       otp.requestCount++;
       if (otp.requestCount > 3)
         otp.isExpired = true;
@@ -120,6 +126,35 @@ export class AuthService {
 
     return response;
   }
+
+  async sendPasswordResetEmail(email: string): Promise<void> {
+    const user = await this.userRepository.getUserBasedOnEmail(email);
+    if (!user) {
+      throw new NotFoundException(`User not found with email ${email}`);
+    }
+
+    const token = await this.generateToken(user);
+    const forgotLink = `https://example.com/auth/forgotPassword?token=${token}`;
+    
+    await this.mailerService.sendTextEmail(
+     email,
+   'Password Reset Request',
+   `Hey! This is your reset password link ${forgotLink}`
+    );
+  }
+
+  async changePassword(changePasswordDto: ChangePasswordDto, token:string) {
+    const payload = await this.verifyToken(token);
+    const password = await this.hashPass(changePasswordDto.password);
+    
+    await this.usersService.update(payload.id,{password});
+    return true;
+}
+
+async verifyToken(token: string): Promise<any> {
+  const decoded = this.jwtService.verify(token);
+  return decoded;
+}
 
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from 'src/databases/database.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/dto/create-user.dto';
@@ -32,9 +32,33 @@ export class UsersService {
     let userEntity = await this.userRepository.create(user); 
 
     //send verification email
-    //await this.SendVerificationPhoneAsync(userEntity);
+    await this.SendVerificationPhoneAsync(userEntity);
 
     return userEntity;
+  }
+
+  async update(userId: number, data): Promise<UserEntity> {
+    const user = await this.userRepository.getById(userId);
+  
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+  
+    if (data.username) {
+      user.username = data.username;
+    }
+  
+    if (data.email) {
+      user.email = data.email;
+    }
+  
+    if (data.password) {
+      user.password = data.password;
+    }
+  
+    await this.userRepository.update(user);
+  
+    return user;
   }
 
   async getUserBasedOnEmail(email: String): Promise<UserEntity> {
@@ -61,7 +85,7 @@ export class UsersService {
 
   private async SendVerificationPhoneAsync(user: UserEntity) {
     let otp = await this.GenerateConfirmationTokenAsync(user);
-    await this.emailService.sendTemplateEmail(user.email, "katrusha otp code", "otp", { otp: otp.activationCode });
+    await this.emailService.sendTemplateEmail(user.email, "katrusya otp code", "otp", { otp: otp.activationCode });
   }
 
   private Rand(min: number, max: number): number {
@@ -77,6 +101,13 @@ export class UsersService {
     otp.isExpired = false;
     otp.requestCount = 0;
     otp.activationCode = this.Rand(1000, 9999);
+    otp.expiryTime = Date.now() + (5 * 60 * 1000);
+
+    // Later, when you need to check if the OTP code is expired:
+// if (otp.expiryTime < Date.now()) {
+//   otp.isExpired = true;
+//   // Handle expired OTP code
+// }
     
     let userOtpEntity = await this.userOtpsRepository.create(otp);
 

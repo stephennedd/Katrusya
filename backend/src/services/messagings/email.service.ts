@@ -26,7 +26,7 @@ export class EmailService {
             await this.mailerService.sendMail({
                 to,
                 subject, 
-                template: path.resolve(`dist/public/templates/${template}.hbs`), // The name of the handlebars file in the templates folder
+                template: path.resolve(`public/templates/${template}.hbs`), // The name of the handlebars file in the templates folder
                 context: { to, subject, ...data },
             });
             return true;
