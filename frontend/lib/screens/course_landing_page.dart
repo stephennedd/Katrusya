@@ -49,7 +49,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
 
   Widget buildBody() {
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(15,10,15,20),
+      padding: const EdgeInsets.fromLTRB(15,10,15,20),
       child: Column(
         children: [
           Hero(
@@ -62,10 +62,10 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             ),
           ),
           getInfo(),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Divider(),
+          const Divider(),
           getTabBar(),
           getTabBarPages()
         ],
@@ -78,7 +78,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
       child: TabBar(
         indicatorColor: primaryDark,
         controller: tabController,
-        tabs: [
+        tabs: const [
           Tab(
             child: Text(
               "Sections",
@@ -111,12 +111,12 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
       height: 250,
       width: double.infinity,
       child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children: [
           getSections(),
           Container(
-            child: Text("Milestones"),
+            child: const Text("Milestones"),
           ),
         ],
       ),
@@ -145,15 +145,16 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
+                // TODO get course name from database
                 widget.course.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -161,6 +162,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 ),
               ),
               BookmarkBox(
+                // TODO get from database
                 isFavorited: widget.course.isFavorited,
                 onTap: () {
                   setState(() {
@@ -176,6 +178,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              // TODO get text from database
               getAttribute(Icons.play_circle_outline, widget.course.session, labelColor),
               getAttribute(Icons.schedule_outlined, widget.course.duration, labelColor),
               getAttribute(Icons.currency_bitcoin_sharp, "earn tokens", primaryDark),
@@ -189,7 +192,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Course Description",
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -198,12 +201,13 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                   color: textColor
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ReadMoreText(
+                // TODO get description from database
                 widget.course.description,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -213,11 +217,11 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 trimMode: TrimMode.Line,
                 trimCollapsedText: " Show more",
                 trimExpandedText: " Show less",
-                moreStyle: TextStyle(
+                moreStyle: const TextStyle(
                   fontWeight: FontWeight.w400,
                   color: primaryDark,
                 ),
-                lessStyle: TextStyle(
+                lessStyle: const TextStyle(
                   fontWeight: FontWeight.w400,
                   color: primaryDark
                 ),
@@ -242,7 +246,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
         ),
         Text(
             info,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Poppins',
               color: labelColor
             )),
@@ -251,19 +255,20 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
   }
 
   Widget getBottomBar() {
+    // TODO should only show if user does not already own course
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
         color: appBarColor,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
         boxShadow: [
           BoxShadow(
             color: shadowColor.withOpacity(.05),
             blurRadius: 1,
             spreadRadius: 1,
-            offset: Offset(0, 0)
+            offset: const Offset(0, 0)
           )
         ]
       ),
@@ -273,7 +278,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "price",
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -282,10 +287,11 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                   color: textColor
                 ),
               ),
-              SizedBox(height: 3,),
+              const SizedBox(height: 3,),
               Text(
+                // TODO get price from database
                 widget.course.price,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
                   fontSize: 18
@@ -293,7 +299,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
           Expanded(
@@ -302,7 +308,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
               color: primary,
               textColor: primaryDark,
               onPressed: () {
-
+                // TODO add to the logged-in users list of courses
               },
             ),
           )

@@ -7,7 +7,6 @@ import 'package:video_player/video_player.dart';
 
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
-import '../widgets/bookmark_box.dart';
 
 class SectionPage extends StatefulWidget {
   SectionPage({Key? key, this.data}) : super(key: key);
@@ -28,6 +27,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
     super.initState();
     tabController = TabController(length: 1, vsync: this);
     _controller = VideoPlayerController.network(
+        // todo update based on selected video
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button is pressed.
@@ -61,7 +61,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
 
   Widget buildBody() {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 20),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
       child: Column(
         children: [
           Stack(
@@ -113,6 +113,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
+                // TODO get section from course in database
                 widget.data["name"],
                 style: const TextStyle(
                     fontFamily: 'Poppins',
@@ -129,6 +130,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              // TODO lesson data from database
               getAttribute(Icons.play_circle_outline, "4 lessons", labelColor),
               const SizedBox(width: 10,),
               getAttribute(Icons.schedule_outlined, "2 hours", labelColor),
@@ -169,7 +171,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
       child: TabBar(
         indicatorColor: primaryDark,
         controller: tabController,
-        tabs: [
+        tabs: const [
           Tab(
             child: Text(
               "Lessons",
@@ -191,12 +193,12 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
       height: 360,
       width: double.infinity,
       child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children: [
           getLessons(),
           Container(
-            child: Text("Milestones"),
+            child: const Text("Milestones"),
           ),
         ],
       ),
@@ -209,8 +211,7 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
         itemBuilder: (context, index) => LessonItem(
           data: lessons[index],
           onTap: () {
-            //change video url to new video
-
+            // TODO change currently playing video-url to new video
           },
         )
     );
