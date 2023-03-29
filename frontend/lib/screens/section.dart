@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:chewie/chewie.dart';
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
 
@@ -19,8 +17,13 @@ class SectionPage extends StatefulWidget {
 
 class _SectionPageState extends State<SectionPage> with SingleTickerProviderStateMixin{
   bool _isLoading = true;
+  bool _isPlaying = false;
+  bool _isFullScreen = false;
   late VideoPlayerController _controller;
   late TabController tabController;
+  late ChewieController chewieController;
+
+
 
   @override
   void initState() {
@@ -29,18 +32,35 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
     _controller = VideoPlayerController.network(
         // todo update based on selected video
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+      ..addListener(() {
+        final bool isPlaying = _controller.value.isPlaying;
+        if (isPlaying != _isPlaying) {
+          setState(() {
+            _isPlaying = isPlaying;
+          });
+        }
+      })
       ..initialize().then((_) {
+        chewieController = ChewieController(
+          videoPlayerController: _controller,
+          autoPlay: false,
+          looping: false,
+        );
         // Ensure the first frame is shown after the video is initialized, even before the play button is pressed.
         setState(() {
           _isLoading = false;
         });
       });
+
+
   }
 
   @override
   void dispose() {
-    super.dispose();
+    tabController.dispose();
     _controller.dispose();
+    chewieController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,7 +70,11 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
       appBar: MyAppBar(
         title: "Sections",
         hasAction: true,
-        icon: Icons.download_outlined,
+        icon:Icon(
+          Icons.download_outlined,
+          color: Colors.black,
+          size: 25,
+        ),
         onTap: () {
           print("downloads");
         },
@@ -60,31 +84,39 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
   }
 
   Widget buildBody() {
+
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
       child: Column(
         children: [
           Stack(
-            children: [ _controller.value.isInitialized
-              ? GestureDetector(
-                onTap: () {
+            children: <Widget>[
+              _controller.value.isInitialized
+                  ? GestureDetector(
+                  onTap: () {
                   setState(() {
                     _controller.value.isPlaying
                         ? _controller.pause()
                         : _controller.play();
                   });
-                },
-                child: AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                ),
-              ) :
-              _isLoading ? const Center(
-                child: CircularProgressIndicator(
-                  color: primary,
-                ))
-                : Container(
-              ),
+                  },
+                  child: AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    //child: VideoPlayer(_controller),
+                    child: Chewie(
+                      controller:  chewieController,
+
+                    ),
+                  ),
+                ) :
+                _isLoading ? Container(
+                  height: 200,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: primary,
+                    ),
+                  )
+                ) : Container(),
         ]
       ),
 

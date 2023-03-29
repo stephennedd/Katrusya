@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       color: textColor,
                       fontWeight: FontWeight.w800,
-                      fontSize: 26,
+                      fontSize: 24,
                       fontFamily: 'Nexa-Trial'),
                 ),
               ),
@@ -85,7 +85,6 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
                       "Recommended",
@@ -94,14 +93,7 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.w800,
                           fontSize: 24,
                           fontFamily: 'Nexa-Trial'),
-                    ),
-                    Text(
-                      "See all",
-                      style: TextStyle(
-                          color: labelColor,
-                          fontSize: 16,
-                          fontFamily: 'Poppins'),
-                    ),
+                    )
                   ],
                 ),
               ),

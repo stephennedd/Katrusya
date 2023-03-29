@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/section.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/custom_image.dart';
+import 'package:frontend/widgets/milestone_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:readmore/readmore.dart';
 
@@ -35,7 +37,9 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
-        icon:Icons.leaderboard_outlined,
+        icon: SvgPicture.asset(
+          "assets/icons/trophy-star.svg"
+        ),
         title: "Details",
         onTap: () {
           print("open leaderboard");
@@ -115,9 +119,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
         controller: tabController,
         children: [
           getSections(),
-          Container(
-            child: const Text("Milestones"),
-          ),
+          getMilestones(),
         ],
       ),
     );
@@ -135,6 +137,18 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                 data: sections[index],
               )
           ));
+        },
+      )
+    );
+  }
+
+  Widget getMilestones() {
+    return ListView.builder(
+      itemCount: milestones.length,
+      itemBuilder: (context, index) => MilestoneItem(
+        data: milestones[index],
+        onTap: () {
+            print("goto quiz");
         },
       )
     );
