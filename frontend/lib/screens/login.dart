@@ -6,9 +6,11 @@ import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/users/login_model.dart';
 import 'package:frontend/screens/forgot_password.dart';
+import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../controllers/users/user_controller.dart';
 
@@ -27,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -227,6 +230,19 @@ class _LoginPageState extends State<LoginPage> {
                       new LoginModel(email: email, password: password));
                   if (response.statusCode == 201) {
                     // successful login, navigate to the next page
+
+                    var responseLoggedInUser = response.body;
+                    var loggedInUser = json.decode(responseLoggedInUser);
+
+                    _getStorage.write("userId", loggedInUser["data"]["id"]);
+                    await SecureStorage.setAccessToken(
+                        loggedInUser["data"]["accessToken"]);
+
+                    var token = await SecureStorage.getAccessToken();
+                    _getStorage.write(
+                        "username", loggedInUser["data"]["username"]);
+
+                    usersController.isUserLoggedIn.value = true;
                     Navigator.pushNamed(context, RootApp.routeName);
                   } else {
                     // unsuccessful login, display error message

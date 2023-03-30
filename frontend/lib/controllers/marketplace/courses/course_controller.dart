@@ -6,6 +6,9 @@ import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../models/courses/purchase_model.dart';
 
 class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
@@ -48,8 +51,14 @@ class CourseController extends GetxController {
     loadingStatus.value = LoadingStatus.loading;
     currentCourseDetails.value = await CallApi().getCourseDetails(courseId);
     loadingStatus.value = LoadingStatus.completed;
-    print(currentCourseDetails.value.toString());
     return currentCourseDetails;
+  }
+
+  Future<http.Response> buyCourse(PurchaseModel purchase) async {
+    loadingStatus.value = LoadingStatus.loading;
+    var response = await CallApi().addPurchasedCourse(purchase);
+    loadingStatus.value = LoadingStatus.completed;
+    return response;
   }
 
   // Future<RxList<CourseModel>> getCoursesBasedOnCategoryName(category) async {

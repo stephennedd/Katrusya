@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/screens/course_landing_page.dart';
+import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/category_box.dart';
 import 'package:frontend/widgets/featured_item.dart';
@@ -10,6 +12,7 @@ import 'package:frontend/widgets/recommended_item.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,16 +25,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   CourseController courseController = Get.put(CourseController());
   CategoryController categoryController = Get.put(CategoryController());
+  UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildBody(),
-      appBar: getAppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: FutureBuilder<AppBar>(
+          future: getAppBar(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return snapshot.data!;
+            } else {
+              return AppBar();
+            }
+          },
+        ),
+      ),
       backgroundColor: appBarColor,
     );
   }
 
-  AppBar getAppBar() {
+  Future<AppBar> getAppBar() async {
     return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
@@ -39,23 +56,27 @@ class _HomePageState extends State<HomePage> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
               height: 5,
             ),
             // TODO get logged in users username and show here instead of hardcoded name
-            Text(
-              "Hi Stephen!",
-              style: TextStyle(
-                  color: textColor,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'Nexa-Trial'),
-            ),
+            Obx(() => Text(
+                  usersController.isUserLoggedIn.value
+                      ? "Hi ${_getStorage.read("username")}!"
+                      : "Hi Traveller!",
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Nexa-Trial'),
+                )),
           ]),
           NotificationBox(
             notifiedNumber: 2,
-            onTap: () {
+            onTap: () async {
+              await SecureStorage.deleteAccessToken();
+              usersController.isUserLoggedIn.value = false;
               print("wallet pressed");
             },
           )

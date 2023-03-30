@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/screens/section.dart';
+import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
@@ -31,6 +33,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   late CourseModel courseData;
 
   CourseController courseController = Get.put(CourseController());
+  UsersController usersController = Get.put(UsersController());
 
   @override
   void initState() {
@@ -348,7 +351,12 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               text: "Buy course",
               color: primary,
               textColor: primaryDark,
-              onPressed: () {
+              onPressed: () async {
+                if (await SecureStorage.getAccessToken() != null) {
+                  print("I am logged in");
+                } else {
+                  print("I am not logged in");
+                }
                 // TODO add to the logged-in users list of courses
               },
             ),

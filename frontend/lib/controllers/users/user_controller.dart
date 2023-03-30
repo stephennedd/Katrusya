@@ -8,6 +8,7 @@ import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
+import 'package:frontend/storage/secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,11 +17,15 @@ import '../../models/users/login_model.dart';
 class UsersController extends GetxController {
   List<CategoryModel> categories = <CategoryModel>[];
 
+  RxBool isUserLoggedIn = false.obs;
+
   final loadingStatus = LoadingStatus.loading.obs;
 
   @override
   void onReady() async {
     super.onReady();
+    isUserLoggedIn =
+        await SecureStorage.getAccessToken() != null ? true.obs : false.obs;
   }
 
   Future<http.Response> registerUser(UserModel user) async {

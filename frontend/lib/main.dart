@@ -34,9 +34,11 @@ import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/routes/app_routes.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(GetMaterialApp(
     getPages: AppRoutes.routes(),
     home: const MyApp(),
@@ -65,6 +67,7 @@ class MyApp extends StatelessWidget {
           theme: provider.themeData,
           title: 'Katrusya App',
           initialRoute: RootApp.routeName,
+          //RootApp.routeName,
           home: const RootApp(),
           routes: {
             PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
