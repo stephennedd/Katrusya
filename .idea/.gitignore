@@ -1,0 +1,4 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+src\databases\knexfile.ts

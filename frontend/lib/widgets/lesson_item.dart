@@ -4,27 +4,45 @@ import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data}) : super(key: key);
+  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false}) : super(key: key);
   GestureTapCallback? onTap;
   final data;
+  bool isPlaying;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                  color: shadowColor.withOpacity(.07),
-                  blurRadius: 1,
-                  spreadRadius: 1,
-                  offset: const Offset(1, 1))
-            ]),
+            border: Border.all(
+              color: isPlaying ? Colors.blueGrey.shade100 : Colors.white,
+              width: .2
+            ),
+            boxShadow: isPlaying
+                ? [
+                BoxShadow(
+                    color: Colors.grey.shade400,
+                    blurRadius: 15,
+                    spreadRadius: 1,
+                    offset: const Offset(2,2)
+                ),
+                const BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 15,
+                    spreadRadius: 1,
+                    offset: Offset(-2, -2)
+                )
+                ] :
+                [
+
+                ]
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -78,9 +96,9 @@ class LessonItem extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.play_arrow_rounded,
-              color: primaryDark,
+              color: isPlaying ? primary : primaryDark,
               size: 30,
             )
           ],
