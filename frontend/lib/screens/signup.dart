@@ -172,13 +172,13 @@ class _SignupPageState extends State<SignupPage> {
                             email: email,
                             password: password));
 
-                    // Navigator.pushNamed(context, LoginPage.routeName);
-
                     if (response.statusCode == 201) {
                       // successful login, navigate to the next page
-                      Navigator.pushNamed(context, LoginPage.routeName);
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) => LoginPage())
+                      );
                     } else {
-                      // unsuccessful login, display error message
+                      // unsuccessful login, display error messages
                       var responseBody = json.decode(response.body);
                       String errorMessage = responseBody['message'];
                       // ScaffoldMessenger.of(context)
