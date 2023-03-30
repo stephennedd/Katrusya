@@ -34,7 +34,7 @@
                     "title": "Lesson 2 title",
                     "description": "Lesson 2 description",
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                     "duration_in_hours": 5
                 }
             ],

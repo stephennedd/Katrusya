@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget getRecommended() {
+ /* Widget getRecommended() {
     return SingleChildScrollView(
       padding: const EdgeInsets.only(left: 15),
       scrollDirection: Axis.horizontal,
@@ -127,6 +127,36 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ))),
+    );
+  }*/
+
+  Widget getRecommended() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        enableInfiniteScroll: false,
+        height: 130,
+        animateToClosest: false,
+        pageSnapping: false
+      ),
+      items: List.generate(
+          courseController.recommendedCourses.length,
+              (index) => Container(
+            margin: const EdgeInsets.only(top: 3, right: 10, bottom: 5),
+            child: RecommendItem(
+              data: courseController.recommendedCourses[index],
+              onTap: () async {
+                await courseController.getCourseDetails(
+                    courseController.recommendedCourses[index].id);
+                courseController.currentCourseId.value =
+                    courseController.recommendedCourses[index].id;
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CourseLandingPage(
+                      course: courseController
+                          .recommendedCourses[index],
+                    )));
+              },
+            ),
+          ))
     );
   }
 

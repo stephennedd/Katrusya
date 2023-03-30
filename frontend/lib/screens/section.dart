@@ -21,13 +21,13 @@ class _SectionPageState extends State<SectionPage>
   bool _isPlaying = false;
   bool _isFullScreen = false;
   late VideoPlayerController _controller;
-  late TabController tabController;
+  late TabController _tabController;
   late ChewieController chewieController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 1, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
     _controller = VideoPlayerController.network(
         // todo update based on selected video
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
@@ -54,7 +54,7 @@ class _SectionPageState extends State<SectionPage>
 
   @override
   void dispose() {
-    tabController.dispose();
+    _tabController.dispose();
     _controller.dispose();
     chewieController.dispose();
     super.dispose();
@@ -81,7 +81,7 @@ class _SectionPageState extends State<SectionPage>
 
   Widget buildBody() {
     return Container(
-        padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+        padding: const EdgeInsets.only(top: 10, bottom: 5),
         child: Column(
           children: [
             Stack(children: <Widget>[
@@ -112,7 +112,10 @@ class _SectionPageState extends State<SectionPage>
                           ))
                       : Container(),
             ]),
-            getInfo(),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: getInfo(),
+            ),
             const SizedBox(
               height: 1,
             ),
@@ -191,7 +194,7 @@ class _SectionPageState extends State<SectionPage>
     return Container(
       child: TabBar(
         indicatorColor: primaryDark,
-        controller: tabController,
+        controller: _tabController,
         tabs: const [
           Tab(
             child: Text(
@@ -214,12 +217,9 @@ class _SectionPageState extends State<SectionPage>
       width: double.infinity,
       child: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
-        controller: tabController,
+        controller: _tabController,
         children: [
-          getLessons(),
-          Container(
-            child: const Text("Milestones"),
-          ),
+          getLessons()
         ],
       ),
     );
@@ -229,11 +229,29 @@ class _SectionPageState extends State<SectionPage>
     return ListView.builder(
         itemCount: widget.data.lessons.length,
         itemBuilder: (context, index) => LessonItem(
-              data: widget.data.lessons[index],
-              onTap: () {
-                //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-                // TODO change currently playing video-url to new video
-              },
-            ));
+          isPlaying: widget.data.lessons[index].videoUrl == _controller.dataSource,
+          data: widget.data.lessons[index],
+          onTap: () {
+            //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+            // TODO (done) change currently playing video-url to new video
+            setState(() {
+              _isLoading = true;
+              _controller.pause();
+              _controller = VideoPlayerController.network(widget.data.lessons[index].videoUrl);
+              _controller.initialize().then((_) {
+                chewieController = ChewieController(
+                  videoPlayerController: _controller,
+                  autoPlay: false,
+                  looping: false,
+                );
+                setState(() {
+                  _isLoading = false;
+                  _controller.play();
+                });
+              });
+            });
+          },
+      )
+    );
   }
 }

@@ -22,9 +22,11 @@ class RecommendItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.1),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: Offset(1, 1)),
+                  offset: const Offset(1, 1)),
             ]),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: 100,
@@ -43,6 +45,7 @@ class RecommendItem extends StatelessWidget {
               width: 10,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(

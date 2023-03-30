@@ -27,15 +27,12 @@ class SectionItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Hero(
-              tag: data.image,
-              child: CustomImage(
-                data.image,
-                radius: 10,
-                width: 70,
-                height: 70,
-                isShadow: false,
-              ),
+            CustomImage(
+              data.image,
+              radius: 10,
+              width: 70,
+              height: 70,
+              isShadow: false,
             ),
             const SizedBox(
               width: 10,
