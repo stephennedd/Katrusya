@@ -17,6 +17,7 @@ import 'package:readmore/readmore.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_model.dart';
 import '../utils/data.dart';
+import 'login.dart';
 
 class CourseLandingPage extends StatefulWidget {
   const CourseLandingPage({Key? key, required this.course}) : super(key: key);
@@ -31,6 +32,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseModel courseData;
+  late final bool isPurchased;
 
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
@@ -39,10 +41,14 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   void initState() {
     super.initState();
     tabController = TabController(length: 2, vsync: this);
+    isPurchased = true;
+    // TODO check if course is already purchased complete the code below
+    //isPurchased == check from database if course is in list of courses. but maybe we can figure out a better more safe solution to enabling courses later.
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
@@ -53,26 +59,31 @@ class _CourseLandingPageState extends State<CourseLandingPage>
         },
       ),
       body: buildBody(),
-      bottomNavigationBar: getBottomBar(),
+      bottomNavigationBar: isPurchased?  null : getBottomBar(),
       backgroundColor: appBarColor,
     );
   }
 
   Widget buildBody() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+      padding: const EdgeInsets.only(top: 10, bottom: 20),
       child: Column(
         children: [
-          Hero(
-            tag: widget.course.id.toString() + widget.course.image,
-            child: CustomImage(
-              widget.course.image,
-              radius: 10,
-              width: double.infinity,
-              height: 200,
+          Padding(
+            padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+            child: Hero(
+              tag: widget.course.id.toString() + widget.course.image,
+              child: CustomImage(
+                widget.course.image,
+                radius: 10,
+                width: double.infinity,
+                height: 200,
+              ),
             ),
           ),
-          getInfo(),
+          Padding(
+            padding: EdgeInsets.only(left: 15, right: 15),
+            child: getInfo()),
           const SizedBox(
             height: 10,
           ),
@@ -117,7 +128,8 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getTabBarPages() {
     return Container(
-      height: 250,
+      padding: EdgeInsets.only(left: 10, right: 10),
+      height: 400,
       width: double.infinity,
       child: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
@@ -352,11 +364,12 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               textColor: primaryDark,
               onPressed: () async {
                 if (await SecureStorage.getAccessToken() != null) {
-                  print("I am logged in");
+                  // TODO add to the logged-in users list of courses
+
                 } else {
-                  print("I am not logged in");
+                  Navigator.pushNamed(context, LoginPage.routeName);
                 }
-                // TODO add to the logged-in users list of courses
+
               },
             ),
           )

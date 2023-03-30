@@ -213,6 +213,7 @@ class _SectionPageState extends State<SectionPage>
 
   Widget getTabBarPages() {
     return Container(
+      padding: EdgeInsets.only(left: 5, right: 5),
       height: 360,
       width: double.infinity,
       child: TabBarView(

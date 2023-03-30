@@ -6,6 +6,8 @@ import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/users/login_model.dart';
 import 'package:frontend/screens/forgot_password.dart';
+import 'package:frontend/screens/signinoptions/SignUp.dart';
+import 'package:frontend/screens/signup.dart';
 import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:get/get.dart';
@@ -199,11 +201,14 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             ButtonSimple(
               width: double.infinity,
-              text: "login with Google",
+              text: "create an account",
               color: primaryDark,
               textColor: Colors.white,
               onPressed: () {
-                print("google login pressed");
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) => SignupPage(),
+                )
+                );
               },
             ),
             const SizedBox(
@@ -243,7 +248,8 @@ class _LoginPageState extends State<LoginPage> {
                         "username", loggedInUser["data"]["username"]);
 
                     usersController.isUserLoggedIn.value = true;
-                    Navigator.pushNamed(context, RootApp.routeName);
+                    Navigator.pop(context);
+                    //Navigator.pushNamed(context, RootApp.routeName);
                   } else {
                     // unsuccessful login, display error message
                     var responseBody = json.decode(response.body);

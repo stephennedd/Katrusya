@@ -19,15 +19,17 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   static const String routeName = "/homepage";
 
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>{
   CourseController courseController = Get.put(CourseController());
   CategoryController categoryController = Get.put(CategoryController());
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
