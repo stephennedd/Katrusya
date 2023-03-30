@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
@@ -13,8 +12,8 @@ class SectionItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -38,7 +37,7 @@ class SectionItem extends StatelessWidget {
                 isShadow: false,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -56,9 +55,12 @@ class SectionItem extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.play_circle_outline,
                         size: 14,
                         color: labelColor,
@@ -78,7 +80,7 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
+            const Icon(
               Icons.chevron_right_rounded,
               color: labelColor,
             )

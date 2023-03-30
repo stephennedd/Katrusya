@@ -12,7 +12,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   Color backgroundColor;
   bool hasAction;
-  IconData? icon;
+  final icon;
   GestureTapCallback? onTap;
 
   @override
@@ -35,11 +35,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
         ),),
       actions: hasAction ? <Widget> [
         IconButton(
-          icon: Icon(
-            icon,
-            color: Colors.black,
-            size: 25,
-          ),
+          icon: icon,
           tooltip: 'Go to leaderboard',
           onPressed: onTap
         )

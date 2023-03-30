@@ -163,7 +163,11 @@ class _SearchPageState extends State<SearchPage> {
                     !courseController.courses.value[index].isFavorited;
               });
             },
-            onTap: () {
+            onTap: () async {
+              await courseController
+                  .getCourseDetails(courseController.courses[index].id);
+              courseController.currentCourseId.value =
+                  courseController.courses[index].id;
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CourseLandingPage(
                         course: courseController.courses.value[index],

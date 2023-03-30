@@ -1,3 +1,13 @@
+List milestones = [
+  {"name" : "Quiz 1", "questions" : "10 questions"},
+  {"name" : "Quiz 2", "questions" : "10 questions"},
+  {"name" : "Quiz 3", "questions" : "10 questions"},
+  {"name" : "Quiz 4", "questions" : "10 questions"},
+  {"name" : "Quiz 5", "questions" : "10 questions"},
+  {"name" : "Quiz 6", "questions" : "10 questions"},
+  {"name" : "Quiz 7", "questions" : "10 questions"},
+];
+
 List categories = [
   {"name": 'All', "icon": "assets/icons/category/all.svg"},
   {"name": "Coding", "icon": "assets/icons/category/coding.svg"},
