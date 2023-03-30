@@ -86,11 +86,11 @@ class FeaturedItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getAttribute(data.session, Icons.play_circle_outline,
-                            labelColor),
+                        getAttribute("${data.numberOfLessons} lessons",
+                            Icons.play_circle_outline, labelColor),
                         const SizedBox(width: 10),
-                        getAttribute(
-                            data.duration, Icons.schedule_outlined, labelColor),
+                        getAttribute("${data.durationInHours} lessons",
+                            Icons.schedule_outlined, labelColor),
                         const SizedBox(width: 10),
                         getAttribute(data.review, Icons.star, Colors.yellow),
                       ],

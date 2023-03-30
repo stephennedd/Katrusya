@@ -1,5 +1,6 @@
 import 'package:frontend/api/my_api.dart';
 import 'package:frontend/models/course_query_params_model.dart';
+import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
@@ -10,6 +11,9 @@ class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
   RxList<CourseModel> featuredCourses = RxList<CourseModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
+  final currentCourseId = 0.obs;
+
+  Rxn<CourseDetailsModel> currentCourseDetails = Rxn<CourseDetailsModel>();
 
   final loadingStatus = LoadingStatus.loading.obs;
 
@@ -38,6 +42,14 @@ class CourseController extends GetxController {
     courses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return courses;
+  }
+
+  Future<Rxn<CourseDetailsModel>> getCourseDetails(int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    currentCourseDetails.value = await CallApi().getCourseDetails(courseId);
+    loadingStatus.value = LoadingStatus.completed;
+    print(currentCourseDetails.value.toString());
+    return currentCourseDetails;
   }
 
   // Future<RxList<CourseModel>> getCoursesBasedOnCategoryName(category) async {

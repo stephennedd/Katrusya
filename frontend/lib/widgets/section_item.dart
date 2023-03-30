@@ -23,38 +23,39 @@ class SectionItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.07),
                   blurRadius: 1,
                   spreadRadius: 1,
-                  offset: const Offset(1,1)
-              )
-            ]
-        ),
+                  offset: const Offset(1, 1))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Hero(
-              tag: data["image"],
+              tag: data.image,
               child: CustomImage(
-                data["image"],
+                data.image,
                 radius: 10,
                 width: 70,
                 height: 70,
                 isShadow: false,
               ),
             ),
-            SizedBox(width: 10,),
+            SizedBox(
+              width: 10,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data["name"],
+                    data.title,
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                        fontFamily: 'Poppins',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: textColor
-                    ),
+                        color: textColor),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       Icon(
@@ -62,22 +63,25 @@ class SectionItem extends StatelessWidget {
                         size: 14,
                         color: labelColor,
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(
-                        data["lessons"],
+                        "${data.numberOfLessons} lessons",
                         style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 13,
-                          color: labelColor
-                        ),
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                            color: labelColor),
                       ),
                     ],
                   )
-
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded, color: labelColor,)
+            Icon(
+              Icons.chevron_right_rounded,
+              color: labelColor,
+            )
           ],
         ),
       ),

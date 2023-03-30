@@ -125,8 +125,9 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CourseLandingPage(
-                              course: courseController.recommendedCourses[index],
-                            )));
+                                  course: courseController
+                                      .recommendedCourses[index],
+                                )));
                       },
                     ),
                   ))),
@@ -135,23 +136,26 @@ class _HomePageState extends State<HomePage> {
 
   Widget getFeatured() {
     return CarouselSlider(
-      options: CarouselOptions(
-        initialPage: 1,
-        enableInfiniteScroll: false,
-        height: 290,
-        enlargeCenterPage: true,
-        disableCenter: true
-      ),
-      items: List.generate(
-        courseController.featuredCourses.length,
-        (index) => FeaturedItem(
-            data: courseController.featuredCourses[index],
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CourseLandingPage(
-                    course: courseController.featuredCourses[index],
-                  )));
-            })));
+        options: CarouselOptions(
+            initialPage: 1,
+            enableInfiniteScroll: false,
+            height: 290,
+            enlargeCenterPage: true,
+            disableCenter: true),
+        items: List.generate(
+            courseController.featuredCourses.length,
+            (index) => FeaturedItem(
+                data: courseController.featuredCourses[index],
+                onTap: () async {
+                  await courseController.getCourseDetails(
+                      courseController.featuredCourses[index].id);
+                  courseController.currentCourseId.value =
+                      courseController.featuredCourses[index].id;
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CourseLandingPage(
+                            course: courseController.featuredCourses[index],
+                          )));
+                })));
   }
 
   int selectedCategoryIndex = 0;

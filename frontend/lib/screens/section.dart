@@ -17,7 +17,8 @@ class SectionPage extends StatefulWidget {
   State<SectionPage> createState() => _SectionPageState();
 }
 
-class _SectionPageState extends State<SectionPage> with SingleTickerProviderStateMixin{
+class _SectionPageState extends State<SectionPage>
+    with SingleTickerProviderStateMixin {
   bool _isLoading = true;
   late VideoPlayerController _controller;
   late TabController tabController;
@@ -46,59 +47,54 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBarColor,
-      appBar: MyAppBar(
-        title: "Sections",
-        hasAction: true,
-        icon: Icons.download_outlined,
-        onTap: () {
-          print("downloads");
-        },
-      ),
-      body: buildBody()
-    );
+        backgroundColor: appBarColor,
+        appBar: MyAppBar(
+          title: "Sections",
+          hasAction: true,
+          icon: Icons.download_outlined,
+          onTap: () {
+            print("downloads");
+          },
+        ),
+        body: buildBody());
   }
 
   Widget buildBody() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-      child: Column(
-        children: [
-          Stack(
-            children: [ _controller.value.isInitialized
-              ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
-                },
-                child: AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                ),
-              ) :
-              _isLoading ? const Center(
-                child: CircularProgressIndicator(
-                  color: primary,
-                ))
-                : Container(
-              ),
-        ]
-      ),
-
-          getInfo(),
-          const SizedBox(
-            height: 1,
-          ),
-          const Divider(),
-          getTabBar(),
-          getTabBarPages(),
-
-        ],
-      )
-    );
+        padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+        child: Column(
+          children: [
+            Stack(children: [
+              _controller.value.isInitialized
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _controller.value.isPlaying
+                              ? _controller.pause()
+                              : _controller.play();
+                        });
+                      },
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      ),
+                    )
+                  : _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: primary,
+                        ))
+                      : Container(),
+            ]),
+            getInfo(),
+            const SizedBox(
+              height: 1,
+            ),
+            const Divider(),
+            getTabBar(),
+            getTabBarPages(),
+          ],
+        ));
   }
 
   Widget getInfo() {
@@ -113,14 +109,14 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // TODO get section from course in database
-                widget.data["name"],
+                // Done get section from course in database
+                // widget.data["name"],
+                widget.data.title,
                 style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: textColor
-                ),
+                    color: textColor),
               ),
             ],
           ),
@@ -130,16 +126,19 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // TODO lesson data from database
-              getAttribute(Icons.play_circle_outline, "4 lessons", labelColor),
-              const SizedBox(width: 10,),
-              getAttribute(Icons.schedule_outlined, "2 hours", labelColor),
+              // Done lesson data from database
+              getAttribute(Icons.play_circle_outline,
+                  "${widget.data.numberOfLessons} lessons", labelColor),
+              const SizedBox(
+                width: 10,
+              ),
+              getAttribute(Icons.schedule_outlined,
+                  "${widget.data.sectionDurationInHours} hours", labelColor),
             ],
           ),
           const SizedBox(
             height: 20,
           ),
-
         ],
       ),
     );
@@ -156,12 +155,8 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
         const SizedBox(
           width: 5,
         ),
-        Text(
-            info,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: labelColor
-            )),
+        Text(info,
+            style: const TextStyle(fontFamily: 'Poppins', color: labelColor)),
       ],
     );
   }
@@ -176,11 +171,10 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
             child: Text(
               "Lessons",
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: textColor
-              ),
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: textColor),
             ),
           )
         ],
@@ -207,13 +201,12 @@ class _SectionPageState extends State<SectionPage> with SingleTickerProviderStat
 
   Widget getLessons() {
     return ListView.builder(
-        itemCount: lessons.length,
+        itemCount: widget.data.lessons.length,
         itemBuilder: (context, index) => LessonItem(
-          data: lessons[index],
-          onTap: () {
-            // TODO change currently playing video-url to new video
-          },
-        )
-    );
+              data: widget.data.lessons[index],
+              onTap: () {
+                // TODO change currently playing video-url to new video
+              },
+            ));
   }
 }

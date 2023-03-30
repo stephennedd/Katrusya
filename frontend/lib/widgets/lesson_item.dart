@@ -23,38 +23,39 @@ class LessonItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.07),
                   blurRadius: 1,
                   spreadRadius: 1,
-                  offset: const Offset(1,1)
-              )
-            ]
-        ),
+                  offset: const Offset(1, 1))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Hero(
-              tag: data["image"],
+              tag: data.image,
               child: CustomImage(
-                data["image"],
+                data.image,
                 radius: 10,
                 width: 70,
                 height: 70,
                 isShadow: false,
               ),
             ),
-            const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data["name"],
+                    data.lessonName,
                     style: const TextStyle(
-                      fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins',
                         fontSize: 15,
-                        color: textColor
-                    ),
+                        color: textColor),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       Icon(
@@ -62,22 +63,26 @@ class LessonItem extends StatelessWidget {
                         size: 14,
                         color: labelColor,
                       ),
-                      const SizedBox(width: 5,),
+                      const SizedBox(
+                        width: 5,
+                      ),
                       Text(
-                        data["duration"],
+                        "${data.lessonDurationInHours} hours",
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 13,
-                            color: labelColor
-                        ),
+                            color: labelColor),
                       ),
                     ],
                   )
-
                 ],
               ),
             ),
-            const Icon(Icons.play_arrow_rounded, color: primaryDark, size: 30,)
+            const Icon(
+              Icons.play_arrow_rounded,
+              color: primaryDark,
+              size: 30,
+            )
           ],
         ),
       ),

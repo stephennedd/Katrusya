@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/course_query_params_model.dart';
+import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -14,9 +15,9 @@ import '../models/users/user_model.dart';
 
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
-   final String ip = "192.168.178.151";
+  // final String ip = "192.168.178.151";
 
-  final String _baseUrl = 'http://192.168.178.151:3000';
+  final String _baseUrl = 'http://localhost:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -92,7 +93,7 @@ class CallApi {
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: ip,
+      host: 'localhost',
       port: 3000,
       path: '/courses',
       queryParameters: {
@@ -119,6 +120,26 @@ class CallApi {
         RxList<CourseModel> courses = RxList<CourseModel>.from(
             coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)));
         return courses;
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCourseDetails(int courseId) async {
+    String apiUrl = "/courses/${courseId}/details";
+
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        return CourseDetailsModel.fromJson(decoded);
       } else {
         print("Something went wrong");
         throw Error();

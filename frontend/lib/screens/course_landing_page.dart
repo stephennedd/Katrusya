@@ -6,8 +6,11 @@ import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/custom_image.dart';
 import 'package:frontend/widgets/section_item.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:readmore/readmore.dart';
 
+import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_model.dart';
 import '../utils/data.dart';
 
@@ -20,9 +23,12 @@ class CourseLandingPage extends StatefulWidget {
   State<CourseLandingPage> createState() => _CourseLandingPageState();
 }
 
-class _CourseLandingPageState extends State<CourseLandingPage> with SingleTickerProviderStateMixin{
+class _CourseLandingPageState extends State<CourseLandingPage>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseModel courseData;
+
+  CourseController courseController = Get.put(CourseController());
 
   @override
   void initState() {
@@ -35,7 +41,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
-        icon:Icons.leaderboard_outlined,
+        icon: Icons.leaderboard_outlined,
         title: "Details",
         onTap: () {
           print("open leaderboard");
@@ -49,7 +55,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
 
   Widget buildBody() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15,10,15,20),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
       child: Column(
         children: [
           Hero(
@@ -83,22 +89,20 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             child: Text(
               "Sections",
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: textColor
-              ),
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: textColor),
             ),
           ),
           Tab(
             child: Text(
               "Milestones",
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: textColor
-              ),
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: textColor),
             ),
           )
         ],
@@ -125,19 +129,19 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
 
   Widget getSections() {
     return ListView.builder(
-      itemCount: sections.length,
-      itemBuilder: (context, index) => SectionItem(
-        data: sections[index],
-        onTap: () {
-          // navigate to new page
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => SectionPage(
-                data: sections[index],
-              )
-          ));
-        },
-      )
-    );
+        itemCount: courseController.currentCourseDetails.value!.sections.length,
+        itemBuilder: (context, index) => SectionItem(
+              data:
+                  courseController.currentCourseDetails.value!.sections[index],
+              onTap: () {
+                // navigate to new page
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SectionPage(
+                          data: courseController
+                              .currentCourseDetails.value!.sections[index],
+                        )));
+              },
+            ));
   }
 
   Widget getInfo() {
@@ -152,22 +156,42 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // TODO get course name from database
-                widget.course.name,
+                // Done: get course name from database
+                //widget.course.name,
+                courseController.currentCourseDetails.value!.courseName,
                 style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: textColor
-                ),
+                    fontFamily: 'Poppins',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: textColor),
               ),
               BookmarkBox(
                 // TODO get from database
-                isFavorited: widget.course.isFavorited,
+                isFavorited: courseController
+                    .courses
+                    .value[courseController.currentCourseId.value - 1]
+                    .isFavorited,
+                //widget.course.isFavorited,
                 onTap: () {
-                  setState(() {
-                    widget.course.isFavorited = !widget.course.isFavorited;
-                  });
+                  debugPrint(courseController.currentCourseId.value.toString());
+                  // print(courseController
+                  //     .courses
+                  //     .value[courseController.currentCourseId.value - 1]
+                  //     .isFavorited);
+                  // setState(() {
+                  //   courseController
+                  //           .courses
+                  //           .value[courseController.currentCourseId.value - 1]
+                  //           .isFavorited =
+                  //       !courseController
+                  //           .courses
+                  //           .value[courseController.currentCourseId.value - 1]
+                  //           .isFavorited;
+                  // });
+                  // print(courseController
+                  //     .courses
+                  //     .value[courseController.currentCourseId.value - 1]
+                  //     .isFavorited);
                 },
               ),
             ],
@@ -178,14 +202,25 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // TODO get text from database
-              getAttribute(Icons.play_circle_outline, widget.course.session, labelColor),
-              getAttribute(Icons.schedule_outlined, widget.course.duration, labelColor),
-              getAttribute(Icons.currency_bitcoin_sharp, "earn tokens", primaryDark),
-              getAttribute(Icons.star, widget.course.review.toString(), Colors.yellow),
+              // TODO get token amount per course
+              getAttribute(
+                  Icons.play_circle_outline,
+                  "${courseController.currentCourseDetails.value!.numberOfLessons} lessons",
+                  labelColor),
+              getAttribute(
+                  Icons.schedule_outlined,
+                  "${courseController.currentCourseDetails.value!.courseDurationInHours} hours",
+                  labelColor),
+              getAttribute(
+                  Icons.currency_bitcoin_sharp, "earn tokens", primaryDark),
+              getAttribute(
+                  Icons.star,
+                  courseController.courses
+                      .value[courseController.currentCourseId.value - 1].review
+                      .toString(),
+                  Colors.yellow),
             ],
           ),
-
           const SizedBox(
             height: 20,
           ),
@@ -195,24 +230,25 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
               const Text(
                 "Course Description",
                 style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: textColor
-                ),
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: textColor),
               ),
               const SizedBox(
                 height: 10,
               ),
               ReadMoreText(
-                // TODO get description from database
-                widget.course.description,
+                // Done: get description from database
+                courseController
+                    .courses
+                    .value[courseController.currentCourseId.value - 1]
+                    .description,
                 style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w300,
-                  color: labelColor
-                ),
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                    color: labelColor),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: " Show more",
@@ -222,9 +258,7 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
                   color: primaryDark,
                 ),
                 lessStyle: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: primaryDark
-                ),
+                    fontWeight: FontWeight.w400, color: primaryDark),
               )
             ],
           )
@@ -244,12 +278,8 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
         const SizedBox(
           width: 5,
         ),
-        Text(
-            info,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: labelColor
-            )),
+        Text(info,
+            style: const TextStyle(fontFamily: 'Poppins', color: labelColor)),
       ],
     );
   }
@@ -261,18 +291,17 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
       width: double.infinity,
       height: 80,
       decoration: BoxDecoration(
-        color: appBarColor,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-        boxShadow: [
-          BoxShadow(
-            color: shadowColor.withOpacity(.05),
-            blurRadius: 1,
-            spreadRadius: 1,
-            offset: const Offset(0, 0)
-          )
-        ]
-      ),
-      child: Row (
+          color: appBarColor,
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+          boxShadow: [
+            BoxShadow(
+                color: shadowColor.withOpacity(.05),
+                blurRadius: 1,
+                spreadRadius: 1,
+                offset: const Offset(0, 0))
+          ]),
+      child: Row(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,21 +310,22 @@ class _CourseLandingPageState extends State<CourseLandingPage> with SingleTicker
               const Text(
                 "price",
                 style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: textColor
-                ),
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: textColor),
               ),
-              const SizedBox(height: 3,),
+              const SizedBox(
+                height: 3,
+              ),
               Text(
-                // TODO get price from database
-                widget.course.price,
+                // Done: get price from database
+                courseController.courses
+                    .value[courseController.currentCourseId.value - 1].price,
                 style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18
-                ),
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18),
               ),
             ],
           ),

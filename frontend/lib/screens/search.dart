@@ -166,8 +166,8 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CourseLandingPage(
-                    course: courseController.courses.value[index],
-                  )));
+                        course: courseController.courses.value[index],
+                      )));
             },
           ));
     });

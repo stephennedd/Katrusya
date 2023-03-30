@@ -2,14 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../Themes/app_colors.dart';
+import '../controllers/marketplace/courses/course_controller.dart';
 
 class CourseItem extends StatelessWidget {
-  CourseItem({Key? key, required this.data, this.onFavorite, this.onTap}) : super(key: key);
+  CourseItem({Key? key, required this.data, this.onFavorite, this.onTap})
+      : super(key: key);
   dynamic data;
   GestureTapCallback? onFavorite;
   GestureTapCallback? onTap;
+
+  CourseController courseController = Get.put(CourseController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,9 @@ class CourseItem extends StatelessWidget {
               right: 15,
               child: BookmarkBox(
                 onTap: onFavorite,
-                isFavorited: data.isFavorited,
+                isFavorited:
+                    //courseController.courses.value[data.id - 1].isFavorited
+                    data.isFavorited,
               ),
             ),
             Positioned(
@@ -75,12 +83,12 @@ class CourseItem extends StatelessWidget {
                         children: [
                           getAttribute(
                               Icons.sell_outlined, data.price, labelColor),
-                          getAttribute(Icons.play_circle_outline, data.session,
-                              labelColor),
-                          getAttribute(
-                              Icons.schedule_outlined, data.duration, labelColor),
-                          getAttribute(
-                              Icons.star, data.review.toString(), Colors.yellow),
+                          getAttribute(Icons.play_circle_outline,
+                              "${data.numberOfLessons} lessons", labelColor),
+                          getAttribute(Icons.schedule_outlined,
+                              "${data.durationInHours} hours", labelColor),
+                          getAttribute(Icons.star, data.review.toString(),
+                              Colors.yellow),
                         ],
                       )
                     ],

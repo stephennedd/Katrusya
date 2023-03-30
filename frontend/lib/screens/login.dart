@@ -219,46 +219,9 @@ class _LoginPageState extends State<LoginPage> {
               text: "login",
               color: primary,
               onPressed: () async {
-                // if (_formKey.currentState!.validate()) {
-                //   String email = emailController.text;
-                //   String password = passwordController.text;
-
-                //   usersController.loginUser(
-                //       new LoginModel(email: email, password: password));
-
-                //   // TODO check if form field data authenticates.
-                //   Navigator.pushNamed(context, RootApp.routeName);
-                // }
                 if (_formKey.currentState!.validate()) {
                   String email = emailController.text;
                   String password = passwordController.text;
-
-                  // bool loginSuccessful = await usersController.loginUser(
-                  //     new LoginModel(email: email, password: password));
-
-                  /// if (loginSuccessful) {
-                  // Login was successful, navigate to next page
-                  //  Navigator.pushNamed(context, RootApp.routeName);
-                  // } else {
-                  // Login failed, show error message to user
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (BuildContext context) {
-                  //       return AlertDialog(
-                  //         title: Text("Login Failed"),
-                  //         content: Text("Invalid email or password."),
-                  //         actions: [
-                  //           ElevatedButton(
-                  //             child: Text("OK"),
-                  //             onPressed: () {
-                  //               Navigator.of(context).pop();
-                  //             },
-                  //           )
-                  //         ],
-                  //       );
-                  //     });
-
-                  //  }
 
                   var response = await usersController.loginUser(
                       new LoginModel(email: email, password: password));

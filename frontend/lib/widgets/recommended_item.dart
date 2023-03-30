@@ -67,13 +67,13 @@ class RecommendItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    getAttribute(
-                        data.session, Icons.play_circle_outline, labelColor),
+                    getAttribute("${data.numberOfLessons} lessons",
+                        Icons.play_circle_outline, labelColor),
                     const SizedBox(
                       width: 10,
                     ),
-                    getAttribute(
-                        data.duration, Icons.schedule_outlined, labelColor),
+                    getAttribute("${data.durationInHours} hours",
+                        Icons.schedule_outlined, labelColor),
                     const SizedBox(
                       width: 10,
                     )
