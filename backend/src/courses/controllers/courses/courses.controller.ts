@@ -1,6 +1,9 @@
-import { Controller, Get, Param, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { CreateUserPurchase } from 'src/courses/dtos/CreateUserPurchase.dtos';
+import { ValidateCreateUserPurchasePipe } from 'src/courses/pipes/validate-create-user-purchase/validate-create-user-purchase.pipe';
 import { ValidatePassBooleanQueryParamPipe } from 'src/courses/pipes/validate-pass-boolean-query-param/validate-pass-boolean-query-param.pipe';
 import { CoursesService } from 'src/courses/services/courses/courses.service';
+import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
 
 @Controller('courses')
 export class CoursesController {
@@ -27,6 +30,12 @@ async getCourseDetails(@Param('courseId') courseId: number) {
     return this.coursesService.getCourseDetails(courseId);
  // }
 }
+
+@Post('/purchasedCourses')
+  async addPurchasedCourse(@Body(ValidateCreateUserPurchasePipe) createPurchase: CreateUserPurchase) {
+    const { courseId, userId } = createPurchase;
+    return this.coursesService.addPurchasedCourse(courseId, userId);
+  }
 
 //   @Get('/featured')
 //   async getFeaturedCourses() {

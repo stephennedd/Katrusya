@@ -35,6 +35,16 @@ await knex.schema.createTable('course_categories', function (t) {
   t.timestamps();
 });
 
+await knex.schema.createTable('user_courses', function (t) {
+  t.increments();
+  t.integer('user_id').unsigned();
+  t.foreign('user_id').references('id').inTable('users');
+  t.integer('course_id').unsigned();
+  t.foreign('course_id').references('id').inTable('courses');
+  t.unique(['user_id', 'course_id']);
+  t.timestamps();
+});
+
 
     await knex.schema.createTable('sections', function (t) {
         t.increments();

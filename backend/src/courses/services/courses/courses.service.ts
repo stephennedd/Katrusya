@@ -22,6 +22,28 @@ export class CoursesService {
 //   return recommendedCourses;
 //     }
 
+async addPurchasedCourse(courseId: number, userId: number) {
+    const knex = this.dbService.getKnexInstance();
+    try { await knex('user_courses').insert({
+      course_id: courseId,
+      user_id: userId,
+    });
+    return { success: true };
+}catch (err) {
+    // Log the error for debugging purposes    
+    // Check if the error is a unique constraint violation error
+    if (err.sqlState === '23000' && err.code === 'ER_DUP_ENTRY') {
+        const message = `The user with ID ${userId} has already purchased the course with ID ${courseId}`;
+        return { success: false, error: message };
+      } else {
+      return {
+        success: false,
+        error: 'An error occurred while adding the course to the user',
+      };
+    }
+  }
+  }
+
 async getCourseDetails(courseId: number): Promise<any>{
 const knex = this.dbService.getKnexInstance();
 
