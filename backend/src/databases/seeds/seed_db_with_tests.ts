@@ -29,6 +29,9 @@ interface UserResults {
 interface Lesson {
     title: string;
     description: string;
+    duration_in_hours: number;
+    videoUrl: string;
+    image: string;
   }
 
   interface Test {
@@ -58,9 +61,11 @@ interface Lesson {
   interface Section {
     id: number,
     title: string;
+    image:string;
     description: string;
     course_id: number;
     lessons: Lesson[];
+    duration_in_hours: number;
      test: Test;
   }
   
@@ -70,12 +75,13 @@ interface Lesson {
     description: string;
     image: string;
     price: string;
-    duration: string;
     session: string;
     review: string;
     is_favorited: boolean;
     is_recommended: boolean;
     is_featured: boolean;
+    duration_in_hours: number;
+    number_of_lessons: number;
     tags: [string];
   }
 
@@ -104,8 +110,8 @@ export async function seed(knex: Knex): Promise<void> {
     description: courseData.courses[i].description,
     image: courseData.courses[i].image,
     price: courseData.courses[i].price,
-    duration: courseData.courses[i].duration,
-    session: courseData.courses[i].session,
+    number_of_lessons: courseData.courses[i].number_of_lessons,
+    duration_in_hours: courseData.courses[i].duration_in_hours,
     review: courseData.courses[i].review,
     is_favorited: courseData.courses[i].is_favorited,
     is_recommended: courseData.courses[i].is_recommended,
@@ -130,7 +136,9 @@ for(let i = 0; i<courseData.courses.length;i++){
     return await knex("sections").insert({
       title: section.title,
       description: section.description,
+      duration_in_hours: section.duration_in_hours,
       course_id: courseData.courses[i].id,
+      image: section.image
     })
   }))).flat();
 }
@@ -143,6 +151,9 @@ for(let i = 0; i<courseData.courses.length;i++){
       return await knex("lessons").insert({
         title: lesson.title,
         description: lesson.description,
+        duration_in_hours: lesson.duration_in_hours,
+        video_url: lesson.videoUrl,
+        image: lesson.image,
         section_id: section.id,
       })
     }));

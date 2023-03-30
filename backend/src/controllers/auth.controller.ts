@@ -1,7 +1,7 @@
-import { Controller, Get, Post, UseGuards, Request, Body, Query, Patch } from '@nestjs/common';
-import { Header, Headers } from '@nestjs/common/decorators';
+import { Controller,Post, UseGuards, Request, Body, Query, Patch } from '@nestjs/common';
+import { Headers, Put } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from 'src/dto/change-password.dto';
 import { AuthenticationRequest, CreateConfirmEmailDto, CreateUserDto } from 'src/dto/create-user.dto';
 import { ForgotPasswordDto } from 'src/dto/forgot-password.dto';
@@ -48,7 +48,7 @@ export class AuthController {
       return { message: 'Password reset email sent successfully.' };
     }
     
-    @Patch('/changePassword')
+    @Put('/changePassword')
     @UseGuards(AuthGuard('jwt'))
     async changePassword(@Body() changePasswordDto: ChangePasswordDto,@Headers('Authorization') authorization: string){
         const token = authorization.replace('Bearer ', '');

@@ -8,8 +8,8 @@ await knex.schema.createTable('courses', function (t) {
     t.string('description',2000);
     t.string('image',2000);
     t.string('price');
-    t.string('duration');
-    t.string('session');
+    t.integer('number_of_lessons');
+    t.integer('duration_in_hours');
     t.string('review');
     t.boolean('is_favorited');
     t.boolean('is_recommended');
@@ -40,6 +40,8 @@ await knex.schema.createTable('course_categories', function (t) {
         t.increments();
         t.string('title');
         t.string('description');
+        t.string('image');
+        t.integer('duration_in_hours');
         t.integer('course_id').unsigned();
         t.foreign('course_id').references('id').inTable('courses');
         t.timestamps();
@@ -49,6 +51,9 @@ await knex.schema.createTable('course_categories', function (t) {
         t.increments();
         t.string('title');
         t.string('description');
+        t.string('video_url');
+        t.string('image');
+        t.integer('duration_in_hours');
         t.integer('section_id').unsigned();
         t.foreign('section_id').references('id').inTable('sections');
         t.timestamps();
