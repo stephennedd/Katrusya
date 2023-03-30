@@ -53,12 +53,19 @@ class _HomePageState extends State<HomePage> {
                   fontFamily: 'Nexa-Trial'),
             ),
           ]),
-          NotificationBox(
+          IconButton(
+              onPressed: () {
+                // TODO logout
+                print("logout");
+              },
+              icon: Icon(Icons.logout_outlined, color: primaryDark)
+          )
+          /*NotificationBox(
             notifiedNumber: 2,
             onTap: () {
               print("wallet pressed");
             },
-          )
+          )*/
         ],
       ),
     );

@@ -16,7 +16,7 @@ class LessonItem extends StatelessWidget {
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
