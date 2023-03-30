@@ -41,6 +41,7 @@ interface Lesson {
       description: string;
       time_seconds: number;
       section_id: number;
+      course_id: number;
       questions: [Question];
    }
 
@@ -170,6 +171,7 @@ for(let i = 0; i<courseData.courses.length;i++){
       description: section.test.description,
       time_seconds: section.test.time_seconds,
       section_id: section.id,
+      course_id: courseData.courses[i].id
       });
     await Promise.all(section.test.questions.map(async (question) => {
          await knex("questions").insert({

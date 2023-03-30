@@ -28,6 +28,12 @@ async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParamPipe) isRe
 @UsePipes(new ValidationPipe())
 async getCourseDetails(@Param('courseId') courseId: number) {
     return this.coursesService.getCourseDetails(courseId);
+}
+
+@Get(':courseId/quizzes')
+@UsePipes(new ValidationPipe())
+async getCourseQuizzes(@Param('courseId') courseId: number) {
+    return this.coursesService.getCourseQuizzes(courseId);
  // }
 }
 

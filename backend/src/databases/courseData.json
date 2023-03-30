@@ -1575,7 +1575,7 @@
             ],
             "test": {
                 "id":10,
-                "title": "Biology",
+                "title": "Biology 1.0",
                 "image_url": "",
                 "description": "Basic Biology Multiple Choice Questions (MCQ) to practice basic Biology quiz answers",
                 "time_seconds": 900,
@@ -1729,7 +1729,7 @@
             ],
             "test": {
                 "id":11,
-                "title": "Biology",
+                "title": "Biology 2.0",
                 "image_url": "",
                 "description": "Basic Biology Multiple Choice Questions (MCQ) to practice basic Biology quiz answers",
                 "time_seconds": 900,
@@ -1804,54 +1804,6 @@
                             }
                         ],
                         "correct_answer": "B",
-                        "selected_answer":""
-                    },
-                    {
-                        "id": 54,
-                        "question": "A symbiotic relationship in which both species benefit.",
-                        "answers": [
-                            {
-                                "identifier": "A",
-                                "answer": "Mutualism"
-                            },
-                            {
-                                "identifier": "B",
-                                "answer": "Commensialism"
-                            },
-                            {
-                                "identifier": "C",
-                                "answer": "Parasitism"
-                            },
-                            {
-                                "identifier": "D",
-                                "answer": "Predation"
-                            }
-                        ],
-                        "correct_answer": "A",
-                        "selected_answer":""
-                    },
-                    {
-                        "id": 55,
-                        "question": "Which organelle is found in most plants, some bacteria and some protists?",
-                        "answers": [
-                            {
-                                "identifier": "A",
-                                "answer": "ribosomes"
-                            },
-                            {
-                                "identifier": "B",
-                                "answer": "mitochondria"
-                            },
-                            {
-                                "identifier": "C",
-                                "answer": "endoplasmic reticulum"
-                            },
-                            {
-                                "identifier": "D",
-                                "answer": "chloroplasts"
-                            }
-                        ],
-                        "correct_answer": "D",
                         "selected_answer":""
                     }
                 ]

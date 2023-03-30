@@ -44,6 +44,20 @@ async addPurchasedCourse(courseId: number, userId: number) {
   }
   }
 
+  async getCourseQuizzes(courseId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+
+    const result = await knex.select('tests.title as quiz_title')
+    .count('questions.id as number_of_questions')
+    .from('tests')
+    .leftJoin('questions', 'tests.id', 'questions.test_id')
+    .where('tests.course_id', courseId)
+    .groupBy('tests.id')
+    .orderBy('tests.section_id');
+
+    return result;
+  }
+
 async getCourseDetails(courseId: number): Promise<any>{
 const knex = this.dbService.getKnexInstance();
 
