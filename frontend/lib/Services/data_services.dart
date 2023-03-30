@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/models/question_paper_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/quizzes/question_paper_model.dart';
 
 class DataServices {
   // String _baseUsl = 'http://145.2.226.196:3000';

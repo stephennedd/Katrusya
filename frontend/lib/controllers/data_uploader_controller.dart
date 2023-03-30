@@ -5,9 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:frontend/Services/data_services.dart';
 import 'package:frontend/api/my_api.dart';
 import 'package:frontend/models/loading_status_model.dart';
-import 'package:frontend/models/question_paper_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/quizzes/question_paper_model.dart';
 
 class DataUpLoader extends GetxController {
   late QuestionPaperModel questionsData;

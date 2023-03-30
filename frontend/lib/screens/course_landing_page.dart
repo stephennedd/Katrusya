@@ -149,9 +149,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getMilestones() {
     return ListView.builder(
-        itemCount: milestones.length,
+        itemCount: courseController.courseQuizzes.value!.length,
         itemBuilder: (context, index) => MilestoneItem(
-              data: milestones[index],
+              data: courseController.courseQuizzes.value![index],
               onTap: () {
                 print("goto quiz");
               },
@@ -187,7 +187,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     .isFavorited,
                 //widget.course.isFavorited,
                 onTap: () {
-                  debugPrint(courseController.currentCourseId.value.toString());
                   // print(courseController
                   //     .courses
                   //     .value[courseController.currentCourseId.value - 1]

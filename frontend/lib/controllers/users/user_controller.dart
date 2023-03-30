@@ -5,7 +5,7 @@ import 'package:frontend/api/my_api.dart';
 import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
-import 'package:frontend/models/question_paper_model.dart';
+import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/storage/secure_storage.dart';

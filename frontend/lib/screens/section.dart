@@ -218,9 +218,7 @@ class _SectionPageState extends State<SectionPage>
       child: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [
-          getLessons()
-        ],
+        children: [getLessons()],
       ),
     );
   }
@@ -229,29 +227,30 @@ class _SectionPageState extends State<SectionPage>
     return ListView.builder(
         itemCount: widget.data.lessons.length,
         itemBuilder: (context, index) => LessonItem(
-          isPlaying: widget.data.lessons[index].videoUrl == _controller.dataSource,
-          data: widget.data.lessons[index],
-          onTap: () {
-            //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-            // TODO (done) change currently playing video-url to new video
-            setState(() {
-              _isLoading = true;
-              _controller.pause();
-              _controller = VideoPlayerController.network(widget.data.lessons[index].videoUrl);
-              _controller.initialize().then((_) {
-                chewieController = ChewieController(
-                  videoPlayerController: _controller,
-                  autoPlay: false,
-                  looping: false,
-                );
+              isPlaying:
+                  widget.data.lessons[index].videoUrl == _controller.dataSource,
+              data: widget.data.lessons[index],
+              onTap: () {
+                //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+                // Done change currently playing video-url to new video
                 setState(() {
-                  _isLoading = false;
-                  _controller.play();
+                  _isLoading = true;
+                  _controller.pause();
+                  _controller = VideoPlayerController.network(
+                      widget.data.lessons[index].videoUrl);
+                  _controller.initialize().then((_) {
+                    chewieController = ChewieController(
+                      videoPlayerController: _controller,
+                      autoPlay: false,
+                      looping: false,
+                    );
+                    setState(() {
+                      _isLoading = false;
+                      _controller.play();
+                    });
+                  });
                 });
-              });
-            });
-          },
-      )
-    );
+              },
+            ));
   }
 }

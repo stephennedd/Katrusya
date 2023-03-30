@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 5,
             ),
-            // TODO get logged in users username and show here instead of hardcoded name
+            // Done get logged in users username and show here instead of hardcoded name
             Obx(() => Text(
                   usersController.isUserLoggedIn.value
                       ? "Hi ${_getStorage.read("username")}!"
@@ -173,6 +173,8 @@ class _HomePageState extends State<HomePage> {
                   child: RecommendItem(
                     data: courseController.recommendedCourses[index],
                     onTap: () async {
+                      await courseController.getCourseQuizzes(
+                          courseController.recommendedCourses[index].id);
                       await courseController.getCourseDetails(
                           courseController.recommendedCourses[index].id);
                       courseController.currentCourseId.value =
@@ -200,6 +202,8 @@ class _HomePageState extends State<HomePage> {
             (index) => FeaturedItem(
                 data: courseController.featuredCourses[index],
                 onTap: () async {
+                  await courseController.getCourseQuizzes(
+                      courseController.featuredCourses[index].id);
                   await courseController.getCourseDetails(
                       courseController.featuredCourses[index].id);
                   courseController.currentCourseId.value =

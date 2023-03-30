@@ -84,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                       offset: const Offset(0, 0),
                     )
                   ]),
-              // TODO filter results based on search query
+              // Done filter results based on search query
               child: TextField(
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
@@ -164,6 +164,8 @@ class _SearchPageState extends State<SearchPage> {
               });
             },
             onTap: () async {
+              await courseController
+                  .getCourseQuizzes(courseController.courses[index].id);
               await courseController
                   .getCourseDetails(courseController.courses[index].id);
               courseController.currentCourseId.value =

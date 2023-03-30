@@ -23,10 +23,8 @@ class MilestoneItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.3),
                   blurRadius: 1,
                   spreadRadius: 1,
-                  offset: const Offset(1,1)
-              )
-            ]
-        ),
+                  offset: const Offset(1, 1))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,21 +35,24 @@ class MilestoneItem extends StatelessWidget {
               width: 70,
               isShadow: false,
             ),
-            const SizedBox(width: 10,),
+            const SizedBox(
+              width: 10,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data["name"],
+                    data.title,
                     style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: primary
-                    ),
+                        color: primary),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       SvgPicture.asset(
@@ -60,21 +61,25 @@ class MilestoneItem extends StatelessWidget {
                         height: 15,
                         color: Colors.white,
                       ),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       Text(
-                        data["questions"].toString(),
+                        "${data.numberOfQuestions} questions",
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 13,
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                       ),
                     ],
                   )
                 ],
               ),
             ),
-            const Icon(Icons.play_arrow_rounded, color: primary,)
+            const Icon(
+              Icons.play_arrow_rounded,
+              color: primary,
+            )
           ],
         ),
       ),

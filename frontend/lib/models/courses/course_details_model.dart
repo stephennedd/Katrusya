@@ -1,7 +1,10 @@
+import '../quizzes/quiz_model.dart';
+
 class CourseDetailsModel {
   String courseName;
   String courseDescription;
   List<Section> sections;
+  //List<Quiz> quizzes;
   int numberOfLessons;
   int courseDurationInHours;
   bool? isFavorited;
@@ -13,9 +16,17 @@ class CourseDetailsModel {
     required this.sections,
     required this.numberOfLessons,
     required this.courseDurationInHours,
+    //required this.quizzes
   });
 
   factory CourseDetailsModel.fromJson(Map<String, dynamic> json) {
+    // List<dynamic> quizzesJson = json['quizzes'];
+    // List<Quiz> quizzes = quizzesJson.map((quizzJson) {
+    //  return Quiz(
+    //    title: quizzJson['quiz_title'],
+    //    numberOfQuestions: quizzJson['number_of_questions'],
+    //  );
+    // }).toList();
     List<dynamic> sectionsJson = json['sections'];
     List<Section> sections = sectionsJson.map((sectionJson) {
       List<dynamic> lessonsJson = sectionJson['lessons'];
@@ -41,6 +52,7 @@ class CourseDetailsModel {
       sections: sections,
       numberOfLessons: json['number_of_lessons'],
       courseDurationInHours: json['course_duration_in_hours'],
+      //  quizzes: quizzes
     );
   }
 
@@ -68,6 +80,18 @@ class Section {
   @override
   String toString() {
     return 'Section{title: $title, image: $image, lessons: $lessons, numberOfLessons: $numberOfLessons, sectionDurationInHours: $sectionDurationInHours}';
+  }
+}
+
+class Quiz {
+  String title;
+  int numberOfQuestions;
+
+  Quiz({required this.title, required this.numberOfQuestions});
+
+  @override
+  String toString() {
+    return 'Quiz{title: $title, numberOfQuestions: $numberOfQuestions';
   }
 }
 

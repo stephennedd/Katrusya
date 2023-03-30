@@ -5,7 +5,8 @@ import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
-import 'package:frontend/models/question_paper_model.dart';
+import 'package:frontend/models/quizzes/question_paper_model.dart';
+import 'package:frontend/models/quizzes/quiz_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -143,6 +144,29 @@ class CallApi {
       if (response.statusCode == 200) {
         dynamic decoded = await json.decode(response.body);
         return CourseDetailsModel.fromJson(decoded);
+      } else {
+        print("Something went wrong");
+        throw Error();
+      }
+    } catch (e) {
+      print(e);
+      throw Error();
+    }
+  }
+
+  getCourseQuizzes(int courseId) async {
+    String apiUrl = "/courses/${courseId}/quizzes";
+
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    try {
+      if (response.statusCode == 200) {
+        dynamic decoded = await json.decode(response.body);
+        List<dynamic> quizzesJson = decoded as List<dynamic>;
+        RxList<QuizModel> quizzes = RxList<QuizModel>.from(
+            quizzesJson.map((quizJson) => QuizModel.fromJson(quizJson)));
+        return quizzes;
       } else {
         print("Something went wrong");
         throw Error();

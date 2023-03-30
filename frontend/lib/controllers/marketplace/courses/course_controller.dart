@@ -3,16 +3,18 @@ import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
-import 'package:frontend/models/question_paper_model.dart';
+import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../models/courses/purchase_model.dart';
+import '../../../models/quizzes/quiz_model.dart';
 
 class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
   RxList<CourseModel> featuredCourses = RxList<CourseModel>([]);
+  RxList<QuizModel> courseQuizzes = RxList<QuizModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
   final currentCourseId = 0.obs;
 
@@ -35,6 +37,14 @@ class CourseController extends GetxController {
     recommendedCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return recommendedCourses;
+  }
+
+  Future<List<QuizModel>> getCourseQuizzes(int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<QuizModel> data = await CallApi().getCourseQuizzes(courseId);
+    courseQuizzes.value = data;
+    loadingStatus.value = LoadingStatus.completed;
+    return courseQuizzes;
   }
 
   Future<RxList<CourseModel>> getCourses(
