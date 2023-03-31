@@ -49,7 +49,7 @@ class DataUpLoader extends GetxController {
   Future<QuestionPaperModel> getTestsBasedOnSectionId(sectionId) async {
     loadingStatus.value = LoadingStatus.loading;
     QuestionPaperModel test =
-        await CallApi().getTestBasedOnSectionId("/sections/${sectionId}/test");
+        await CallApi().getTestBasedOnSectionId(sectionId);
     questionsData = test;
     loadingStatus.value = LoadingStatus.completed;
     return test;

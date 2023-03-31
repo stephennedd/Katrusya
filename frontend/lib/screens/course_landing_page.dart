@@ -12,13 +12,11 @@ import 'package:frontend/widgets/custom_image.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_model.dart';
-import '../utils/data.dart';
 import 'login.dart';
 
 class CourseLandingPage extends StatefulWidget {
@@ -34,7 +32,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseModel courseData;
-  late final bool isPurchased;
 
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
@@ -89,9 +86,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(left: 15, right: 15), child:
-          getInfo()
-          ),
+              padding: EdgeInsets.only(left: 15, right: 15), child: getInfo()),
           const SizedBox(
             height: 10,
           ),

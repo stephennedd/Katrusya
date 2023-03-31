@@ -20,6 +20,7 @@ class TestScreen extends GetView<QuestionsController> {
 
   @override
   Widget build(BuildContext context) {
+    QuestionsController questionsController = Get.put(QuestionsController());
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: CustomAppBar(

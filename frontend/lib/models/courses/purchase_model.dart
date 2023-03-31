@@ -1,5 +1,5 @@
 class PurchaseModel {
-  int userId;
+  int? userId;
   int courseId;
 
   PurchaseModel({

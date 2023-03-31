@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: provider.themeData,
           title: 'Katrusya App',
-          initialRoute: RootApp.routeName,
+          initialRoute: StartPage.routeName,
           //RootApp.routeName,
           home: const RootApp(),
           routes: {

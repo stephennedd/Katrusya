@@ -31,11 +31,19 @@ async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParamPipe) isRe
 //  // }
 // }
 
+
 @Get(':courseId/details')
 @UsePipes(new ValidationPipe())
 async getCourseDetails(@Param('courseId') courseId: number) {
     return this.coursesService.getCourseDetails(courseId);
 }
+
+// @Get(':courseId')
+// @UsePipes(new ValidationPipe())
+// async getCourseTestPerSection(@Param('courseId') courseId: number,
+// @Query('section_id') sectionId: number) {
+//     return this.coursesService.getTestBasedOnCourseIdAndSectionId(courseId,sectionId);
+// }
 
 @Get(':courseId/quizzes')
 @UsePipes(new ValidationPipe())
