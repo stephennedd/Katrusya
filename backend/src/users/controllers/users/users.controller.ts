@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dtos';
 import { CreateUserResultsDto } from 'src/users/dtos/CreateUserResults.dtos';
@@ -21,11 +21,18 @@ export class UsersController {
       return this.usersService.getUserResults(userId,testId);
     }
 
-    @Get(':id')
-    async getUser(@Param('id') id: number) {
-      return this.usersService.getUser(id);
+    @Get(':userId/isCoursePurchased')
+    async isUserPurchasedTheCourse(@Param('userId') userId: number,
+    @Query('course_id') courseId: number
+    ) {
+      return this.usersService.isUserPurchasedTheCourse(userId,courseId);
     }
-  
+
+    @Get(':id')
+    async getUser(@Param('id') userId: number) {
+      this.usersService.getUser(userId);
+    }
+
     @Post('')
     @UsePipes(new ValidationPipe())
     async createUser(

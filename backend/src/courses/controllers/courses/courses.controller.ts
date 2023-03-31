@@ -24,6 +24,13 @@ async getCourses(@Query('is_recommended',ValidatePassBooleanQueryParamPipe) isRe
  // }
 }
 
+// @Get('/:courseId/isPurchased')
+// @UsePipes(new ValidationPipe())
+// async isCoursePurchasedByUser(@Param('courseId') courseId: number) {
+//     return this.coursesService.getCourses({category:category, is_recommended:isRecommended, is_featured:isFeatured,search:search});
+//  // }
+// }
+
 @Get(':courseId/details')
 @UsePipes(new ValidationPipe())
 async getCourseDetails(@Param('courseId') courseId: number) {

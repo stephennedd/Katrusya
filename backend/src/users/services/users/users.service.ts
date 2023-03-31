@@ -57,6 +57,19 @@ export class UsersService {
   const rowsAffected = await knex('user_results').where({ id: result_id }).delete();
   return rowsAffected;
   }
+
+  async isUserPurchasedTheCourse(user_id: number, course_id): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    const purchase = await knex('user_courses')
+    .select()
+    .where({
+      user_id: user_id,
+      course_id: course_id
+    })
+    .first();
+    
+  return !!purchase;
+  }
   
 
 }
