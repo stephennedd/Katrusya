@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/homescreens/Featured.dart';
 import 'package:frontend/utils/data.dart';
@@ -9,6 +10,7 @@ import 'package:frontend/widgets/course_item.dart';
 import 'package:frontend/widgets/searchcategory_item.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key, this.onTap}) : super(key: key);
@@ -21,6 +23,10 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   CategoryController categoryController = Get.put(CategoryController());
   CourseController courseController = Get.put(CourseController());
+
+  UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,6 +170,13 @@ class _SearchPageState extends State<SearchPage> {
               });
             },
             onTap: () async {
+              bool isTheCoursePurchased =
+                  await usersController.hasUserPurchasedTheCourse(
+                      _getStorage.read("userId"),
+                      courseController.courses[index].id);
+              courseController.isCurrentCoursePurchased.value =
+                  isTheCoursePurchased;
+
               await courseController
                   .getCourseQuizzes(courseController.courses[index].id);
               await courseController

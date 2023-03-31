@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
+import 'package:frontend/models/courses/purchase_model.dart';
 import 'package:frontend/screens/section.dart';
 import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
@@ -12,6 +13,7 @@ import 'package:frontend/widgets/milestone_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 
 import '../controllers/marketplace/courses/course_controller.dart';
@@ -36,19 +38,20 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 2, vsync: this);
-    isPurchased = true;
-    // TODO check if course is already purchased complete the code below
+    // isPurchased = usersController.hasUserPurchasedTheCourse(
+    //     _getStorage.read("userId"), courseController.currentCourseId.value);
+    // Done check if course is already purchased complete the code below
     //isPurchased == check from database if course is in list of courses. but maybe we can figure out a better more safe solution to enabling courses later.
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
@@ -59,8 +62,12 @@ class _CourseLandingPageState extends State<CourseLandingPage>
         },
       ),
       body: buildBody(),
-      bottomNavigationBar: isPurchased?  null : getBottomBar(),
       backgroundColor: appBarColor,
+      bottomNavigationBar: Obx(
+        () => courseController.isCurrentCoursePurchased.value
+            ? SizedBox.shrink()
+            : getBottomBar(),
+      ),
     );
   }
 
@@ -82,8 +89,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 15, right: 15),
-            child: getInfo()),
+              padding: EdgeInsets.only(left: 15, right: 15), child: getInfo()),
           const SizedBox(
             height: 10,
           ),
@@ -310,7 +316,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   }
 
   Widget getBottomBar() {
-    // TODO should only show if user does not already own course
+    // Done: should only show if user does not already own course
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       width: double.infinity,
@@ -364,12 +370,14 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               textColor: primaryDark,
               onPressed: () async {
                 if (await SecureStorage.getAccessToken() != null) {
-                  // TODO add to the logged-in users list of courses
-
+                  // Done add to the logged-in users list of courses
+                  courseController.buyCourse(new PurchaseModel(
+                      userId: _getStorage.read("userId"),
+                      courseId: courseController.currentCourseId.value));
+                  courseController.isCurrentCoursePurchased.value = true;
                 } else {
                   Navigator.pushNamed(context, LoginPage.routeName);
                 }
-
               },
             ),
           )

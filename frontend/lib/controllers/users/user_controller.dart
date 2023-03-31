@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/api/my_api.dart';
@@ -24,8 +25,9 @@ class UsersController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    isUserLoggedIn =
-        await SecureStorage.getAccessToken() != null ? true.obs : false.obs;
+    isUserLoggedIn.value =
+        await SecureStorage.getAccessToken() != null ? true : false;
+    print(isUserLoggedIn);
   }
 
   Future<http.Response> registerUser(UserModel user) async {
@@ -43,5 +45,14 @@ class UsersController extends GetxController {
     // var responseBody = response.body;
     // var decodedBody = json.decode(responseBody);
     // print(decodedBody);
+  }
+
+  Future<bool> hasUserPurchasedTheCourse(int userId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    var response = await CallApi().hasUserPurchasedTheCourse(userId, courseId);
+    loadingStatus.value = LoadingStatus.completed;
+    var responseBody = response.body;
+    var hasCoursePurchased = json.decode(responseBody);
+    return hasCoursePurchased;
   }
 }

@@ -19,12 +19,11 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   static const String routeName = "/homepage";
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   CourseController courseController = Get.put(CourseController());
   CategoryController categoryController = Get.put(CategoryController());
   UsersController usersController = Get.put(UsersController());
@@ -175,8 +174,16 @@ class _HomePageState extends State<HomePage>{
                   child: RecommendItem(
                     data: courseController.recommendedCourses[index],
                     onTap: () async {
+                      bool isTheCoursePurchased =
+                          await usersController.hasUserPurchasedTheCourse(
+                              _getStorage.read("userId"),
+                              courseController.recommendedCourses[index].id);
+                      courseController.isCurrentCoursePurchased.value =
+                          isTheCoursePurchased;
+
                       await courseController.getCourseQuizzes(
                           courseController.recommendedCourses[index].id);
+
                       await courseController.getCourseDetails(
                           courseController.recommendedCourses[index].id);
                       courseController.currentCourseId.value =
@@ -204,6 +211,13 @@ class _HomePageState extends State<HomePage>{
             (index) => FeaturedItem(
                 data: courseController.featuredCourses[index],
                 onTap: () async {
+                  bool isTheCoursePurchased =
+                      await usersController.hasUserPurchasedTheCourse(
+                          _getStorage.read("userId"),
+                          courseController.featuredCourses[index].id);
+                  courseController.isCurrentCoursePurchased.value =
+                      isTheCoursePurchased;
+
                   await courseController.getCourseQuizzes(
                       courseController.featuredCourses[index].id);
                   await courseController.getCourseDetails(

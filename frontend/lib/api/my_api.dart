@@ -17,10 +17,10 @@ import '../models/users/user_model.dart';
 
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
-   final String ip = "192.168.178.151";
+  // final String ip = "192.168.178.151";
 
-  //final String _baseUrl = 'http://localhost:3000';
-  final String _baseUrl = 'http://192.168.178.151:3000';
+  final String _baseUrl = 'http://localhost:3000';
+  //final String _baseUrl = 'http://192.168.178.151:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -97,7 +97,7 @@ class CallApi {
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: ip,
+      host: 'localhost',
       port: 3000,
       path: '/courses',
       queryParameters: {
@@ -266,5 +266,12 @@ class CallApi {
       print(e);
       throw Error();
     }
+  }
+
+  hasUserPurchasedTheCourse(int userId, int courseId) async {
+    String apiUrl = "/users/$userId/isCoursePurchased?course_id=$courseId";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+    return response;
   }
 }

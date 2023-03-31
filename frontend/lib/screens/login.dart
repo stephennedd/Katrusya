@@ -205,10 +205,11 @@ class _LoginPageState extends State<LoginPage> {
               color: primaryDark,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) => SignupPage(),
-                )
-                );
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignupPage(),
+                    ));
               },
             ),
             const SizedBox(
@@ -248,8 +249,8 @@ class _LoginPageState extends State<LoginPage> {
                         "username", loggedInUser["data"]["username"]);
 
                     usersController.isUserLoggedIn.value = true;
-                    Navigator.pop(context);
-                    //Navigator.pushNamed(context, RootApp.routeName);
+                    //Navigator.pop(context);
+                    Navigator.pushNamed(context, RootApp.routeName);
                   } else {
                     // unsuccessful login, display error message
                     var responseBody = json.decode(response.body);
