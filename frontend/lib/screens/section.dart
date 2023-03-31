@@ -273,40 +273,46 @@ class _SectionPageState extends State<SectionPage>
     final items = <dynamic>[];
     items.addAll(widget.data.lessons);
 
-    // TODO get all quizes for this course.id and add them below
-    items.add(
-      QuizModel(
-      numberOfQuestions: 10,
-      title: "Quiz 1",
-      )
-    );items.add(
-      QuizModel(
-      numberOfQuestions: 10,
-      title: "Quiz 1",
-      )
-    );items.add(
-      QuizModel(
-      numberOfQuestions: 10,
-      title: "Quiz 1",
-      )
-    );items.add(
-      QuizModel(
-      numberOfQuestions: 10,
-      title: "Quiz 1",
-      )
-    );items.add(
-      QuizModel(
-      numberOfQuestions: 10,
-      title: "Quiz 1",
-      )
-    );
+    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+
+    // Done: get all quizes for this course.id and add them below
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 2",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 3",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
 
     return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
 
-        if (item is QuizModel) {
+          if (item is QuizModel) {
             return QuizItem(
               data: item,
               onTap: () {
@@ -315,44 +321,41 @@ class _SectionPageState extends State<SectionPage>
                 print(item.title);
               },
             );
-        }
+          }
 
-        if (item is Lesson) {
-          return LessonItem(
-            isPlaying:
-            item.videoUrl == _controller.dataSource,
-            data: item,
-            //data: widget.data.lessons[index],
-            onTap: () {
-              //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-              // Done change currently playing video-url to new
-              if(courseController.isCurrentCoursePurchased.value) {
-                setState(() {
-                  _isLoading = true;
-                  _controller.pause();
-                  _controller = VideoPlayerController.network(
-                      item.videoUrl);
-                  _controller.initialize().then((_) {
-                    chewieController = ChewieController(
-                      videoPlayerController: _controller,
-                      autoPlay: false,
-                      looping: false,
-                    );
-                    setState(() {
-                      _isLoading = false;
-                      _controller.play();
+          if (item is Lesson) {
+            return LessonItem(
+              isPlaying: item.videoUrl == _controller.dataSource,
+              data: item,
+              //data: widget.data.lessons[index],
+              onTap: () {
+                //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+                // Done change currently playing video-url to new
+                if (courseController.isCurrentCoursePurchased.value) {
+                  setState(() {
+                    _isLoading = true;
+                    _controller.pause();
+                    _controller = VideoPlayerController.network(item.videoUrl);
+                    _controller.initialize().then((_) {
+                      chewieController = ChewieController(
+                        videoPlayerController: _controller,
+                        autoPlay: false,
+                        looping: false,
+                      );
+                      setState(() {
+                        _isLoading = false;
+                        _controller.play();
+                      });
                     });
                   });
-                });
-              } else {
-                showAlertDialog(context,  "No Access", "Please purchase the course to access this content");
-              }
-            },
-          );
-        }
-
-      }
-    );
+                } else {
+                  showAlertDialog(context, "No Access",
+                      "Please purchase the course to access this content");
+                }
+              },
+            );
+          }
+        });
   }
 
   void showAlertDialog(BuildContext context, String title, String message) {

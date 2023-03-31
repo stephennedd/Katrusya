@@ -15,6 +15,7 @@ class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
   RxList<CourseModel> featuredCourses = RxList<CourseModel>([]);
   RxList<QuizModel> courseQuizzes = RxList<QuizModel>([]);
+  RxList<QuizModel> sectionQuizzes = RxList<QuizModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
   final currentCourseId = 0.obs;
   final isCurrentCoursePurchased = false.obs;
@@ -46,6 +47,18 @@ class CourseController extends GetxController {
     courseQuizzes.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return courseQuizzes;
+  }
+
+  RxList<QuizModel> getSectionQuizzes(int sectionId) {
+    loadingStatus.value = LoadingStatus.loading;
+    sectionQuizzes.value = [];
+    for (int i = 0; i < courseQuizzes.value.length; i++) {
+      if (courseQuizzes.value[i].sectionId == sectionId) {
+        sectionQuizzes.value.add(courseQuizzes.value[i]);
+      }
+    }
+    loadingStatus.value = LoadingStatus.completed;
+    return sectionQuizzes;
   }
 
   Future<RxList<CourseModel>> getCourses(

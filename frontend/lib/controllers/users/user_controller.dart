@@ -26,7 +26,6 @@ class UsersController extends GetxController {
     super.onReady();
     isUserLoggedIn.value =
         await SecureStorage.getAccessToken() != null ? true : false;
-    print(isUserLoggedIn);
   }
 
   Future<http.Response> registerUser(UserModel user) async {

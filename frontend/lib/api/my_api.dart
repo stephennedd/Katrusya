@@ -167,6 +167,7 @@ class CallApi {
         List<dynamic> quizzesJson = decoded as List<dynamic>;
         RxList<QuizModel> quizzes = RxList<QuizModel>.from(
             quizzesJson.map((quizJson) => QuizModel.fromJson(quizJson)));
+        print(quizzes);
         return quizzes;
       } else {
         print("Something went wrong");

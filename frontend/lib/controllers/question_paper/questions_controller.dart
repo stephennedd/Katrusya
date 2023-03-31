@@ -34,8 +34,6 @@ class QuestionsController extends GetxController {
     allQuestions = questionPaperModel.questions!;
     currentQuestion.value = questionPaperModel.questions![0];
     _startTimer(questionPaperModel.timeSeconds);
-    print(questionPaperModel.title);
-    print(questionPaperModel);
     loadingStatus.value = LoadingStatus.completed;
     super.onReady();
   }

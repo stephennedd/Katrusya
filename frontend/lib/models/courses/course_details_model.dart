@@ -38,6 +38,7 @@ class CourseDetailsModel {
             image: lessonJson['image']);
       }).toList();
       return Section(
+        sectionId: sectionJson['id'],
         title: sectionJson['title'],
         image: sectionJson['image'],
         lessons: lessons,
@@ -63,6 +64,7 @@ class CourseDetailsModel {
 }
 
 class Section {
+  int sectionId;
   String title;
   String image;
   List<Lesson> lessons;
@@ -70,6 +72,7 @@ class Section {
   int sectionDurationInHours;
 
   Section({
+    required this.sectionId,
     required this.title,
     required this.image,
     required this.lessons,
@@ -79,7 +82,7 @@ class Section {
 
   @override
   String toString() {
-    return 'Section{title: $title, image: $image, lessons: $lessons, numberOfLessons: $numberOfLessons, sectionDurationInHours: $sectionDurationInHours}';
+    return 'Section{id: $sectionId, title: $title, image: $image, lessons: $lessons, numberOfLessons: $numberOfLessons, sectionDurationInHours: $sectionDurationInHours}';
   }
 }
 

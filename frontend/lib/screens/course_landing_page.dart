@@ -154,9 +154,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SectionPage(
-                      data: courseController
-                          .currentCourseDetails.value!.sections[index],
-                    )));
+                          data: courseController
+                              .currentCourseDetails.value!.sections[index],
+                        )));
               },
             ));
   }
@@ -201,10 +201,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     .isFavorited,
                 //widget.course.isFavorited,
                 onTap: () {
-                  print(courseController
-                      .courses
-                      .value[courseController.currentCourseId.value - 1]
-                      .isFavorited);
                   setState(() {
                     courseController
                             .courses
@@ -215,10 +211,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                             .value[courseController.currentCourseId.value - 1]
                             .isFavorited;
                   });
-                  print(courseController
-                      .courses
-                      .value[courseController.currentCourseId.value - 1]
-                      .isFavorited);
                 },
               ),
             ],
@@ -381,6 +373,4 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       ),
     );
   }
-
-
 }
