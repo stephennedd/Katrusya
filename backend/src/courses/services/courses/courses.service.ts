@@ -55,7 +55,8 @@ async addPurchasedCourse(courseId: number, userId: number) {
   async getCourseQuizzes(courseId: number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
 
-    const result = await knex.select('tests.title as quiz_title')
+    const result = await knex.select('tests.title as quiz_title','tests.section_id as section_id',
+    'tests.image_url as image_url','tests.course_id')
     .count('questions.id as number_of_questions')
     .from('tests')
     .leftJoin('questions', 'tests.id', 'questions.test_id')
