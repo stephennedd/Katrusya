@@ -222,7 +222,6 @@ class _SectionPageState extends State<SectionPage>
       height: 360,
       width: double.infinity,
       child: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
           //getLessons(),
@@ -276,10 +275,31 @@ class _SectionPageState extends State<SectionPage>
 
     // TODO get all quizes for this course.id and add them below
     items.add(
-        QuizModel(
-        numberOfQuestions: 10,
-        title: "Quiz 1",
-    ));
+      QuizModel(
+      numberOfQuestions: 10,
+      title: "Quiz 1",
+      )
+    );items.add(
+      QuizModel(
+      numberOfQuestions: 10,
+      title: "Quiz 1",
+      )
+    );items.add(
+      QuizModel(
+      numberOfQuestions: 10,
+      title: "Quiz 1",
+      )
+    );items.add(
+      QuizModel(
+      numberOfQuestions: 10,
+      title: "Quiz 1",
+      )
+    );items.add(
+      QuizModel(
+      numberOfQuestions: 10,
+      title: "Quiz 1",
+      )
+    );
 
     return ListView.builder(
       itemCount: items.length,
