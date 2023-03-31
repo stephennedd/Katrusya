@@ -54,6 +54,15 @@ class CourseController extends GetxController {
     RxList<CourseModel> data = await CallApi().getCourses(
         new CourseQueryParamsModel(category: category, search: search));
     courses.value = data;
+    // if (category == null && search == null) {
+    //   for (int i = 0; i < courses.value.length; i++) {
+    //     if (courses.value[i].isRecommended) {
+    //       recommendedCourses.value.add(courses.value[i]);
+    //     } else if (courses.value[i].isFeatured) {
+    //       featuredCourses.value.add(courses.value[i]);
+    //     }
+    //   }
+    // }
     loadingStatus.value = LoadingStatus.completed;
     return courses;
   }
