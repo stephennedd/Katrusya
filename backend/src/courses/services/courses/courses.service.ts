@@ -9,6 +9,14 @@ interface QueryParams{
     search?:string
 }
 
+interface Test{
+    id: number,
+    title: string,
+    image_url?: string,
+    description: string,
+    time_seconds: number
+}
+
 @Injectable()
 export class CoursesService {
     
@@ -78,12 +86,21 @@ const result = await knex("courses as c")
   .where("c.id", courseId)
   .orderBy("s.id", "l.id");
 
+  const courseQuizzes = await knex.select('tests.title as quiz_title')
+    .count('questions.id as number_of_questions')
+    .from('tests')
+    .leftJoin('questions', 'tests.id', 'questions.test_id')
+    .where('tests.course_id', courseId)
+    .groupBy('tests.id')
+    .orderBy('tests.section_id');
+
 const course = {
   course_name: result[0].course_name,
   course_description: result[0].course_description,
   sections: [],
   number_of_lessons: 0,
-  course_duration_in_hours: 0
+  course_duration_in_hours: 0,
+  quizzes: courseQuizzes
 };
 
 let currentSection = {id:0,title: "",  image: "", lessons: [], number_of_lessons: 0, section_duration_in_hours: 0};
@@ -119,14 +136,6 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
     return recommendedCourses;
   }
  
-    // async getFeauturedCourses(): Promise<any>{
-    //     const knex = this.dbService.getKnexInstance();
-    //     const featuredCourses = await knex('courses')
-    //   .where({ is_featured: true })
-    //   .select('*');
-    //   return featuredCourses;
-    //     }
-
     async getCourses(queryParams: QueryParams): Promise<any>{
         const knex = this.dbService.getKnexInstance();
       
