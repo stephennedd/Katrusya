@@ -4,8 +4,11 @@ import 'package:frontend/models/quizzes/quiz_model.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_details_model.dart';
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
@@ -23,10 +26,10 @@ class _SectionPageState extends State<SectionPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = true;
   bool _isPlaying = false;
-  bool _isFullScreen = false;
   late VideoPlayerController _controller;
   late TabController _tabController;
   late ChewieController chewieController;
+  CourseController courseController = Get.put(CourseController());
 
   @override
   void initState() {
@@ -283,7 +286,6 @@ class _SectionPageState extends State<SectionPage>
       itemBuilder: (context, index) {
         final item = items[index];
 
-        // TODO check what kind of item it is and add it below
         if (item is QuizModel) {
             return QuizItem(
               data: item,
@@ -303,24 +305,28 @@ class _SectionPageState extends State<SectionPage>
             //data: widget.data.lessons[index],
             onTap: () {
               //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-              // Done change currently playing video-url to new video
-              setState(() {
-                _isLoading = true;
-                _controller.pause();
-                _controller = VideoPlayerController.network(
-                    item.videoUrl);
-                _controller.initialize().then((_) {
-                  chewieController = ChewieController(
-                    videoPlayerController: _controller,
-                    autoPlay: false,
-                    looping: false,
-                  );
-                  setState(() {
-                    _isLoading = false;
-                    _controller.play();
+              // Done change currently playing video-url to new
+              if(courseController.isCurrentCoursePurchased.value) {
+                setState(() {
+                  _isLoading = true;
+                  _controller.pause();
+                  _controller = VideoPlayerController.network(
+                      item.videoUrl);
+                  _controller.initialize().then((_) {
+                    chewieController = ChewieController(
+                      videoPlayerController: _controller,
+                      autoPlay: false,
+                      looping: false,
+                    );
+                    setState(() {
+                      _isLoading = false;
+                      _controller.play();
+                    });
                   });
                 });
-              });
+              } else {
+                showAlertDialog(context,  "No Access", "Please purchase the course to access this content");
+              }
             },
           );
         }
@@ -329,10 +335,23 @@ class _SectionPageState extends State<SectionPage>
     );
   }
 
-  Widget getQuiz() {
-    return QuizItem(
-      // get data from backend api call and place in {data}
-      data: { "title" : "test quiz", "numberOfQuestions" : "1"}
+  void showAlertDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
