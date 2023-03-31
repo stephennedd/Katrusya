@@ -288,7 +288,7 @@ class _SectionPageState extends State<SectionPage>
             return QuizItem(
               data: item,
               onTap: () {
-                // navigate to quiz page.
+                // TODO properly navigate to quiz page.
                 Navigator.pushNamed(context, TestScreen.routeName);
                 print(item.title);
               },
