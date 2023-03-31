@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: provider.themeData,
           title: 'Katrusya App',
-          initialRoute: RootApp.routeName,
+          initialRoute: StartPage.routeName,
           //RootApp.routeName,
           home: const RootApp(),
           routes: {
@@ -83,7 +83,8 @@ class MyApp extends StatelessWidget {
             StartPage.routeName: (context) => const StartPage(),
             SignupPage.routeName: (context) => const SignupPage(),
             ForgotPage.routeName: (context) => const ForgotPage(),
-            SectionPage.routeName: (context) => SectionPage()
+            SectionPage.routeName: (context) => SectionPage(),
+            TestScreen.routeName: (context) => const TestScreen()
           },
         );
       }),

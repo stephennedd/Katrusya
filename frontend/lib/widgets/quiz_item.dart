@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
-class MilestoneItem extends StatelessWidget {
-  MilestoneItem({Key? key, this.onTap, required this.data}) : super(key: key);
+class QuizItem extends StatelessWidget {
+  QuizItem({Key? key, this.onTap, required this.data}) : super(key: key);
   final data;
   GestureTapCallback? onTap;
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/section_progress.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
@@ -43,13 +44,13 @@ class SectionItem extends StatelessWidget {
                 children: [
                   Text(
                     data.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: textColor),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   const SizedBox(
@@ -62,12 +63,12 @@ class SectionItem extends StatelessWidget {
                         size: 14,
                         color: labelColor,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         "${data.numberOfLessons} lessons",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 13,
                             color: labelColor),
@@ -77,9 +78,8 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
-              color: labelColor,
+            MyCircularProgressIndicator(
+             value: 0.6,
             )
           ],
         ),

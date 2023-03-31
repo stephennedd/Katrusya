@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/models/quizzes/quiz_model.dart';
+import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/widgets/lesson_item.dart';
+import 'package:frontend/widgets/quiz_item.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import '../models/courses/course_details_model.dart';
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
 
@@ -116,9 +120,6 @@ class _SectionPageState extends State<SectionPage>
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: getInfo(),
             ),
-            const SizedBox(
-              height: 1,
-            ),
             const Divider(),
             getTabBar(),
             getTabBarPages(),
@@ -193,6 +194,7 @@ class _SectionPageState extends State<SectionPage>
   Widget getTabBar() {
     return Container(
       child: TabBar(
+        indicatorWeight: 0.1,
         indicatorColor: primaryDark,
         controller: _tabController,
         tabs: const [
@@ -219,39 +221,118 @@ class _SectionPageState extends State<SectionPage>
       child: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [getLessons()],
+        children: [
+          //getLessons(),
+          getSectionItems()
+        ],
       ),
     );
   }
 
-  Widget getLessons() {
+  // Widget getLessons() {
+  //   //final items = <dynamic>[];
+  //   //items.addAll(widget.data.lessons);
+  //   //items.addAll(widget.data.tests);
+  //
+  //   return ListView.builder(
+  //       itemCount: widget.data.lessons.length,
+  //       itemBuilder: (context, index) =>
+  //           LessonItem(
+  //             isPlaying:
+  //                 widget.data.lessons[index].videoUrl == _controller.dataSource,
+  //             data: widget.data.lessons[index],
+  //             onTap: () {
+  //               //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+  //               // Done change currently playing video-url to new video
+  //               setState(() {
+  //                 _isLoading = true;
+  //                 _controller.pause();
+  //                 _controller = VideoPlayerController.network(
+  //                     widget.data.lessons[index].videoUrl);
+  //                 _controller.initialize().then((_) {
+  //                   chewieController = ChewieController(
+  //                     videoPlayerController: _controller,
+  //                     autoPlay: false,
+  //                     looping: false,
+  //                   );
+  //                   setState(() {
+  //                     _isLoading = false;
+  //                     _controller.play();
+  //                   });
+  //                 });
+  //               });
+  //             },
+  //           ),
+  //   );
+  // }
+
+  // return a list of all lessons and quiz items that a section has in the form of a list of widgets
+  Widget getSectionItems() {
+    final items = <dynamic>[];
+    items.addAll(widget.data.lessons);
+
+    // TODO get all quizes for this course.id and add them below
+    items.add(
+        QuizModel(
+        numberOfQuestions: 10,
+        title: "Quiz 1",
+    ));
+
     return ListView.builder(
-        itemCount: widget.data.lessons.length,
-        itemBuilder: (context, index) => LessonItem(
-              isPlaying:
-                  widget.data.lessons[index].videoUrl == _controller.dataSource,
-              data: widget.data.lessons[index],
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+
+        // TODO check what kind of item it is and add it below
+        if (item is QuizModel) {
+            return QuizItem(
+              data: item,
               onTap: () {
-                //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-                // Done change currently playing video-url to new video
-                setState(() {
-                  _isLoading = true;
-                  _controller.pause();
-                  _controller = VideoPlayerController.network(
-                      widget.data.lessons[index].videoUrl);
-                  _controller.initialize().then((_) {
-                    chewieController = ChewieController(
-                      videoPlayerController: _controller,
-                      autoPlay: false,
-                      looping: false,
-                    );
-                    setState(() {
-                      _isLoading = false;
-                      _controller.play();
-                    });
+                // TODO properly navigate to quiz page.
+                Navigator.pushNamed(context, TestScreen.routeName);
+                print(item.title);
+              },
+            );
+        }
+
+        if (item is Lesson) {
+          return LessonItem(
+            isPlaying:
+            item.videoUrl == _controller.dataSource,
+            data: item,
+            //data: widget.data.lessons[index],
+            onTap: () {
+              //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+              // Done change currently playing video-url to new video
+              setState(() {
+                _isLoading = true;
+                _controller.pause();
+                _controller = VideoPlayerController.network(
+                    item.videoUrl);
+                _controller.initialize().then((_) {
+                  chewieController = ChewieController(
+                    videoPlayerController: _controller,
+                    autoPlay: false,
+                    looping: false,
+                  );
+                  setState(() {
+                    _isLoading = false;
+                    _controller.play();
                   });
                 });
-              },
-            ));
+              });
+            },
+          );
+        }
+
+      }
+    );
+  }
+
+  Widget getQuiz() {
+    return QuizItem(
+      // get data from backend api call and place in {data}
+      data: { "title" : "test quiz", "numberOfQuestions" : "1"}
+    );
   }
 }
