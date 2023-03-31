@@ -9,7 +9,7 @@ import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/custom_image.dart';
-import 'package:frontend/widgets/milestone_item.dart';
+import 'package:frontend/widgets/quiz_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -89,7 +89,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(left: 15, right: 15), child: getInfo()),
+              padding: EdgeInsets.only(left: 15, right: 15), child:
+          getInfo()
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -168,7 +170,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   Widget getMilestones() {
     return ListView.builder(
         itemCount: courseController.courseQuizzes.value!.length,
-        itemBuilder: (context, index) => MilestoneItem(
+        itemBuilder: (context, index) => QuizItem(
               data: courseController.courseQuizzes.value![index],
               onTap: () {
                 print("goto quiz");
@@ -205,24 +207,24 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     .isFavorited,
                 //widget.course.isFavorited,
                 onTap: () {
-                  // print(courseController
-                  //     .courses
-                  //     .value[courseController.currentCourseId.value - 1]
-                  //     .isFavorited);
-                  // setState(() {
-                  //   courseController
-                  //           .courses
-                  //           .value[courseController.currentCourseId.value - 1]
-                  //           .isFavorited =
-                  //       !courseController
-                  //           .courses
-                  //           .value[courseController.currentCourseId.value - 1]
-                  //           .isFavorited;
-                  // });
-                  // print(courseController
-                  //     .courses
-                  //     .value[courseController.currentCourseId.value - 1]
-                  //     .isFavorited);
+                  print(courseController
+                      .courses
+                      .value[courseController.currentCourseId.value - 1]
+                      .isFavorited);
+                  setState(() {
+                    courseController
+                            .courses
+                            .value[courseController.currentCourseId.value - 1]
+                            .isFavorited =
+                        !courseController
+                            .courses
+                            .value[courseController.currentCourseId.value - 1]
+                            .isFavorited;
+                  });
+                  print(courseController
+                      .courses
+                      .value[courseController.currentCourseId.value - 1]
+                      .isFavorited);
                 },
               ),
             ],

@@ -48,7 +48,7 @@ class CategoryItem extends StatelessWidget {
                   color: isSelected ? primary : primaryDark,
                   fontSize: 14,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w400),
             ),
           ],
         ),

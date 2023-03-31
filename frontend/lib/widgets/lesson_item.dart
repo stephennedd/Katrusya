@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/lesson_progress.dart';
 
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false}) : super(key: key);
+  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1}) : super(key: key);
   GestureTapCallback? onTap;
   final data;
   bool isPlaying;
+  double progressValue;
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +94,19 @@ class LessonItem extends StatelessWidget {
                             color: labelColor),
                       ),
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  MyLinearProgressIndicator(
+                    value: progressValue,
+                  ),
                 ],
               ),
             ),
             Icon(
               Icons.play_arrow_rounded,
-              color: isPlaying ? primary : primaryDark,
+              color: isPlaying ? accent : primaryDark,
               size: 30,
             )
           ],
