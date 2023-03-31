@@ -157,12 +157,11 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               data:
                   courseController.currentCourseDetails.value!.sections[index],
               onTap: () {
-                // navigate to new page
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SectionPage(
-                          data: courseController
-                              .currentCourseDetails.value!.sections[index],
-                        )));
+                      data: courseController
+                          .currentCourseDetails.value!.sections[index],
+                    )));
               },
             ));
   }
@@ -373,7 +372,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               onPressed: () async {
                 if (await SecureStorage.getAccessToken() != null) {
                   // Done add to the logged-in users list of courses
-                  courseController.buyCourse(new PurchaseModel(
+                  courseController.buyCourse(PurchaseModel(
                       userId: _getStorage.read("userId"),
                       courseId: courseController.currentCourseId.value));
                   courseController.isCurrentCoursePurchased.value = true;
@@ -387,4 +386,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       ),
     );
   }
+
+
 }
