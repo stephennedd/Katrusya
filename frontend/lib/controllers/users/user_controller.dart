@@ -10,22 +10,31 @@ import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/storage/secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/courses/favorite_course_model.dart';
 import '../../models/users/login_model.dart';
 
 class UsersController extends GetxController {
   List<CategoryModel> categories = <CategoryModel>[];
 
+  RxList<FavoriteCourseModel> userFavoriteCourses =
+      RxList<FavoriteCourseModel>([]);
+
   RxBool isUserLoggedIn = false.obs;
 
   final loadingStatus = LoadingStatus.loading.obs;
+  final GetStorage _getStorage = GetStorage();
 
   @override
   void onReady() async {
     super.onReady();
     isUserLoggedIn.value =
         await SecureStorage.getAccessToken() != null ? true : false;
+    if (isUserLoggedIn.value) {
+      getUserFavoriteCourses(_getStorage.read('userId'));
+    }
   }
 
   Future<http.Response> registerUser(UserModel user) async {
@@ -52,5 +61,43 @@ class UsersController extends GetxController {
     var responseBody = response.body;
     var hasCoursePurchased = json.decode(responseBody);
     return hasCoursePurchased;
+  }
+
+  Future<List<FavoriteCourseModel>> getUserFavoriteCourses(int userId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<FavoriteCourseModel> favoriteCourses =
+        await CallApi().getUserFavoriteCourses(userId);
+    userFavoriteCourses.value = favoriteCourses;
+    return userFavoriteCourses;
+  }
+
+  Future<List<FavoriteCourseModel>> addCourseToUserFavorites(
+      int userId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<FavoriteCourseModel> updatedfavoriteCourses =
+        await CallApi().addCourseToUserFavorites(userId, courseId);
+    userFavoriteCourses.value = updatedfavoriteCourses;
+    loadingStatus.value = LoadingStatus.completed;
+    return userFavoriteCourses;
+  }
+
+  Future<List<FavoriteCourseModel>> deleteCourseFromUserFavorites(
+      int userId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<FavoriteCourseModel> updatedfavoriteCourses =
+        await CallApi().deleteCourseFromUserFavorites(userId, courseId);
+    userFavoriteCourses.value = updatedfavoriteCourses;
+    loadingStatus.value = LoadingStatus.completed;
+    return userFavoriteCourses;
+  }
+
+  bool isCourseFavoriteForTheUser(courseId) {
+    bool isCourseFavorite = false;
+    for (int i = 0; i < userFavoriteCourses.value.length; i++) {
+      if (userFavoriteCourses.value[i].courseId == courseId) {
+        isCourseFavorite = true;
+      }
+    }
+    return isCourseFavorite;
   }
 }

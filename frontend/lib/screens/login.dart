@@ -243,12 +243,15 @@ class _LoginPageState extends State<LoginPage> {
                     _getStorage.write("userId", loggedInUser["data"]["id"]);
                     await SecureStorage.setAccessToken(
                         loggedInUser["data"]["accessToken"]);
+                    // print(loggedInUser["data"]["accessToken"]);
 
                     var token = await SecureStorage.getAccessToken();
                     _getStorage.write(
                         "username", loggedInUser["data"]["username"]);
 
                     usersController.isUserLoggedIn.value = true;
+                    usersController
+                        .getUserFavoriteCourses(loggedInUser["data"]["id"]);
                     //Navigator.pop(context);
                     Navigator.pushNamed(context, RootApp.routeName);
                   } else {

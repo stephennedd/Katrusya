@@ -14,6 +14,7 @@ import '../../../models/quizzes/quiz_model.dart';
 class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
   RxList<CourseModel> featuredCourses = RxList<CourseModel>([]);
+  RxList<CourseModel> searchedCourses = RxList<CourseModel>([]);
   RxList<QuizModel> courseQuizzes = RxList<QuizModel>([]);
   RxList<QuizModel> sectionQuizzes = RxList<QuizModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
@@ -28,7 +29,8 @@ class CourseController extends GetxController {
   void onReady() async {
     getRecommendedCourses(null);
     getFeaturedCourses(null);
-    getCourses(null, null);
+    getCourses();
+    getSearchedCourses("All", null);
     //  super.onReady();
   }
 
@@ -61,11 +63,10 @@ class CourseController extends GetxController {
     return sectionQuizzes;
   }
 
-  Future<RxList<CourseModel>> getCourses(
-      String? category, String? search) async {
+  Future<RxList<CourseModel>> getCourses() async {
     loadingStatus.value = LoadingStatus.loading;
-    RxList<CourseModel> data = await CallApi().getCourses(
-        new CourseQueryParamsModel(category: category, search: search));
+    RxList<CourseModel> data = await CallApi()
+        .getCourses(new CourseQueryParamsModel(category: null, search: null));
     courses.value = data;
     // if (category == null && search == null) {
     //   for (int i = 0; i < courses.value.length; i++) {
@@ -110,5 +111,15 @@ class CourseController extends GetxController {
     featuredCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return featuredCourses;
+  }
+
+  Future<List<CourseModel>> getSearchedCourses(
+      String? category, String? search) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<CourseModel> data = await CallApi().getCourses(
+        new CourseQueryParamsModel(category: category, search: search));
+    searchedCourses.value = data;
+    loadingStatus.value = LoadingStatus.completed;
+    return courses;
   }
 }

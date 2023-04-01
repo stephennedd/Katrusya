@@ -185,7 +185,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             children: [
               Text(
                 // Done: get course name from database
-                //widget.course.name,
                 courseController.currentCourseDetails.value!.courseName,
                 style: const TextStyle(
                     fontFamily: 'Poppins',
@@ -193,26 +192,26 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     fontWeight: FontWeight.w600,
                     color: textColor),
               ),
-              BookmarkBox(
-                // TODO get from database
-                isFavorited: courseController
-                    .courses
-                    .value[courseController.currentCourseId.value - 1]
-                    .isFavorited,
-                //widget.course.isFavorited,
-                onTap: () {
-                  setState(() {
-                    courseController
-                            .courses
-                            .value[courseController.currentCourseId.value - 1]
-                            .isFavorited =
-                        !courseController
-                            .courses
-                            .value[courseController.currentCourseId.value - 1]
-                            .isFavorited;
-                  });
-                },
-              ),
+              Obx(() => BookmarkBox(
+                    // Done: get from database
+                    isFavorited: usersController.isCourseFavoriteForTheUser(
+                        courseController.currentCourseId.value),
+                    onTap: () {
+                      if (usersController.isUserLoggedIn.value &&
+                          !usersController.isCourseFavoriteForTheUser(
+                              courseController.currentCourseId.value)) {
+                        usersController.addCourseToUserFavorites(
+                            _getStorage.read('userId'),
+                            courseController.currentCourseId.value);
+                      } else if (usersController.isUserLoggedIn.value &&
+                          usersController.isCourseFavoriteForTheUser(
+                              courseController.currentCourseId.value)) {
+                        usersController.deleteCourseFromUserFavorites(
+                            _getStorage.read('userId'),
+                            courseController.currentCourseId.value);
+                      }
+                    },
+                  )),
             ],
           ),
           const SizedBox(

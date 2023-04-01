@@ -5,6 +5,7 @@ import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
+import 'package:frontend/models/courses/favorite_course_model.dart';
 import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:frontend/models/quizzes/quiz_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -167,7 +168,6 @@ class CallApi {
         List<dynamic> quizzesJson = decoded as List<dynamic>;
         RxList<QuizModel> quizzes = RxList<QuizModel>.from(
             quizzesJson.map((quizJson) => QuizModel.fromJson(quizJson)));
-        print(quizzes);
         return quizzes;
       } else {
         print("Something went wrong");
@@ -266,6 +266,63 @@ class CallApi {
       }
     } catch (e) {
       print(e);
+      throw Error();
+    }
+  }
+
+  getUserFavoriteCourses(int userId) async {
+    String apiUrl = "/users/${userId}/favoriteCourses";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> favoriteCoursesJson = decoded as List<dynamic>;
+      RxList<FavoriteCourseModel> favoriteCourses =
+          RxList<FavoriteCourseModel>.from(favoriteCoursesJson.map(
+              (favoriteCourseJson) =>
+                  FavoriteCourseModel.fromJson(favoriteCourseJson)));
+      return favoriteCourses;
+    } else {
+      print("Something went wrong");
+      throw Error();
+    }
+  }
+
+  addCourseToUserFavorites(int userId, int courseId) async {
+    FavoriteCourseModel favoriteCourse =
+        new FavoriteCourseModel(courseId: courseId);
+    String apiUrl = "/users/${userId}/favoriteCourses";
+    http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
+        body: jsonEncode(favoriteCourse), headers: _setHeaders());
+    if (response.statusCode == 201) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> favoriteCoursesJson = decoded as List<dynamic>;
+      RxList<FavoriteCourseModel> favoriteCourses =
+          RxList<FavoriteCourseModel>.from(favoriteCoursesJson.map(
+              (favoriteCourseJson) =>
+                  FavoriteCourseModel.fromJson(favoriteCourseJson)));
+      return favoriteCourses;
+    } else {
+      print("Something went wrong");
+      throw Error();
+    }
+  }
+
+  deleteCourseFromUserFavorites(int userId, int courseId) async {
+    String apiUrl = "/users/${userId}/favoriteCourses/${courseId}";
+    http.Response response =
+        await http.delete(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> favoriteCoursesJson = decoded as List<dynamic>;
+      RxList<FavoriteCourseModel> favoriteCourses =
+          RxList<FavoriteCourseModel>.from(favoriteCoursesJson.map(
+              (favoriteCourseJson) =>
+                  FavoriteCourseModel.fromJson(favoriteCourseJson)));
+      return favoriteCourses;
+    } else {
+      print("Something went wrong");
       throw Error();
     }
   }

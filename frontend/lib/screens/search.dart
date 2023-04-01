@@ -46,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
           SliverToBoxAdapter(
             child: getCategories(),
           ),
-          Obx(() => SliverList(delegate: getCourses())),
+          Obx(() => SliverList(delegate: getSearchedCourses())),
         ],
       ),
     );
@@ -102,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
                         fontWeight: FontWeight.w400,
                         fontSize: 15)),
                 onSubmitted: (value) {
-                  courseController.getCourses(null, value);
+                  courseController.getSearchedCourses(null, value);
                   searchFieldFocusNode.requestFocus();
                 },
                 focusNode: searchFieldFocusNode,
@@ -146,7 +146,7 @@ class _SearchPageState extends State<SearchPage> {
                     data: categoryController.categories[index],
                     isSelected: selectedItemIndex == index,
                     onTap: () {
-                      courseController.getCourses(
+                      courseController.getSearchedCourses(
                           categoryController.categories[index].name, null);
                       setState(() {
                         selectedItemIndex = index;
@@ -156,36 +156,46 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  getCourses() {
+  getSearchedCourses() {
     return SliverChildBuilderDelegate(
-        childCount: courseController.courses.value.length, (context, index) {
+        childCount: courseController.searchedCourses.value.length,
+        (context, index) {
       return Padding(
           padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
           child: CourseItem(
-            data: courseController.courses.value[index],
+            data: courseController.searchedCourses.value[index],
             onFavorite: () {
-              setState(() {
-                courseController.courses.value[index].isFavorited =
-                    !courseController.courses.value[index].isFavorited;
-              });
+              if (usersController.isUserLoggedIn.value &&
+                  !usersController.isCourseFavoriteForTheUser(
+                      courseController.searchedCourses.value[index].id)) {
+                usersController.addCourseToUserFavorites(
+                    _getStorage.read('userId'),
+                    courseController.searchedCourses.value[index].id);
+              } else if (usersController.isUserLoggedIn.value &&
+                  usersController.isCourseFavoriteForTheUser(
+                      courseController.searchedCourses.value[index].id)) {
+                usersController.deleteCourseFromUserFavorites(
+                    _getStorage.read('userId'),
+                    courseController.searchedCourses.value[index].id);
+              }
             },
             onTap: () async {
               bool isTheCoursePurchased =
                   await usersController.hasUserPurchasedTheCourse(
                       _getStorage.read("userId"),
-                      courseController.courses[index].id);
+                      courseController.searchedCourses[index].id);
               courseController.isCurrentCoursePurchased.value =
                   isTheCoursePurchased;
 
               await courseController
-                  .getCourseQuizzes(courseController.courses[index].id);
+                  .getCourseQuizzes(courseController.searchedCourses[index].id);
               await courseController
-                  .getCourseDetails(courseController.courses[index].id);
+                  .getCourseDetails(courseController.searchedCourses[index].id);
               courseController.currentCourseId.value =
-                  courseController.courses[index].id;
+                  courseController.searchedCourses[index].id;
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CourseLandingPage(
-                        course: courseController.courses.value[index],
+                        course: courseController.searchedCourses.value[index],
                       )));
             },
           ));

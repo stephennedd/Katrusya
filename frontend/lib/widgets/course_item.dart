@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -16,6 +17,7 @@ class CourseItem extends StatelessWidget {
   GestureTapCallback? onTap;
 
   CourseController courseController = Get.put(CourseController());
+  UsersController usersController = Get.put(UsersController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +55,12 @@ class CourseItem extends StatelessWidget {
             Positioned(
               top: 180,
               right: 15,
-              child: BookmarkBox(
-                onTap: onFavorite,
-                isFavorited:
-                    //courseController.courses.value[data.id - 1].isFavorited
-                    data.isFavorited,
-              ),
+              child: Obx(() => BookmarkBox(
+                    onTap: onFavorite,
+                    isFavorited:
+                        //courseController.courses.value[data.id - 1].isFavorited
+                        usersController.isCourseFavoriteForTheUser(data.id),
+                  )),
             ),
             Positioned(
                 top: 215,

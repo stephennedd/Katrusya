@@ -77,6 +77,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () async {
                 await SecureStorage.deleteAccessToken();
+                _getStorage.erase();
                 usersController.isUserLoggedIn.value = false;
                 Navigator.pushNamed(context, StartPage.routeName);
               },
