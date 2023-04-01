@@ -70,6 +70,45 @@ export class UsersService {
     
   return !!purchase;
   }
+
+  async getUserFavoriteCourses(userId:number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    const result = await knex('user_favorite_courses')
+    .where({ user_id: userId })
+    .select('course_id')
+
+    return result;
+  }
+
+  async addUserFavoriteCourse(userId: number, courseId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    
+    await knex('user_favorite_courses').insert({
+      user_id: userId, // the ID of the user who is adding the favorite course
+      course_id: courseId // the ID of the course that the user is adding to their favorites
+    });
+
+    const updatedUserFavoritedCourses = await knex('user_favorite_courses')
+    .where({ user_id: userId })
+    .select('course_id')
+  return updatedUserFavoritedCourses;
+    return updatedUserFavoritedCourses;
+  }
+
+  async deleteUserFavoriteCourse(userId: number, courseId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    
+    await knex('user_favorite_courses')
+  .where({
+    user_id: userId,
+    course_id: courseId
+  })
+  .del();
+  const updatedUserFavoritedCourses = await knex('user_favorite_courses')
+    .where({ user_id: userId })
+    .select('course_id')
+  return updatedUserFavoritedCourses;
+  }
   
 
 }
