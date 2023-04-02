@@ -78,6 +78,7 @@ await knex.schema.createTable('user_courses', function (t) {
   t.foreign('user_id').references('id').inTable('users');
   t.integer('course_id').unsigned();
   t.foreign('course_id').references('id').inTable('courses');
+  t.boolean('is_complete').defaultTo(false);
   t.unique(['user_id', 'course_id']);
   t.timestamps();
 });

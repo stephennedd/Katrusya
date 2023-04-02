@@ -80,6 +80,24 @@ export class UsersService {
     return result;
   }
 
+  async getUserCourses(userId:number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    const courses = await (await knex.select('courses.id as course_id', 'courses.number_of_lessons as number_of_lessons', 'courses.name as course_name', 'courses.image as course_image',
+    'user_courses.is_complete as is_complete')
+      .from('courses')
+      .join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+      .where('user_courses.user_id', '=', userId)
+      .orderBy('user_courses.id', 'asc'))
+  .map((course) => {
+    return {
+      ...course,
+      is_complete: course.is_complete ? true : false,
+    };
+  });
+
+    return courses;
+  }
+
   async addUserFavoriteCourse(userId: number, courseId: number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
     

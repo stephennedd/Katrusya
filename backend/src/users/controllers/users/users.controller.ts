@@ -23,6 +23,11 @@ export class UsersController {
     return this.usersService.getUserFavoriteCourses(userId);
   }
 
+  @Get(':userId/courses')
+  async getUserCourses(@Param('userId') userId: number) {
+    return this.usersService.getUserCourses(userId);
+  }
+
     @Get(':userId/tests/:testId/results')
     async getUserResults(@Param('userId') userId: number, @Param('testId') testId: number) {
       return this.usersService.getUserResults(userId,testId);
@@ -64,6 +69,7 @@ export class UsersController {
   ) {
     return await this.usersService.addUserFavoriteCourse(userId, addFavoriteCourseDto.course_id);
   }
+  
 
   @Delete(':userId/favoriteCourses/:courseId')
 async removeFavoriteCourse(
