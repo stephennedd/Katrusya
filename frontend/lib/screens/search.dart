@@ -154,25 +154,24 @@ class _SearchPageState extends State<SearchPage> {
 
   getSearchedCourses() {
     return SliverChildBuilderDelegate(
-        childCount: courseController.searchedCourses.value.length,
-        (context, index) {
+        childCount: courseController.searchedCourses.length, (context, index) {
       return Padding(
           padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
           child: CourseItem(
-            data: courseController.searchedCourses.value[index],
+            data: courseController.searchedCourses[index],
             onFavorite: () {
               if (usersController.isUserLoggedIn.value &&
                   !usersController.isCourseFavoriteForTheUser(
-                      courseController.searchedCourses.value[index].id)) {
+                      courseController.searchedCourses[index].id)) {
                 usersController.addCourseToUserFavorites(
                     _getStorage.read('userId'),
-                    courseController.searchedCourses.value[index].id);
+                    courseController.searchedCourses[index].id);
               } else if (usersController.isUserLoggedIn.value &&
                   usersController.isCourseFavoriteForTheUser(
-                      courseController.searchedCourses.value[index].id)) {
+                      courseController.searchedCourses[index].id)) {
                 usersController.deleteCourseFromUserFavorites(
                     _getStorage.read('userId'),
-                    courseController.searchedCourses.value[index].id);
+                    courseController.searchedCourses[index].id);
               }
             },
             onTap: () async {

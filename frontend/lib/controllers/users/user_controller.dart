@@ -15,17 +15,22 @@ import 'package:http/http.dart' as http;
 
 import '../../models/courses/favorite_course_model.dart';
 import '../../models/users/login_model.dart';
+import '../marketplace/courses/course_controller.dart';
 
 class UsersController extends GetxController {
   List<CategoryModel> categories = <CategoryModel>[];
 
-  RxList<FavoriteCourseModel> userFavoriteCourses =
-      RxList<FavoriteCourseModel>([]);
+  // RxList<FavoriteCourseModel> userFavoriteCourses =
+  //   RxList<FavoriteCourseModel>([]);
+
+  RxList<CourseModel> userFavoriteCourses = RxList<CourseModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
 
   final loadingStatus = LoadingStatus.loading.obs;
   final GetStorage _getStorage = GetStorage();
+
+  CourseController courseController = Get.put(CourseController());
 
   @override
   void onReady() async {
@@ -63,38 +68,79 @@ class UsersController extends GetxController {
     return hasCoursePurchased;
   }
 
-  Future<List<FavoriteCourseModel>> getUserFavoriteCourses(int userId) async {
+  Future<List<CourseModel>> getUserFavoriteCourses(int userId) async {
     loadingStatus.value = LoadingStatus.loading;
+
     RxList<FavoriteCourseModel> favoriteCourses =
         await CallApi().getUserFavoriteCourses(userId);
-    userFavoriteCourses.value = favoriteCourses;
+
+    print(favoriteCourses);
+
+    addUserFavoriteCoursesDetails(favoriteCourses);
+    print(userFavoriteCourses);
     return userFavoriteCourses;
   }
 
-  Future<List<FavoriteCourseModel>> addCourseToUserFavorites(
+  Future<List<CourseModel>> addUserFavoriteCoursesDetails(
+      List<FavoriteCourseModel> favoriteCourses) async {
+    for (int i = 0; i < favoriteCourses.length; i++) {
+      CourseModel course = courseController.courses
+          .firstWhere((course) => course.id == favoriteCourses[i].courseId);
+      userFavoriteCourses.add(course);
+    }
+    print("HEy");
+    print(userFavoriteCourses);
+    return userFavoriteCourses;
+  }
+
+  Future<RxList<CourseModel>> addUserFavoriteCourseDetails(
+      FavoriteCourseModel favoriteCourse) async {
+    CourseModel course = courseController.courses
+        .firstWhere((course) => course.id == favoriteCourse.courseId);
+    userFavoriteCourses.add(course);
+
+    return userFavoriteCourses;
+  }
+
+  Future<RxList<CourseModel>> removeUserFavoriteCourseDetails(
+      FavoriteCourseModel favoriteCourse) async {
+    print("Liza");
+    print(favoriteCourse);
+    CourseModel course = courseController.courses
+        .firstWhere((course) => course.id == favoriteCourse.courseId);
+    print("Course:");
+    print(course);
+    userFavoriteCourses
+        .removeWhere((course) => course.id == favoriteCourse.courseId);
+    print("User favorite courses:");
+    print(userFavoriteCourses);
+    return userFavoriteCourses;
+  }
+
+  Future<List<CourseModel>> addCourseToUserFavorites(
       int userId, int courseId) async {
     loadingStatus.value = LoadingStatus.loading;
-    RxList<FavoriteCourseModel> updatedfavoriteCourses =
+    FavoriteCourseModel addedfavoriteCourse =
         await CallApi().addCourseToUserFavorites(userId, courseId);
-    userFavoriteCourses.value = updatedfavoriteCourses;
+    addUserFavoriteCourseDetails(addedfavoriteCourse);
     loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
   }
 
-  Future<List<FavoriteCourseModel>> deleteCourseFromUserFavorites(
+  Future<List<CourseModel>> deleteCourseFromUserFavorites(
       int userId, int courseId) async {
     loadingStatus.value = LoadingStatus.loading;
-    RxList<FavoriteCourseModel> updatedfavoriteCourses =
+    FavoriteCourseModel deletedFavoriteCourse =
         await CallApi().deleteCourseFromUserFavorites(userId, courseId);
-    userFavoriteCourses.value = updatedfavoriteCourses;
+    removeUserFavoriteCourseDetails(deletedFavoriteCourse);
     loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
   }
 
   bool isCourseFavoriteForTheUser(courseId) {
     bool isCourseFavorite = false;
-    for (int i = 0; i < userFavoriteCourses.value.length; i++) {
-      if (userFavoriteCourses.value[i].courseId == courseId) {
+    for (int i = 0; i < userFavoriteCourses.length; i++) {
+      if (userFavoriteCourses[i].id == courseId) {
         isCourseFavorite = true;
       }
     }

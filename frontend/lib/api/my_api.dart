@@ -297,12 +297,10 @@ class CallApi {
         body: jsonEncode(favoriteCourse), headers: _setHeaders());
     if (response.statusCode == 201) {
       dynamic decoded = await json.decode(response.body);
-      List<dynamic> favoriteCoursesJson = decoded as List<dynamic>;
-      RxList<FavoriteCourseModel> favoriteCourses =
-          RxList<FavoriteCourseModel>.from(favoriteCoursesJson.map(
-              (favoriteCourseJson) =>
-                  FavoriteCourseModel.fromJson(favoriteCourseJson)));
-      return favoriteCourses;
+      FavoriteCourseModel addedFavoriteCourse =
+          FavoriteCourseModel.fromJson(decoded);
+      print(addedFavoriteCourse);
+      return addedFavoriteCourse;
     } else {
       print("Something went wrong");
       throw Error();
@@ -315,12 +313,10 @@ class CallApi {
         await http.delete(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     if (response.statusCode == 200) {
       dynamic decoded = await json.decode(response.body);
-      List<dynamic> favoriteCoursesJson = decoded as List<dynamic>;
-      RxList<FavoriteCourseModel> favoriteCourses =
-          RxList<FavoriteCourseModel>.from(favoriteCoursesJson.map(
-              (favoriteCourseJson) =>
-                  FavoriteCourseModel.fromJson(favoriteCourseJson)));
-      return favoriteCourses;
+      FavoriteCourseModel deletedFavoriteCourse =
+          FavoriteCourseModel.fromJson(decoded);
+      print(deletedFavoriteCourse);
+      return deletedFavoriteCourse;
     } else {
       print("Something went wrong");
       throw Error();
