@@ -47,9 +47,6 @@ class _LoginPageState extends State<LoginPage> {
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: appBarColor,
-      leading: const BackButton(
-        color: textColor,
-      ),
       centerTitle: true,
       title: const Text(
         "Katrusya",
@@ -253,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                     usersController
                         .getUserFavoriteCourses(loggedInUser["data"]["id"]);
                     //Navigator.pop(context);
-                    Navigator.pushNamed(context, RootApp.routeName);
+                    Navigator.pushReplacementNamed(context, RootApp.routeName);
                   } else {
                     // unsuccessful login, display error message
                     var responseBody = json.decode(response.body);

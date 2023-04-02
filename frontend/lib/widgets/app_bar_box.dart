@@ -7,13 +7,17 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
     this.backgroundColor = appBarColor,
     this.hasAction = false,
     this.icon,
-    this.onTap
+    this.onTap,
+    this.hasBackButton = true,
+    this.centerTitle = true
   }) : super(key: key);
   final String title;
   Color backgroundColor;
   bool hasAction;
   final icon;
   GestureTapCallback? onTap;
+  bool centerTitle;
+  bool hasBackButton;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +25,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: backgroundColor,
-      leading: const BackButton(
+      leading: hasBackButton? BackButton(
         color: textColor,
-      ),
-      centerTitle: true,
+      ) : null,
+      centerTitle: centerTitle,
       title: Text(
         title,
         style: const TextStyle(
             fontFamily: 'Nexa-Trial',
-            fontSize: 26,
+            fontSize: 24,
             color: textColor,
             fontWeight: FontWeight.w700
         ),),

@@ -44,9 +44,6 @@ class _SignupPageState extends State<SignupPage> {
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: appBarColor,
-      leading: const BackButton(
-        color: textColor,
-      ),
       centerTitle: true,
       title: const Text(
         "Katrusya",
@@ -202,6 +199,17 @@ class _SignupPageState extends State<SignupPage> {
                     }
                   }
                 }),
+            const SizedBox(
+              height: 10,
+            ),
+            ButtonSimple(
+              text: "already have an account",
+              color: appBarColor,
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) => LoginPage()));
+              },
+            )
           ],
         ),
       ),

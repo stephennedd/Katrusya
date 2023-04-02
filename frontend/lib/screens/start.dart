@@ -35,7 +35,7 @@ class _StartPageState extends State<StartPage> {
                 color: primary,
                 textColor: primaryDark,
                 onPressed: () {
-                  Navigator.pushNamed(context, SignupPage.routeName);
+                  Navigator.pushReplacementNamed(context, SignupPage.routeName);
                 },
               ),
 
@@ -48,7 +48,7 @@ class _StartPageState extends State<StartPage> {
                 text: "already have an account",
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.pushNamed(context, LoginPage.routeName);
+                  Navigator.pushReplacementNamed(context, LoginPage.routeName);
                 },
               ),
             ],

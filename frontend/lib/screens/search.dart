@@ -9,6 +9,7 @@ import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/course_item.dart';
 import 'package:frontend/widgets/searchcategory_item.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
+import 'package:frontend/widgets/sliver_app_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -30,16 +31,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBarColor,
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            backgroundColor: appBarColor,
-            pinned: true,
-            elevation: 0.5,
-            title: getAppBar(),
-            automaticallyImplyLeading: false,
-          ),
+          SliverAppBarBox(
+            title: "Search",
+            centerTitle: false),
           SliverToBoxAdapter(
             child: getSearchBox(),
           ),

@@ -8,6 +8,7 @@ import 'package:frontend/screens/homescreens/Featured.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/landingPage.dart';
 import 'package:frontend/screens/login.dart';
+import 'package:frontend/screens/my_courses.dart';
 import 'package:frontend/screens/pokemons/screens/favoriteScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonDetailScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonsHomeScreen.dart';
@@ -84,7 +85,8 @@ class MyApp extends StatelessWidget {
             SignupPage.routeName: (context) => const SignupPage(),
             ForgotPage.routeName: (context) => const ForgotPage(),
             SectionPage.routeName: (context) => SectionPage(),
-            TestScreen.routeName: (context) => const TestScreen()
+            TestScreen.routeName: (context) => const TestScreen(),
+            MyCoursesPage.routeName: (context) => const MyCoursesPage()
           },
         );
       }),

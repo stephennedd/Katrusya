@@ -48,6 +48,13 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(

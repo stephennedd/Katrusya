@@ -52,7 +52,7 @@ class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
             height: 5,
             child: LinearProgressIndicator(
               value: _animation.value,
-              backgroundColor: Colors.grey[200],
+              backgroundColor: Colors.grey[300],
               valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           ),
