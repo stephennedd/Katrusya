@@ -14,6 +14,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/courses/favorite_course_model.dart';
+import '../../models/courses/my_course_model.dart';
 import '../../models/users/login_model.dart';
 import '../marketplace/courses/course_controller.dart';
 
@@ -24,6 +25,7 @@ class UsersController extends GetxController {
   //   RxList<FavoriteCourseModel>([]);
 
   RxList<CourseModel> userFavoriteCourses = RxList<CourseModel>([]);
+  RxList<MyCourseModel> userCourses = RxList<MyCourseModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
 
@@ -39,6 +41,7 @@ class UsersController extends GetxController {
         await SecureStorage.getAccessToken() != null ? true : false;
     if (isUserLoggedIn.value) {
       getUserFavoriteCourses(_getStorage.read('userId'));
+      getUserCourses(_getStorage.read('userId'));
     }
   }
 
@@ -74,11 +77,14 @@ class UsersController extends GetxController {
     RxList<FavoriteCourseModel> favoriteCourses =
         await CallApi().getUserFavoriteCourses(userId);
 
-    print(favoriteCourses);
-
     addUserFavoriteCoursesDetails(favoriteCourses);
-    print(userFavoriteCourses);
     return userFavoriteCourses;
+  }
+
+  Future<List<MyCourseModel>> getUserCourses(int userId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    userCourses.value = await CallApi().getUserCourses(userId);
+    return userCourses;
   }
 
   Future<List<CourseModel>> addUserFavoriteCoursesDetails(
@@ -88,8 +94,6 @@ class UsersController extends GetxController {
           .firstWhere((course) => course.id == favoriteCourses[i].courseId);
       userFavoriteCourses.add(course);
     }
-    print("HEy");
-    print(userFavoriteCourses);
     return userFavoriteCourses;
   }
 
@@ -104,16 +108,10 @@ class UsersController extends GetxController {
 
   Future<RxList<CourseModel>> removeUserFavoriteCourseDetails(
       FavoriteCourseModel favoriteCourse) async {
-    print("Liza");
-    print(favoriteCourse);
     CourseModel course = courseController.courses
         .firstWhere((course) => course.id == favoriteCourse.courseId);
-    print("Course:");
-    print(course);
     userFavoriteCourses
         .removeWhere((course) => course.id == favoriteCourse.courseId);
-    print("User favorite courses:");
-    print(userFavoriteCourses);
     return userFavoriteCourses;
   }
 
@@ -145,5 +143,25 @@ class UsersController extends GetxController {
       }
     }
     return isCourseFavorite;
+  }
+
+  int getNumberOfCompleteByUserCourses() {
+    int numberOfCompleteCourses = 0;
+    for (int i = 0; i < userCourses.length; i++) {
+      if (userCourses[i].isComplete) {
+        numberOfCompleteCourses++;
+      }
+    }
+    return numberOfCompleteCourses;
+  }
+
+  int getNumberOfIncompleteByUserCourses() {
+    int numberOfIncompleteCourses = 0;
+    for (int i = 0; i < userCourses.length; i++) {
+      if (!userCourses[i].isComplete) {
+        numberOfIncompleteCourses++;
+      }
+    }
+    return numberOfIncompleteCourses;
   }
 }

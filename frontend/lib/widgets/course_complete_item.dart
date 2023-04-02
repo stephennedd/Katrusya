@@ -4,7 +4,9 @@ import 'custom_image.dart';
 import 'lesson_progress.dart';
 
 class CourseCompleteItem extends StatelessWidget {
-  CourseCompleteItem({Key? key, this.onTap, this.progressValue = 0.4, required this.data}) : super(key: key);
+  CourseCompleteItem(
+      {Key? key, this.onTap, this.progressValue = 0.4, required this.data})
+      : super(key: key);
   GestureTapCallback? onTap;
   final data;
   double progressValue;
@@ -20,32 +22,26 @@ class CourseCompleteItem extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-                color: Colors.blueGrey.shade100,
-                width: .2
-            ),
+            border: Border.all(color: Colors.blueGrey.shade100, width: .2),
             boxShadow: [
               BoxShadow(
                   color: Colors.grey.shade400,
                   blurRadius: 15,
                   spreadRadius: 1,
-                  offset: const Offset(2,2)
-              ),
+                  offset: const Offset(2, 2)),
               const BoxShadow(
                   color: Colors.white,
                   blurRadius: 15,
                   spreadRadius: 1,
-                  offset: Offset(-2, -2)
-              )
-            ]
-        ),
+                  offset: Offset(-2, -2))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Hero(
-              tag: data.image,
+              tag: data.courseImage,
               child: CustomImage(
-                data.image,
+                data.courseImage,
                 radius: 10,
                 width: 70,
                 height: 70,
@@ -60,7 +56,7 @@ class CourseCompleteItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data.name,
+                    data.courseName,
                     style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins',
@@ -81,7 +77,7 @@ class CourseCompleteItem extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        "${data.numberOfLessons } lessons",
+                        "${data.numberOfLessons} lessons",
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 13,

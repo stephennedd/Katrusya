@@ -81,6 +81,16 @@ class CourseController extends GetxController {
     return courses;
   }
 
+  CourseModel? getMyCourse(int courseId) {
+    CourseModel? course;
+    for (int i = 0; i < courses.length; i++) {
+      if (courses[i].id == courseId) {
+        course = courses[i];
+      }
+    }
+    return course;
+  }
+
   Future<Rxn<CourseDetailsModel>> getCourseDetails(int courseId) async {
     loadingStatus.value = LoadingStatus.loading;
     currentCourseDetails.value = await CallApi().getCourseDetails(courseId);

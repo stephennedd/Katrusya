@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/models/courses/course_model.dart';
+import 'package:frontend/models/courses/my_course_model.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/course_complete_item.dart';
 import 'package:frontend/widgets/course_item.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
+
+import 'course_landing_page.dart';
 
 class MyCoursesPage extends StatefulWidget {
   const MyCoursesPage({Key? key}) : super(key: key);
@@ -18,6 +26,10 @@ class _MyCoursesPageState extends State<MyCoursesPage>
   late TabController _tabController;
   final int incompleteCourses = 1;
   final int completeCourses = 2;
+
+  UsersController usersController = Get.put(UsersController());
+  CourseController courseController = Get.put(CourseController());
+  final GetStorage _getStorage = GetStorage();
 
   @override
   void initState() {
@@ -34,60 +46,52 @@ class _MyCoursesPageState extends State<MyCoursesPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBarColor,
-      appBar: MyAppBar(
-        title: "My Courses",
-        hasBackButton: false,
-        centerTitle: false,
-      ),
-      body: buildBody());
+        backgroundColor: appBarColor,
+        appBar: MyAppBar(
+          title: "My Courses",
+          hasBackButton: false,
+          centerTitle: false,
+        ),
+        body: buildBody());
   }
 
   Widget buildBody() {
-    return Column(
-      children: [
-        getTabBar(),
-        getTabBarPages()
-      ]
-    );
+    return Column(children: [Obx(() => getTabBar()), getTabBarPages()]);
   }
 
   Widget getTabBar() {
+    //UsersController usersController = Get.put(UsersController());
     return Container(
-      child: TabBar(
-          indicatorWeight: 2,
-          indicatorColor: primary,
-          controller: _tabController,
-          tabs:  [
-            Tab(
-              child: Text(
-                // TODO update with real number
-              "Progress ($incompleteCourses)",
-                style: const TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: textColor,
-                    overflow: TextOverflow.ellipsis
-                ),
-              ),
+        child: TabBar(
+            indicatorWeight: 2,
+            indicatorColor: primary,
+            controller: _tabController,
+            tabs: [
+          Tab(
+            child: Text(
+              // Done: update with real number
+              "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
+              style: const TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: textColor,
+                  overflow: TextOverflow.ellipsis),
             ),
-            Tab(
-              child: Text(
-                // TODO update with real number
-                "Completed ($completeCourses)",
-                style: const TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: textColor,
-                    overflow: TextOverflow.ellipsis
-                ),
-              ),
-            )
-          ]
-      )
-    );
+          ),
+          Tab(
+            child: Text(
+              // Done: update with real number
+              "Completed (${usersController.getNumberOfCompleteByUserCourses()})",
+              style: const TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: textColor,
+                  overflow: TextOverflow.ellipsis),
+            ),
+          )
+        ]));
   }
 
   Widget getTabBarPages() {
@@ -101,71 +105,73 @@ class _MyCoursesPageState extends State<MyCoursesPage>
         physics: ScrollPhysics(),
         controller: _tabController,
         children: [
-          getCourses(),
-          getIncompleteCourses()
+          Obx(() => getIncompleteCourses()),
+          Obx(() => getCompleteCourses()),
         ],
       ),
     );
   }
 
-  Widget getCourses() {
-    final items = <CourseModel>[];
-    items.add(
-      CourseModel(
-        id: 1,
-        name: "UI/UX",
-        image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3OTEwMTA4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600',
-        price: "120,00",
-        durationInHours: 3,
-        numberOfLessons: 2,
-        review: "4",
-        isFavorited: false,
-        description: "this is a test course",
-        isFeatured: false,
-        isRecommended: false
-      )
-    );
+  Widget getCompleteCourses() {
+    final userCourses = usersController.userCourses;
+    final completedByUserCourses = userCourses
+        .where((userCourse) => userCourse.isComplete == true)
+        .toList();
 
     return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: items.length,
-      itemBuilder: (context, index) =>
-          CourseCompleteItem(
-            data: items[index],
-            onTap: () {
-              // TODO navigate to course page
-            },
-          )
-    );
+        scrollDirection: Axis.vertical,
+        itemCount: completedByUserCourses.length,
+        itemBuilder: (context, index) => CourseCompleteItem(
+              data: completedByUserCourses[index],
+              onTap: () async {
+                // TODO navigate to course page
+                CourseModel myCourse = courseController
+                    .getMyCourse(completedByUserCourses[index].courseId)!;
+
+                int myCourseId = myCourse.id;
+
+                courseController.isCurrentCoursePurchased.value = true;
+
+                await courseController.getCourseQuizzes(myCourseId);
+                await courseController.getCourseDetails(myCourseId);
+                courseController.currentCourseId.value = myCourseId;
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CourseLandingPage(
+                          course: myCourse,
+                        )));
+              },
+            ));
   }
 
   Widget getIncompleteCourses() {
-    final items = <CourseModel>[];
-    items.add(
-      CourseModel(
-        id: 1,
-        name: "UI/UX",
-        image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3OTEwMTA4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600',
-        price: "120,00",
-        durationInHours: 3,
-        numberOfLessons: 2,
-        review: "4",
-        isFavorited: false,
-        description: "this is a test course",
-        isFeatured: false,
-        isRecommended: false
-      )
-    );
+    final userCourses = usersController.userCourses;
+    final incompletedByUserCourses = userCourses
+        .where((userCourse) => userCourse.isComplete == false)
+        .toList();
 
     return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) =>
-          CourseCompleteItem(
-            data: items[index],
-            onTap: () {
-              // TODO navigate to course page
-            },
-          )
-    );
+        itemCount: incompletedByUserCourses.length,
+        itemBuilder: (context, index) => CourseCompleteItem(
+              data: incompletedByUserCourses[index],
+              onTap: () async {
+                CourseModel myCourse = courseController
+                    .getMyCourse(incompletedByUserCourses[index].courseId)!;
+
+                int myCourseId = myCourse.id;
+
+                courseController.isCurrentCoursePurchased.value = true;
+
+                await courseController.getCourseQuizzes(myCourseId);
+                await courseController.getCourseDetails(myCourseId);
+                courseController.currentCourseId.value = myCourseId;
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CourseLandingPage(
+                          course: myCourse,
+                        )));
+                // TODO navigate to course page
+              },
+            ));
   }
 }

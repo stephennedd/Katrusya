@@ -249,6 +249,8 @@ class _LoginPageState extends State<LoginPage> {
                     usersController.isUserLoggedIn.value = true;
                     usersController
                         .getUserFavoriteCourses(loggedInUser["data"]["id"]);
+
+                    usersController.getUserCourses(loggedInUser["data"]["id"]);
                     //Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, RootApp.routeName);
                   } else {

@@ -365,9 +365,11 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               onPressed: () async {
                 if (await SecureStorage.getAccessToken() != null) {
                   // Done add to the logged-in users list of courses
-                  courseController.buyCourse(PurchaseModel(
-                      userId: _getStorage.read("userId"),
+                  int userId = _getStorage.read("userId");
+                  await courseController.buyCourse(PurchaseModel(
+                      userId: userId,
                       courseId: courseController.currentCourseId.value));
+                  await usersController.getUserCourses(userId);
                   courseController.isCurrentCoursePurchased.value = true;
                 } else {
                   Navigator.pushNamed(context, LoginPage.routeName);
