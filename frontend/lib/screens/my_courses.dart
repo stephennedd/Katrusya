@@ -124,7 +124,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
         itemBuilder: (context, index) => CourseCompleteItem(
               data: completedByUserCourses[index],
               onTap: () async {
-                // TODO navigate to course page
+                // Done: navigate to course page
                 CourseModel myCourse = courseController
                     .getMyCourse(completedByUserCourses[index].courseId)!;
 
@@ -170,7 +170,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
                     builder: (context) => CourseLandingPage(
                           course: myCourse,
                         )));
-                // TODO navigate to course page
+                // Done: navigate to course page
               },
             ));
   }
