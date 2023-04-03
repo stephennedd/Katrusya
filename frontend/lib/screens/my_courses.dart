@@ -98,11 +98,11 @@ class _MyCoursesPageState extends State<MyCoursesPage>
     var deviceDisplayHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       width: double.infinity,
       height: deviceDisplayHeight - 221,
       child: TabBarView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         controller: _tabController,
         children: [
           Obx(() => getIncompleteCourses()),
