@@ -73,11 +73,23 @@ export class UsersService {
 
   async getUserFavoriteCourses(userId:number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
-    const result = await knex('user_favorite_courses')
-    .where({ user_id: userId })
-    .select('course_id')
+    // const result = await knex('user_favorite_courses')
+    // .where({ user_id: userId })
+    // .select('course_id')
 
-    return result;
+    const favoriteCourses = await knex.select(
+      'courses.id as course_id',
+      'courses.name as course_name',
+      'courses.image as course_image',
+      'courses.price as course_price',
+      'courses.number_of_lessons',
+      'courses.duration_in_hours',
+      'courses.review as course_review'
+    ).from('user_favorite_courses')
+    .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
+    .where('user_favorite_courses.user_id', userId);
+
+    return favoriteCourses;
   }
 
   async getUserCourses(userId:number): Promise<any>{
@@ -106,10 +118,18 @@ export class UsersService {
       course_id: courseId // the ID of the course that the user is adding to their favorites
     });
 
-    const updatedUserFavoritedCourse = await knex('user_favorite_courses')
-    .where({ user_id: userId })
-    .select('course_id')
-    .orderBy('id', 'desc') // sort by created_at column in descending order
+    const updatedUserFavoritedCourse = await knex.select(
+      'courses.id as course_id',
+      'courses.name as course_name',
+      'courses.image as course_image',
+      'courses.price as course_price',
+      'courses.number_of_lessons',
+      'courses.duration_in_hours',
+      'courses.review as course_review'
+    ).from('user_favorite_courses')
+    .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
+    .where({ user_id: userId, course_id: courseId })
+    .orderBy('courses.id', 'desc') // sort by created_at column in descending order
     .first(); 
   return updatedUserFavoritedCourse;
   }
@@ -117,12 +137,20 @@ export class UsersService {
   async deleteUserFavoriteCourse(userId: number, courseId: number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
     
-    const deletedUserFavoriteCourse = await knex('user_favorite_courses')
+    const deletedUserFavoriteCourse = await knex.select(
+      'courses.id as course_id',
+      'courses.name as course_name',
+      'courses.image as course_image',
+      'courses.price as course_price',
+      'courses.number_of_lessons',
+      'courses.duration_in_hours',
+      'courses.review as course_review'
+    ).from('user_favorite_courses')
+    .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
       .where({
         user_id: userId,
         course_id: courseId
       })
-      .select('course_id') // use select to fetch the row before deleting it
       .then(rows => {
         const [deletedRow] = rows;
         return deletedRow;
