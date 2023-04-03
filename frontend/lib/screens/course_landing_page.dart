@@ -9,16 +9,14 @@ import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/custom_image.dart';
-import 'package:frontend/widgets/milestone_item.dart';
+import 'package:frontend/widgets/quiz_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_model.dart';
-import '../utils/data.dart';
 import 'login.dart';
 
 class CourseLandingPage extends StatefulWidget {
@@ -34,7 +32,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseModel courseData;
-  late final bool isPurchased;
 
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
@@ -48,6 +45,13 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     //     _getStorage.read("userId"), courseController.currentCourseId.value);
     // Done check if course is already purchased complete the code below
     //isPurchased == check from database if course is in list of courses. but maybe we can figure out a better more safe solution to enabling courses later.
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -155,7 +159,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               data:
                   courseController.currentCourseDetails.value!.sections[index],
               onTap: () {
-                // navigate to new page
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SectionPage(
                           data: courseController
@@ -168,7 +171,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   Widget getMilestones() {
     return ListView.builder(
         itemCount: courseController.courseQuizzes.value!.length,
-        itemBuilder: (context, index) => MilestoneItem(
+        itemBuilder: (context, index) => QuizItem(
               data: courseController.courseQuizzes.value![index],
               onTap: () {
                 print("goto quiz");
@@ -189,7 +192,6 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             children: [
               Text(
                 // Done: get course name from database
-                //widget.course.name,
                 courseController.currentCourseDetails.value!.courseName,
                 style: const TextStyle(
                     fontFamily: 'Poppins',
@@ -197,34 +199,26 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     fontWeight: FontWeight.w600,
                     color: textColor),
               ),
-              BookmarkBox(
-                // TODO get from database
-                isFavorited: courseController
-                    .courses
-                    .value[courseController.currentCourseId.value - 1]
-                    .isFavorited,
-                //widget.course.isFavorited,
-                onTap: () {
-                  // print(courseController
-                  //     .courses
-                  //     .value[courseController.currentCourseId.value - 1]
-                  //     .isFavorited);
-                  // setState(() {
-                  //   courseController
-                  //           .courses
-                  //           .value[courseController.currentCourseId.value - 1]
-                  //           .isFavorited =
-                  //       !courseController
-                  //           .courses
-                  //           .value[courseController.currentCourseId.value - 1]
-                  //           .isFavorited;
-                  // });
-                  // print(courseController
-                  //     .courses
-                  //     .value[courseController.currentCourseId.value - 1]
-                  //     .isFavorited);
-                },
-              ),
+              Obx(() => BookmarkBox(
+                    // Done: get from database
+                    isFavorited: usersController.isCourseFavoriteForTheUser(
+                        courseController.currentCourseId.value),
+                    onTap: () {
+                      if (usersController.isUserLoggedIn.value &&
+                          !usersController.isCourseFavoriteForTheUser(
+                              courseController.currentCourseId.value)) {
+                        usersController.addCourseToUserFavorites(
+                            _getStorage.read('userId'),
+                            courseController.currentCourseId.value);
+                      } else if (usersController.isUserLoggedIn.value &&
+                          usersController.isCourseFavoriteForTheUser(
+                              courseController.currentCourseId.value)) {
+                        usersController.deleteCourseFromUserFavorites(
+                            _getStorage.read('userId'),
+                            courseController.currentCourseId.value);
+                      }
+                    },
+                  )),
             ],
           ),
           const SizedBox(
@@ -371,9 +365,11 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               onPressed: () async {
                 if (await SecureStorage.getAccessToken() != null) {
                   // Done add to the logged-in users list of courses
-                  courseController.buyCourse(new PurchaseModel(
-                      userId: _getStorage.read("userId"),
+                  int userId = _getStorage.read("userId");
+                  await courseController.buyCourse(PurchaseModel(
+                      userId: userId,
                       courseId: courseController.currentCourseId.value));
+                  await usersController.getUserCourses(userId);
                   courseController.isCurrentCoursePurchased.value = true;
                 } else {
                   Navigator.pushNamed(context, LoginPage.routeName);

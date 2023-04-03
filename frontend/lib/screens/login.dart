@@ -47,9 +47,6 @@ class _LoginPageState extends State<LoginPage> {
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: appBarColor,
-      leading: const BackButton(
-        color: textColor,
-      ),
       centerTitle: true,
       title: const Text(
         "Katrusya",
@@ -243,14 +240,19 @@ class _LoginPageState extends State<LoginPage> {
                     _getStorage.write("userId", loggedInUser["data"]["id"]);
                     await SecureStorage.setAccessToken(
                         loggedInUser["data"]["accessToken"]);
+                    // print(loggedInUser["data"]["accessToken"]);
 
                     var token = await SecureStorage.getAccessToken();
                     _getStorage.write(
                         "username", loggedInUser["data"]["username"]);
 
                     usersController.isUserLoggedIn.value = true;
+                    usersController
+                        .getUserFavoriteCourses(loggedInUser["data"]["id"]);
+
+                    usersController.getUserCourses(loggedInUser["data"]["id"]);
                     //Navigator.pop(context);
-                    Navigator.pushNamed(context, RootApp.routeName);
+                    Navigator.pushReplacementNamed(context, RootApp.routeName);
                   } else {
                     // unsuccessful login, display error message
                     var responseBody = json.decode(response.body);

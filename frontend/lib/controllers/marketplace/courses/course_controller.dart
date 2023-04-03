@@ -14,7 +14,9 @@ import '../../../models/quizzes/quiz_model.dart';
 class CourseController extends GetxController {
   RxList<CourseModel> recommendedCourses = RxList<CourseModel>([]);
   RxList<CourseModel> featuredCourses = RxList<CourseModel>([]);
+  RxList<CourseModel> searchedCourses = RxList<CourseModel>([]);
   RxList<QuizModel> courseQuizzes = RxList<QuizModel>([]);
+  RxList<QuizModel> sectionQuizzes = RxList<QuizModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
   final currentCourseId = 0.obs;
   final isCurrentCoursePurchased = false.obs;
@@ -27,7 +29,8 @@ class CourseController extends GetxController {
   void onReady() async {
     getRecommendedCourses(null);
     getFeaturedCourses(null);
-    getCourses(null, null);
+    getCourses();
+    getSearchedCourses("All", null);
     //  super.onReady();
   }
 
@@ -48,14 +51,44 @@ class CourseController extends GetxController {
     return courseQuizzes;
   }
 
-  Future<RxList<CourseModel>> getCourses(
-      String? category, String? search) async {
+  RxList<QuizModel> getSectionQuizzes(int sectionId) {
     loadingStatus.value = LoadingStatus.loading;
-    RxList<CourseModel> data = await CallApi().getCourses(
-        new CourseQueryParamsModel(category: category, search: search));
+    sectionQuizzes.value = [];
+    for (int i = 0; i < courseQuizzes.value.length; i++) {
+      if (courseQuizzes.value[i].sectionId == sectionId) {
+        sectionQuizzes.value.add(courseQuizzes.value[i]);
+      }
+    }
+    loadingStatus.value = LoadingStatus.completed;
+    return sectionQuizzes;
+  }
+
+  Future<RxList<CourseModel>> getCourses() async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<CourseModel> data = await CallApi()
+        .getCourses(new CourseQueryParamsModel(category: null, search: null));
     courses.value = data;
+    // if (category == null && search == null) {
+    //   for (int i = 0; i < courses.value.length; i++) {
+    //     if (courses.value[i].isRecommended) {
+    //       recommendedCourses.value.add(courses.value[i]);
+    //     } else if (courses.value[i].isFeatured) {
+    //       featuredCourses.value.add(courses.value[i]);
+    //     }
+    //   }
+    // }
     loadingStatus.value = LoadingStatus.completed;
     return courses;
+  }
+
+  CourseModel? getMyCourse(int courseId) {
+    CourseModel? course;
+    for (int i = 0; i < courses.length; i++) {
+      if (courses[i].id == courseId) {
+        course = courses[i];
+      }
+    }
+    return course;
   }
 
   Future<Rxn<CourseDetailsModel>> getCourseDetails(int courseId) async {
@@ -88,5 +121,15 @@ class CourseController extends GetxController {
     featuredCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return featuredCourses;
+  }
+
+  Future<List<CourseModel>> getSearchedCourses(
+      String? category, String? search) async {
+    loadingStatus.value = LoadingStatus.loading;
+    RxList<CourseModel> data = await CallApi().getCourses(
+        new CourseQueryParamsModel(category: category, search: search));
+    searchedCourses.value = data;
+    loadingStatus.value = LoadingStatus.completed;
+    return courses;
   }
 }

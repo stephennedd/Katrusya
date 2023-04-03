@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { AddFavoriteCourseDto } from 'src/users/dtos/AddFavoriteCourse.dtos';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dtos';
 import { CreateUserResultsDto } from 'src/users/dtos/CreateUserResults.dtos';
+import { ValidateAddFavoriteCoursePipe } from 'src/users/pipes/validate-add-favorite-course/validate-add-favorite-course.pipe';
 import { ValidateCreateUserResultsPipe } from 'src/users/pipes/validate-create-user-results/validate-create-user-results.pipe';
 import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
 import { UsersService } from '../../services/users/users.service';
@@ -15,6 +17,16 @@ export class UsersController {
     async getUsers() {
       return this.usersService.getUsers();
     }
+
+    @Get(':userId/favoriteCourses')
+  async getFavoriteCourses(@Param('userId') userId: number) {
+    return this.usersService.getUserFavoriteCourses(userId);
+  }
+
+  @Get(':userId/courses')
+  async getUserCourses(@Param('userId') userId: number) {
+    return this.usersService.getUserCourses(userId);
+  }
 
     @Get(':userId/tests/:testId/results')
     async getUserResults(@Param('userId') userId: number, @Param('testId') testId: number) {
@@ -49,11 +61,21 @@ export class UsersController {
       return this.usersService.addUserResult(createUserResult);
     }
 
-    @Delete('/results/:testResultId')
+    @Post(':userId/favoriteCourses')
     @UsePipes(new ValidationPipe())
-    async deleteUserResult(
-        @Param('testResultId') testResultId: number
-    ) {
-      return this.usersService.deleteUserResult(testResultId);
-    }
+  async addFavoriteCourse(
+    @Param('userId') userId: number,
+    @Body(ValidateAddFavoriteCoursePipe) addFavoriteCourseDto: AddFavoriteCourseDto,
+  ) {
+    return await this.usersService.addUserFavoriteCourse(userId, addFavoriteCourseDto.course_id);
+  }
+  
+
+  @Delete(':userId/favoriteCourses/:courseId')
+async removeFavoriteCourse(
+  @Param('userId') userId: number,
+  @Param('courseId') courseId: number,
+) {
+  return await this.usersService.deleteUserFavoriteCourse(userId, courseId);
+  } 
 }

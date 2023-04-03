@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/api/my_api.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/controllers/data_sender_controller.dart';
@@ -10,8 +11,6 @@ import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:get/get.dart';
 
 class QuestionsController extends GetxController {
-  // DataUpLoader controller = Get.put(DataUpLoader());
-
   final questionIndex = 0.obs;
   bool get isFirstQuestion => questionIndex.value > 0;
   bool get isLastQuestion => questionIndex >= allQuestions.length - 1;
@@ -25,21 +24,31 @@ class QuestionsController extends GetxController {
   final time = '00:00'.obs;
 
   @override
-  void onReady() {
-    //DataUpLoader controller = Get.put(DataUpLoader());
+  void onReady() async {
     loadingStatus.value = LoadingStatus.loading;
     // final _questionPaper =
     //     ModalRoute.of(Get.context)!.settings.arguments as QuestionPaperModel;
-    final _questionPaper = Get.arguments as QuestionPaperModel;
+    // final _questionPaper = Get.arguments as QuestionPaperModel;
     // final _questionPaper = controller.questionsData[0] as QuestionPaperModel;
-    questionPaperModel = _questionPaper;
-    allQuestions = _questionPaper.questions!;
-    currentQuestion.value = _questionPaper.questions![0];
-    _startTimer(_questionPaper.timeSeconds);
-    print(_questionPaper.title);
-    print(_questionPaper);
+    questionPaperModel = await getTestsBasedOnSectionId(1);
+    allQuestions = questionPaperModel.questions!;
+    currentQuestion.value = questionPaperModel.questions![0];
+    _startTimer(questionPaperModel.timeSeconds);
     loadingStatus.value = LoadingStatus.completed;
     super.onReady();
+  }
+
+  Future<QuestionPaperModel> getTestsBasedOnSectionId(sectionId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    QuestionPaperModel test =
+        await CallApi().getTestBasedOnSectionId(sectionId);
+    questionPaperModel = test;
+    loadingStatus.value = LoadingStatus.completed;
+    return test;
+  }
+
+  Future<void> sendTheUserResultsPerTest(apiUrl, data) async {
+    await CallApi().addUserResultsPerTest(apiUrl, data);
   }
 
   void selectedAnswer(String? answer) {
@@ -98,14 +107,12 @@ class QuestionsController extends GetxController {
 
   void completeTest(userId, testId, numberOfHpPoints) async {
     _timer!.cancel();
-    DataSenderController dataSenderController = Get.put(DataSenderController());
     var data = {
       "user_id": userId,
       "test_id": testId,
       "number_of_hp_points": numberOfHpPoints
     };
-    await dataSenderController.sendTheUserResultsPerTest(
-        "/users/testResults", data);
+    await sendTheUserResultsPerTest("/users/testResults", data);
     Get.offAndToNamed(ResultScreen.routeName);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/start.dart';
 import 'package:frontend/screens/course_landing_page.dart';
+import 'package:frontend/screens/favorites.dart';
 import 'package:frontend/screens/forgot_password.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/screens/homeScreen.dart';
@@ -8,6 +9,7 @@ import 'package:frontend/screens/homescreens/Featured.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/landingPage.dart';
 import 'package:frontend/screens/login.dart';
+import 'package:frontend/screens/my_courses.dart';
 import 'package:frontend/screens/pokemons/screens/favoriteScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonDetailScreen.dart';
 import 'package:frontend/screens/pokemons/screens/pokemonsHomeScreen.dart';
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: provider.themeData,
           title: 'Katrusya App',
-          initialRoute: RootApp.routeName,
+          initialRoute: StartPage.routeName,
           //RootApp.routeName,
           home: const RootApp(),
           routes: {
@@ -83,7 +85,10 @@ class MyApp extends StatelessWidget {
             StartPage.routeName: (context) => const StartPage(),
             SignupPage.routeName: (context) => const SignupPage(),
             ForgotPage.routeName: (context) => const ForgotPage(),
-            SectionPage.routeName: (context) => SectionPage()
+            SectionPage.routeName: (context) => SectionPage(),
+            TestScreen.routeName: (context) => const TestScreen(),
+            MyCoursesPage.routeName: (context) => const MyCoursesPage(),
+            FavoritesPage.routeName: (context) => const FavoritesPage()
           },
         );
       }),

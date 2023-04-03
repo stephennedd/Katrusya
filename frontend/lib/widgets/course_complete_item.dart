@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/lesson_progress.dart';
-
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
+import 'lesson_progress.dart';
 
-class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1}) : super(key: key);
+class CourseCompleteItem extends StatelessWidget {
+  CourseCompleteItem(
+      {Key? key, this.onTap, this.progressValue = 0.4, required this.data})
+      : super(key: key);
   GestureTapCallback? onTap;
   final data;
-  bool isPlaying;
   double progressValue;
 
   @override
@@ -22,36 +22,26 @@ class LessonItem extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: isPlaying ? Colors.blueGrey.shade100 : Colors.white,
-              width: .2
-            ),
-            boxShadow: isPlaying
-                ? [
-                BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                    offset: const Offset(2,2)
-                ),
-                const BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                    offset: Offset(-2, -2)
-                )
-                ] :
-                [
-
-                ]
-        ),
+            border: Border.all(color: Colors.blueGrey.shade100, width: .2),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.shade400,
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                  offset: const Offset(2, 2)),
+              const BoxShadow(
+                  color: Colors.white,
+                  blurRadius: 15,
+                  spreadRadius: 1,
+                  offset: Offset(-2, -2))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Hero(
-              tag: data.image,
+              tag: data.courseImage,
               child: CustomImage(
-                data.image,
+                data.courseImage,
                 radius: 10,
                 width: 70,
                 height: 70,
@@ -66,7 +56,7 @@ class LessonItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data.lessonName,
+                    data.courseName,
                     style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins',
@@ -79,7 +69,7 @@ class LessonItem extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.schedule_outlined,
+                        Icons.play_circle_outline,
                         size: 14,
                         color: labelColor,
                       ),
@@ -87,7 +77,7 @@ class LessonItem extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        "${data.lessonDurationInHours} hours",
+                        "${data.numberOfLessons} lessons",
                         style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 13,
@@ -106,7 +96,7 @@ class LessonItem extends StatelessWidget {
             ),
             Icon(
               Icons.play_arrow_rounded,
-              color: isPlaying ? accent : primaryDark,
+              color: primaryDark,
               size: 30,
             )
           ],

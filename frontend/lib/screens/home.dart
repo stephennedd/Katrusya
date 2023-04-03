@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: buildBody(),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: FutureBuilder<AppBar>(
           future: getAppBar(),
           builder: (context, snapshot) {
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             // Done get logged in users username and show here instead of hardcoded name
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                   usersController.isUserLoggedIn.value
                       ? "Hi ${_getStorage.read("username")}!"
                       : "Hi Traveller!",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: textColor,
                       fontSize: 25,
                       fontWeight: FontWeight.w800,
@@ -77,10 +77,11 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () async {
                 await SecureStorage.deleteAccessToken();
+                _getStorage.erase();
                 usersController.isUserLoggedIn.value = false;
                 Navigator.pushNamed(context, StartPage.routeName);
               },
-              icon: Icon(Icons.logout_outlined, color: primaryDark))
+              icon: const Icon(Icons.logout_outlined, color: primaryDark))
           /*NotificationBox(
             notifiedNumber: 2,
             onTap: () async {

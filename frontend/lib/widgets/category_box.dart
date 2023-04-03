@@ -53,8 +53,10 @@ class CategoryBox extends StatelessWidget {
             data.name,
             maxLines: 1,
             overflow: TextOverflow.fade,
-            style:
-                const TextStyle(color: textColor, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+              fontFamily: 'Nexa-Trial',
+              color: textColor,
+              fontWeight: FontWeight.w500),
           )
         ],
       ),

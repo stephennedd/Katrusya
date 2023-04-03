@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/models/quizzes/quiz_model.dart';
+import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/widgets/lesson_item.dart';
+import 'package:frontend/widgets/quiz_item.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import '../controllers/marketplace/courses/course_controller.dart';
+import '../models/courses/course_details_model.dart';
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
 
@@ -19,10 +26,10 @@ class _SectionPageState extends State<SectionPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = true;
   bool _isPlaying = false;
-  bool _isFullScreen = false;
   late VideoPlayerController _controller;
   late TabController _tabController;
   late ChewieController chewieController;
+  CourseController courseController = Get.put(CourseController());
 
   @override
   void initState() {
@@ -73,6 +80,7 @@ class _SectionPageState extends State<SectionPage>
             size: 25,
           ),
           onTap: () {
+            // TODO implement the downloads menu
             print("downloads");
           },
         ),
@@ -115,9 +123,6 @@ class _SectionPageState extends State<SectionPage>
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: getInfo(),
-            ),
-            const SizedBox(
-              height: 1,
             ),
             const Divider(),
             getTabBar(),
@@ -193,6 +198,7 @@ class _SectionPageState extends State<SectionPage>
   Widget getTabBar() {
     return Container(
       child: TabBar(
+        indicatorWeight: 0.1,
         indicatorColor: primaryDark,
         controller: _tabController,
         tabs: const [
@@ -217,41 +223,158 @@ class _SectionPageState extends State<SectionPage>
       height: 360,
       width: double.infinity,
       child: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [getLessons()],
+        children: [
+          //getLessons(),
+          getSectionItems()
+        ],
       ),
     );
   }
 
-  Widget getLessons() {
+  // Widget getLessons() {
+  //   //final items = <dynamic>[];
+  //   //items.addAll(widget.data.lessons);
+  //   //items.addAll(widget.data.tests);
+  //
+  //   return ListView.builder(
+  //       itemCount: widget.data.lessons.length,
+  //       itemBuilder: (context, index) =>
+  //           LessonItem(
+  //             isPlaying:
+  //                 widget.data.lessons[index].videoUrl == _controller.dataSource,
+  //             data: widget.data.lessons[index],
+  //             onTap: () {
+  //               //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
+  //               // Done change currently playing video-url to new video
+  //               setState(() {
+  //                 _isLoading = true;
+  //                 _controller.pause();
+  //                 _controller = VideoPlayerController.network(
+  //                     widget.data.lessons[index].videoUrl);
+  //                 _controller.initialize().then((_) {
+  //                   chewieController = ChewieController(
+  //                     videoPlayerController: _controller,
+  //                     autoPlay: false,
+  //                     looping: false,
+  //                   );
+  //                   setState(() {
+  //                     _isLoading = false;
+  //                     _controller.play();
+  //                   });
+  //                 });
+  //               });
+  //             },
+  //           ),
+  //   );
+  // }
+
+  // return a list of all lessons and quiz items that a section has in the form of a list of widgets
+  Widget getSectionItems() {
+    final items = <dynamic>[];
+    items.addAll(widget.data.lessons);
+
+    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+
+    // Done: get all quizes for this course.id and add them below
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 2",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 3",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+    // items.add(QuizModel(
+    //     numberOfQuestions: 10,
+    //     title: "Quiz 1",
+    //     imageUrl: "",
+    //     sectionId: 1,
+    //     courseId: 1));
+
     return ListView.builder(
-        itemCount: widget.data.lessons.length,
-        itemBuilder: (context, index) => LessonItem(
-              isPlaying:
-                  widget.data.lessons[index].videoUrl == _controller.dataSource,
-              data: widget.data.lessons[index],
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+
+          if (item is QuizModel) {
+            return QuizItem(
+              data: item,
+              onTap: () {
+                // TODO properly navigate to quiz page.
+                Navigator.pushNamed(context, TestScreen.routeName);
+              },
+            );
+          }
+
+          if (item is Lesson) {
+            return LessonItem(
+              isPlaying: item.videoUrl == _controller.dataSource,
+              data: item,
+              //data: widget.data.lessons[index],
               onTap: () {
                 //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-                // Done change currently playing video-url to new video
-                setState(() {
-                  _isLoading = true;
-                  _controller.pause();
-                  _controller = VideoPlayerController.network(
-                      widget.data.lessons[index].videoUrl);
-                  _controller.initialize().then((_) {
-                    chewieController = ChewieController(
-                      videoPlayerController: _controller,
-                      autoPlay: false,
-                      looping: false,
-                    );
-                    setState(() {
-                      _isLoading = false;
-                      _controller.play();
+                // Done change currently playing video-url to new
+                if (courseController.isCurrentCoursePurchased.value) {
+                  setState(() {
+                    _isLoading = true;
+                    _controller.pause();
+                    _controller = VideoPlayerController.network(item.videoUrl);
+                    _controller.initialize().then((_) {
+                      chewieController = ChewieController(
+                        videoPlayerController: _controller,
+                        autoPlay: false,
+                        looping: false,
+                      );
+                      setState(() {
+                        _isLoading = false;
+                        _controller.play();
+                      });
                     });
                   });
-                });
+                } else {
+                  showAlertDialog(context, "No Access",
+                      "Please purchase the course to access this content");
+                }
               },
-            ));
+            );
+          }
+        });
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

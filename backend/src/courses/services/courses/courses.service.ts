@@ -9,6 +9,14 @@ interface QueryParams{
     search?:string
 }
 
+interface Test{
+    id: number,
+    title: string,
+    image_url?: string,
+    description: string,
+    time_seconds: number
+}
+
 @Injectable()
 export class CoursesService {
     
@@ -27,6 +35,7 @@ async addPurchasedCourse(courseId: number, userId: number) {
     try { await knex('user_courses').insert({
       course_id: courseId,
       user_id: userId,
+      is_complete: false
     });
     return { success: true };
 }catch (err) {
@@ -47,7 +56,8 @@ async addPurchasedCourse(courseId: number, userId: number) {
   async getCourseQuizzes(courseId: number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
 
-    const result = await knex.select('tests.title as quiz_title')
+    const result = await knex.select('tests.title as quiz_title','tests.section_id as section_id',
+    'tests.image_url as image_url','tests.course_id')
     .count('questions.id as number_of_questions')
     .from('tests')
     .leftJoin('questions', 'tests.id', 'questions.test_id')
@@ -78,6 +88,14 @@ const result = await knex("courses as c")
   .where("c.id", courseId)
   .orderBy("s.id", "l.id");
 
+  // const courseQuizzes = await knex.select('tests.title as quiz_title')
+  //   .count('questions.id as number_of_questions')
+  //   .from('tests')
+  //   .leftJoin('questions', 'tests.id', 'questions.test_id')
+  //   .where('tests.course_id', courseId)
+  //   .groupBy('tests.id')
+  //   .orderBy('tests.section_id');
+
 const course = {
   course_name: result[0].course_name,
   course_description: result[0].course_description,
@@ -92,7 +110,7 @@ for (const row of result) {
     currentSection = {id:row.section_id, title: row.section_title, image: row.section_image, lessons: [], number_of_lessons: 0, section_duration_in_hours: 0 };
     course.sections.push(currentSection);
   }
-  currentSection.lessons.push({ lesson_name: row.lesson_name, lesson_duration_in_hours: row.lesson_duration_in_hours, video_url: row.video_url, image: row.lesson_image });
+  currentSection.lessons.push({lesson_name: row.lesson_name, lesson_duration_in_hours: row.lesson_duration_in_hours, video_url: row.video_url, image: row.lesson_image });
   currentSection.number_of_lessons = currentSection.number_of_lessons + 1;
   currentSection.section_duration_in_hours = currentSection.section_duration_in_hours + row.lesson_duration_in_hours
   course.number_of_lessons = course.number_of_lessons+1;
@@ -119,14 +137,6 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
     return recommendedCourses;
   }
  
-    // async getFeauturedCourses(): Promise<any>{
-    //     const knex = this.dbService.getKnexInstance();
-    //     const featuredCourses = await knex('courses')
-    //   .where({ is_featured: true })
-    //   .select('*');
-    //   return featuredCourses;
-    //     }
-
     async getCourses(queryParams: QueryParams): Promise<any>{
         const knex = this.dbService.getKnexInstance();
       

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/controllers/data_uploader_controller.dart';
@@ -19,7 +20,7 @@ class WatchCourse extends StatefulWidget {
 }
 
 class _WatchCourseState extends State<WatchCourse> {
-  DataUpLoader controller = Get.put(DataUpLoader());
+  QuestionsController controller = Get.put(QuestionsController());
   @override
   void initState() {
     super.initState();
@@ -498,7 +499,7 @@ class _WatchCourseState extends State<WatchCourse> {
       old.removeListener(_onControllerUpdate);
       old.pause();
     }
-    Get.toNamed(TestScreen.routeName, arguments: controller.questionsData);
+    Get.toNamed(TestScreen.routeName, arguments: controller.questionPaperModel);
   }
 
   String convertTwo(int value) {

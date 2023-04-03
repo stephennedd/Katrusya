@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
-class MilestoneItem extends StatelessWidget {
-  MilestoneItem({Key? key, this.onTap, required this.data}) : super(key: key);
+class QuizItem extends StatelessWidget {
+  QuizItem({Key? key, this.onTap, required this.data}) : super(key: key);
   final data;
   GestureTapCallback? onTap;
 
@@ -29,7 +29,7 @@ class MilestoneItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomImage(
-              "https://images.unsplash.com/photo-1557318041-1ce374d55ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY3MzkyMzM2OQ&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
+              data.imageUrl,
               radius: 10,
               height: 70,
               width: 70,

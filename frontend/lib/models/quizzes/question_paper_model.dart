@@ -7,9 +7,7 @@ class QuestionPaperModel {
   List<Questions>? questions;
 
   QuestionPaperModel(
-      {
-      // required this.id,
-      required this.id,
+      {required this.id,
       required this.title,
       this.imageUrl,
       required this.description,
