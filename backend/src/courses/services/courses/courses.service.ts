@@ -35,7 +35,7 @@ async addPurchasedCourse(courseId: number, userId: number) {
     try { await knex('user_courses').insert({
       course_id: courseId,
       user_id: userId,
-      is_complete: false
+      is_completed: false
     });
     return { success: true };
 }catch (err) {
