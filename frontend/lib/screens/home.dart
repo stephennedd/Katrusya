@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
@@ -81,7 +82,9 @@ class _HomePageState extends State<HomePage> {
                 usersController.isUserLoggedIn.value = false;
                 Navigator.pushNamed(context, StartPage.routeName);
               },
-              icon: const Icon(Icons.logout_outlined, color: primaryDark))
+              icon: SvgPicture.asset("assets/icons/logout.svg", colorFilter: const ColorFilter.mode(primaryDark, BlendMode.srcIn))
+          )
+              //icon: const Icon(Icons.logout_outlined, color: primaryDark))
           /*NotificationBox(
             notifiedNumber: 2,
             onTap: () async {

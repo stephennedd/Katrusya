@@ -16,7 +16,7 @@ class LessonItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -40,10 +40,7 @@ class LessonItem extends StatelessWidget {
                     spreadRadius: 1,
                     offset: Offset(-2, -2)
                 )
-                ] :
-                [
-
-                ]
+                ] : [ ]
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +75,7 @@ class LessonItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.schedule_outlined,
                         size: 14,
                         color: labelColor,

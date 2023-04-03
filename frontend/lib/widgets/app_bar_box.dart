@@ -18,6 +18,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
   GestureTapCallback? onTap;
   bool centerTitle;
   bool hasBackButton;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +26,22 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: backgroundColor,
-      leading: hasBackButton? BackButton(
+      leading: hasBackButton? const BackButton(
         color: textColor,
       ) : null,
       centerTitle: centerTitle,
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
             fontFamily: 'Nexa-Trial',
             fontSize: 24,
-            color: textColor,
+            color: backgroundColor == primaryDark ? Colors.white : textColor,
             fontWeight: FontWeight.w700
         ),),
       actions: hasAction ? <Widget> [
         IconButton(
           icon: icon,
+          color: backgroundColor == primaryDark? Colors.white : textColor,
           tooltip: 'Go to leaderboard',
           onPressed: onTap
         )
