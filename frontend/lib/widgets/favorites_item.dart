@@ -14,7 +14,7 @@ class FavoritesItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 300,
-        margin: EdgeInsets.only(top: 10,bottom: 10, left: 3, right: 3),
+        margin: EdgeInsets.only(top: 10, bottom: 10, left: 3, right: 3),
         //padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -40,7 +40,7 @@ class FavoritesItem extends StatelessWidget {
                       image: DecorationImage(
                           image: imageProvider, fit: BoxFit.cover)),
                 ),
-                imageUrl: data.image,
+                imageUrl: data.courseImage,
               ),
             ),
             const SizedBox(
@@ -51,7 +51,7 @@ class FavoritesItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data.name,
+                  data.courseName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -62,7 +62,7 @@ class FavoritesItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  data.price,
+                  data.coursePrice,
                   maxLines: 1,
                   style: const TextStyle(
                       color: textColor, fontFamily: "Poppins", fontSize: 15),
@@ -82,8 +82,8 @@ class FavoritesItem extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    getAttribute("${data.review}",
-                        Icons.star, Colors.yellow),
+                    getAttribute(
+                        "${data.courseReview}", Icons.star, Colors.yellow),
                   ],
                 ),
               ],
@@ -109,5 +109,4 @@ class FavoritesItem extends StatelessWidget {
       ],
     );
   }
-
 }

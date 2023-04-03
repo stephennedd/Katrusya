@@ -24,7 +24,8 @@ class UsersController extends GetxController {
   // RxList<FavoriteCourseModel> userFavoriteCourses =
   //   RxList<FavoriteCourseModel>([]);
 
-  RxList<CourseModel> userFavoriteCourses = RxList<CourseModel>([]);
+  RxList<FavoriteCourseModel> userFavoriteCourses =
+      RxList<FavoriteCourseModel>([]);
   RxList<MyCourseModel> userCourses = RxList<MyCourseModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
@@ -71,66 +72,37 @@ class UsersController extends GetxController {
     return hasCoursePurchased;
   }
 
-  Future<List<CourseModel>> getUserFavoriteCourses(int userId) async {
+  Future<List<FavoriteCourseModel>> getUserFavoriteCourses(int userId) async {
     loadingStatus.value = LoadingStatus.loading;
-
-    RxList<FavoriteCourseModel> favoriteCourses =
-        await CallApi().getUserFavoriteCourses(userId);
-
-    addUserFavoriteCoursesDetails(favoriteCourses);
+    userFavoriteCourses.value = await CallApi().getUserFavoriteCourses(userId);
+    loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
   }
 
   Future<List<MyCourseModel>> getUserCourses(int userId) async {
     loadingStatus.value = LoadingStatus.loading;
     userCourses.value = await CallApi().getUserCourses(userId);
+    loadingStatus.value = LoadingStatus.completed;
     return userCourses;
   }
 
-  Future<List<CourseModel>> addUserFavoriteCoursesDetails(
-      List<FavoriteCourseModel> favoriteCourses) async {
-    for (int i = 0; i < favoriteCourses.length; i++) {
-      CourseModel course = courseController.courses
-          .firstWhere((course) => course.id == favoriteCourses[i].courseId);
-      userFavoriteCourses.add(course);
-    }
-    return userFavoriteCourses;
-  }
-
-  Future<RxList<CourseModel>> addUserFavoriteCourseDetails(
-      FavoriteCourseModel favoriteCourse) async {
-    CourseModel course = courseController.courses
-        .firstWhere((course) => course.id == favoriteCourse.courseId);
-    userFavoriteCourses.add(course);
-
-    return userFavoriteCourses;
-  }
-
-  Future<RxList<CourseModel>> removeUserFavoriteCourseDetails(
-      FavoriteCourseModel favoriteCourse) async {
-    CourseModel course = courseController.courses
-        .firstWhere((course) => course.id == favoriteCourse.courseId);
-    userFavoriteCourses
-        .removeWhere((course) => course.id == favoriteCourse.courseId);
-    return userFavoriteCourses;
-  }
-
-  Future<List<CourseModel>> addCourseToUserFavorites(
+  Future<List<FavoriteCourseModel>> addCourseToUserFavorites(
       int userId, int courseId) async {
     loadingStatus.value = LoadingStatus.loading;
     FavoriteCourseModel addedfavoriteCourse =
         await CallApi().addCourseToUserFavorites(userId, courseId);
-    addUserFavoriteCourseDetails(addedfavoriteCourse);
+    userFavoriteCourses.add(addedfavoriteCourse);
     loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
   }
 
-  Future<List<CourseModel>> deleteCourseFromUserFavorites(
+  Future<List<FavoriteCourseModel>> deleteCourseFromUserFavorites(
       int userId, int courseId) async {
     loadingStatus.value = LoadingStatus.loading;
     FavoriteCourseModel deletedFavoriteCourse =
         await CallApi().deleteCourseFromUserFavorites(userId, courseId);
-    removeUserFavoriteCourseDetails(deletedFavoriteCourse);
+    userFavoriteCourses.removeWhere(
+        (course) => course.courseId == deletedFavoriteCourse.courseId);
     loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
   }
@@ -138,7 +110,7 @@ class UsersController extends GetxController {
   bool isCourseFavoriteForTheUser(courseId) {
     bool isCourseFavorite = false;
     for (int i = 0; i < userFavoriteCourses.length; i++) {
-      if (userFavoriteCourses[i].id == courseId) {
+      if (userFavoriteCourses[i].courseId == courseId) {
         isCourseFavorite = true;
       }
     }

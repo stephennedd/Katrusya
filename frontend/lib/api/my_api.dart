@@ -19,10 +19,10 @@ import '../models/users/user_model.dart';
 
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
-  final String ip = "192.168.178.151";
+  //final String ip = "192.168.178.151";
 
-  //final String _baseUrl = 'http://localhost:3000';
-  final String _baseUrl = 'http://192.168.178.151:3000';
+  final String _baseUrl = 'http://localhost:3000';
+  //final String _baseUrl = 'http://192.168.178.151:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -100,7 +100,7 @@ class CallApi {
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: ip,
+      host: 'localhost',
       port: 3000,
       path: '/courses',
       queryParameters: {
@@ -309,8 +309,8 @@ class CallApi {
   }
 
   addCourseToUserFavorites(int userId, int courseId) async {
-    FavoriteCourseModel favoriteCourse =
-        new FavoriteCourseModel(courseId: courseId);
+    //CHANGE
+    final favoriteCourse = {'course_id': courseId};
     String apiUrl = "/users/${userId}/favoriteCourses";
     http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(favoriteCourse), headers: _setHeaders());
@@ -318,7 +318,6 @@ class CallApi {
       dynamic decoded = await json.decode(response.body);
       FavoriteCourseModel addedFavoriteCourse =
           FavoriteCourseModel.fromJson(decoded);
-      print(addedFavoriteCourse);
       return addedFavoriteCourse;
     } else {
       print("Something went wrong");

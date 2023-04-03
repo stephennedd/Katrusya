@@ -203,17 +203,17 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     // Done: get from database
                     isFavorited: usersController.isCourseFavoriteForTheUser(
                         courseController.currentCourseId.value),
-                    onTap: () {
+                    onTap: () async {
                       if (usersController.isUserLoggedIn.value &&
                           !usersController.isCourseFavoriteForTheUser(
                               courseController.currentCourseId.value)) {
-                        usersController.addCourseToUserFavorites(
+                        await usersController.addCourseToUserFavorites(
                             _getStorage.read('userId'),
                             courseController.currentCourseId.value);
                       } else if (usersController.isUserLoggedIn.value &&
                           usersController.isCourseFavoriteForTheUser(
                               courseController.currentCourseId.value)) {
-                        usersController.deleteCourseFromUserFavorites(
+                        await usersController.deleteCourseFromUserFavorites(
                             _getStorage.read('userId'),
                             courseController.currentCourseId.value);
                       }
