@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/start.dart';
 import 'package:frontend/screens/course_landing_page.dart';
+import 'package:frontend/screens/favorites.dart';
 import 'package:frontend/screens/forgot_password.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/screens/homeScreen.dart';
@@ -86,7 +87,8 @@ class MyApp extends StatelessWidget {
             ForgotPage.routeName: (context) => const ForgotPage(),
             SectionPage.routeName: (context) => SectionPage(),
             TestScreen.routeName: (context) => const TestScreen(),
-            MyCoursesPage.routeName: (context) => const MyCoursesPage()
+            MyCoursesPage.routeName: (context) => const MyCoursesPage(),
+            FavoritesPage.routeName: (context) => const FavoritesPage()
           },
         );
       }),
