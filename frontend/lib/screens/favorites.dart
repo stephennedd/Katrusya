@@ -43,26 +43,48 @@ class _FavoritesPageState extends State<FavoritesPage> {
           scrollDirection: Axis.vertical,
           itemCount: userFavoriteCourses.length,
           itemBuilder: (context, index) {
-            return FavoritesItem(
-              data: userFavoriteCourses[index],
-              onTap: () async {
-                CourseModel userFavoriteCourse = courseController
-                    .getMyCourse(userFavoriteCourses[index].courseId)!;
-
-                int userFavoriteCourseId = userFavoriteCourse.id;
-
-                courseController.isCurrentCoursePurchased.value = true;
-
-                await courseController.getCourseQuizzes(userFavoriteCourseId);
-                await courseController.getCourseDetails(userFavoriteCourseId);
-                courseController.currentCourseId.value = userFavoriteCourseId;
-
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CourseLandingPage(
-                          course: userFavoriteCourse,
-                        )));
-                // Done: navigate to course
+            return Dismissible(
+              key: Key(userFavoriteCourses[index].courseId.toString()),
+              direction: DismissDirection.startToEnd,
+              onDismissed: (direction) {
+                setState(() {
+                  // TODO remove from the favorites
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Course removed")),
+                );
               },
+              background: Container(
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.red,
+                ),
+                child: Icon(Icons.delete, color: Colors.white),
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(left: 16),
+              ),
+              child: FavoritesItem(
+                data: userFavoriteCourses[index],
+                onTap: () async {
+                  CourseModel userFavoriteCourse = courseController
+                      .getMyCourse(userFavoriteCourses[index].courseId)!;
+
+                  int userFavoriteCourseId = userFavoriteCourse.id;
+
+                  courseController.isCurrentCoursePurchased.value = true;
+
+                  await courseController.getCourseQuizzes(userFavoriteCourseId);
+                  await courseController.getCourseDetails(userFavoriteCourseId);
+                  courseController.currentCourseId.value = userFavoriteCourseId;
+
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CourseLandingPage(
+                            course: userFavoriteCourse,
+                          )));
+                  // Done: navigate to course
+                },
+              ),
             );
           }),
     );

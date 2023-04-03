@@ -69,7 +69,7 @@ class _AccountPageState extends State<AccountPage> {
               color: Colors.white
             ),
             padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-            child:
+            child: Container()
           ) // profile picture
         ],
       ),

@@ -152,6 +152,7 @@ class _SectionPageState extends State<SectionPage>
                     fontWeight: FontWeight.w600,
                     color: textColor),
               ),
+
             ],
           ),
           const SizedBox(
@@ -352,6 +353,9 @@ class _SectionPageState extends State<SectionPage>
                   showAlertDialog(context, "No Access",
                       "Please purchase the course to access this content");
                 }
+              },
+              onComplete: () {
+                // TODO add completion in backend
               },
             );
           }

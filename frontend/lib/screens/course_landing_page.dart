@@ -113,7 +113,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
         tabs: const [
           Tab(
             child: Text(
-              "Sections",
+              "Playlist",
               style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
