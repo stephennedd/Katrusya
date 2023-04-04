@@ -82,7 +82,7 @@ interface Lesson {
     is_recommended: boolean;
     is_featured: boolean;
     duration_in_hours: number;
-    number_of_lessons: number;
+    // number_of_lessons: number;
     tags: [string];
   }
 
@@ -111,7 +111,7 @@ export async function seed(knex: Knex): Promise<void> {
     description: courseData.courses[i].description,
     image: courseData.courses[i].image,
     price: courseData.courses[i].price,
-    number_of_lessons: courseData.courses[i].number_of_lessons,
+    // number_of_lessons: courseData.courses[i].number_of_lessons,
     duration_in_hours: courseData.courses[i].duration_in_hours,
     review: courseData.courses[i].review,
     is_favorited: courseData.courses[i].is_favorited,

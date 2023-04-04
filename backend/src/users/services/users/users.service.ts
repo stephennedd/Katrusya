@@ -74,32 +74,60 @@ export class UsersService {
 
   async getUserFavoriteCourses(userId:number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
-    // const result = await knex('user_favorite_courses')
-    // .where({ user_id: userId })
-    // .select('course_id')
+
+    // const favoriteCourses = await knex.select(
+    //   'courses.id as course_id',
+    //   'courses.name as course_name',
+    //   'courses.image as course_image',
+    //   'courses.price as course_price',
+    //   'courses.duration_in_hours',
+    //   'courses.review as course_review'
+    // ).from('user_favorite_courses')
+    // .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
+    // .where('user_favorite_courses.user_id', userId);
 
     const favoriteCourses = await knex.select(
       'courses.id as course_id',
       'courses.name as course_name',
       'courses.image as course_image',
       'courses.price as course_price',
-      'courses.number_of_lessons',
+      knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
       'courses.duration_in_hours',
       'courses.review as course_review'
     ).from('user_favorite_courses')
     .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    .where('user_favorite_courses.user_id', userId);
+    .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+    .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
+    .where('user_favorite_courses.user_id', userId)
+    .groupBy('courses.id');
 
     return favoriteCourses;
   }
 
   async getUserCourses(userId:number): Promise<any>{
     const knex = this.dbService.getKnexInstance();
-    const courses = await (await knex.select('courses.id as course_id', 'courses.number_of_lessons as number_of_lessons', 'courses.name as course_name', 'courses.image as course_image',
-    'user_courses.is_completed as is_completed')
+    // const courses = await (await knex.select('courses.id as course_id',
+    // // 'courses.number_of_lessons as number_of_lessons',
+    //   'courses.name as course_name', 'courses.image as course_image',
+    // 'user_courses.is_completed as is_completed')
+    //   .from('courses')
+    //   .join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+    //   .where('user_courses.user_id', '=', userId)
+    //   .orderBy('user_courses.id', 'asc'))
+    const courses = await (await knex.select(
+      'courses.id as course_id',
+      'courses.name as course_name',
+      'courses.image as course_image',
+      'user_courses.is_completed as is_completed',
+      knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
+      knex.raw('COUNT(DISTINCT sections.id) as number_of_sections')
+    )
       .from('courses')
       .join('user_courses', 'user_courses.course_id', '=', 'courses.id')
+      .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+      .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
       .where('user_courses.user_id', '=', userId)
+      .groupBy('courses.id')
       .orderBy('user_courses.id', 'asc'))
   .map((course) => {
     return {
@@ -124,12 +152,14 @@ export class UsersService {
       'courses.name as course_name',
       'courses.image as course_image',
       'courses.price as course_price',
-      'courses.number_of_lessons',
+      knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
       'courses.duration_in_hours',
       'courses.review as course_review'
     ).from('user_favorite_courses')
     .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    .where({ user_id: userId, course_id: courseId })
+    .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+    .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
+    .where({ user_id: userId, 'user_favorite_courses.course_id': courseId })
     .orderBy('courses.id', 'desc') // sort by created_at column in descending order
     .first(); 
   return updatedUserFavoritedCourse;
@@ -200,13 +230,13 @@ export class UsersService {
     const wasSectionCompleted = await this.isSectionCompletedByUser(userId,completedLessonDto.section_id);
     const wasCourseCompleted = await this.isCourseCompletedByUser(userId,completedLessonDto.course_id);
     
-    await knex('user_completed_lessons')
+   await knex('user_completed_lessons')
     .where({
-    user_id: userId,
-    lesson_id: completedLessonDto.lesson_id,
-    section_id: completedLessonDto.section_id,
-  })
-    .delete();
+      user_id: userId,
+      lesson_id: completedLessonDto.lesson_id,
+      section_id: completedLessonDto.section_id,
+    })
+    .delete(); 
 
     const isSectionCompleted = await this.isSectionCompletedByUser(userId,completedLessonDto.section_id);
     
@@ -232,6 +262,14 @@ export class UsersService {
       is_completed: false
     }); 
   }
+  const deletedElement = {
+    user_id:parseInt(userId.toString(), 10),
+    lesson_id: completedLessonDto.lesson_id,
+    section_id: completedLessonDto.section_id,
+  };
+
+  deletedElement['course_id'] = completedLessonDto.course_id; 
+  return deletedElement;
   }
 
   async getCompleteByUserLessonsForCertainCourse(userId: number, courseId: number): Promise<any>{
@@ -257,6 +295,19 @@ export class UsersService {
   })
   .orderBy('user_completed_lessons.lesson_id', 'asc');
   return completedLessons;
+  }
+
+  async getCompleteByUserSections(userId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+  
+    const completedSections = await knex('user_completed_sections')
+  .select('user_completed_sections.user_id','user_completed_sections.section_id',
+  'user_completed_sections.course_id')
+  .where({
+    'user_completed_sections.user_id': userId
+  })
+  .orderBy('user_completed_sections.section_id', 'asc');
+  return completedSections;
   }
 
   async addCompletedByUserLesson(userId:number,completedLessonDto: AddCompletedLessonDto): Promise<any>{
@@ -391,14 +442,16 @@ export class UsersService {
       'courses.name as course_name',
       'courses.image as course_image',
       'courses.price as course_price',
-      'courses.number_of_lessons',
+      knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
       'courses.duration_in_hours',
       'courses.review as course_review'
     ).from('user_favorite_courses')
     .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
+    .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+      .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
       .where({
         user_id: userId,
-        course_id: courseId
+        'user_favorite_courses.course_id': courseId
       })
       .then(rows => {
         const [deletedRow] = rows;

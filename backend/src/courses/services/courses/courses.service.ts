@@ -164,23 +164,32 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
         if (queryParams.search!==undefined) {
             query = query.whereRaw(`JSON_CONTAINS(tags->'$[*]', '["${queryParams.search}"]')`)
           }
+
+           // Add a left join with the sections and lessons tables to count the number of lessons for each course
+  query = query
+  .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+  .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
+  .select('courses.*', knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
+  knex.raw('COUNT(DISTINCT sections.id) as number_of_sections'))
+  .groupBy('courses.id');
       
         // Execute the query
-        if(queryParams.category){
-         query = query.select('courses.*');
-        } else {
-            query = query.select('*');
-        }
-
+        // if(queryParams.category){
+        //  query = query.select('courses.*');
+        // } else {
+        //     query = query.select('*');
+        // }
+            
              const courses = (await query).map(course => {
             return {
               ...course,
               is_recommended: course.is_recommended === 1 ? true : false,
               is_featured: course.is_featured === 1?true : false,
               is_favorited: course.is_favorited === 1?true : false,
+              number_of_lessons: course.number_of_lessons || 0 
             };
           });
-         
+
         return courses;
       }
     

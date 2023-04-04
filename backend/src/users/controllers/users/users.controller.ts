@@ -54,6 +54,11 @@ export class UsersController {
       return this.usersService.getCompleteByUserLessonsForCertainCourse(userId,courseId);
     }
 
+    @Get(':userId/completedSections')
+    async getUserCompletedSectionsForCertainCourse(@Param('userId') userId: number) {
+      return this.usersService.getCompleteByUserSections(userId);
+    }
+
     @Get(':userId/sections/:sectionId/isCompleted')
     async getIsSectionCompletedByUser(@Param('userId') userId: number,@Param('sectionId') sectionId: number) {
       return this.usersService.isSectionCompletedByUser(userId,sectionId);
