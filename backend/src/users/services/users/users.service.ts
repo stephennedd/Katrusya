@@ -234,6 +234,31 @@ export class UsersService {
   }
   }
 
+  async getCompleteByUserLessonsForCertainCourse(userId: number, courseId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    const userOwnsCourse = await knex('user_courses')
+    .select('id')
+    .where({
+      user_id: userId,
+      course_id: courseId
+    })
+    .first();
+  
+    if(!userOwnsCourse){
+      throw new HttpException('User does not own the course', HttpStatus.BAD_REQUEST);
+    }
+    const completedLessons = await knex('user_completed_lessons')
+  .select('user_completed_lessons.user_id','user_completed_lessons.lesson_id','user_completed_lessons.section_id',
+  'sections.course_id')
+  .join('sections', 'sections.id', '=', 'user_completed_lessons.section_id')
+  .where({
+    'user_completed_lessons.user_id': userId,
+    'sections.course_id': courseId
+  })
+  .orderBy('user_completed_lessons.lesson_id', 'asc');
+  return completedLessons;
+  }
+
   async addCompletedByUserLesson(userId:number,completedLessonDto: AddCompletedLessonDto): Promise<any>{
     const knex = this.dbService.getKnexInstance();
    
@@ -297,7 +322,7 @@ export class UsersService {
    }
 
     const userCompletedLesson = {
-      user_id:userId,
+      user_id:parseInt(userId.toString(), 10),
       lesson_id: completedLessonDto.lesson_id,
       section_id: completedLessonDto.section_id,
     };
@@ -325,6 +350,9 @@ export class UsersService {
         }); 
       }
     }
+
+    userCompletedLesson['course_id'] = completedLessonDto.course_id; 
+    return userCompletedLesson;
   }
 
   async isSectionCompletedByUser(userId:number,sectionId:number): Promise<boolean> {
