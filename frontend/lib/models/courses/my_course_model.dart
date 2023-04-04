@@ -17,7 +17,7 @@ class MyCourseModel {
         courseId: json['course_id'],
         courseImage: json['course_image'],
         courseName: json['course_name'],
-        isComplete: json['is_complete'],
+        isComplete: json['is_completed'],
         numberOfLessons: json['number_of_lessons']);
   }
 
@@ -26,7 +26,7 @@ class MyCourseModel {
     data['course_id'] = this.courseId;
     data['course_image'] = this.courseImage;
     data['course_name'] = this.courseName;
-    data['is_complete'] = this.isComplete;
+    data['is_completed'] = this.isComplete;
     data['number_of_lessons'] = this.numberOfLessons;
     return data;
   }
