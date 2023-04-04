@@ -10,28 +10,37 @@ class MyLinearProgressIndicator extends StatefulWidget {
       _MyCircularProgressIndicatorState();
 }
 
-class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator> with SingleTickerProviderStateMixin {
+class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _animation =
-    Tween(begin: 0.0, end: widget.value).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
+        Tween(begin: 0.0, end: widget.value).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
     _animationController.forward();
   }
 
   @override
   void didUpdateWidget(MyLinearProgressIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // if (widget.value != oldWidget.value) {
+    //   _animationController.reset();
+    //   _animation =
+    //       Tween(begin: 0.0, end: widget.value).animate(_animationController);
+    //   _animationController.forward();
+    // }
     if (widget.value != oldWidget.value) {
       _animationController.reset();
+      _animation =
+          Tween(begin: 0.0, end: widget.value).animate(_animationController);
       _animationController.forward();
     }
   }

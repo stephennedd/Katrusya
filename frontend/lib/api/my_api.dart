@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/completed_lesson_model.dart';
+import 'package:frontend/models/courses/completed_section_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/courses/favorite_course_model.dart';
@@ -315,8 +316,6 @@ class CallApi {
   }
 
   getCompletedByUserLessonsForCertainCourse(int userId, int courseId) async {
-    print(userId);
-    print(courseId);
     String apiUrl = "/users/${userId}/courses/${courseId}/completedLessons";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
@@ -334,6 +333,25 @@ class CallApi {
       // final GetStorage _getStorage = GetStorage();
       // await SecureStorage.deleteAccessToken();
       // _getStorage.erase();
+      throw Error();
+    }
+  }
+
+  getCompletedByUserSections(int userId) async {
+    String apiUrl = "/users/${userId}/completedSections";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> completedSectionsJson = decoded as List<dynamic>;
+      RxList<CompletedSectionModel> completedSectionsForCertainCourse =
+          RxList<CompletedSectionModel>.from(completedSectionsJson.map(
+              (completedSectionJson) =>
+                  CompletedSectionModel.fromJson(completedSectionJson)));
+      return completedSectionsForCertainCourse;
+    } else {
+      print("Something went wrong");
       throw Error();
     }
   }

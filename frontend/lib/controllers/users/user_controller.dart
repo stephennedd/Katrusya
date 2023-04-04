@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/api/my_api.dart';
 import 'package:frontend/models/categories/category_model.dart';
+import 'package:frontend/models/courses/completed_section_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/quizzes/question_paper_model.dart';
@@ -30,6 +31,8 @@ class UsersController extends GetxController {
   RxList<MyCourseModel> userCourses = RxList<MyCourseModel>([]);
   RxList<CompletedLessonModel> userCompletedLessonsForCetainCourse =
       RxList<CompletedLessonModel>([]);
+  RxList<CompletedSectionModel> userCompletedSections =
+      RxList<CompletedSectionModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
 
@@ -44,8 +47,9 @@ class UsersController extends GetxController {
     isUserLoggedIn.value =
         await SecureStorage.getAccessToken() != null ? true : false;
     if (isUserLoggedIn.value) {
-      getUserFavoriteCourses(_getStorage.read('userId'));
-      getUserCourses(_getStorage.read('userId'));
+      await getUserFavoriteCourses(_getStorage.read('userId'));
+      await getUserCourses(_getStorage.read('userId'));
+      await getUserCompletedSections(_getStorage.read('userId'));
     }
   }
 
@@ -88,9 +92,19 @@ class UsersController extends GetxController {
     return userCompletedLessonsForCetainCourse;
   }
 
+  Future<List<CompletedSectionModel>> getUserCompletedSections(
+      int userId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    userCompletedSections.value =
+        await CallApi().getCompletedByUserSections(userId);
+    loadingStatus.value = LoadingStatus.completed;
+    return userCompletedSections;
+  }
+
   Future<List<MyCourseModel>> getUserCourses(int userId) async {
     loadingStatus.value = LoadingStatus.loading;
     userCourses.value = await CallApi().getUserCourses(userId);
+    await getUserCompletedSections(userId);
     loadingStatus.value = LoadingStatus.completed;
     return userCourses;
   }
@@ -122,6 +136,7 @@ class UsersController extends GetxController {
     CompletedLessonModel addedCompletedLesson = await CallApi()
         .addCompletedByUserLesson(userId, courseId, sectionId, lessonId);
     userCompletedLessonsForCetainCourse.add(addedCompletedLesson);
+    await getUserCompletedSections(userId);
     loadingStatus.value = LoadingStatus.completed;
     return userCompletedLessonsForCetainCourse;
   }
@@ -136,6 +151,11 @@ class UsersController extends GetxController {
         course.lessonId == deletedCompletedLesson.lessonId &&
         course.sectionId == deletedCompletedLesson.sectionId &&
         course.userId == deletedCompletedLesson.userId);
+    bool wasSectionCompleted =
+        userCompletedSections.any((section) => section.sectionId == sectionId);
+    if (wasSectionCompleted) {
+      await getUserCompletedSections(userId);
+    }
     loadingStatus.value = LoadingStatus.completed;
     return userCompletedLessonsForCetainCourse;
   }
@@ -182,5 +202,31 @@ class UsersController extends GetxController {
         numberOfCompletedLessonsPerSection / numberOfLessonsPerSection;
 
     return completionRate;
+  }
+
+  double getCompletionRateOfCourse(
+      int courseId, int numberOfSectionsPerCourse) {
+    int numberOfCompletedSectionsPerCourse = 0;
+    for (int i = 0; i < userCompletedSections.length; i++) {
+      if (userCompletedSections[i].courseId == courseId) {
+        numberOfCompletedSectionsPerCourse++;
+      }
+    }
+    double completionRate =
+        numberOfCompletedSectionsPerCourse / numberOfSectionsPerCourse;
+
+    return completionRate;
+  }
+
+  bool hasUserCompletedLesson(int sectionId, int lessonId, int courseId) {
+    bool hasUserCompletedLesson = false;
+    for (int i = 0; i < userCompletedLessonsForCetainCourse.length; i++) {
+      if (userCompletedLessonsForCetainCourse[i].sectionId == sectionId &&
+          userCompletedLessonsForCetainCourse[i].lessonId == lessonId &&
+          userCompletedLessonsForCetainCourse[i].courseId == courseId) {
+        hasUserCompletedLesson = true;
+      }
+    }
+    return hasUserCompletedLesson;
   }
 }

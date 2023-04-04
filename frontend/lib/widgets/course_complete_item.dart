@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../Themes/app_colors.dart';
+import '../controllers/users/user_controller.dart';
 import 'custom_image.dart';
 import 'lesson_progress.dart';
 
 class CourseCompleteItem extends StatelessWidget {
   CourseCompleteItem(
-      {Key? key, this.onTap, this.progressValue = 0.4, required this.data})
+      {Key? key, this.onTap, required this.progressValue, required this.data})
       : super(key: key);
   GestureTapCallback? onTap;
   final data;

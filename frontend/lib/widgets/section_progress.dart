@@ -41,6 +41,16 @@ class _MyCircularProgressIndicatorState
     }
   }
 
+  // @override
+  // void didUpdateWidget(MyCircularProgressIndicator oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (widget.value != oldWidget.value) {
+  //     _animationController.reset();
+  //     _animation = Tween(begin: 0.0, end: widget.value).animate(_animationController);
+  //     _animationController.forward();
+  //   }
+  // }
+
   @override
   void dispose() {
     _animationController.dispose();

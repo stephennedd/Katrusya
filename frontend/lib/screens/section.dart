@@ -332,7 +332,8 @@ class _SectionPageState extends State<SectionPage>
               isPlaying: item.videoUrl == _controller.dataSource,
               data: item,
               // TODO get the isComplete for this course/user from backend and
-              isComplete: false,
+              isComplete: usersController.hasUserCompletedLesson(item.sectionId,
+                  item.lessonId, courseController.currentCourseId.value),
               //data: widget.data.lessons[index],
               onTap: () {
                 //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
@@ -360,13 +361,28 @@ class _SectionPageState extends State<SectionPage>
                 }
               },
               onComplete: () async {
-                await usersController.addCompletedLessonByUser(
-                    _getStorage.read('userId'),
-                    item.lessonId,
-                    item.sectionId,
-                    courseController.currentCourseId.value);
-                await usersController
-                    .getUserCourses(_getStorage.read('userId'));
+                if (!usersController.hasUserCompletedLesson(item.sectionId,
+                    item.lessonId, courseController.currentCourseId.value)) {
+                  await usersController.addCompletedLessonByUser(
+                      _getStorage.read('userId'),
+                      item.lessonId,
+                      item.sectionId,
+                      courseController.currentCourseId.value);
+                  await usersController
+                      .getUserCourses(_getStorage.read('userId'));
+                  // await usersController
+                  //     .getUserCompletedSections(_getStorage.read('userId'));
+                } else {
+                  await usersController.deleteCompletedLessonByUser(
+                      _getStorage.read('userId'),
+                      item.lessonId,
+                      item.sectionId,
+                      courseController.currentCourseId.value);
+                  await usersController
+                      .getUserCourses(_getStorage.read('userId'));
+                  // await usersController
+                  //     .getUserCompletedSections(_getStorage.read('userId'));
+                }
                 // TODO add completion in backend
               },
             );

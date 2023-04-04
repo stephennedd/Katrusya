@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/animated_complete_task_button.dart';
 import 'package:frontend/widgets/lesson_progress.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../Themes/app_colors.dart';
+import '../controllers/users/user_controller.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
