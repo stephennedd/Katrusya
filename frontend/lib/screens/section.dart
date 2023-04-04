@@ -331,6 +331,8 @@ class _SectionPageState extends State<SectionPage>
             return LessonItem(
               isPlaying: item.videoUrl == _controller.dataSource,
               data: item,
+              // TODO get the isComplete for this course/user from backend and
+              isComplete: false,
               //data: widget.data.lessons[index],
               onTap: () {
                 //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked

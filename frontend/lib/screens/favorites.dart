@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/courses/favorite_course_model.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
@@ -57,15 +58,18 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 );
               },
               background: Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.red,
                 ),
-                child: Icon(Icons.delete, color: Colors.white),
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(left: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                alignment: AlignmentDirectional.centerStart,
+                child: Icon(
+                Icons.delete,
+                color: Colors.white,
+                ),
               ),
+              confirmDismiss: (direction) => promptUser(direction),
               child: FavoritesItem(
                 data: userFavoriteCourses[index],
                 onTap: () async {
@@ -98,4 +102,34 @@ class _FavoritesPageState extends State<FavoritesPage> {
           }),
     );
   }
+
+  Future<bool> promptUser(DismissDirection direction) async {
+    String action = "remove";
+    return await showCupertinoDialog<bool>(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Text("Are you sure you want to $action the course?"),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text("Ok"),
+            onPressed: () {
+              // Dismiss the dialog and
+              // also dismiss the swiped item
+              Navigator.of(context).pop(true);
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text('Cancel'),
+            onPressed: () {
+              // Dismiss the dialog but don't
+              // dismiss the swiped item
+              return Navigator.of(context).pop(false);
+            },
+          )
+        ],
+      ),
+    ) ??
+        false; // In case the user dismisses the dialog by clicking away from it
+  }
+
 }
