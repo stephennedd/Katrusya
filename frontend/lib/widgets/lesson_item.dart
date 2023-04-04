@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/animated_complete_task_button.dart';
 import 'package:frontend/widgets/lesson_progress.dart';
 
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1}) : super(key: key);
+  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1, this.onComplete}) : super(key: key);
   GestureTapCallback? onTap;
   final data;
   bool isPlaying;
   double progressValue;
+  GestureTapCallback? onComplete;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -30,20 +32,17 @@ class LessonItem extends StatelessWidget {
                 ? [
                 BoxShadow(
                     color: Colors.grey.shade400,
-                    blurRadius: 15,
+                    blurRadius: 5,
                     spreadRadius: 1,
-                    offset: const Offset(2,2)
+                    offset: const Offset(1,1)
                 ),
                 const BoxShadow(
                     color: Colors.white,
-                    blurRadius: 15,
+                    blurRadius: 5,
                     spreadRadius: 1,
-                    offset: Offset(-2, -2)
+                    offset: Offset(-1, -1)
                 )
-                ] :
-                [
-
-                ]
+                ] : [ ]
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +77,7 @@ class LessonItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.schedule_outlined,
                         size: 14,
                         color: labelColor,
@@ -104,10 +103,14 @@ class LessonItem extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.play_arrow_rounded,
-              color: isPlaying ? accent : primaryDark,
-              size: 30,
+            const SizedBox(
+              width: 30,
+            ),
+            AnimatedCompleteTaskButton(
+              onPressed: onComplete!
+            ),
+            const SizedBox(
+              width: 10,
             )
           ],
         ),

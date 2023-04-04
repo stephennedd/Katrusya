@@ -100,7 +100,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
     return Container(
       padding: const EdgeInsets.only(left: 5, right: 5),
       width: double.infinity,
-      height: deviceDisplayHeight - 221,
+      height: deviceDisplayHeight - 231,
       child: TabBarView(
         physics: const ScrollPhysics(),
         controller: _tabController,
