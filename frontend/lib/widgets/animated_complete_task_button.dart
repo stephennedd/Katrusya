@@ -89,14 +89,14 @@ class _AnimatedCompleteTaskButtonState
   }
 }
 */
-
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class AnimatedCompleteTaskButton extends StatefulWidget {
   final VoidCallback onPressed;
+  final bool isCompleted;
 
-  AnimatedCompleteTaskButton({required this.onPressed});
+  AnimatedCompleteTaskButton({required this.onPressed, required this.isCompleted});
 
   @override
   _AnimatedCompleteTaskButtonState createState() =>
@@ -111,13 +111,16 @@ class _AnimatedCompleteTaskButtonState
   Color _buttonColor = Colors.white;
   late AudioPlayer _audioPlayer;
   Color _textColor = Colors.green;
-
+  bool _isCompleted = false;
 
   @override
   void initState() {
     super.initState();
+    _isCompleted = widget.isCompleted;
+    _buttonColor = _isCompleted ? Colors.green : Colors.white;
+    _textColor = _isCompleted ? Colors.white : Colors.green;
     _controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
         CurvedAnimation(parent: _controller, curve: Curves.bounceIn));
     _audioPlayer = AudioPlayer();
@@ -132,37 +135,36 @@ class _AnimatedCompleteTaskButtonState
 
   void _onPressed() async {
     String sound = "sounds/succes_bell.mp3";
-    await _audioPlayer.setSource(AssetSource(sound));
-    await _audioPlayer.play(AssetSource(sound));
+    if(!_isCompleted) {
+      await _audioPlayer.play(AssetSource(sound));
+    }
     _controller.forward().then((value) => _controller.reverse());
     setState(() {
-      _buttonColor = Colors.green;
-      _textColor = Colors.white;
+      if(_isCompleted) {
+        _buttonColor = Colors.white;
+        _textColor = Colors.green;
+        _isCompleted = false;
+      } else {
+        _buttonColor = Colors.green;
+        _textColor = Colors.white;
+        _isCompleted = true;
+      }
     });
     widget.onPressed();
+  }
+
+  void _revertButton() {
+    _controller.reset();
+    setState(() {
+      _buttonColor = Colors.white;
+      _textColor = Colors.green;
+      _isCompleted = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) {
-        setState(() {
-          _buttonColor = Colors.white;
-          _textColor = Colors.green;
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _buttonColor = Colors.green;
-          _textColor = Colors.white;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          _buttonColor = Colors.white;
-          _textColor = Colors.green;
-        });
-      },
       onTap: _onPressed,
       child: AnimatedBuilder(
         animation: _controller,
@@ -183,7 +185,7 @@ class _AnimatedCompleteTaskButtonState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.check,
+                    _isCompleted ? Icons.undo_rounded : Icons.check_rounded,
                     color: _textColor,
                     size: 20,
                   )

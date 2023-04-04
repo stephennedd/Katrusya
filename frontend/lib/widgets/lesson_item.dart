@@ -6,12 +6,20 @@ import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1, this.onComplete}) : super(key: key);
+  LessonItem({Key? key,
+    this.onTap,
+    required this.data,
+    required this.isComplete,
+    this.onComplete,
+    this.isPlaying = false,
+    this.progressValue = 0.1,
+  }) : super(key: key);
   GestureTapCallback? onTap;
   final data;
   bool isPlaying;
   double progressValue;
   GestureTapCallback? onComplete;
+  late bool isComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +115,8 @@ class LessonItem extends StatelessWidget {
               width: 30,
             ),
             AnimatedCompleteTaskButton(
-              onPressed: onComplete!
+              onPressed: onComplete!,
+              isCompleted: isComplete,
             ),
             const SizedBox(
               width: 10,
