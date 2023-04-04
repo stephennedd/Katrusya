@@ -32,6 +32,8 @@ class CourseDetailsModel {
       List<dynamic> lessonsJson = sectionJson['lessons'];
       List<Lesson> lessons = lessonsJson.map((lessonJson) {
         return Lesson(
+            lessonId: lessonJson['lesson_id'],
+            sectionId: lessonJson['section_id'],
             lessonName: lessonJson['lesson_name'],
             lessonDurationInHours: lessonJson['lesson_duration_in_hours'],
             videoUrl: lessonJson['video_url'],
@@ -99,19 +101,23 @@ class Quiz {
 }
 
 class Lesson {
+  int lessonId;
+  int sectionId;
   String lessonName;
   int lessonDurationInHours;
   String videoUrl;
   String image;
 
   Lesson(
-      {required this.lessonName,
+      {required this.lessonId,
+      required this.sectionId,
+      required this.lessonName,
       required this.lessonDurationInHours,
       required this.videoUrl,
       required this.image});
 
   @override
   String toString() {
-    return 'Lesson{lessonName: $lessonName, lessonDurationInHours: $lessonDurationInHours, videoUrl: $videoUrl, image: $image}';
+    return 'Lesson{lessonId: $lessonId,sectionId: $sectionId,lessonName: $lessonName, lessonDurationInHours: $lessonDurationInHours, videoUrl: $videoUrl, image: $image}';
   }
 }

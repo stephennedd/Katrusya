@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:frontend/models/categories/category_model.dart';
 import 'package:frontend/models/course_query_params_model.dart';
+import 'package:frontend/models/courses/completed_lesson_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/courses/favorite_course_model.dart';
@@ -21,10 +22,10 @@ import '../models/users/user_model.dart';
 
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
-  final String ip = "192.168.178.151";
+  //final String ip = "192.168.178.151";
 
-  //final String _baseUrl = 'http://localhost:3000';
-  final String _baseUrl = 'http://192.168.178.151:3000';
+  final String _baseUrl = 'http://localhost:3000';
+  //final String _baseUrl = 'http://192.168.178.151:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -102,7 +103,7 @@ class CallApi {
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: ip,
+      host: 'localhost',
       port: 3000,
       path: '/courses',
       queryParameters: {
@@ -313,6 +314,30 @@ class CallApi {
     }
   }
 
+  getCompletedByUserLessonsForCertainCourse(int userId, int courseId) async {
+    print(userId);
+    print(courseId);
+    String apiUrl = "/users/${userId}/courses/${courseId}/completedLessons";
+    http.Response response =
+        await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> completedLessonsJson = decoded as List<dynamic>;
+      RxList<CompletedLessonModel> completedLessonsForCertainCourse =
+          RxList<CompletedLessonModel>.from(completedLessonsJson.map(
+              (completedLessonJson) =>
+                  CompletedLessonModel.fromJson(completedLessonJson)));
+      return completedLessonsForCertainCourse;
+    } else {
+      print("Something went wrong");
+      // final GetStorage _getStorage = GetStorage();
+      // await SecureStorage.deleteAccessToken();
+      // _getStorage.erase();
+      throw Error();
+    }
+  }
+
   addCourseToUserFavorites(int userId, int courseId) async {
     //CHANGE
     final favoriteCourse = {'course_id': courseId};
@@ -339,6 +364,50 @@ class CallApi {
       FavoriteCourseModel deletedFavoriteCourse =
           FavoriteCourseModel.fromJson(decoded);
       return deletedFavoriteCourse;
+    } else {
+      print("Something went wrong");
+      throw Error();
+    }
+  }
+
+  addCompletedByUserLesson(
+      int userId, int courseId, int sectionId, int lessonId) async {
+    //CHANGE
+    final completedByUserLesson = {
+      'course_id': courseId,
+      'section_id': sectionId,
+      'lesson_id': lessonId
+    };
+    String apiUrl = "/users/${userId}/completedLessons";
+    http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
+        body: jsonEncode(completedByUserLesson), headers: _setHeaders());
+    if (response.statusCode == 201) {
+      dynamic decoded = await json.decode(response.body);
+      CompletedLessonModel addedCompletedLessson =
+          CompletedLessonModel.fromJson(decoded);
+      return addedCompletedLessson;
+    } else {
+      print("Something went wrong");
+      throw Error();
+    }
+  }
+
+  deleteCompletedByUserLesson(
+      int userId, int courseId, int sectionId, int lessonId) async {
+    //CHANGE
+    final completedByUserLesson = {
+      'course_id': courseId,
+      'section_id': sectionId,
+      'lesson_id': lessonId
+    };
+    String apiUrl = "/users/${userId}/completedLessons";
+    http.Response response = await http.delete(Uri.parse(_baseUrl + apiUrl),
+        body: jsonEncode(completedByUserLesson), headers: _setHeaders());
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      CompletedLessonModel deletedCompletedLessson =
+          CompletedLessonModel.fromJson(decoded);
+      return deletedCompletedLessson;
     } else {
       print("Something went wrong");
       throw Error();

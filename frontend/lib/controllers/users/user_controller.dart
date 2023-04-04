@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/courses/completed_lesson_model.dart';
 import '../../models/courses/favorite_course_model.dart';
 import '../../models/courses/my_course_model.dart';
 import '../../models/users/login_model.dart';
@@ -27,6 +28,8 @@ class UsersController extends GetxController {
   RxList<FavoriteCourseModel> userFavoriteCourses =
       RxList<FavoriteCourseModel>([]);
   RxList<MyCourseModel> userCourses = RxList<MyCourseModel>([]);
+  RxList<CompletedLessonModel> userCompletedLessonsForCetainCourse =
+      RxList<CompletedLessonModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
 
@@ -58,9 +61,6 @@ class UsersController extends GetxController {
     var response = await CallApi().loginUser(loginnedUser);
     loadingStatus.value = LoadingStatus.completed;
     return response;
-    // var responseBody = response.body;
-    // var decodedBody = json.decode(responseBody);
-    // print(decodedBody);
   }
 
   Future<bool> hasUserPurchasedTheCourse(int userId, int courseId) async {
@@ -77,6 +77,15 @@ class UsersController extends GetxController {
     userFavoriteCourses.value = await CallApi().getUserFavoriteCourses(userId);
     loadingStatus.value = LoadingStatus.completed;
     return userFavoriteCourses;
+  }
+
+  Future<List<CompletedLessonModel>> getUserCompletedLessonsForCertainCourse(
+      int userId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    userCompletedLessonsForCetainCourse.value = await CallApi()
+        .getCompletedByUserLessonsForCertainCourse(userId, courseId);
+    loadingStatus.value = LoadingStatus.completed;
+    return userCompletedLessonsForCetainCourse;
   }
 
   Future<List<MyCourseModel>> getUserCourses(int userId) async {
@@ -107,6 +116,30 @@ class UsersController extends GetxController {
     return userFavoriteCourses;
   }
 
+  Future<List<CompletedLessonModel>> addCompletedLessonByUser(
+      int userId, int lessonId, int sectionId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    CompletedLessonModel addedCompletedLesson = await CallApi()
+        .addCompletedByUserLesson(userId, courseId, sectionId, lessonId);
+    userCompletedLessonsForCetainCourse.add(addedCompletedLesson);
+    loadingStatus.value = LoadingStatus.completed;
+    return userCompletedLessonsForCetainCourse;
+  }
+
+  Future<List<CompletedLessonModel>> deleteCompletedLessonByUser(
+      int userId, int lessonId, int sectionId, int courseId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    CompletedLessonModel deletedCompletedLesson = await CallApi()
+        .deleteCompletedByUserLesson(userId, courseId, sectionId, lessonId);
+    userCompletedLessonsForCetainCourse.removeWhere((course) =>
+        course.courseId == deletedCompletedLesson.courseId &&
+        course.lessonId == deletedCompletedLesson.lessonId &&
+        course.sectionId == deletedCompletedLesson.sectionId &&
+        course.userId == deletedCompletedLesson.userId);
+    loadingStatus.value = LoadingStatus.completed;
+    return userCompletedLessonsForCetainCourse;
+  }
+
   bool isCourseFavoriteForTheUser(courseId) {
     bool isCourseFavorite = false;
     for (int i = 0; i < userFavoriteCourses.length; i++) {
@@ -135,5 +168,19 @@ class UsersController extends GetxController {
       }
     }
     return numberOfIncompleteCourses;
+  }
+
+  double getCompletionRateOfSection(
+      int sectionId, int numberOfLessonsPerSection) {
+    int numberOfCompletedLessonsPerSection = 0;
+    for (int i = 0; i < userCompletedLessonsForCetainCourse.length; i++) {
+      if (userCompletedLessonsForCetainCourse[i].sectionId == sectionId) {
+        numberOfCompletedLessonsPerSection++;
+      }
+    }
+    double completionRate =
+        numberOfCompletedLessonsPerSection / numberOfLessonsPerSection;
+
+    return completionRate;
   }
 }

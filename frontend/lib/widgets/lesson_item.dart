@@ -6,7 +6,14 @@ import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
 class LessonItem extends StatelessWidget {
-  LessonItem({Key? key, this.onTap, required this.data, this.isPlaying = false, this.progressValue = 0.1, this.onComplete}) : super(key: key);
+  LessonItem(
+      {Key? key,
+      this.onTap,
+      required this.data,
+      this.isPlaying = false,
+      this.progressValue = 0.1,
+      this.onComplete})
+      : super(key: key);
   GestureTapCallback? onTap;
   final data;
   bool isPlaying;
@@ -25,25 +32,22 @@ class LessonItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: isPlaying ? Colors.blueGrey.shade100 : Colors.white,
-              width: .2
-            ),
+                color: isPlaying ? Colors.blueGrey.shade100 : Colors.white,
+                width: .2),
             boxShadow: isPlaying
                 ? [
-                BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: const Offset(1,1)
-                ),
-                const BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: Offset(-1, -1)
-                )
-                ] : [ ]
-        ),
+                    BoxShadow(
+                        color: Colors.grey.shade400,
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                        offset: const Offset(1, 1)),
+                    const BoxShadow(
+                        color: Colors.white,
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                        offset: Offset(-1, -1))
+                  ]
+                : []),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -106,9 +110,7 @@ class LessonItem extends StatelessWidget {
             const SizedBox(
               width: 30,
             ),
-            AnimatedCompleteTaskButton(
-              onPressed: onComplete!
-            ),
+            AnimatedCompleteTaskButton(onPressed: onComplete!),
             const SizedBox(
               width: 10,
             )

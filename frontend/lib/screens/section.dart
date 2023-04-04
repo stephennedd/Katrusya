@@ -6,9 +6,11 @@ import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
+import '../controllers/users/user_controller.dart';
 import '../models/courses/course_details_model.dart';
 import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
@@ -30,6 +32,8 @@ class _SectionPageState extends State<SectionPage>
   late TabController _tabController;
   late ChewieController chewieController;
   CourseController courseController = Get.put(CourseController());
+  UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
 
   @override
   void initState() {
@@ -152,7 +156,6 @@ class _SectionPageState extends State<SectionPage>
                     fontWeight: FontWeight.w600,
                     color: textColor),
               ),
-
             ],
           ),
           const SizedBox(
@@ -354,7 +357,14 @@ class _SectionPageState extends State<SectionPage>
                       "Please purchase the course to access this content");
                 }
               },
-              onComplete: () {
+              onComplete: () async {
+                await usersController.addCompletedLessonByUser(
+                    _getStorage.read('userId'),
+                    item.lessonId,
+                    item.sectionId,
+                    courseController.currentCourseId.value);
+                await usersController
+                    .getUserCourses(_getStorage.read('userId'));
                 // TODO add completion in backend
               },
             );

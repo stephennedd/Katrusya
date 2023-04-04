@@ -135,6 +135,8 @@ class _MyCoursesPageState extends State<MyCoursesPage>
                 await courseController.getCourseQuizzes(myCourseId);
                 await courseController.getCourseDetails(myCourseId);
                 courseController.currentCourseId.value = myCourseId;
+                await usersController.getUserCompletedLessonsForCertainCourse(
+                    _getStorage.read('userId'), myCourseId);
 
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CourseLandingPage(
@@ -165,7 +167,8 @@ class _MyCoursesPageState extends State<MyCoursesPage>
                 await courseController.getCourseQuizzes(myCourseId);
                 await courseController.getCourseDetails(myCourseId);
                 courseController.currentCourseId.value = myCourseId;
-
+                await usersController.getUserCompletedLessonsForCertainCourse(
+                    _getStorage.read('userId'), myCourseId);
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CourseLandingPage(
                           course: myCourse,
