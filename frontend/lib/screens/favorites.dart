@@ -49,7 +49,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
             return Dismissible(
               key: Key(userFavoriteCourses[index].courseId.toString()),
               direction: DismissDirection.startToEnd,
-              onDismissed: (direction) {
+              onDismissed: (direction) async {
+                await usersController.deleteCourseFromUserFavorites(
+                    _getStorage.read('userId'),
+                    courseController.currentCourseId.value);
                 setState(() {
                   // TODO remove from the favorites
                 });
@@ -66,8 +69,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 alignment: AlignmentDirectional.centerStart,
                 child: Icon(
-                Icons.delete,
-                color: Colors.white,
+                  Icons.delete,
+                  color: Colors.white,
                 ),
               ),
               confirmDismiss: (direction) => promptUser(direction),
@@ -107,30 +110,29 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Future<bool> promptUser(DismissDirection direction) async {
     String action = "remove";
     return await showCupertinoDialog<bool>(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        content: Text("Are you sure you want to $action the course?"),
-        actions: <Widget>[
-          CupertinoDialogAction(
-            child: Text("Ok"),
-            onPressed: () {
-              // Dismiss the dialog and
-              // also dismiss the swiped item
-              Navigator.of(context).pop(true);
-            },
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text("Are you sure you want to $action the course?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text("Ok"),
+                onPressed: () {
+                  // Dismiss the dialog and
+                  // also dismiss the swiped item
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  // Dismiss the dialog but don't
+                  // dismiss the swiped item
+                  return Navigator.of(context).pop(false);
+                },
+              )
+            ],
           ),
-          CupertinoDialogAction(
-            child: Text('Cancel'),
-            onPressed: () {
-              // Dismiss the dialog but don't
-              // dismiss the swiped item
-              return Navigator.of(context).pop(false);
-            },
-          )
-        ],
-      ),
-    ) ??
+        ) ??
         false; // In case the user dismisses the dialog by clicking away from it
   }
-
 }
