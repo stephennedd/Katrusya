@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Screens/search.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/services/bottom_bar_provider.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/utils/hexagon_clip.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/hexagon_image.dart';
 import 'package:frontend/widgets/settings_item.dart';
-
-import '../widgets/bottombar_item.dart';
-import 'favorites.dart';
-import 'home.dart';
-import 'my_courses.dart';
+import 'package:provider/provider.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -36,7 +34,9 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
       ),
@@ -54,7 +54,6 @@ class _AccountPageState extends State<AccountPage> {
           },
         ),
         body: buildBody(),
-        //bottomNavigationBar: _teacherMode ? getSecondBottomBar() : getBottomBar(),
       ),
     );
   }
@@ -62,6 +61,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget buildBody() {
     // TODO get the user's balance of tokens
     var balance = 1513;
+    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
 
     return Container(
       decoration: const BoxDecoration(
@@ -123,17 +123,22 @@ class _AccountPageState extends State<AccountPage> {
                   padding: EdgeInsets.only(right: 10),
                   child: SizedBox(
                     height: 33,
-                    width: 43,
+                    width: 45,
                     child: FittedBox(
                       fit: BoxFit.fill,
                       child: Switch.adaptive(
                           activeColor: primary,
                           thumbIcon: thumbIcon,
                           thumbColor: MaterialStateProperty.all(Colors.white),
-                          value: _teacherMode,
+                          value: bottomBarProvider.isTeacherMode,
                           onChanged: (bool value){
                             setState(() {
-                              _teacherMode = value;
+                              bottomBarProvider.isTeacherMode = value;
+                              if(bottomBarProvider.isTeacherMode) {
+                                bottomBarProvider.activePageIndex = 2;
+                              } else {
+                                bottomBarProvider.activePageIndex = 4;
+                              }
                             });
                           }),
                     ),
@@ -191,86 +196,4 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  int activePageIndex = 0;
-  Widget getBottomBar() {
-    List tabItems = [
-      {"icon": "assets/icons/home.svg", "page": HomePage()},
-      {"icon": "assets/icons/search.svg", "page": SearchPage()},
-      {"icon": "assets/icons/play.svg", "page": MyCoursesPage()},
-      {"icon": "assets/icons/heart.svg", "page": FavoritesPage()},
-      {"icon": "assets/icons/profile.svg", "page": AccountPage()}
-    ];
-
-    return Container(
-      width: double.infinity,
-      height: 75,
-      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-      decoration: BoxDecoration(
-          color: bottomBarColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-          boxShadow: [
-            BoxShadow(
-                color: shadowColor.withOpacity(.1),
-                spreadRadius: 1,
-                blurRadius: 1,
-                offset: const Offset(1, 1))
-          ]),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-              tabItems.length,
-                  (index) => BottomBarItem(
-                  icon: tabItems[index]["icon"],
-                  isActive: activePageIndex == index,
-                  onTap: () {
-                    onPageIndexChanged(index);
-                  }))),
-    );
-  }
-
-  Widget getSecondBottomBar() {
-    List tabItems = [
-      {"icon": "assets/icons/home.svg", "page": HomePage()},
-      {"icon": "assets/icons/more.svg", "page": SearchPage()},
-      {"icon": "assets/icons/profile.svg", "page": AccountPage()}
-    ];
-
-    return Container(
-      width: double.infinity,
-      height: 75,
-      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-      decoration: BoxDecoration(
-          color: bottomBarColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-          boxShadow: [
-            BoxShadow(
-                color: shadowColor.withOpacity(.1),
-                spreadRadius: 1,
-                blurRadius: 1,
-                offset: const Offset(1, 1))
-          ]),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-              tabItems.length,
-                  (index) => BottomBarItem(
-                  icon: tabItems[index]["icon"],
-                  isActive: activePageIndex == index,
-                  onTap: () {
-                    onPageIndexChanged(index);
-                  }))),
-    );
-  }
-
-  onPageIndexChanged(index) {
-    setState(() {
-      activePageIndex = index;
-    });
-  }
 }

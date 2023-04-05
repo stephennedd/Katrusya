@@ -36,6 +36,7 @@ import 'package:frontend/controllers/pokemons/theme_controller.dart';
 import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/routes/app_routes.dart';
+import 'package:frontend/services/bottom_bar_provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
@@ -44,13 +45,14 @@ void main() async {
   await GetStorage.init();
   runApp(GetMaterialApp(
     getPages: AppRoutes.routes(),
-    home: const MyApp(),
+    home: MyApp(),
     debugShowCheckedModeBanner: false,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final bottomBarProvider = BottomBarProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -65,33 +67,36 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeController(false)),
       ],
       child: Consumer<ThemeController>(builder: (context, provider, ch) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: provider.themeData,
-          title: 'Katrusya App',
-          initialRoute: StartPage.routeName,
-          //RootApp.routeName,
-          home: const RootApp(),
-          routes: {
-            PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
-            PokemonDetailScreen.routeName: (context) =>
-                const PokemonDetailScreen(),
-            SettingsScreen.routeName: (context) => const SettingsScreen(),
-            FavoriteScreen.routeName: (context) => const FavoriteScreen(),
-            SearchScreen.routeName: (context) => const SearchScreen(),
-            WatchCourse.routeName: (context) => const WatchCourse(),
-            RootApp.routeName: (context) => const RootApp(),
-            HomePage.routeName: (context) => const HomePage(),
-            LoginPage.routeName: (context) => const LoginPage(),
-            StartPage.routeName: (context) => const StartPage(),
-            SignupPage.routeName: (context) => const SignupPage(),
-            ForgotPage.routeName: (context) => const ForgotPage(),
-            SectionPage.routeName: (context) => SectionPage(),
-            TestScreen.routeName: (context) => const TestScreen(),
-            MyCoursesPage.routeName: (context) => const MyCoursesPage(),
-            FavoritesPage.routeName: (context) => const FavoritesPage(),
-            AccountPage.routeName: (context) => const AccountPage()
-          },
+        return ChangeNotifierProvider.value(
+          value: bottomBarProvider,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: provider.themeData,
+            title: 'Katrusya App',
+            initialRoute: StartPage.routeName,
+            //RootApp.routeName,
+            home: const RootApp(),
+            routes: {
+              PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
+              PokemonDetailScreen.routeName: (context) =>
+                  const PokemonDetailScreen(),
+              SettingsScreen.routeName: (context) => const SettingsScreen(),
+              FavoriteScreen.routeName: (context) => const FavoriteScreen(),
+              SearchScreen.routeName: (context) => const SearchScreen(),
+              WatchCourse.routeName: (context) => const WatchCourse(),
+              RootApp.routeName: (context) => const RootApp(),
+              HomePage.routeName: (context) => const HomePage(),
+              LoginPage.routeName: (context) => const LoginPage(),
+              StartPage.routeName: (context) => const StartPage(),
+              SignupPage.routeName: (context) => const SignupPage(),
+              ForgotPage.routeName: (context) => const ForgotPage(),
+              SectionPage.routeName: (context) => SectionPage(),
+              TestScreen.routeName: (context) => const TestScreen(),
+              MyCoursesPage.routeName: (context) => const MyCoursesPage(),
+              FavoritesPage.routeName: (context) => const FavoritesPage(),
+              AccountPage.routeName: (context) => const AccountPage()
+            },
+          ),
         );
       }),
     );
