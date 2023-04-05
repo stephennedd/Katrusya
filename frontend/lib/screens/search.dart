@@ -15,6 +15,7 @@ import 'package:get_storage/get_storage.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key, this.onTap}) : super(key: key);
+  static const String routeName = "/search";
   final GestureTapCallback? onTap;
 
   @override
