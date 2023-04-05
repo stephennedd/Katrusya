@@ -247,11 +247,14 @@ class _LoginPageState extends State<LoginPage> {
                         "username", loggedInUser["data"]["username"]);
 
                     usersController.isUserLoggedIn.value = true;
+                    usersController.balanceOfTokens.value =
+                        loggedInUser["data"]["balance_of_tokens"];
                     await usersController
                         .getUserFavoriteCourses(loggedInUser["data"]["id"]);
 
                     await usersController
                         .getUserCourses(loggedInUser["data"]["id"]);
+                    print(loggedInUser);
                     //Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, RootApp.routeName);
                   } else {

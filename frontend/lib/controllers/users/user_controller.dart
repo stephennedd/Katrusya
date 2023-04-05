@@ -35,6 +35,7 @@ class UsersController extends GetxController {
       RxList<CompletedSectionModel>([]);
 
   RxBool isUserLoggedIn = false.obs;
+  RxInt balanceOfTokens = 0.obs;
 
   final loadingStatus = LoadingStatus.loading.obs;
   final GetStorage _getStorage = GetStorage();
