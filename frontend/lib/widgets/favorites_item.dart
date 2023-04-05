@@ -15,7 +15,7 @@ class FavoritesItem extends StatelessWidget {
       child: Expanded(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(top: 10, bottom: 10, left: 3, right: 3),
+          margin: const EdgeInsets.only(top: 10, bottom: 10, left: 3, right: 3),
           //padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: Colors.white,

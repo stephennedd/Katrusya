@@ -60,6 +60,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.red,
                 ),
+                margin: EdgeInsets.only(top: 10, bottom: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 alignment: AlignmentDirectional.centerStart,
                 child: Icon(

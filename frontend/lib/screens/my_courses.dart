@@ -46,7 +46,6 @@ class _MyCoursesPageState extends State<MyCoursesPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: appBarColor,
         appBar: MyAppBar(
           title: "My Courses",
           hasBackButton: false,
