@@ -130,21 +130,23 @@ class _AccountPageState extends State<AccountPage> {
                     width: 45,
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Switch.adaptive(
+                      child: Obx(() => Switch.adaptive(
                           activeColor: primary,
                           thumbIcon: thumbIcon,
                           thumbColor: MaterialStateProperty.all(Colors.white),
-                          value: bottomBarProvider.isTeacherMode,
-                          onChanged: (bool value) {
-                            setState(() {
-                              bottomBarProvider.isTeacherMode = value;
-                              if (bottomBarProvider.isTeacherMode) {
-                                bottomBarProvider.activePageIndex = 2;
-                              } else {
-                                bottomBarProvider.activePageIndex = 4;
-                              }
-                            });
-                          }),
+                          value: usersController.isUserTeacher(),
+                          onChanged: (bool value) async {
+                            await usersController
+                                .flipTeacherMode(_getStorage.read("userId"));
+                            //  setState(() {
+                            //bottomBarProvider.isTeacherMode = value;
+                            if (usersController.isUserTeacher()) {
+                              bottomBarProvider.activePageIndex = 2;
+                            } else {
+                              bottomBarProvider.activePageIndex = 4;
+                            }
+                            // });
+                          })),
                     ),
                   ),
                 ),

@@ -5,6 +5,7 @@ class UserModel {
   String password;
   DateTime? createdAt;
   int? balanceOfTokens;
+  List<dynamic>? userRoles;
 
   UserModel(
       {required this.username,
@@ -12,7 +13,8 @@ class UserModel {
       required this.email,
       required this.password,
       this.balanceOfTokens,
-      this.createdAt});
+      this.createdAt,
+      this.userRoles});
 
   UserModel.fromJson(Map<String, dynamic> json)
       : username = json['username'],
@@ -20,7 +22,8 @@ class UserModel {
         email = json['email'] as String,
         password = json['password'] as String,
         balanceOfTokens = json['balance_of_tokens'] as int,
-        createdAt = json['created_at'] as DateTime;
+        createdAt = json['created_at'] as DateTime,
+        userRoles = json['roles'] as List<dynamic>;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -30,6 +33,7 @@ class UserModel {
     data['password'] = this.password;
     data['created_at'] = this.createdAt;
     data['balance_of_tokens'] = this.balanceOfTokens;
+    data['roles'] = this.userRoles;
     return data;
   }
 
@@ -42,6 +46,7 @@ class UserModel {
         '    "password": "$password",\n'
         '    "createdAt": "$createdAt",\n'
         '    "balanceOfTokens": "$balanceOfTokens",\n'
+        '    "userRoles": "$userRoles",\n'
         '}';
   }
 }

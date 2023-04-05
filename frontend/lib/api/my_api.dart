@@ -438,4 +438,19 @@ class CallApi {
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     return response;
   }
+
+  flipTeacherMode(int userId) async {
+    String apiUrl = "/users/$userId/roles";
+    http.Response response =
+        await http.put(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
+    if (response.statusCode == 200) {
+      dynamic decoded = await json.decode(response.body);
+      List<dynamic> updatedRoles = decoded as List<dynamic>;
+      print(updatedRoles);
+      return updatedRoles;
+    } else {
+      print("Something went wrong");
+      throw Error();
+    }
+  }
 }
