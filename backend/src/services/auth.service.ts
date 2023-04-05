@@ -58,6 +58,8 @@ export class AuthService {
     if(doesPhoneExist){
       throw new BadRequestException("phone already exists");
     }
+    createUserDto.created_at = new Date(); 
+    createUserDto.balance_of_tokens = 0;
     const user = await this.usersService.create(createUserDto);
     if (user) {
       return await this.generateToken(user);

@@ -26,6 +26,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty()
   password: string;
+  
+  created_at: Date;
+  balance_of_tokens: number;
+  
 }
 
 export class CreateConfirmEmailDto {

@@ -11,6 +11,7 @@ interface User {
     password: string;
     is_active: boolean;
     email_verified_at: string | null;
+   // created_at: Date | null;
   }
 
   interface UserResult {

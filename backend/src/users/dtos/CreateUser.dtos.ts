@@ -22,4 +22,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   email_verified_at: string;
+
+  // created_at: Date;
 }

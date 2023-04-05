@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string('user_guid').unique();
     t.string('name');
     t.string('username');
+    t.integer('balance_of_tokens').defaultTo(0);
     t.string('avatar');
     t.string('email').unique();
     t.string('phone').unique();
