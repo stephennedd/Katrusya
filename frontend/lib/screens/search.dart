@@ -33,9 +33,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBarBox(
-            title: "Search",
-            centerTitle: false),
+          SliverAppBarBox(title: "Search", centerTitle: false),
           SliverToBoxAdapter(
             child: getSearchBox(),
           ),
@@ -188,6 +186,11 @@ class _SearchPageState extends State<SearchPage> {
                   .getCourseDetails(courseController.searchedCourses[index].id);
               courseController.currentCourseId.value =
                   courseController.searchedCourses[index].id;
+              if (isTheCoursePurchased) {
+                await usersController.getUserCompletedLessonsForCertainCourse(
+                    _getStorage.read('userId'),
+                    courseController.searchedCourses[index].id);
+              }
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CourseLandingPage(
                         course: courseController.searchedCourses.value[index],

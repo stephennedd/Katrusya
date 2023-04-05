@@ -83,7 +83,8 @@ const result = await knex("courses as c")
     "l.image as lesson_image",
     "l.title as lesson_name",
     "l.duration_in_hours as lesson_duration_in_hours",
-    "l.video_url"
+    "l.video_url",
+    "l.id as lesson_id"
   )
   .where("c.id", courseId)
   .orderBy("s.id", "l.id");
@@ -110,7 +111,7 @@ for (const row of result) {
     currentSection = {id:row.section_id, title: row.section_title, image: row.section_image, lessons: [], number_of_lessons: 0, section_duration_in_hours: 0 };
     course.sections.push(currentSection);
   }
-  currentSection.lessons.push({lesson_name: row.lesson_name, lesson_duration_in_hours: row.lesson_duration_in_hours, video_url: row.video_url, image: row.lesson_image });
+  currentSection.lessons.push({lesson_id:row.lesson_id,section_id: row.section_id,lesson_name: row.lesson_name, lesson_duration_in_hours: row.lesson_duration_in_hours, video_url: row.video_url, image: row.lesson_image });
   currentSection.number_of_lessons = currentSection.number_of_lessons + 1;
   currentSection.section_duration_in_hours = currentSection.section_duration_in_hours + row.lesson_duration_in_hours
   course.number_of_lessons = course.number_of_lessons+1;
@@ -163,23 +164,32 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
         if (queryParams.search!==undefined) {
             query = query.whereRaw(`JSON_CONTAINS(tags->'$[*]', '["${queryParams.search}"]')`)
           }
+
+           // Add a left join with the sections and lessons tables to count the number of lessons for each course
+  query = query
+  .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
+  .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
+  .select('courses.*', knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
+  knex.raw('COUNT(DISTINCT sections.id) as number_of_sections'))
+  .groupBy('courses.id');
       
         // Execute the query
-        if(queryParams.category){
-         query = query.select('courses.*');
-        } else {
-            query = query.select('*');
-        }
-
+        // if(queryParams.category){
+        //  query = query.select('courses.*');
+        // } else {
+        //     query = query.select('*');
+        // }
+            
              const courses = (await query).map(course => {
             return {
               ...course,
               is_recommended: course.is_recommended === 1 ? true : false,
               is_featured: course.is_featured === 1?true : false,
               is_favorited: course.is_favorited === 1?true : false,
+              number_of_lessons: course.number_of_lessons || 0 
             };
           });
-         
+
         return courses;
       }
     

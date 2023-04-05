@@ -11,20 +11,22 @@ class MyCircularProgressIndicator extends StatefulWidget {
       _MyCircularProgressIndicatorState();
 }
 
-class _MyCircularProgressIndicatorState extends State<MyCircularProgressIndicator> with SingleTickerProviderStateMixin {
+class _MyCircularProgressIndicatorState
+    extends State<MyCircularProgressIndicator>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 800));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
     _animation =
-    Tween(begin: 0.0, end: widget.value).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
+        Tween(begin: 0.0, end: widget.value).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
     _animationController.forward();
   }
 
@@ -33,9 +35,21 @@ class _MyCircularProgressIndicatorState extends State<MyCircularProgressIndicato
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
       _animationController.reset();
+      _animation =
+          Tween(begin: 0.0, end: widget.value).animate(_animationController);
       _animationController.forward();
     }
   }
+
+  // @override
+  // void didUpdateWidget(MyCircularProgressIndicator oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (widget.value != oldWidget.value) {
+  //     _animationController.reset();
+  //     _animation = Tween(begin: 0.0, end: widget.value).animate(_animationController);
+  //     _animationController.forward();
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -49,11 +63,16 @@ class _MyCircularProgressIndicatorState extends State<MyCircularProgressIndicato
     Color barColor;
     if (widget.value >= 0 && widget.value <= 0.5) {
       barColor = Colors.red;
-    } else if(widget.value > 0.5 && widget.value <= 0.7) {
+    } else if (widget.value > 0.5 && widget.value <= 0.7) {
       barColor = Colors.orange;
     } else {
       barColor = Colors.green;
     }
+    // _animationController =
+    //     AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+    // _animation =
+    //     Tween(begin: 0.0, end: widget.value).animate(_animationController);
+    // _animationController.forward();
 
     return Stack(
       children: [

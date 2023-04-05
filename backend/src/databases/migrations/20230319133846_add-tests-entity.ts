@@ -35,7 +35,8 @@ await knex.schema.createTable('courses', function (t) {
     t.string('description',2000);
     t.string('image',2000);
     t.string('price');
-    t.integer('number_of_lessons');
+    // t.integer('number_of_lessons');
+    // t.integer('number_of_sections');
     t.integer('duration_in_hours');
     t.string('review');
     t.boolean('is_favorited');

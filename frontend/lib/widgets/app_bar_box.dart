@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../Themes/app_colors.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
-  MyAppBar({Key? key,
-    required this.title,
-    this.backgroundColor = appBarColor,
-    this.hasAction = false,
-    this.icon,
-    this.onTap,
-    this.hasBackButton = true,
-    this.centerTitle = true
-  }) : super(key: key);
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  MyAppBar(
+      {Key? key,
+      required this.title,
+      this.backgroundColor = appBarColor,
+      this.hasAction = false,
+      this.icon,
+      this.onTap,
+      this.hasBackButton = true,
+      this.centerTitle = true})
+      : super(key: key);
   final String title;
   Color backgroundColor;
   bool hasAction;
@@ -18,7 +19,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
   GestureTapCallback? onTap;
   bool centerTitle;
   bool hasBackButton;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: backgroundColor,
-      leading: hasBackButton? const BackButton(
-        color: textColor,
-      ) : null,
+      leading: hasBackButton
+          ? const BackButton(
+              color: textColor,
+            )
+          : null,
       centerTitle: centerTitle,
       title: Text(
         title,
@@ -36,16 +38,18 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
             fontFamily: 'Nexa-Trial',
             fontSize: 24,
             color: backgroundColor == primaryDark ? Colors.white : textColor,
-            fontWeight: FontWeight.w700
-        ),),
-      actions: hasAction ? <Widget> [
-        IconButton(
-          icon: icon,
-          color: backgroundColor == primaryDark? Colors.white : textColor,
-          tooltip: 'Go to leaderboard',
-          onPressed: onTap
-        )
-      ] : null,
+            fontWeight: FontWeight.w700),
+      ),
+      actions: hasAction
+          ? <Widget>[
+              IconButton(
+                  icon: icon,
+                  color:
+                      backgroundColor == primaryDark ? Colors.white : textColor,
+                  tooltip: 'Go to leaderboard',
+                  onPressed: onTap)
+            ]
+          : null,
     );
   }
 

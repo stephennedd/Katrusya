@@ -81,9 +81,10 @@ class _HomePageState extends State<HomePage> {
                 usersController.isUserLoggedIn.value = false;
                 Navigator.pushNamed(context, StartPage.routeName);
               },
-              icon: SvgPicture.asset("assets/icons/logout.svg", colorFilter: const ColorFilter.mode(primaryDark, BlendMode.srcIn))
-          )
-              //icon: const Icon(Icons.logout_outlined, color: primaryDark))
+              icon: SvgPicture.asset("assets/icons/logout.svg",
+                  colorFilter:
+                      const ColorFilter.mode(primaryDark, BlendMode.srcIn)))
+          //icon: const Icon(Icons.logout_outlined, color: primaryDark))
           /*NotificationBox(
             notifiedNumber: 2,
             onTap: () async {
@@ -191,6 +192,12 @@ class _HomePageState extends State<HomePage> {
                           courseController.recommendedCourses[index].id);
                       courseController.currentCourseId.value =
                           courseController.recommendedCourses[index].id;
+                      if (isTheCoursePurchased) {
+                        await usersController
+                            .getUserCompletedLessonsForCertainCourse(
+                                _getStorage.read('userId'),
+                                courseController.recommendedCourses[index].id);
+                      }
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CourseLandingPage(
                                 course:
@@ -227,6 +234,12 @@ class _HomePageState extends State<HomePage> {
                       courseController.featuredCourses[index].id);
                   courseController.currentCourseId.value =
                       courseController.featuredCourses[index].id;
+                  if (isTheCoursePurchased) {
+                    await usersController
+                        .getUserCompletedLessonsForCertainCourse(
+                            _getStorage.read('userId'),
+                            courseController.featuredCourses[index].id);
+                  }
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CourseLandingPage(
                             course: courseController.featuredCourses[index],

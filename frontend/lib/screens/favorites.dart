@@ -5,6 +5,7 @@ import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/favorites_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../controllers/users/user_controller.dart';
 import '../models/courses/course_model.dart';
@@ -21,6 +22,7 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
   UsersController usersController = Get.put(UsersController());
   CourseController courseController = Get.put(CourseController());
+  final GetStorage _getStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +84,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   await courseController.getCourseQuizzes(userFavoriteCourseId);
                   await courseController.getCourseDetails(userFavoriteCourseId);
                   courseController.currentCourseId.value = userFavoriteCourseId;
+
+                  if (await usersController.hasUserPurchasedTheCourse(
+                      _getStorage.read('userId'), userFavoriteCourseId)) {
+                    await usersController
+                        .getUserCompletedLessonsForCertainCourse(
+                            _getStorage.read('userId'), userFavoriteCourseId);
+                  }
 
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CourseLandingPage(

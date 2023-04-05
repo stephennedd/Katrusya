@@ -4,21 +4,24 @@ class MyCourseModel {
   String courseName;
   bool isComplete;
   int numberOfLessons;
+  int numberOfSections;
 
   MyCourseModel(
       {required this.courseId,
       required this.courseImage,
       required this.courseName,
       required this.isComplete,
-      required this.numberOfLessons});
+      required this.numberOfLessons,
+      required this.numberOfSections});
 
   factory MyCourseModel.fromJson(Map<String, dynamic> json) {
     return MyCourseModel(
         courseId: json['course_id'],
         courseImage: json['course_image'],
         courseName: json['course_name'],
-        isComplete: json['is_complete'],
-        numberOfLessons: json['number_of_lessons']);
+        isComplete: json['is_completed'],
+        numberOfLessons: json['number_of_lessons'],
+        numberOfSections: json['number_of_sections']);
   }
 
   Map<String, dynamic> toJson() {
@@ -26,8 +29,9 @@ class MyCourseModel {
     data['course_id'] = this.courseId;
     data['course_image'] = this.courseImage;
     data['course_name'] = this.courseName;
-    data['is_complete'] = this.isComplete;
+    data['is_completed'] = this.isComplete;
     data['number_of_lessons'] = this.numberOfLessons;
+    data['number_of_sections'] = this.numberOfSections;
     return data;
   }
 

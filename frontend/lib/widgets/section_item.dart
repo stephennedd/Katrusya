@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/widgets/section_progress.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 
@@ -7,6 +10,8 @@ class SectionItem extends StatelessWidget {
   SectionItem({Key? key, required this.data, this.onTap}) : super(key: key);
   final data;
   GestureTapCallback? onTap;
+
+  UsersController usersController = Get.put(UsersController());
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +83,10 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
-            MyCircularProgressIndicator(
-             value: 0.6,
-            )
+            Obx(() => MyCircularProgressIndicator(
+                  value: usersController.getCompletionRateOfSection(
+                      data.sectionId, data.lessons.length),
+                ))
           ],
         ),
       ),

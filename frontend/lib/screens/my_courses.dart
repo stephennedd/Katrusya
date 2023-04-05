@@ -24,8 +24,6 @@ class MyCoursesPage extends StatefulWidget {
 class _MyCoursesPageState extends State<MyCoursesPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final int incompleteCourses = 1;
-  final int completeCourses = 2;
 
   UsersController usersController = Get.put(UsersController());
   CourseController courseController = Get.put(CourseController());
@@ -120,7 +118,10 @@ class _MyCoursesPageState extends State<MyCoursesPage>
     return ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: completedByUserCourses.length,
-        itemBuilder: (context, index) => CourseCompleteItem(
+        itemBuilder: (context, index) => Obx(() => CourseCompleteItem(
+              progressValue: usersController.getCompletionRateOfCourse(
+                  completedByUserCourses[index].courseId,
+                  completedByUserCourses[index].numberOfSections),
               data: completedByUserCourses[index],
               onTap: () async {
                 // Done: navigate to course page
@@ -134,13 +135,15 @@ class _MyCoursesPageState extends State<MyCoursesPage>
                 await courseController.getCourseQuizzes(myCourseId);
                 await courseController.getCourseDetails(myCourseId);
                 courseController.currentCourseId.value = myCourseId;
+                await usersController.getUserCompletedLessonsForCertainCourse(
+                    _getStorage.read('userId'), myCourseId);
 
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CourseLandingPage(
                           course: myCourse,
                         )));
               },
-            ));
+            )));
   }
 
   Widget getIncompleteCourses() {
@@ -152,6 +155,9 @@ class _MyCoursesPageState extends State<MyCoursesPage>
     return ListView.builder(
         itemCount: incompletedByUserCourses.length,
         itemBuilder: (context, index) => CourseCompleteItem(
+              progressValue: usersController.getCompletionRateOfCourse(
+                  incompletedByUserCourses[index].courseId,
+                  incompletedByUserCourses[index].numberOfSections),
               data: incompletedByUserCourses[index],
               onTap: () async {
                 CourseModel myCourse = courseController
@@ -164,7 +170,8 @@ class _MyCoursesPageState extends State<MyCoursesPage>
                 await courseController.getCourseQuizzes(myCourseId);
                 await courseController.getCourseDetails(myCourseId);
                 courseController.currentCourseId.value = myCourseId;
-
+                await usersController.getUserCompletedLessonsForCertainCourse(
+                    _getStorage.read('userId'), myCourseId);
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CourseLandingPage(
                           course: myCourse,

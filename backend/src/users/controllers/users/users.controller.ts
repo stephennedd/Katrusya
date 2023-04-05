@@ -47,6 +47,18 @@ export class UsersController {
       return this.usersService.getUser(userId);
     }
 
+    //getCompleteByUserLessonsForCertainCourse
+
+    @Get(':userId/courses/:courseId/completedLessons')
+    async getUserCompletedLessonsForCertainCourse(@Param('userId') userId: number,@Param('courseId') courseId: number) {
+      return this.usersService.getCompleteByUserLessonsForCertainCourse(userId,courseId);
+    }
+
+    @Get(':userId/completedSections')
+    async getUserCompletedSectionsForCertainCourse(@Param('userId') userId: number) {
+      return this.usersService.getCompleteByUserSections(userId);
+    }
+
     @Get(':userId/sections/:sectionId/isCompleted')
     async getIsSectionCompletedByUser(@Param('userId') userId: number,@Param('sectionId') sectionId: number) {
       return this.usersService.isSectionCompletedByUser(userId,sectionId);
