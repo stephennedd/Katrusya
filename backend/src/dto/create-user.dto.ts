@@ -27,8 +27,12 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
   
+  @ApiProperty()
   created_at: Date;
+  @ApiProperty()
   balance_of_tokens: number;
+  @ApiProperty()
+  roles: string;
   
 }
 

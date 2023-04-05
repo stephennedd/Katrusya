@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AddCompletedLessonDto } from 'src/users/dtos/AddCompletedLesson.dtos';
 import { AddFavoriteCourseDto } from 'src/users/dtos/AddFavoriteCourse.dtos';
@@ -110,6 +110,11 @@ export class UsersController {
     @Body(ValidateAddFavoriteCoursePipe) addFavoriteCourseDto: AddFavoriteCourseDto,
   ) {
     return await this.usersService.addUserFavoriteCourse(userId, addFavoriteCourseDto.course_id);
+  }
+
+  @Put(':userId/roles')
+  async flipTeacherMode(@Param('userId') userId: number) {
+    return await this.usersService.flipTeacherMode(userId);
   }
   
 

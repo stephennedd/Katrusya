@@ -14,6 +14,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string('phone').unique();
     t.string('password').nullable();
     t.boolean('is_active').defaultTo(false);
+    t.json('roles');
     t.string('email_verified_at').nullable();
     t.boolean('email_confirmed').defaultTo(false);
     t.timestamps();
