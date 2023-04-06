@@ -23,3 +23,4 @@ const appBarColor = Color(0xFFFFFFFF);
 const bottomBarColor = Colors.white;
 
 const shadowColor = Colors.black87;
+const lightGrey = Color(0xFFD2D2D2);

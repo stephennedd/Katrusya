@@ -21,7 +21,7 @@ class _MyCircularProgressIndicatorState
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _animation =
         Tween(begin: 0.0, end: widget.value).animate(_animationController)
           ..addListener(() {
@@ -94,7 +94,7 @@ class _MyCircularProgressIndicatorState
               "${(_animation.value * 100).toStringAsFixed(0)}%",
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 15.0,
+                fontSize: 14.0,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -134,7 +134,9 @@ class _RootAppState extends State<RootApp> {
                 spreadRadius: 1,
                 blurRadius: 1,
                 offset: const Offset(1, 1))
-          ]),
+          ],
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
+      ),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(

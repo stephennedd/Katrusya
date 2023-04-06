@@ -61,6 +61,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
     return Container(
         child: TabBar(
             indicatorWeight: 2,
+            indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: primary,
             controller: _tabController,
             tabs: [
