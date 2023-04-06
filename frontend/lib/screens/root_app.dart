@@ -8,7 +8,11 @@ import 'package:frontend/services/bottom_bar_provider.dart';
 import 'package:frontend/widgets/bottombar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/search.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+
+import '../controllers/users/user_controller.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -20,30 +24,33 @@ class RootApp extends StatefulWidget {
 
 class _RootAppState extends State<RootApp> {
   bool isAccountPage = false;
+  UsersController usersController = Get.put(UsersController());
   @override
   Widget build(BuildContext context) {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
 
     return Scaffold(
       body: Consumer<BottomBarProvider>(
         builder: (context, bottomBarProvider, child) {
-          return bottomBarProvider.isTeacherMode
+          return Obx(() => usersController.isUserTeacher()
               ? buildBodyTeacherMode()
-              : buildBody();
+              : buildBody());
         },
       ),
       bottomNavigationBar: Consumer<BottomBarProvider>(
-          builder: (context, bottomBarProvider, child) {
-            return bottomBarProvider.isTeacherMode
-              ?  buildTeacherBottomBar()
-              : buildBottomBar();
-          },
+        builder: (context, bottomBarProvider, child) {
+          return Obx(() => usersController.isUserTeacher()
+              ? buildTeacherBottomBar()
+              : buildBottomBar());
+        },
       ),
     );
   }
 
   Widget buildBody() {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
     return IndexedStack(
         //index: activePageIndex,
         index: bottomBarProvider.activePageIndex,
@@ -52,12 +59,13 @@ class _RootAppState extends State<RootApp> {
   }
 
   Widget buildBodyTeacherMode() {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
     return IndexedStack(
         //index: activePageIndex,
         index: bottomBarProvider.activePageIndex,
-        children:
-            List.generate(teacherTabItems.length, (index) => teacherTabItems[index]["page"]));
+        children: List.generate(
+            teacherTabItems.length, (index) => teacherTabItems[index]["page"]));
   }
 
   List tabItems = [
@@ -70,7 +78,8 @@ class _RootAppState extends State<RootApp> {
 
   int activePageIndex = 0;
   Widget buildBottomBar() {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
     return Container(
       width: double.infinity,
       height: 75,
@@ -102,25 +111,28 @@ class _RootAppState extends State<RootApp> {
   }
 
   List teacherTabItems = [
-    {"icon": "assets/icons/home.svg", "page": Container(
-      child: const Center(
-        child: Text(
-          "Teacher Dashboard"
+    {
+      "icon": "assets/icons/home.svg",
+      "page": Container(
+        child: const Center(
+          child: Text("Teacher Dashboard"),
         ),
-      ),
-    )},
-    {"icon": "assets/icons/square-plus.svg", "page": Container(
-      child: const Center(
-        child: Text(
-          "Add Course"
+      )
+    },
+    {
+      "icon": "assets/icons/square-plus.svg",
+      "page": Container(
+        child: const Center(
+          child: Text("Add Course"),
         ),
-      ),
-    )},
+      )
+    },
     {"icon": "assets/icons/profile.svg", "page": AccountPage()}
   ];
 
   Widget buildTeacherBottomBar() {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
 
     return Container(
       width: double.infinity,
@@ -141,7 +153,7 @@ class _RootAppState extends State<RootApp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
               teacherTabItems.length,
-                  (index) => BottomBarItem(
+              (index) => BottomBarItem(
                   icon: teacherTabItems[index]["icon"],
                   isActive: bottomBarProvider.activePageIndex == index,
                   onTap: () {
@@ -151,7 +163,8 @@ class _RootAppState extends State<RootApp> {
   }
 
   onPageIndexChanged(index) {
-    final bottomBarProvider = Provider.of<BottomBarProvider>(context, listen: false);
+    final bottomBarProvider =
+        Provider.of<BottomBarProvider>(context, listen: false);
     setState(() {
       if (index == 4) {
         isAccountPage = true;

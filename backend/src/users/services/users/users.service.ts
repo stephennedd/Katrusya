@@ -468,6 +468,34 @@ export class UsersService {
  
   return deletedUserFavoriteCourse;
   }
-  
+
+  async flipTeacherMode(userId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    const user = await knex('users')
+    .where({ id: userId })
+    .first();
+
+  if (!user) {
+    throw new Error(`User with ID ${userId} not found`);
+  }
+
+  const updatedRoles = user.roles.map(role => {
+    if (role === 'student') {
+      return 'teacher';
+    } else if (role === 'teacher') {
+      return 'student';
+    } else {
+      return role;
+    }
+  });
+
+  const updatedRolesJson = JSON.stringify(updatedRoles);
+
+  await knex('users')
+    .where({ id: userId })
+    .update({ roles: updatedRolesJson });
+
+    return updatedRoles;
+  }
 
 }

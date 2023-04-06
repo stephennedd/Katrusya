@@ -36,6 +36,7 @@ class UsersController extends GetxController {
 
   RxBool isUserLoggedIn = false.obs;
   RxInt balanceOfTokens = 0.obs;
+  RxList<dynamic> userRoles = RxList<dynamic>([]);
 
   final loadingStatus = LoadingStatus.loading.obs;
   final GetStorage _getStorage = GetStorage();
@@ -161,6 +162,14 @@ class UsersController extends GetxController {
     return userCompletedLessonsForCetainCourse;
   }
 
+  Future<List<dynamic>> flipTeacherMode(int userId) async {
+    loadingStatus.value = LoadingStatus.loading;
+    List<dynamic> updatedUserRoles = await CallApi().flipTeacherMode(userId);
+    userRoles.value = updatedUserRoles;
+    loadingStatus.value = LoadingStatus.completed;
+    return updatedUserRoles;
+  }
+
   bool isCourseFavoriteForTheUser(courseId) {
     bool isCourseFavorite = false;
     for (int i = 0; i < userFavoriteCourses.length; i++) {
@@ -229,5 +238,15 @@ class UsersController extends GetxController {
       }
     }
     return hasUserCompletedLesson;
+  }
+
+  bool isUserTeacher() {
+    bool isUserTeacher = false;
+    for (int i = 0; i < userRoles.length; i++) {
+      if (userRoles[i] == "teacher") {
+        isUserTeacher = true;
+      }
+    }
+    return isUserTeacher;
   }
 }

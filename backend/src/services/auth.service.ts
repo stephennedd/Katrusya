@@ -60,6 +60,7 @@ export class AuthService {
     }
     createUserDto.created_at = new Date(); 
     createUserDto.balance_of_tokens = 0;
+    createUserDto.roles = JSON.stringify(["student"]);
     const user = await this.usersService.create(createUserDto);
     if (user) {
       return await this.generateToken(user);
