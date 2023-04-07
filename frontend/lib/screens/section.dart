@@ -99,7 +99,7 @@ class _SectionPageState extends State<SectionPage>
             Stack(children: <Widget>[
               _controller.value.isInitialized
                   ? GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           _controller.value.isPlaying
                               ? _controller.pause()
