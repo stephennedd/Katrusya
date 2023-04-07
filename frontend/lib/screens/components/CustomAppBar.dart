@@ -49,12 +49,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Transform.translate(
                   offset: const Offset(10, 0),
                   child: IconButton(
-                    icon: const Icon(Icons.menu,
+                    icon: const Icon(Icons.leaderboard_rounded,
                         color:
-                            Colors.black), // Set the color of the back button
+                            Colors.white), // Set the color of the back button
                     onPressed: onMenuActionTap ??
-                        () => Navigator.pushNamed(
-                            context, TestOverviewScreen.routeName),
+                        () {
+                          print("leaderboard");
+                        },
                     //Get.toNamed(TestOverviewScreen.routeName),
                   ),
                 )

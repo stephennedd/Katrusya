@@ -19,23 +19,23 @@ class QuestionNumberCard extends StatelessWidget {
     Color _backgroundColor = Theme.of(context).primaryColor;
     switch (status) {
       case AnswerStatus.answered:
-        _backgroundColor = Theme.of(context).primaryColor;
+        _backgroundColor = primaryDark;
         break;
 
       case AnswerStatus.correct:
-        _backgroundColor = correctAnswerColor;
+        _backgroundColor = primaryDark;
         break;
 
       case AnswerStatus.wrong:
-        _backgroundColor = wrongAnswerColor;
+        _backgroundColor = primary;
         break;
 
       case AnswerStatus.notanswered:
-        _backgroundColor = Theme.of(context).primaryColor.withOpacity(0.1);
+        _backgroundColor = primaryDark.withOpacity(0.1);
         break;
 
       default:
-        _backgroundColor = Theme.of(context).primaryColor.withOpacity(0.1);
+        _backgroundColor = primaryDark.withOpacity(0.1);
     }
     return InkWell(
       borderRadius: UIParameters.cardBorderRadius,
@@ -50,8 +50,8 @@ class QuestionNumberCard extends StatelessWidget {
             '$index',
             style: TextStyle(
                 color: status == AnswerStatus.notanswered
-                    ? Theme.of(context).primaryColor
-                    : null),
+                    ? primaryDark
+                    : Colors.white),
           ),
         ),
       ),

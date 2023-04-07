@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Themes/app_colors.dart';
 
 class MainButton extends StatelessWidget {
   final String title;
@@ -35,8 +36,10 @@ class MainButton extends StatelessWidget {
                           child: Text(
                             title,
                             style: TextStyle(
+                              fontFamily: 'Nexa-Trial',
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor),
+                                color: primaryDark,
+                            )
                           ),
                         ),
                   ))),

@@ -43,7 +43,7 @@ class AppRoutes {
         ),
         GetPage(
           name: ResultScreen.routeName,
-          page: () => const ResultScreen(),
+          page: () => ResultScreen(),
           binding: BindingsBuilder(() {
             Get.put<QuestionsController>(QuestionsController());
           }),

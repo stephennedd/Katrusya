@@ -58,6 +58,7 @@ dependencies:
   palette_generator: ^0.3.3+2
   readmore: ^2.1.0
   audioplayers: ^3.0.1
+  lottie: ^2.3.2
   # cupertino_icons: ^1.0.2
   # provider: ^6.0.4
   # palette_generator: ^0.3.3+2
@@ -95,6 +96,7 @@ flutter:
     - assets/icons/
     - assets/icons/category/
     - assets/sounds/
+    - assets/lotties/
 
   fonts:
     - family: Nexa-Trial

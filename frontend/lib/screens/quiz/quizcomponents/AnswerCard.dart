@@ -22,18 +22,27 @@ class AnswerCard extends StatelessWidget {
       borderRadius: UIParameters.cardBorderRadius,
       onTap: onTap,
       child: Ink(
-        child: Text(
-          answer,
-          style: TextStyle(
-            color: isSelected ? Colors.white : null,
-          ),
-        ),
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: UIParameters.cardBorderRadius,
-          color: isSelected ? Colors.blue : Theme.of(context).cardColor,
-          border: Border.all(
-              color: isSelected ? answerSelectedColor() : answerBorderColor()),
+          color: isSelected ? primary : Theme.of(context).cardColor,
+          boxShadow: [
+            BoxShadow(
+              color: shadowColor.withOpacity(.1),
+              blurRadius: 1,
+              spreadRadius: 1,
+              offset: const Offset(1,1)
+            )
+          ]
+        ),
+        child: Text(
+          answer,
+          style: TextStyle(
+            fontFamily: 'Nexa-Trial',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: isSelected ? primaryDark : null,
+          ),
         ),
       ),
     );
