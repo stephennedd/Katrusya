@@ -37,8 +37,6 @@ await knex.schema.createTable('courses', function (t) {
     t.string('description',2000);
     t.string('image',2000);
     t.string('price');
-    // t.integer('number_of_lessons');
-    // t.integer('number_of_sections');
     t.integer('duration_in_hours');
     t.string('review');
     t.boolean('is_favorited');
@@ -121,6 +119,17 @@ await knex.schema.createTable('user_courses', function (t) {
         t.timestamps();
       });
 
+      await knex.schema.createTable('user_lessons', function (t) {
+        t.increments();
+        t.integer('user_id').unsigned();
+        t.foreign('user_id').references('id').inTable('users');
+        t.integer('lesson_id').unsigned();
+        t.foreign('lesson_id').references('id').inTable('lessons');
+        t.timestamp('timestamp_of_last_viewed_moment');
+        t.unique(['user_id', 'lesson_id']);
+        t.timestamps();
+      });
+
       await knex.schema.createTable('user_completed_lessons', function (t) {
         t.increments();
         t.integer('user_id').unsigned();
@@ -183,6 +192,7 @@ await knex.schema.createTable('user_courses', function (t) {
      await knex.schema.dropTable('user_favorite_courses');
       await knex.schema.dropTable('tests');
       await knex.schema.dropTable('user_completed_lessons');
+      await knex.schema.dropTable('user_lessons');
       await knex.schema.dropTable('lessons');
       await knex.schema.dropTable('user_completed_sections');
         await knex.schema.dropTable('sections');

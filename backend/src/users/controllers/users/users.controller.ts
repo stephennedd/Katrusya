@@ -116,7 +116,46 @@ export class UsersController {
   async flipTeacherMode(@Param('userId') userId: number) {
     return await this.usersService.flipTeacherMode(userId);
   }
+
+  @Post('/:userId/lessons/:lessonId')
+  async addTimestampOfLastViewedMomentOfLesson(
+    @Param('userId') userId: number,
+    @Param('lessonId') lessonId: number,
+  ) {
+    try {
+      await this.usersService.addTimestampOfLastViewedMomentOfLesson(
+        userId,
+        lessonId,
+      );
+      return { message: 'Record inserted successfully!' };
+    } catch (error) {
+      return { message: 'Error inserting record' };
+    }
+  }
+
+  @Put('/:userId/lessons/:lessonId')
+async updateTimestampOfLastViewedMomentOfLesson(
+  @Param('userId') userId: number,
+  @Param('lessonId') lessonId: number,
+  @Body('timestamp') timestamp: Date,
+): Promise<any> {
+  try {
+    await this.usersService.updateTimestampOfLastViewedMomentOfLesson(
+      userId,
+      lessonId,
+      timestamp,
+    );
+    return { message: 'Record updated successfully!' };
+  } catch (error) {
+    return { message: error };
+  }
+}
   
+@Get(':userId/lessons/:lessonId')
+  async getLastViewedMoment(@Param('userId') userId: number, @Param('lessonId') lessonId: number) {
+    const timestamp = await this.usersService.getTimestampOfLastViewedMomentOfLesson(userId, lessonId);
+    return { timestamp };
+  }
 
   @Delete(':userId/favoriteCourses/:courseId')
 async removeFavoriteCourse(

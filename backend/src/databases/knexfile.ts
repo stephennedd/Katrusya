@@ -22,7 +22,8 @@ const config: Knex.Config = {
         host: 'localhost',
         user: 'root',
         password: 'Liverpool599570',
-        database: 'katrusya'
+        database: 'katrusya',
+        timezone: '+00:00' // set session timezone to UTC
     },
     migrations: {
         directory: './migrations'

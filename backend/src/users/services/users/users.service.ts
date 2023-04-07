@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import knex from 'knex';
 import { AddCompletedLessonDto } from 'src/users/dtos/AddCompletedLesson.dtos';
 import { DatabaseService } from '../../../databases/database.service';
+import moment from 'moment';
 
 interface User {
     user_guid: string;
@@ -497,5 +498,43 @@ export class UsersService {
 
     return updatedRoles;
   }
+
+  async addTimestampOfLastViewedMomentOfLesson(userId:number, lessonId: number): Promise<any>{
+    const knex = this.dbService.getKnexInstance();
+    await knex('user_lessons')
+    .insert({
+      user_id: userId,
+      lesson_id: lessonId,
+      timestamp_of_last_viewed_moment: null
+    });
+  } 
+
+  async updateTimestampOfLastViewedMomentOfLesson(
+    userId: number,
+    lessonId: number,
+    timestamp: Date,
+  ): Promise<any> {
+    const knex = this.dbService.getKnexInstance();
+
+       return await knex('user_lessons')
+      .where({ user_id: userId, lesson_id: lessonId })
+      .update({ timestamp_of_last_viewed_moment: timestamp });
+}
+
+async getTimestampOfLastViewedMomentOfLesson(userId: number, lessonId:number):Promise<any>{
+  const knex = this.dbService.getKnexInstance();
+  return await knex.select('timestamp_of_last_viewed_moment')
+  .from('user_lessons')
+  .where('user_id', userId)
+  .andWhere('lesson_id', lessonId)
+  .then(rows => {
+    const timestamp = rows[0].timestamp_of_last_viewed_moment;
+    const formattedTimestamp = timestamp.toISOString().slice(0, 19).replace('T', ' ');
+    return formattedTimestamp
+  })
+  .catch(error => {
+    console.error(error);
+  })
+}
 
 }
