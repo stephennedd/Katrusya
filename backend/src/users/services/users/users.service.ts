@@ -52,7 +52,18 @@ export class UsersService {
 
   async addUserResult(userResult: UserResult): Promise<any> {
     const knex = this.dbService.getKnexInstance();
-    const user_results = await knex('user_results').insert(userResult);
+    const result = await knex('user_results')
+    .where('user_id', userResult.user_id)
+    .andWhere('test_id', userResult.test_id)
+    .first();
+  
+  const hasUserAlreadyCompletedQuiz = Boolean(result);
+  if(!hasUserAlreadyCompletedQuiz){
+    await knex('user_results').insert(userResult);
+    return userResult;
+  } else{
+    throw new HttpException('User has already completed the quiz', HttpStatus.BAD_REQUEST);
+  }
   }
   
   async deleteUserResult(result_id: number): Promise<any>{
