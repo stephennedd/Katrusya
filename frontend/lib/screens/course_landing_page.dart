@@ -161,6 +161,8 @@ class _CourseLandingPageState extends State<CourseLandingPage>
               data:
                   courseController.currentCourseDetails.value!.sections[index],
               onTap: () async {
+                courseController.currentSectionId.value = courseController
+                    .currentCourseDetails.value!.sections[index].sectionId;
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SectionPage(
                           data: courseController

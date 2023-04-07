@@ -36,7 +36,7 @@ class AppRoutes {
         ),
         GetPage(
           name: TestOverviewScreen.routeName,
-          page: () => const TestOverviewScreen(),
+          page: () => TestOverviewScreen(),
           binding: BindingsBuilder(() {
             Get.put<QuestionsController>(QuestionsController());
           }),

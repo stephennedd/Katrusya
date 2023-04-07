@@ -13,47 +13,13 @@ import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class TestOverviewScreen extends GetView<QuestionsController> {
-  const TestOverviewScreen({super.key});
+  TestOverviewScreen({super.key});
   static const String routeName = "/testoverview";
 
-  //String getCompletedTest{}
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       extendBodyBehindAppBar: true,
-//       appBar: PreferredSize(
-//           preferredSize: Size.fromHeight(60.0),
-//           child: AppBar(
-//               backgroundColor: Colors.white,
-//               leading: IconButton(
-//                 icon: Icon(Icons.arrow_back_ios,
-//                     color: Colors.black), // Set the color of the back button
-//                 onPressed: () {
-//                   Navigator.pop(context); // Go back to the previous screen
-//                 },
-//               ),
-//               title: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     'Question 1',
-//                     style: TextStyle(
-//                       color: Colors.black,
-//                       fontWeight: FontWeight.w800,
-//                       fontSize: 16,
-//                     ),
-//                   ),
-//                 ],
-//               ))),
-//       body: BackgroundDecoration(
-//         child: Center(child: Text("Test ")),
-//       ),
-//     );
-//   }
-// }
+  final GetStorage _getStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +81,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                               child: MainButton(
                             onTap: () {
                               controller.completeTest(
-                                  1,
+                                  _getStorage.read("userId"),
                                   controller.questionPaperModel.id,
                                   controller.points);
                             },

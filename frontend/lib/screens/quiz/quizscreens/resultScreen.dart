@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/screens/components/BackgroundDecoration.dart';
 import 'package:frontend/screens/components/ContentArea.dart';
@@ -22,9 +23,10 @@ class ResultScreen extends GetView<QuestionsController> {
   ResultScreen({super.key});
   static const String routeName = "/resultscreen";
 
+  CourseController courseController = Get.put(CourseController());
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: BackgroundDecoration(
         child: Column(
@@ -41,9 +43,7 @@ class ResultScreen extends GetView<QuestionsController> {
                     child: Column(
                       children: [
                         Lottie.asset("assets/lotties/107653-trophy.json",
-                          width: 200,
-                          repeat: false
-                        ),
+                            width: 200, repeat: false),
                         const Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 5),
                           child: Text(
@@ -67,9 +67,7 @@ class ResultScreen extends GetView<QuestionsController> {
                         ),
                         const Text(
                           'Tap below question numbers to view vorrect answers',
-                          style: TextStyle(
-                              fontFamily: 'Nexa-Trial'
-                          ),
+                          style: TextStyle(fontFamily: 'Nexa-Trial'),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(
@@ -116,6 +114,18 @@ class ResultScreen extends GetView<QuestionsController> {
                                 Expanded(
                                     child: MainButton(
                                   onTap: () async {
+                                    final section = courseController
+                                        .currentCourseDetails.value!.sections
+                                        .firstWhere(
+                                      (section) =>
+                                          section.sectionId ==
+                                          courseController
+                                              .currentSectionId.value,
+                                    );
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SectionPage(data: section)));
                                     // TODO route to the previously closed section page
                                   },
                                   title: 'Complete',
@@ -130,5 +140,3 @@ class ResultScreen extends GetView<QuestionsController> {
     );
   }
 }
-
-

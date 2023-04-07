@@ -19,6 +19,7 @@ class CourseController extends GetxController {
   RxList<QuizModel> sectionQuizzes = RxList<QuizModel>([]);
   RxList<CourseModel> courses = RxList<CourseModel>([]);
   final currentCourseId = 0.obs;
+  final currentSectionId = 0.obs;
   final isCurrentCoursePurchased = false.obs;
 
   Rxn<CourseDetailsModel> currentCourseDetails = Rxn<CourseDetailsModel>();

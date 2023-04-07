@@ -36,6 +36,8 @@ class UsersController extends GetxController {
 
   RxBool isUserLoggedIn = false.obs;
   RxInt balanceOfTokens = 0.obs;
+  RxString phone = "".obs;
+  RxString email = "".obs;
   RxList<dynamic> userRoles = RxList<dynamic>([]);
 
   final loadingStatus = LoadingStatus.loading.obs;

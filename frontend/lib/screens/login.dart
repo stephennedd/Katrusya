@@ -13,6 +13,7 @@ import 'package:frontend/widgets/button.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/users/user_controller.dart';
 
@@ -241,16 +242,26 @@ class _LoginPageState extends State<LoginPage> {
                     await SecureStorage.setAccessToken(
                         loggedInUser["data"]["accessToken"]);
                     // print(loggedInUser["data"]["accessToken"]);
+                    print(loggedInUser["data"]);
 
                     var token = await SecureStorage.getAccessToken();
                     _getStorage.write(
                         "username", loggedInUser["data"]["username"]);
+
+                    DateTime date =
+                        DateTime.parse(loggedInUser["data"]["created_at"]);
+                    String formattedDate = DateFormat('d MMMM, y').format(date);
+                    _getStorage.write("createdAt", formattedDate);
+                    // _getStorage.write("phone", loggedInUser["data"]["phone"]);
 
                     usersController.isUserLoggedIn.value = true;
                     usersController.balanceOfTokens.value =
                         loggedInUser["data"]["balance_of_tokens"];
                     usersController.userRoles.value =
                         loggedInUser["data"]["roles"];
+                    usersController.phone.value = loggedInUser["data"]["phone"];
+                    usersController.email.value = loggedInUser["data"]["email"];
+
                     await usersController
                         .getUserFavoriteCourses(loggedInUser["data"]["id"]);
 

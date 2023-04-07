@@ -32,8 +32,8 @@ class _AccountPageState extends State<AccountPage> {
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
   final MaterialStateProperty<Icon?> thumbIcon =
-  MaterialStateProperty.resolveWith<Icon?>(
-        (Set<MaterialState> states) {
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
       // Thumb icon when the switch is selected.
       if (states.contains(MaterialState.selected)) {
         return const Icon(Icons.check);
@@ -41,7 +41,6 @@ class _AccountPageState extends State<AccountPage> {
       return const Icon(Icons.close);
     },
   );
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +57,15 @@ class _AccountPageState extends State<AccountPage> {
           centerTitle: false,
           hasBackButton: false,
           hasAction: true,
-          icon: SvgPicture.asset("assets/icons/logout.svg", colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
+          icon: SvgPicture.asset(
+            "assets/icons/logout.svg",
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
           onTap: () async {
-              await SecureStorage.deleteAccessToken();
-              _getStorage.erase();
-              usersController.isUserLoggedIn.value = false;
-              Navigator.pushNamed(context, StartPage.routeName);
+            await SecureStorage.deleteAccessToken();
+            _getStorage.erase();
+            usersController.isUserLoggedIn.value = false;
+            Navigator.pushNamed(context, StartPage.routeName);
           },
         ),
         body: Obx(() => buildBody()),
@@ -72,12 +74,14 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   List settings = [
-    { "text" : "Edit Profile",
-      "page" : Container(
+    {
+      "text": "Edit Profile",
+      "page": Container(
         child: const Center(
           child: Text("Edit Profile"),
         ),
-    ) },
+      )
+    },
   ];
 
   Widget buildBody() {
@@ -115,7 +119,6 @@ class _AccountPageState extends State<AccountPage> {
               )
             ],
           ),
-
 
           Container(
             margin: const EdgeInsets.only(top: 20, left: 25, right: 25),
@@ -195,7 +198,9 @@ class _AccountPageState extends State<AccountPage> {
               const SizedBox(
                 width: 4,
               ),
-              const SizedBox(width: 4,),
+              const SizedBox(
+                width: 4,
+              ),
               SvgPicture.asset("assets/icons/crypto.svg")
             ],
           ),
@@ -209,18 +214,46 @@ class _AccountPageState extends State<AccountPage> {
                 const Text(
                   "Information",
                   style: TextStyle(
-                    fontFamily: 'Nexa-Trial',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700
-                  ),
+                      fontFamily: 'Nexa-Trial',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
                 ),
-                const SizedBox(height: 20,),
-                InformationItem(icon: const Icon(Icons.alternate_email_outlined, weight: 100, size: 20,), text: "mail@gmail.com", type: "Email",),
-                const SizedBox(height: 15,),
-                InformationItem(icon: const Icon(Icons.call_outlined, weight: 100, size: 20,), text: "1234567891", type: "Phone",),
-                const SizedBox(height: 15,),
-                InformationItem(icon: const Icon(Icons.today_outlined, weight: 100, size: 20,), text: "5 April, 2023", type: "Joined",),
-
+                const SizedBox(
+                  height: 20,
+                ),
+                Obx(() => InformationItem(
+                      icon: const Icon(
+                        Icons.alternate_email_outlined,
+                        weight: 100,
+                        size: 20,
+                      ),
+                      text: usersController.email.value,
+                      type: "Email",
+                    )),
+                const SizedBox(
+                  height: 15,
+                ),
+                Obx(() => InformationItem(
+                      icon: const Icon(
+                        Icons.call_outlined,
+                        weight: 100,
+                        size: 20,
+                      ),
+                      text: usersController.phone.value,
+                      type: "Phone",
+                    )),
+                const SizedBox(
+                  height: 15,
+                ),
+                InformationItem(
+                  icon: const Icon(
+                    Icons.today_outlined,
+                    weight: 100,
+                    size: 20,
+                  ),
+                  text: _getStorage.read("createdAt"),
+                  type: "Joined",
+                ),
               ],
             ),
           ),
@@ -228,16 +261,14 @@ class _AccountPageState extends State<AccountPage> {
             height: 15,
           ),
           SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: SettingsItem(
-              itemText: settings[0]["text"],
-              onTap: () {
-                showPopup();
-              },
-            )
-          )
-          
+              height: 50,
+              width: double.infinity,
+              child: SettingsItem(
+                itemText: settings[0]["text"],
+                onTap: () {
+                  showPopup();
+                },
+              ))
         ],
       ),
     );
@@ -245,19 +276,18 @@ class _AccountPageState extends State<AccountPage> {
 
   void showPopup() async {
     String item = settings[0]["text"];
-    showCupertinoModalPopup(context: context,
+    showCupertinoModalPopup(
+        context: context,
         builder: (context) => CupertinoAlertDialog(
-          content: Text("You tapped on $item"),
-          actions: <Widget> [
-            CupertinoDialogAction(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            )
-          ],
-        )
-    );
+              content: Text("You tapped on $item"),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                )
+              ],
+            ));
   }
-
 }

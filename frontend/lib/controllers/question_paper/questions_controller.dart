@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/api/my_api.dart';
+import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/controllers/data_sender_controller.dart';
@@ -23,19 +24,28 @@ class QuestionsController extends GetxController {
   int remainSeconds = 1;
   final time = '00:00'.obs;
 
+  CourseController courseController = Get.put(CourseController());
+
   @override
   void onReady() async {
+    // loadingStatus.value = LoadingStatus.loading;
+    // questionPaperModel =
+    //     await getTestsBasedOnSectionId(courseController.currentSectionId.value);
+    // allQuestions = questionPaperModel.questions!;
+    // currentQuestion.value = questionPaperModel.questions![0];
+    // _startTimer(questionPaperModel.timeSeconds);
+    // loadingStatus.value = LoadingStatus.completed;
+    super.onReady();
+  }
+
+  Future<dynamic> startUpQuiz() async {
     loadingStatus.value = LoadingStatus.loading;
-    // final _questionPaper =
-    //     ModalRoute.of(Get.context)!.settings.arguments as QuestionPaperModel;
-    // final _questionPaper = Get.arguments as QuestionPaperModel;
-    // final _questionPaper = controller.questionsData[0] as QuestionPaperModel;
-    questionPaperModel = await getTestsBasedOnSectionId(1);
+    questionPaperModel =
+        await getTestsBasedOnSectionId(courseController.currentSectionId.value);
     allQuestions = questionPaperModel.questions!;
     currentQuestion.value = questionPaperModel.questions![0];
     _startTimer(questionPaperModel.timeSeconds);
     loadingStatus.value = LoadingStatus.completed;
-    super.onReady();
   }
 
   Future<QuestionPaperModel> getTestsBasedOnSectionId(sectionId) async {
@@ -114,5 +124,15 @@ class QuestionsController extends GetxController {
     };
     await sendTheUserResultsPerTest("/users/testResults", data);
     Get.offAndToNamed(ResultScreen.routeName);
+  }
+
+  void reset() {
+    questionIndex.value = 0;
+    allQuestions = <Questions>[];
+    currentQuestion.value = null;
+    loadingStatus.value = LoadingStatus.loading;
+    _timer?.cancel();
+    remainSeconds = 1;
+    time.value = '00:00';
   }
 }

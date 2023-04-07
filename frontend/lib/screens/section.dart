@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
+import '../controllers/question_paper/questions_controller.dart';
 import '../controllers/users/user_controller.dart';
 import '../models/courses/course_details_model.dart';
 import '../utils/data.dart';
@@ -33,6 +34,7 @@ class _SectionPageState extends State<SectionPage>
   late ChewieController chewieController;
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
+  QuestionsController questionsController = Get.put(QuestionsController());
   final GetStorage _getStorage = GetStorage();
   double _videoProgress = 0.0;
 
@@ -49,7 +51,7 @@ class _SectionPageState extends State<SectionPage>
         final duration = _controller.value.duration.inSeconds.toDouble();
         if (isPlaying != _isPlaying) {
           setState(() {
-            _videoProgress = position/duration;
+            _videoProgress = position / duration;
             _isPlaying = isPlaying;
           });
         }
@@ -283,7 +285,10 @@ class _SectionPageState extends State<SectionPage>
     items.addAll(widget.data.lessons);
 
     items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
-
+    //DEBUG
+    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -292,7 +297,9 @@ class _SectionPageState extends State<SectionPage>
           if (item is QuizModel) {
             return QuizItem(
               data: item,
-              onTap: () {
+              onTap: () async {
+                questionsController.reset();
+                await questionsController.startUpQuiz();
                 // TODO properly navigate to quiz page.
                 Navigator.pushNamed(context, TestScreen.routeName);
               },
