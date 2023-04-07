@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:get/get.dart';
 
-Color answerSelectedColor() => Theme.of(Get.context!).primaryColor;
+Color answerSelectedColor() => primaryDark;
 
 Color answerBorderColor() => const Color.fromARGB(255, 221, 221, 221);
 
@@ -23,3 +23,4 @@ const appBarColor = Color(0xFFFFFFFF);
 const bottomBarColor = Colors.white;
 
 const shadowColor = Colors.black87;
+const lightGrey = Color(0xFFD2D2D2);

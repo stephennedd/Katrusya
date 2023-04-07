@@ -134,7 +134,7 @@ class _AnimatedCompleteTaskButtonState
   }
 
   void _onPressed() async {
-    String sound = "sounds/succes_bell.mp3";
+    String sound = "sounds/done.mp3";
     if(!_isCompleted) {
       await _audioPlayer.play(AssetSource(sound));
     }
@@ -185,7 +185,7 @@ class _AnimatedCompleteTaskButtonState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    _isCompleted ? Icons.undo_rounded : Icons.check_rounded,
+                    _isCompleted ? Icons.close : Icons.check_rounded,
                     color: _textColor,
                     size: 20,
                   )

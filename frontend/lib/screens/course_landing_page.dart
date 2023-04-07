@@ -59,7 +59,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
-        icon: SvgPicture.asset("assets/icons/trophy-star.svg"),
+        icon: const Icon(Icons.leaderboard_rounded),
         title: "Details",
         onTap: () {
           print("open leaderboard");
@@ -108,7 +108,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   Widget getTabBar() {
     return Container(
       child: TabBar(
-        indicatorColor: primaryDark,
+        indicatorWeight: 2,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: primary,
         controller: tabController,
         tabs: const [
           Tab(
@@ -142,7 +144,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       height: 400,
       width: double.infinity,
       child: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
+        physics: const ScrollPhysics(),
         controller: tabController,
         children: [
           getSections(),

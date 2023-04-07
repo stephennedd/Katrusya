@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Themes/app_colors.dart';
 
 class BackgroundDecoration extends StatelessWidget {
   final Widget child;
@@ -14,7 +15,7 @@ class BackgroundDecoration extends StatelessWidget {
         Positioned.fill(
             child: Container(
                 decoration: BoxDecoration(
-                    color: showGradient ? null : Theme.of(context).primaryColor
+                    color: showGradient ? null : primaryDark
                     // Colors.pink[50],
                     //Colors.pink[50]
                     //Theme.of(context).primaryColor,

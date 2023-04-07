@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/components/BackgroundDecoration.dart';
 import 'package:frontend/screens/components/CustomAppBar.dart';
 import 'package:frontend/screens/components/MainButton.dart';
@@ -26,16 +27,19 @@ class TestScreen extends GetView<QuestionsController> {
         appBar: CustomAppBar(
           leading: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: const ShapeDecoration(
-                shape: StadiumBorder(
-                    side: BorderSide(color: Colors.white, width: 0.5))),
+
             child: Obx(() => CountdownTimer(
                 time: controller.time.value, color: Colors.white)),
           ),
           showActionIcon: true,
           titleWidget: Obx(() => Text(
                 "Question ${controller.questionIndex.value + 1}",
-                style: appBarTS,
+                style: const TextStyle(
+                  fontFamily: 'Nexa-Trial',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white
+                ),
               )),
         ),
         body: BackgroundDecoration(
@@ -96,7 +100,7 @@ class TestScreen extends GetView<QuestionsController> {
                         ),
                       ),
                     ColoredBox(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Colors.white,
                         child: Row(
                           children: [
                             Visibility(
@@ -110,7 +114,7 @@ class TestScreen extends GetView<QuestionsController> {
                                       },
                                       child: Icon(
                                         Icons.arrow_back_ios_new,
-                                        color: Theme.of(context).primaryColor,
+                                        color: primaryDark,
                                       ),
                                     ))),
                             Expanded(

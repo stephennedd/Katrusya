@@ -138,13 +138,17 @@ class _RootAppState extends State<RootApp> {
       width: double.infinity,
       height: 75,
       padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-      decoration: BoxDecoration(color: bottomBarColor, boxShadow: [
-        BoxShadow(
-            color: shadowColor.withOpacity(.1),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: const Offset(1, 1))
-      ]),
+      decoration: BoxDecoration(
+          color: bottomBarColor,
+          boxShadow: [
+            BoxShadow(
+                color: shadowColor.withOpacity(.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(1, 1))
+          ],
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
+      ),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(

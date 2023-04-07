@@ -20,7 +20,13 @@ class CountdownTimer extends StatelessWidget {
         ),
         Text(
           time,
-          style: countDownTimerTs().copyWith(color: color),
+          style: const TextStyle(
+            fontFamily: 'Nexa-Trial',
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.white
+          )
+          ,
         )
       ],
     );

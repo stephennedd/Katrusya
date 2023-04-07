@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/screens/components/BackgroundDecoration.dart';
 import 'package:frontend/screens/components/ContentArea.dart';
@@ -72,7 +73,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                   Row(
                     children: [
                       CountdownTimer(
-                        color: Theme.of(context).primaryColor,
+                        color: primaryDark,
                         time: '',
                       ),
                       Obx(() => Text(

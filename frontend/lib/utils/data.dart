@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-List settings = [
-  { "text" : "Account Settings", "color" : Colors.black },
-  { "text" : "Edit Profile", "color" : Colors.black },
-  { "text" : "Logout", "color" : Colors.black },
-  { "text" : "Delete Account", "color" : Colors.red }
-];
-
 List milestones = [
   {"name" : "Quiz 1", "questions" : "10 questions"},
   {"name" : "Quiz 2", "questions" : "10 questions"},

@@ -34,6 +34,7 @@ class _SectionPageState extends State<SectionPage>
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
+  double _videoProgress = 0.0;
 
   @override
   void initState() {
@@ -44,8 +45,11 @@ class _SectionPageState extends State<SectionPage>
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
+        final position = _controller.value.position.inSeconds.toDouble();
+        final duration = _controller.value.duration.inSeconds.toDouble();
         if (isPlaying != _isPlaying) {
           setState(() {
+            _videoProgress = position/duration;
             _isPlaying = isPlaying;
           });
         }
@@ -78,7 +82,7 @@ class _SectionPageState extends State<SectionPage>
         appBar: MyAppBar(
           title: "Sections",
           hasAction: true,
-          icon: Icon(
+          icon: const Icon(
             Icons.download_outlined,
             color: Colors.black,
             size: 25,
@@ -203,7 +207,7 @@ class _SectionPageState extends State<SectionPage>
     return Container(
       child: TabBar(
         indicatorWeight: 0.1,
-        indicatorColor: primaryDark,
+        indicatorColor: primary,
         controller: _tabController,
         tabs: const [
           Tab(
@@ -280,38 +284,6 @@ class _SectionPageState extends State<SectionPage>
 
     items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
 
-    // Done: get all quizes for this course.id and add them below
-    // items.add(QuizModel(
-    //     numberOfQuestions: 10,
-    //     title: "Quiz 2",
-    //     imageUrl: "",
-    //     sectionId: 1,
-    //     courseId: 1));
-    // items.add(QuizModel(
-    //     numberOfQuestions: 10,
-    //     title: "Quiz 3",
-    //     imageUrl: "",
-    //     sectionId: 1,
-    //     courseId: 1));
-    // items.add(QuizModel(
-    //     numberOfQuestions: 10,
-    //     title: "Quiz 1",
-    //     imageUrl: "",
-    //     sectionId: 1,
-    //     courseId: 1));
-    // items.add(QuizModel(
-    //     numberOfQuestions: 10,
-    //     title: "Quiz 1",
-    //     imageUrl: "",
-    //     sectionId: 1,
-    //     courseId: 1));
-    // items.add(QuizModel(
-    //     numberOfQuestions: 10,
-    //     title: "Quiz 1",
-    //     imageUrl: "",
-    //     sectionId: 1,
-    //     courseId: 1));
-
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -385,6 +357,7 @@ class _SectionPageState extends State<SectionPage>
                 }
                 // TODO add completion in backend
               },
+              progressValue: _videoProgress,
             );
           }
         });

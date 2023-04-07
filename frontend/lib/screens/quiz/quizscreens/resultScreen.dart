@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/Screens/root_app.dart';
+import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/screens/components/BackgroundDecoration.dart';
 import 'package:frontend/screens/components/ContentArea.dart';
 import 'package:frontend/screens/components/CustomAppBar.dart';
 import 'package:frontend/screens/components/MainButton.dart';
+import 'package:frontend/screens/section.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import 'answerCheckScreen.dart';
 import '../quizcomponents/QuestionNumberCard.dart';
 
 class ResultScreen extends GetView<QuestionsController> {
-  const ResultScreen({super.key});
+  ResultScreen({super.key});
   static const String routeName = "/resultscreen";
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: BackgroundDecoration(
         child: Column(
@@ -35,26 +40,36 @@ class ResultScreen extends GetView<QuestionsController> {
                     addPadding: true,
                     child: Column(
                       children: [
-                        SvgPicture.asset('images/bulb.svg'),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 5),
+                        Lottie.asset("assets/lotties/107653-trophy.json",
+                          width: 200,
+                          repeat: false
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 20, bottom: 5),
                           child: Text(
                             'Congratulations',
                             style: TextStyle(
+                                fontFamily: 'Nexa-Trial',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.pink[500]),
+                                color: primaryDark),
                           ),
                         ),
                         Text(
                           'You have ${controller.points} points',
-                          style: TextStyle(color: Colors.pink[500]),
+                          style: const TextStyle(
+                              fontFamily: 'Nexa-Trial',
+                              fontWeight: FontWeight.w600,
+                              color: primaryDark),
                         ),
                         const SizedBox(
                           height: 25,
                         ),
                         const Text(
                           'Tap below question numbers to view vorrect answers',
+                          style: TextStyle(
+                              fontFamily: 'Nexa-Trial'
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(
@@ -100,9 +115,8 @@ class ResultScreen extends GetView<QuestionsController> {
                               children: [
                                 Expanded(
                                     child: MainButton(
-                                  onTap: () {
-                                    Get.offNamedUntil(WatchCourse.routeName,
-                                        (route) => false);
+                                  onTap: () async {
+                                    // TODO route to the previously closed section page
                                   },
                                   title: 'Complete',
                                 ))
@@ -116,3 +130,5 @@ class ResultScreen extends GetView<QuestionsController> {
     );
   }
 }
+
+
