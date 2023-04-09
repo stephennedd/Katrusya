@@ -77,7 +77,8 @@ class MyApp extends StatelessWidget {
             //RootApp.routeName,
             home: const RootApp(),
             routes: {
-              PokemonHomeScreen.routeName: (context) => const PokemonHomeScreen(),
+              PokemonHomeScreen.routeName: (context) =>
+                  const PokemonHomeScreen(),
               PokemonDetailScreen.routeName: (context) =>
                   const PokemonDetailScreen(),
               SettingsScreen.routeName: (context) => const SettingsScreen(),
@@ -90,7 +91,7 @@ class MyApp extends StatelessWidget {
               StartPage.routeName: (context) => const StartPage(),
               SignupPage.routeName: (context) => const SignupPage(),
               ForgotPage.routeName: (context) => const ForgotPage(),
-              SectionPage.routeName: (context) => SectionPage(),
+              SectionPage.routeName: (context) => const SectionPage(),
               TestScreen.routeName: (context) => const TestScreen(),
               MyCoursesPage.routeName: (context) => const MyCoursesPage(),
               FavoritesPage.routeName: (context) => const FavoritesPage(),

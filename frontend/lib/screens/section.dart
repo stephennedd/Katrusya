@@ -5,7 +5,6 @@ import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -13,11 +12,10 @@ import '../controllers/marketplace/courses/course_controller.dart';
 import '../controllers/question_paper/questions_controller.dart';
 import '../controllers/users/user_controller.dart';
 import '../models/courses/course_details_model.dart';
-import '../utils/data.dart';
 import '../widgets/app_bar_box.dart';
 
 class SectionPage extends StatefulWidget {
-  SectionPage({Key? key, this.data}) : super(key: key);
+  const SectionPage({Key? key, this.data}) : super(key: key);
   static const String routeName = "/section";
   final data;
 
@@ -105,7 +103,7 @@ class _SectionPageState extends State<SectionPage>
             Stack(children: <Widget>[
               _controller.value.isInitialized
                   ? GestureDetector(
-                      onTap: () async {
+                      onTap: () {
                         setState(() {
                           _controller.value.isPlaying
                               ? _controller.pause()
@@ -242,53 +240,16 @@ class _SectionPageState extends State<SectionPage>
     );
   }
 
-  // Widget getLessons() {
-  //   //final items = <dynamic>[];
-  //   //items.addAll(widget.data.lessons);
-  //   //items.addAll(widget.data.tests);
-  //
-  //   return ListView.builder(
-  //       itemCount: widget.data.lessons.length,
-  //       itemBuilder: (context, index) =>
-  //           LessonItem(
-  //             isPlaying:
-  //                 widget.data.lessons[index].videoUrl == _controller.dataSource,
-  //             data: widget.data.lessons[index],
-  //             onTap: () {
-  //               //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
-  //               // Done change currently playing video-url to new video
-  //               setState(() {
-  //                 _isLoading = true;
-  //                 _controller.pause();
-  //                 _controller = VideoPlayerController.network(
-  //                     widget.data.lessons[index].videoUrl);
-  //                 _controller.initialize().then((_) {
-  //                   chewieController = ChewieController(
-  //                     videoPlayerController: _controller,
-  //                     autoPlay: false,
-  //                     looping: false,
-  //                   );
-  //                   setState(() {
-  //                     _isLoading = false;
-  //                     _controller.play();
-  //                   });
-  //                 });
-  //               });
-  //             },
-  //           ),
-  //   );
-  // }
-
   // return a list of all lessons and quiz items that a section has in the form of a list of widgets
   Widget getSectionItems() {
     final items = <dynamic>[];
     items.addAll(widget.data.lessons);
 
-    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+    items.addAll(courseController.sectionQuizzes);
     //DEBUG
-    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
-    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
-    items.addAll(courseController.getSectionQuizzes(widget.data.sectionId));
+    // items.addAll(courseController.sectionQuizzes);
+    // items.addAll(courseController.sectionQuizzes);
+    // items.addAll(courseController.sectionQuizzes);
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -313,7 +274,6 @@ class _SectionPageState extends State<SectionPage>
               // TODO get the isComplete for this course/user from backend and
               isComplete: usersController.hasUserCompletedLesson(item.sectionId,
                   item.lessonId, courseController.currentCourseId.value),
-              //data: widget.data.lessons[index],
               onTap: () {
                 //  widget.data.lessons[index].videoUrl - to get the url of video that was clicked
                 // Done change currently playing video-url to new

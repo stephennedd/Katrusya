@@ -160,7 +160,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
         itemBuilder: (context, index) => SectionItem(
               data:
                   courseController.currentCourseDetails.value!.sections[index],
-              onTap: () async {
+              onTap: () {
+                courseController.getSectionQuizzes(courseController
+                    .currentCourseDetails.value!.sections[index].sectionId);
                 courseController.currentSectionId.value = courseController
                     .currentCourseDetails.value!.sections[index].sectionId;
                 Navigator.of(context).push(MaterialPageRoute(
