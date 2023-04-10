@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from 'src/databases/database.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { UserEntity, UserOtpEntity } from 'src/models/user/user';
 import { plainToClass } from 'class-transformer';
 import { EmailService } from '../messagings/email.service';
-import { UserOtpsRepository, UsersRepository } from 'src/repositories/users.repository';
+import { UserOtpsRepository, UsersRepository } from '../../repositories/users.repository';
 
 @Injectable()
 export class UsersService {

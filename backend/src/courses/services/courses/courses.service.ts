@@ -19,17 +19,9 @@ interface Test{
 
 @Injectable()
 export class CoursesService {
-    
-    constructor(private readonly dbService: DatabaseService) {} 
-    
-//     async getRecommendedCourses(): Promise<any>{
-//     const knex = this.dbService.getKnexInstance();
-//     const recommendedCourses = await knex('courses')
-//   .where({ is_recommended: true })
-//   .select('*');
-//   return recommendedCourses;
-//     }
 
+    constructor(private readonly dbService: DatabaseService) {} 
+  
 async addPurchasedCourse(courseId: number, userId: number) {
     const knex = this.dbService.getKnexInstance();
     try { await knex('user_courses').insert({
@@ -89,14 +81,6 @@ const result = await knex("courses as c")
   .where("c.id", courseId)
   .orderBy("s.id", "l.id");
 
-  // const courseQuizzes = await knex.select('tests.title as quiz_title')
-  //   .count('questions.id as number_of_questions')
-  //   .from('tests')
-  //   .leftJoin('questions', 'tests.id', 'questions.test_id')
-  //   .where('tests.course_id', courseId)
-  //   .groupBy('tests.id')
-  //   .orderBy('tests.section_id');
-
 const course = {
   course_name: result[0].course_name,
   course_description: result[0].course_description,
@@ -150,7 +134,6 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
             .join('course_categories', 'courses.id', 'course_categories.course_id')
             .join('categories', 'categories.id', 'course_categories.category_id')
             .where('categories.name', queryParams.category)
-          //  .select('courses.*');
         }
       
         if (queryParams.is_recommended!==undefined) {
@@ -172,13 +155,6 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
   .select('courses.*', knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
   knex.raw('COUNT(DISTINCT sections.id) as number_of_sections'))
   .groupBy('courses.id');
-      
-        // Execute the query
-        // if(queryParams.category){
-        //  query = query.select('courses.*');
-        // } else {
-        //     query = query.select('*');
-        // }
             
              const courses = (await query).map(course => {
             return {
@@ -229,20 +205,4 @@ async getRecommendedCourses(isRecommended: boolean): Promise<any>{
 
         return featuredCourses;
       }
-
-    //   async getCourses(): Promise<any>{
-    //     const knex = this.dbService.getKnexInstance();
-    //     let query = await knex('courses').select('*');
-
-    //     const courses = query.map(course => {
-    //         return {
-    //           ...course,
-    //           is_recommended: course.is_recommended === 1 ? true : false,
-    //           is_featured: course.is_featured === 1?true : false,
-    //           is_favorited: course.is_favorited === 1?true : false,
-    //         };
-    //       });
-
-    //     return courses;
-    //   }
 }
