@@ -52,7 +52,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               onDismissed: (direction) async {
                 await usersController.deleteCourseFromUserFavorites(
                     _getStorage.read('userId'),
-                    courseController.currentCourseId.value);
+                    userFavoriteCourses[index].courseId);
                 setState(() {
                   // TODO remove from the favorites
                 });

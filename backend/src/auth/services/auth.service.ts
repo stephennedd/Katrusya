@@ -1,15 +1,13 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ServerResponse } from 'http';
 import { DatabaseService } from 'src/databases/database.service';
 import { AuthenticationRequest, CreateUserDto } from 'src/dto/create-user.dto';
 import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
-import { UserOtpsRepository, UsersRepository } from 'src/repositories/users.repository';
+import { UserOtpsRepository, UsersRepository } from '../repositories/users.repository';
 import { UsersService } from './users/users.service';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from 'src/models/user/user';
 import { plainToClass } from 'class-transformer';
-import { v4 as uuidv4 } from 'uuid';
 import { EmailService } from './messagings/email.service';
 import { ChangePasswordDto } from 'src/dto/change-password.dto';
 @Injectable()

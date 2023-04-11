@@ -7,7 +7,7 @@ import { AuthenticationRequest, CreateConfirmEmailDto, CreateUserDto } from 'src
 import { ForgotPasswordDto } from 'src/dto/forgot-password.dto';
 import { ResponseBase, ResponseGeneric } from 'src/dto/response.dto';
 import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from '../services/auth.service';
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {

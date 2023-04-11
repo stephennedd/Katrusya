@@ -125,6 +125,8 @@ class UsersController extends GetxController {
 
   Future<List<FavoriteCourseModel>> deleteCourseFromUserFavorites(
       int userId, int courseId) async {
+    print(userId);
+    print(courseId);
     loadingStatus.value = LoadingStatus.loading;
     FavoriteCourseModel deletedFavoriteCourse =
         await CallApi().deleteCourseFromUserFavorites(userId, courseId);
