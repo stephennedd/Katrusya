@@ -23,11 +23,11 @@ class QuestionNumberCard extends StatelessWidget {
         break;
 
       case AnswerStatus.correct:
-        _backgroundColor = primaryDark;
+        _backgroundColor = primary;
         break;
 
       case AnswerStatus.wrong:
-        _backgroundColor = primary;
+        _backgroundColor = primaryDark;
         break;
 
       case AnswerStatus.notanswered:

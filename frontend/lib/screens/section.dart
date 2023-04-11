@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/quizzes/quiz_model.dart';
+import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
@@ -12,7 +14,6 @@ import '../controllers/marketplace/courses/course_controller.dart';
 import '../controllers/question_paper/questions_controller.dart';
 import '../controllers/users/user_controller.dart';
 import '../models/courses/course_details_model.dart';
-import '../widgets/app_bar_box.dart';
 
 class SectionPage extends StatefulWidget {
   const SectionPage({Key? key, this.data}) : super(key: key);
@@ -79,18 +80,55 @@ class _SectionPageState extends State<SectionPage>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: appBarColor,
-        appBar: MyAppBar(
-          title: "Sections",
-          hasAction: true,
-          icon: const Icon(
-            Icons.download_outlined,
-            color: Colors.black,
-            size: 25,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: appBarColor,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              final course = courseController.courses.firstWhere((course) => course.id  == courseController.currentCourseId.value);
+
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CourseLandingPage(course: course))
+              );
+              // Navigator.of(context).pushReplacement(
+              //     MaterialPageRoute(
+              //       builder: (context) => const RootApp(),
+              //       settings: const RouteSettings(
+              //         name: "/homepage"
+              //       )
+              //     )
+              // );
+            },
           ),
-          onTap: () {
-            // TODO implement the downloads menu
-            print("downloads");
-          },
+          centerTitle: true,
+          title: const Text(
+            "Section",
+            style: TextStyle(
+                fontFamily: 'Nexa-Trial',
+                fontSize: 24,
+                color: textColor,
+                fontWeight: FontWeight.w700),
+          ),
+          actions: <Widget>[
+            IconButton(
+                icon: const Icon(
+                  Icons.file_download_outlined,
+                  color: Colors.black,
+                  size: 25,
+                ),
+                color: textColor,
+                tooltip: 'Go to leaderboard',
+                onPressed: () {
+                  print("downloads");
+                })
+          ]
         ),
         body: buildBody());
   }

@@ -1,16 +1,14 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
 
 class FileUploadBox extends StatelessWidget {
   FileUploadBox({Key? key, this.onUploadPressed}) : super(key: key);
-
   GestureTapCallback? onUploadPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 100,
       decoration: BoxDecoration(
         color: appBarColor,
         borderRadius: BorderRadius.circular(10),
@@ -28,7 +26,7 @@ class FileUploadBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-            highlightColor: Colors.white,
+            highlightColor: Colors.grey,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.grey)
             ),
@@ -39,11 +37,11 @@ class FileUploadBox extends StatelessWidget {
             onPressed: onUploadPressed,
           ),
           const SizedBox(width: 15,),
-          Text(
+          const Text(
             "Click to upload",
             style: TextStyle(
-              fontFamily: 'Nexa-Trial',
-              fontSize: 16,
+              fontFamily: 'Poppins',
+              fontSize: 14,
             ),
           )
         ],

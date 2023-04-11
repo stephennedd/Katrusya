@@ -26,7 +26,7 @@
                     "id":1,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
                     "duration_in_hours": 5
                 },
@@ -203,7 +203,7 @@
                     "id":3,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 10,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -211,7 +211,7 @@
                     "id":4,
                     "title": "Lesson 2 title",
                     "description": "Lesson 2 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 10,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 }
@@ -376,7 +376,7 @@
                     "id":5,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 6,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -384,7 +384,7 @@
                     "id":6,
                     "title": "Lesson 2 title",
                     "description": "Lesson 2 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 6,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 }
@@ -549,7 +549,7 @@
                     "id":7,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 2,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -722,7 +722,7 @@
                     "id":9,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 6,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -896,7 +896,7 @@
                     "id":11,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 6,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -1069,7 +1069,7 @@
                     "id":13,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 3,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -1250,7 +1250,7 @@
                     "id":16,
                     "title": "Lesson 2 title",
                     "description": "Lesson 2 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 4,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 }
@@ -1415,7 +1415,7 @@
                     "id":17,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 4,
                     "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },
@@ -1423,7 +1423,7 @@
                     "id":18,
                     "title": "Lesson 2 title",
                     "description": "Lesson 2 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 5,
                     "image" : "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 }
@@ -1569,7 +1569,7 @@
                     "id":19,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "image" : "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
                     "duration_in_hours": 4
                 },
@@ -1723,7 +1723,7 @@
                     "id":21,
                     "title": "Lesson 1 title",
                     "description": "Lesson 1 description",
-                    "videoUrl": "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+                    "videoUrl": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
                     "duration_in_hours": 4,
                     "image" : "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 },

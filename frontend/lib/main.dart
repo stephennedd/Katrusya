@@ -22,7 +22,6 @@ import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/screens/root_app.dart';
 import 'package:frontend/screens/section.dart';
 import 'package:frontend/screens/signup.dart';
-import 'package:frontend/screens/splashScreen.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/bindings/initial_bindings.dart';

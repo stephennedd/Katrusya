@@ -6,19 +6,26 @@ import '../Themes/app_colors.dart';
 class FormInput extends StatelessWidget {
   FormInput(
       {Key? key,
-      required this.text,
-      required this.icon,
-      this.type,
-      this.isPassword = false,
-      this.validatorText = "value",
-      required this.textController})
+        required this.text,
+        this.hasIcon = false,
+        this.icon,
+        this.type,
+        this.isPassword = false,
+        this.validatorText = "value",
+        required this.textController,
+        this.maxLines = 1,
+        this.minLines = 1
+      })
       : super(key: key);
   final String text;
-  String icon;
+  bool hasIcon;
+  String? icon;
   TextInputType? type;
   bool isPassword;
   String validatorText;
   TextEditingController textController;
+  int maxLines;
+  int minLines;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +39,12 @@ class FormInput extends StatelessWidget {
                 color: shadowColor.withOpacity(.1),
                 spreadRadius: .5,
                 blurRadius: .5,
-                offset: const Offset(0, 0))
+                offset: const Offset(0, 0)
+            )
           ]),
       child: TextFormField(
+        maxLines: maxLines,
+        minLines: minLines,
         onChanged: (newValue) {
           textController.text = newValue;
         },
@@ -50,7 +60,7 @@ class FormInput extends StatelessWidget {
         decoration: InputDecoration(
             prefixIcon: Padding(
               padding: const EdgeInsets.only(right: 5),
-              child: SvgPicture.asset(icon),
+              child: hasIcon ? SvgPicture.asset(icon!) : null,
             ),
             prefixIconConstraints:
                 const BoxConstraints(maxWidth: 30, maxHeight: 30),

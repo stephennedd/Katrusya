@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
@@ -165,7 +167,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     .currentCourseDetails.value!.sections[index].sectionId);
                 courseController.currentSectionId.value = courseController
                     .currentCourseDetails.value!.sections[index].sectionId;
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => SectionPage(
                           data: courseController
                               .currentCourseDetails.value!.sections[index],
@@ -225,6 +227,23 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                       }
                     },
                   )),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 15,
+                //TODO update this data to the actual user's image and name
+                backgroundImage: AssetImage("images/ape.png")
+              ),
+              SizedBox(width: 10),
+              Text("John Doe",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 14,
+                ),
+              )
             ],
           ),
           const SizedBox(

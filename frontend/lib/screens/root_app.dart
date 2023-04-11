@@ -13,6 +13,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/users/user_controller.dart';
+import 'add_course.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -120,12 +121,7 @@ class _RootAppState extends State<RootApp> {
       )
     },
     {
-      "icon": "assets/icons/square-plus.svg",
-      "page": Container(
-        child: const Center(
-          child: Text("Add Course"),
-        ),
-      )
+      "icon": "assets/icons/square-plus.svg", "page": AddCoursePage()
     },
     {"icon": "assets/icons/profile.svg", "page": AccountPage()}
   ];

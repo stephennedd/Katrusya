@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/homescreens/Featured.dart';
+import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/utils/data.dart';
 import 'package:frontend/widgets/course_item.dart';
-import 'package:frontend/widgets/searchcategory_item.dart';
+import 'package:frontend/widgets/category_item.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/widgets/sliver_app_bar.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,10 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBarBox(title: "Search", centerTitle: false),
+          SliverAppBarBox(
+            backgroundColor: const Color(0xFFfBfBfB),
+            title: "Search",
+            centerTitle: false),
           SliverToBoxAdapter(
             child: getSearchBox(),
           ),
@@ -76,7 +80,7 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.only(bottom: 3, top: 3),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(50),
                   boxShadow: [
                     BoxShadow(
                       color: shadowColor.withOpacity(.05),
@@ -112,10 +116,20 @@ class _SearchPageState extends State<SearchPage> {
               print("filter Pressed");
             },
             child: Container(
-              padding: const EdgeInsets.all(5),
+              height: 45,
+              width: 45,
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: primary,
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: shadowColor.withOpacity(0.1),
+                    blurRadius: 1,
+                    spreadRadius: 1,
+                    offset: const Offset(0,0)
+                  )
+                ]
               ),
               child: SvgPicture.asset(
                 "assets/icons/filter.svg",

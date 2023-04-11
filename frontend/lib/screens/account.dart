@@ -1,24 +1,20 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Screens/start.dart';
 import 'package:frontend/services/bottom_bar_provider.dart';
 import 'package:frontend/themes/app_colors.dart';
-import 'package:frontend/utils/hexagon_clip.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
-import 'package:frontend/widgets/hexagon_image.dart';
 import 'package:frontend/widgets/information_item.dart';
+import 'package:frontend/widgets/profile_image_box.dart';
 import 'package:frontend/widgets/settings_item.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import '../controllers/users/user_controller.dart';
 import '../storage/secure_storage.dart';
-
-import '../controllers/users/user_controller.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -41,6 +37,8 @@ class _AccountPageState extends State<AccountPage> {
       return const Icon(Icons.close);
     },
   );
+
+  String _profileImage = 'images/ape.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +107,24 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const CircleAvatar(
-                backgroundColor: lightGrey,
-                radius: 65,
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage("images/ape.jpg"),
-                ),
+              ProfileImageBox(
+                image: _profileImage,
+                onTap: () async {
+                  FilePickerResult? result = await FilePicker.platform.pickFiles(
+                    type: FileType.image,
+                    allowMultiple: false
+                  );
+
+                  if (result != null) {
+                    PlatformFile file = result.files.first;
+                    setState(() {
+                      _profileImage = file.path.toString();
+                    });
+                    // TODO upload the file to the firestore then update the user's image url to the saved image url
+                  } else {
+                    // User canceled the picker
+                  }
+                },
               )
             ],
           ),

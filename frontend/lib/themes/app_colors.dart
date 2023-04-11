@@ -19,8 +19,11 @@ const accentDark = Color(0xFF91DECE);
 const labelColor = Color(0xFF8A8989);
 const textColor = Color(0xFF000000);
 
+const appBarOffWhite = Color(0xFFfBfBfB);
 const appBarColor = Color(0xFFFFFFFF);
 const bottomBarColor = Colors.white;
 
 const shadowColor = Colors.black87;
 const lightGrey = Color(0xFFD2D2D2);
+
+const uploadedItemImageBackground = Color(0xFFFFCBCB);

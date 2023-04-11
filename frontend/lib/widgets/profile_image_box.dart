@@ -1,21 +1,22 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-
 import '../Themes/app_colors.dart';
 
 class ProfileImageBox extends StatelessWidget {
-  ProfileImageBox({Key? key, required this.onTap}) : super(key: key);
+  ProfileImageBox({Key? key, required this.onTap, required this.image}) : super(key: key);
   GestureTapCallback onTap;
+  String image;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children :
-        [ const CircleAvatar(
+        [ CircleAvatar(
           backgroundColor: lightGrey,
           radius: 65,
           child: CircleAvatar(
             radius: 60,
-            backgroundImage: AssetImage("images/ape.jpg"),
+            backgroundImage: AssetImage(image),
           ),
         ),
         Positioned(

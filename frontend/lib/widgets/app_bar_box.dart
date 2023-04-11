@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Screens/root_app.dart';
 import '../Themes/app_colors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,7 +11,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.icon,
       this.onTap,
       this.hasBackButton = true,
-      this.centerTitle = true})
+      this.centerTitle = true,
+      this.onBackPressed})
       : super(key: key);
   final String title;
   Color backgroundColor;
@@ -19,6 +21,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   GestureTapCallback? onTap;
   bool centerTitle;
   bool hasBackButton;
+  GestureTapCallback? onBackPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       leading: hasBackButton
           ? const BackButton(
-              color: textColor,
+              color: textColor
             )
           : null,
       centerTitle: centerTitle,
