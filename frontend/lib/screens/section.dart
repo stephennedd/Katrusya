@@ -247,9 +247,9 @@ class _SectionPageState extends State<SectionPage>
 
     items.addAll(courseController.sectionQuizzes);
     //DEBUG
-    // items.addAll(courseController.sectionQuizzes);
-    // items.addAll(courseController.sectionQuizzes);
-    // items.addAll(courseController.sectionQuizzes);
+    items.addAll(courseController.sectionQuizzes);
+    items.addAll(courseController.sectionQuizzes);
+    items.addAll(courseController.sectionQuizzes);
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
