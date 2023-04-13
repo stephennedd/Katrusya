@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { DatabaseService } from 'src/databases/database.service';
-import { AuthenticationRequest, CreateUserDto } from 'src/dto/create-user.dto';
-import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
+import { DatabaseService } from '../../databases/database.service';
+import { AuthenticationRequest, CreateUserDto } from '../../dto/create-user.dto';
+import { AuthenticationResponse } from '../../dto/responses/minimal-user-dto';
 import { UserOtpsRepository, UsersRepository } from '../repositories/users.repository';
 import { UsersService } from './users/users.service';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from 'src/models/user/user';
+import { UserEntity } from '../../models/user/user';
 import { plainToClass } from 'class-transformer';
 import { EmailService } from './messagings/email.service';
-import { ChangePasswordDto } from 'src/dto/change-password.dto';
+import { ChangePasswordDto } from '../../dto/change-password.dto';
 @Injectable()
 export class AuthService {
   constructor(

@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/databases/database.service';
+import { CategoriesRepository } from '../../repositories/categories.repository';
+import { DatabaseService } from '../../../databases/database.service';
 
 @Injectable()
 export class CategoriesService {
-    constructor(private readonly dbService: DatabaseService) {} 
+    constructor(
+      private readonly categoriesRepository: CategoriesRepository) {} 
     async getCategories(): Promise<any>{
-        const knex = this.dbService.getKnexInstance();
-        const categories = await knex('categories').select('*');
+        const categories = await this.categoriesRepository.getAll();
+        //await knex('categories').select('*');
         return categories;
       }
 }
+

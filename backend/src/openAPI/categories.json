@@ -1,0 +1,50 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Categories API",
+      "version": "1.0.0",
+      "description": "API for retrieving categories"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "paths": {
+      "/categories": {
+        "get": {
+          "tags": [
+            "Categories"
+          ],
+          "summary": "Get all categories",
+          "operationId": "getCategories",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Category ID"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Category name"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

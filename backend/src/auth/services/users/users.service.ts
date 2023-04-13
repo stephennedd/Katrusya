@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from 'src/dto/create-user.dto';
-import { UserEntity, UserOtpEntity } from 'src/models/user/user';
+import { CreateUserDto } from '../../../dto/create-user.dto';
+import { UserEntity, UserOtpEntity } from '../../../models/user/user';
 import { plainToClass } from 'class-transformer';
 import { EmailService } from '../messagings/email.service';
 import { UserOtpsRepository, UsersRepository } from '../../repositories/users.repository';

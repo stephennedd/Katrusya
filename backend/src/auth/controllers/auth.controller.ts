@@ -2,11 +2,11 @@ import { Controller,Post, UseGuards, Request, Body, Query, Patch } from '@nestjs
 import { Headers, Put } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ChangePasswordDto } from 'src/dto/change-password.dto';
-import { AuthenticationRequest, CreateConfirmEmailDto, CreateUserDto } from 'src/dto/create-user.dto';
-import { ForgotPasswordDto } from 'src/dto/forgot-password.dto';
-import { ResponseBase, ResponseGeneric } from 'src/dto/response.dto';
-import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
+import { ChangePasswordDto } from '../../dto/change-password.dto';
+import { AuthenticationRequest, CreateConfirmEmailDto, CreateUserDto } from '../../dto/create-user.dto';
+import { ForgotPasswordDto } from '../../dto/forgot-password.dto';
+import { ResponseBase, ResponseGeneric } from '../../dto/response.dto';
+import { AuthenticationResponse } from '../../dto/responses/minimal-user-dto';
 import { AuthService } from '../services/auth.service';
 @Controller('auth')
 @ApiTags('Authentication')
