@@ -12,25 +12,25 @@ class RecommendItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 300,
+        width: 320,
         //padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
                   color: shadowColor.withOpacity(.1),
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: const Offset(1, 1)),
+                  spreadRadius: 0.5,
+                  blurRadius: 0.5,
+                  offset: const Offset(0, 0)),
             ]),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 100,
-              height: 100,
+              width: 120,
+              height: 125,
               child: CachedNetworkImage(
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(

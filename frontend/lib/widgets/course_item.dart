@@ -33,9 +33,9 @@ class CourseItem extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                   color: shadowColor.withOpacity(.1),
-                  blurRadius: 1,
-                  spreadRadius: 1,
-                  offset: const Offset(1, 1))
+                  blurRadius: 0.5,
+                  spreadRadius: 0.5,
+                  offset: const Offset(0, 0))
             ]),
         child: Stack(
           children: [

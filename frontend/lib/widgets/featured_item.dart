@@ -12,8 +12,8 @@ class FeaturedItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 270,
-        height: 290,
+        width: 280,
+        height: 400,
         //padding: const EdgeInsets.all(0),
         margin: const EdgeInsets.only(bottom: 5, top: 5),
         decoration: BoxDecoration(
@@ -24,7 +24,7 @@ class FeaturedItem extends StatelessWidget {
                   color: shadowColor.withOpacity(.1),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: const Offset(1, 1))
+                  offset: const Offset(0, 0))
             ]),
         child: Stack(
           children: [
@@ -62,6 +62,7 @@ class FeaturedItem extends StatelessWidget {
                 ),
               ),
             ),
+
             Positioned(
               top: 210,
               left: 10,
@@ -110,7 +111,7 @@ class FeaturedItem extends StatelessWidget {
       children: [
         Icon(iconData, size: 18, color: color),
         const SizedBox(
-          width: 3,
+          width: 4,
         ),
         Text(
           info,

@@ -97,8 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter an email';
-                          } else if (!RegExp(
-                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          //} else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\s*$')
                               .hasMatch(value)) {
                             return 'Please enter a valid email address';
                           }
@@ -199,36 +199,12 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             ButtonSimple(
               width: double.infinity,
-              text: "create an account",
-              color: primaryDark,
-              textColor: Colors.white,
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignupPage(),
-                    ));
-              },
-            ),
-            const SizedBox(
-              height: 25,
-              child: Text(
-                "or",
-                style: TextStyle(
-                    fontFamily: 'Nexa-Trial',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: textColor),
-              ),
-            ),
-            ButtonSimple(
-              width: double.infinity,
               text: "login",
               color: primary,
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  String email = emailController.text;
-                  String password = passwordController.text;
+                  String email = emailController.text.removeAllWhitespace;
+                  String password = passwordController.text.removeAllWhitespace;
 
                   var response = await usersController.loginUser(
                       new LoginModel(email: email, password: password));
@@ -249,16 +225,16 @@ class _LoginPageState extends State<LoginPage> {
                         "username", loggedInUser["data"]["username"]);
 
                     DateTime date =
-                        DateTime.parse(loggedInUser["data"]["created_at"]);
+                    DateTime.parse(loggedInUser["data"]["created_at"]);
                     String formattedDate = DateFormat('d MMMM, y').format(date);
                     _getStorage.write("createdAt", formattedDate);
                     // _getStorage.write("phone", loggedInUser["data"]["phone"]);
 
                     usersController.isUserLoggedIn.value = true;
                     usersController.balanceOfTokens.value =
-                        loggedInUser["data"]["balance_of_tokens"];
+                    loggedInUser["data"]["balance_of_tokens"];
                     usersController.userRoles.value =
-                        loggedInUser["data"]["roles"];
+                    loggedInUser["data"]["roles"];
                     usersController.phone.value = loggedInUser["data"]["phone"];
                     usersController.email.value = loggedInUser["data"]["email"];
 
@@ -294,7 +270,37 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 }
               },
-            )
+            ),
+            SizedBox(
+              height: 30,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    "or",
+                    style: TextStyle(
+                        fontFamily: 'Nexa-Trial',
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                        color: textColor),
+                  ),
+                ],
+              ),
+            ),
+            ButtonSimple(
+              width: double.infinity,
+              text: "create an account",
+              color: primaryDark,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignupPage(),
+                    ));
+              },
+            ),
           ],
         ),
       ),

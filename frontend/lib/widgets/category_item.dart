@@ -18,8 +18,8 @@ class CategoryItem extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastOutSlowIn,
-        padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.only(right: 5),
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
             color: isSelected ? primaryDark : Colors.white,
             borderRadius: BorderRadius.circular(25),
@@ -46,7 +46,7 @@ class CategoryItem extends StatelessWidget {
               data.name,
               style: TextStyle(
                   color: isSelected ? primary : primaryDark,
-                  fontSize: 14,
+                  fontSize: 13,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400),
             ),

@@ -32,9 +32,9 @@ class CategoryBox extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                    color: shadowColor.withOpacity(.1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
+                    color: shadowColor.withOpacity(.05),
+                    spreadRadius: 0.5,
+                    blurRadius: 0.5,
                     offset: const Offset(0, 0))
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/courses/favorite_course_model.dart';
+import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/favorites_item.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
+        backgroundColor: appBarOffWhite,
         title: "Wishlist",
         centerTitle: false,
         hasBackButton: false,

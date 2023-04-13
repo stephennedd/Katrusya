@@ -28,15 +28,11 @@ class CourseCompleteItem extends StatelessWidget {
             border: Border.all(color: Colors.blueGrey.shade100, width: .2),
             boxShadow: [
               BoxShadow(
-                  color: Colors.grey.shade400,
-                  blurRadius: 15,
-                  spreadRadius: 1,
-                  offset: const Offset(2, 2)),
-              const BoxShadow(
-                  color: Colors.white,
-                  blurRadius: 15,
-                  spreadRadius: 1,
-                  offset: Offset(-2, -2))
+                  color: shadowColor.withOpacity(0.1),
+                  blurRadius: .5,
+                  spreadRadius: .5,
+                  offset: const Offset(1, 1)
+              ),
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +63,7 @@ class CourseCompleteItem extends StatelessWidget {
                         color: textColor),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Row(
                     children: [
@@ -97,11 +93,13 @@ class CourseCompleteItem extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(width: 15,),
             Icon(
               Icons.play_arrow_rounded,
               color: primaryDark,
               size: 30,
-            )
+            ),
+            const SizedBox(width: 15,),
           ],
         ),
       ),

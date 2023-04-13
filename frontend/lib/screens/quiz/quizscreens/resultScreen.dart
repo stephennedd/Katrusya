@@ -21,6 +21,7 @@ import '../quizcomponents/QuestionNumberCard.dart';
 
 class ResultScreen extends GetView<QuestionsController> {
   ResultScreen({super.key});
+
   static const String routeName = "/resultscreen";
 
   CourseController courseController = Get.put(CourseController());
@@ -56,7 +57,7 @@ class ResultScreen extends GetView<QuestionsController> {
                           ),
                         ),
                         Text(
-                          'You have ${controller.points} points',
+                          'You earned ${controller.points} points',
                           style: const TextStyle(
                               fontFamily: 'Nexa-Trial',
                               fontWeight: FontWeight.w600,
@@ -66,7 +67,7 @@ class ResultScreen extends GetView<QuestionsController> {
                           height: 25,
                         ),
                         const Text(
-                          'Tap below question numbers to view vorrect answers',
+                          'Tap the question number to view the correct answer',
                           style: TextStyle(fontFamily: 'Nexa-Trial'),
                           textAlign: TextAlign.center,
                         ),
@@ -122,7 +123,7 @@ class ResultScreen extends GetView<QuestionsController> {
                                           courseController
                                               .currentSectionId.value,
                                     );
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SectionPage(data: section)));

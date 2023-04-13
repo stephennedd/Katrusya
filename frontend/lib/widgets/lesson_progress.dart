@@ -50,13 +50,16 @@ class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
     return Stack(
       children: [
         Center(
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
-            height: 5,
-            child: LinearProgressIndicator(
-              value: _animation.value,
-              backgroundColor: Colors.grey[300],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+            height: 10,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: LinearProgressIndicator(
+                value: _animation.value,
+                backgroundColor: Colors.grey[300],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
             ),
           ),
         ),

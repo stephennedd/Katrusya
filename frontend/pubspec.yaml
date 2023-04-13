@@ -60,6 +60,7 @@ dependencies:
   readmore: ^2.1.0
   audioplayers: ^3.0.1
   lottie: ^2.3.2
+  file_picker: ^5.2.7
   # cupertino_icons: ^1.0.2
   # provider: ^6.0.4
   # palette_generator: ^0.3.3+2
@@ -70,6 +71,34 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.13.0
+
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "images/logo_graphic.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "images/logo_graphic.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
+
+flutter_native_splash:
+  color: "#3af1c3"
+  image: images/logo_graphic.png
+  color_dark: "#072d30"
+  image_dark: images/logo_graphic.png
+  android: true
+  ios: false
+  web: true
+  android_12:
+    image: images/logo_graphic.png
+    icon_background_color: "#3af1c3"
+    image_dark: images/logo_graphic.png
+    icon_background_color_dark: "#072d30"
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -91,6 +120,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
     - images/
     - json/
     - DB/papers/

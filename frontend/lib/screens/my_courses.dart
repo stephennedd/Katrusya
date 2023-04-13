@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Themes/app_colors.dart';
+import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/models/courses/course_model.dart';
-import 'package:frontend/models/courses/my_course_model.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/course_complete_item.dart';
-import 'package:frontend/widgets/course_item.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'course_landing_page.dart';
 
 class MyCoursesPage extends StatefulWidget {
@@ -45,6 +42,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MyAppBar(
+          backgroundColor: appBarOffWhite,
           title: "My Courses",
           hasBackButton: false,
           centerTitle: false,

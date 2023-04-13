@@ -24,8 +24,8 @@ class BottomBarItem extends StatelessWidget {
               if(isActive)
                 BoxShadow(
                     color: shadowColor.withOpacity(.1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
+                    spreadRadius: 0.5,
+                    blurRadius: 0.5,
                     offset: const Offset(0,0),
                 )]
         ),

@@ -1,18 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
+import 'package:frontend/screens/account.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/start.dart';
 import 'package:frontend/storage/secure_storage.dart';
-import 'package:frontend/utils/data.dart';
+import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/widgets/category_box.dart';
 import 'package:frontend/widgets/featured_item.dart';
-import 'package:frontend/widgets/notification_box.dart';
 import 'package:frontend/widgets/recommended_item.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/Themes/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -54,36 +54,48 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
-      backgroundColor: appBarColor,
+      backgroundColor: appBarOffWhite,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             const SizedBox(
-              height: 5,
+              height: 15,
+            ),
+            Text(
+              "welcome",
+              style: TextStyle(
+                fontFamily: 'Nexa-Trial',
+                fontSize: 14,
+                color: textColor
+              ),
             ),
             // Done get logged in users username and show here instead of hardcoded name
             Obx(() => Text(
                   usersController.isUserLoggedIn.value
-                      ? "Hi ${_getStorage.read("username")}!"
-                      : "Hi Traveller!",
+                      ? "${_getStorage.read("username")}"
+                      : "Traveller",
                   style: const TextStyle(
                       color: textColor,
                       fontSize: 25,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: 'Nexa-Trial'),
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Nexa-Trial',
+                  ),
                 )),
           ]),
-          IconButton(
-              onPressed: () async {
-                await SecureStorage.deleteAccessToken();
-                _getStorage.erase();
-                usersController.isUserLoggedIn.value = false;
-                Navigator.pushNamed(context, StartPage.routeName);
-              },
-              icon: SvgPicture.asset("assets/icons/logout.svg",
-                  colorFilter:
-                      const ColorFilter.mode(primaryDark, BlendMode.srcIn)))
+
+          GestureDetector(
+            onTap: () {
+              showLogoutDialog(context);
+            },
+            child: CircleAvatar(
+              radius: 16,
+              backgroundImage: AssetImage("images/ape.png"),
+            ),
+          ),
+
           //icon: const Icon(Icons.logout_outlined, color: primaryDark))
           /*NotificationBox(
             notifiedNumber: 2,
@@ -110,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   "Featured",
                   style: TextStyle(
                       color: textColor,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w700,
                       fontSize: 24,
                       fontFamily: 'Nexa-Trial'),
                 ),
@@ -124,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                       "Recommended",
                       style: TextStyle(
                           color: textColor,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                           fontSize: 24,
                           fontFamily: 'Nexa-Trial'),
                     )
@@ -198,11 +210,18 @@ class _HomePageState extends State<HomePage> {
                                 _getStorage.read('userId'),
                                 courseController.recommendedCourses[index].id);
                       }
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CourseLandingPage(
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CourseLandingPage(
                                 course:
                                     courseController.recommendedCourses[index],
-                              )));
+                              ),
+                            settings: const RouteSettings(
+                              name: "/course_landing_page",
+                              arguments: '/course_landing_page'
+                            ),
+                          )
+                      );
                     },
                   ),
                 )));
@@ -241,10 +260,18 @@ class _HomePageState extends State<HomePage> {
                             courseController.featuredCourses[index].id);
                   }
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CourseLandingPage(
+                    builder: (context) => CourseLandingPage(
                             course: courseController.featuredCourses[index],
-                          )));
-                })));
+                          ),
+                    settings: const RouteSettings(
+                      name: "/course_landing_page",
+                      arguments: '/course_landing_page'
+                      ),
+                    )
+                  );
+            })
+        )
+    );
   }
 
   int selectedCategoryIndex = 0;
@@ -271,6 +298,38 @@ class _HomePageState extends State<HomePage> {
               data: categoryController.categories[index]),
         ),
       )),
+    );
+  }
+
+  // Function to show the Cupertino-style popup dialog
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text("Log Out"),
+          content: Text("Are you sure you want to log out?"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text("Log Out"),
+              onPressed: () async {
+                // Perform log out action here
+                Navigator.of(context).pop();
+                await SecureStorage.deleteAccessToken();
+                _getStorage.erase();
+                usersController.isUserLoggedIn.value = false;
+                Navigator.pushNamed(context, StartPage.routeName);// Close the dialog
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
