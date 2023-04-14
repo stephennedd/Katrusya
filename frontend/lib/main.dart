@@ -23,6 +23,7 @@ import 'package:frontend/screens/root_app.dart';
 import 'package:frontend/screens/section.dart';
 import 'package:frontend/screens/signup.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
+import 'package:frontend/screens/teacher_dashboard.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:frontend/bindings/initial_bindings.dart';
 import 'package:frontend/controllers/pokemons/pokemon_about_controller.dart';
@@ -94,7 +95,8 @@ class MyApp extends StatelessWidget {
               TestScreen.routeName: (context) => const TestScreen(),
               MyCoursesPage.routeName: (context) => const MyCoursesPage(),
               FavoritesPage.routeName: (context) => const FavoritesPage(),
-              AccountPage.routeName: (context) => const AccountPage()
+              AccountPage.routeName: (context) => const AccountPage(),
+              DashboardPage.routeName: (context) => const DashboardPage()
             },
           ),
         );

@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/users/login_model.dart';
 import 'package:frontend/screens/forgot_password.dart';
-import 'package:frontend/screens/signinoptions/SignUp.dart';
 import 'package:frontend/screens/signup.dart';
 import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/button.dart';
@@ -14,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-
 import '../controllers/users/user_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -92,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                 offset: const Offset(0, 0))
                           ]),
                       child: TextFormField(
+                        key: Key("emailField"),
                         onChanged: (value) => {emailController.text = value},
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -137,6 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                                 offset: const Offset(0, 0))
                           ]),
                       child: TextFormField(
+                        key: Key("passwordField"),
                         onChanged: (value) => {passwordController.text = value},
                         obscureText: true,
                         validator: (value) {
@@ -198,6 +197,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             ButtonSimple(
+              key: Key("loginButton"),
               width: double.infinity,
               text: "login",
               color: primary,
