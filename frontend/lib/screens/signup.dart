@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/login.dart';
 import 'package:frontend/widgets/text_input.dart';
@@ -93,6 +94,7 @@ class _SignupPageState extends State<SignupPage> {
                     child: Column(
                       children: [
                         FormInput(
+                            key: Key("usernameField"),
                             text: 'username',
                             icon: "assets/icons/user.svg",
                             type: TextInputType.text,
@@ -102,6 +104,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 20,
                         ),
                         FormInput(
+                          key: Key("phoneField"),
                           text: 'phone',
                           icon: "assets/icons/phone.svg",
                           type: TextInputType.phone,
@@ -112,6 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 20,
                         ),
                         FormInput(
+                          key: Key("emailField"),
                           text: 'email',
                           icon: "assets/icons/email.svg",
                           type: TextInputType.emailAddress,
@@ -123,6 +127,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //TODO The password should be possible to see
                         FormInput(
+                          key: Key("passwordField"),
                           text: 'password',
                           icon: "assets/icons/password.svg",
                           type: TextInputType.text,
@@ -151,6 +156,7 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: [
             ButtonSimple(
+              key: Key("signupButton"),
                 width: double.infinity,
                 text: "sign up",
                 color: primary,

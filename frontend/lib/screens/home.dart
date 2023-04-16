@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
             ),
             // Done get logged in users username and show here instead of hardcoded name
             Obx(() => Text(
+                  key: Key("usernameText"),
                   usersController.isUserLoggedIn.value
                       ? "${_getStorage.read("username")}"
                       : "Traveller",
@@ -91,6 +92,7 @@ class _HomePageState extends State<HomePage> {
               showLogoutDialog(context);
             },
             child: CircleAvatar(
+              key: Key("userProfilePicture"),
               radius: 16,
               backgroundImage: AssetImage("images/ape.png"),
             ),
@@ -178,11 +180,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget getRecommended() {
     return CarouselSlider(
+        key: Key("recommendedCarousel"),
         options: CarouselOptions(
             enableInfiniteScroll: false,
             height: 130,
-            animateToClosest: false,
-            pageSnapping: false),
+            ),
         items: List.generate(
             courseController.recommendedCourses.length,
             (index) => Container(
@@ -229,6 +231,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget getFeatured() {
     return CarouselSlider(
+        key: Key("featuredCarousel"),
         options: CarouselOptions(
             initialPage: 1,
             enableInfiniteScroll: false,
@@ -277,6 +280,7 @@ class _HomePageState extends State<HomePage> {
   int selectedCategoryIndex = 0;
   Widget getCategories() {
     return SingleChildScrollView(
+      key: Key("categoriesScroll"),
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
       child: Row(

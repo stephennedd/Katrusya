@@ -8,6 +8,7 @@ import 'package:frontend/screens/forgot_password.dart';
 import 'package:frontend/screens/signup.dart';
 import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/button.dart';
+import 'package:frontend/widgets/text_input.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
@@ -122,46 +123,16 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, bottom: 3),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: appBarColor,
-                          boxShadow: [
-                            BoxShadow(
-                                color: shadowColor.withOpacity(.1),
-                                spreadRadius: .5,
-                                blurRadius: .5,
-                                offset: const Offset(0, 0))
-                          ]),
-                      child: TextFormField(
-                        key: Key("passwordField"),
-                        onChanged: (value) => {passwordController.text = value},
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a password';
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: SvgPicture.asset(
-                                "assets/icons/password.svg",
-                              ),
-                            ),
-                            prefixIconConstraints: const BoxConstraints(
-                                maxHeight: 30, maxWidth: 30),
-                            border: InputBorder.none,
-                            hintText: "password",
-                            hintStyle: const TextStyle(
-                                fontFamily: 'Nexa-Trial',
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey)),
-                      ),
+                    FormInput(
+                      key: Key("passwordField"),
+                      hasIcon: true,
+                      icon: "assets/icons/password.svg",
+                      text: 'password',
+                      textController: passwordController,
+                      validatorText: "a password",
+                      type: TextInputType.text,
+                      isPassword: true,
+                      isObscured: true,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -255,6 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            key: Key("errorDialog"),
                             title: Text(errorMessage),
                             content: Text("Invalid email or password."),
                             actions: [
@@ -289,6 +261,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             ButtonSimple(
+              key: Key("createAccountButton"),
               width: double.infinity,
               text: "create an account",
               color: primaryDark,

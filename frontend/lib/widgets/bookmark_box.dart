@@ -28,7 +28,7 @@ class BookmarkBox extends StatelessWidget {
                   offset: const Offset(.5, .5))
             ]),
         child: SvgPicture.asset(
-          "assets/icons/heart.svg",
+          "assets/icons/bookmark.svg",
           colorFilter: ColorFilter.mode(primaryDark, BlendMode.srcIn),
           width: 22,
           height: 22,

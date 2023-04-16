@@ -45,6 +45,7 @@ class _StartPageState extends State<StartPage> {
               ),
 
               ButtonSimple(
+                key: Key("toLoginButton"),
                 width: double.infinity,
                 text: "already have an account",
                 color: Colors.white,

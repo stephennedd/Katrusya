@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
@@ -11,12 +10,12 @@ import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/custom_image.dart';
+import 'package:frontend/widgets/leaderboard.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:frontend/widgets/section_item.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
-
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../models/courses/course_model.dart';
 import 'login.dart';
@@ -61,9 +60,12 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     return Scaffold(
       appBar: MyAppBar(
         hasAction: true,
-        icon: const Icon(Icons.leaderboard_rounded),
+        icon: const Icon(Icons.leaderboard_rounded,color: labelColor,),
         title: "Details",
         onTap: () {
+          showDialog(context: context, builder: (BuildContext context) {
+            return LeaderboardPopup();
+          });
           print("open leaderboard");
         },
       ),
@@ -233,7 +235,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 15,
+                radius: 13,
                 //TODO update this data to the actual user's image and name
                 backgroundImage: AssetImage("images/ape.png")
               ),
