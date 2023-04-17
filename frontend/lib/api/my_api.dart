@@ -19,15 +19,9 @@ import '../models/users/login_model.dart';
 import '../models/users/user_model.dart';
 
 class CallApi {
-  // final String _baseUrl = 'http://172.22.240.1:3000';
-
-<<<<<<< HEAD
-  final String _baseUrl = 'http://localhost:3000';
-  //final String _baseUrl = 'http://192.168.178.151:3000';
-=======
   //final String _baseUrl = 'http://localhost:3000';
   final String _baseUrl = 'http://192.168.178.151:3000';
->>>>>>> 84a2dbe3441a0266cf0901df8cdad74a6b6c1123
+
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -102,11 +96,11 @@ class CallApi {
     return response;
   }
 
-  //final String ip = "192.168.178.151";
+  final String ip = "192.168.178.151";
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: 'localhost',
+      host: ip,
       port: 3000,
       path: '/courses',
       queryParameters: {

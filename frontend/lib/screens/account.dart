@@ -25,6 +25,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
   final MaterialStateProperty<Icon?> thumbIcon =
@@ -83,11 +84,11 @@ class _AccountPageState extends State<AccountPage> {
   ];
 
   Widget buildBody() {
+    var bottomBarProvider =
+    Provider.of<BottomBarProvider>(context, listen: false);
+
     // TODO get the user's balance of tokens
     var balance = usersController.balanceOfTokens.value;
-    final bottomBarProvider =
-        Provider.of<BottomBarProvider>(context, listen: false);
-
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -168,14 +169,14 @@ class _AccountPageState extends State<AccountPage> {
                           onChanged: (bool value) async {
                             await usersController
                                 .flipTeacherMode(_getStorage.read("userId"));
-                            //  setState(() {
+                             setState(() {
                             //bottomBarProvider.isTeacherMode = value;
-                            if (usersController.isUserTeacher()) {
-                              bottomBarProvider.activePageIndex = 2;
-                            } else {
-                              bottomBarProvider.activePageIndex = 4;
-                            }
-                            // });
+                              if (usersController.isUserTeacher()) {
+                                bottomBarProvider.activePageIndex = 2;
+                              } else {
+                                bottomBarProvider.activePageIndex = 4;
+                              }
+                            });
                           })),
                     ),
                   ),
