@@ -4,6 +4,7 @@ import 'package:frontend/screens/favorites.dart';
 import 'package:frontend/screens/home.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/my_courses.dart';
+import 'package:frontend/screens/teacher_dashboard.dart';
 import 'package:frontend/services/bottom_bar_provider.dart';
 import 'package:frontend/widgets/bottombar_item.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class RootApp extends StatefulWidget {
 class _RootAppState extends State<RootApp> {
   bool isAccountPage = false;
   UsersController usersController = Get.put(UsersController());
+
   @override
   Widget build(BuildContext context) {
     final bottomBarProvider =
@@ -78,6 +80,7 @@ class _RootAppState extends State<RootApp> {
   ];
 
   int activePageIndex = 0;
+
   Widget buildBottomBar() {
     final bottomBarProvider =
         Provider.of<BottomBarProvider>(context, listen: false);
@@ -112,17 +115,8 @@ class _RootAppState extends State<RootApp> {
   }
 
   List teacherTabItems = [
-    {
-      "icon": "assets/icons/home.svg",
-      "page": Container(
-        child: const Center(
-          child: Text("Teacher Dashboard"),
-        ),
-      )
-    },
-    {
-      "icon": "assets/icons/square-plus.svg", "page": AddCoursePage()
-    },
+    {"icon": "assets/icons/home.svg", "page": DashboardPage()},
+    {"icon": "assets/icons/square-plus.svg", "page": AddCoursePage()},
     {"icon": "assets/icons/profile.svg", "page": AccountPage()}
   ];
 
@@ -143,8 +137,8 @@ class _RootAppState extends State<RootApp> {
                 blurRadius: 1,
                 offset: const Offset(1, 1))
           ],
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
-      ),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25), topRight: Radius.circular(25))),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
