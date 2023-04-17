@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtStrategy } from './auth.strategy';
-import { DatabaseService } from 'src/databases/database.service';
-import { CorsMiddleware } from 'src/middlewares/cors.middleware';
+import { DatabaseService } from '../databases/database.service';
+import { CorsMiddleware } from '../middlewares/cors.middleware';
 import { AuthController } from './controllers/auth.controller';
 import { UserOtpsRepository, UsersRepository } from './repositories/users.repository';
 import { AuthService } from './services/auth.service';

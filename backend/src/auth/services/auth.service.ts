@@ -66,7 +66,7 @@ export class AuthService {
     return null;
   }
 
-  private async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
+   async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
     if (user?.is_active == true) {
       return this.generateToken(user);
     }
@@ -157,5 +157,7 @@ async verifyToken(token: string): Promise<any> {
   return decoded;
 }
 
-
+async deleteUserOtps(userId: number): Promise<any> {
+  
+}
 }

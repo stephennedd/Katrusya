@@ -1,4 +1,4 @@
-import { DatabaseService } from "src/databases/database.service";
+import { DatabaseService } from "../../databases/database.service";
 import { IEntity } from "src/models/user/user";
 
 interface QueryParams{
@@ -315,6 +315,6 @@ export abstract class BaseRepository<T extends IEntity> {
   }
 
   async delete(id: number): Promise<void> {
-    this.db.getKnexInstance()(this.tableName).where({ id }).delete();
+   return this.db.getKnexInstance()(this.tableName).where({ id }).delete();
   }
 }

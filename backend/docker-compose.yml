@@ -1,56 +1,31 @@
-# version: "3"
-# services:
-#   app:
-#     container_name: katyusha-api
-#     build:
-#       context: .
-#       target: production
-#     command: ["npm", "start"]
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - .:/app
-#     environment:
-#       NODE_ENV: production
-#       DB_HOST: db
-#       DB_PORT: 3306
-#       DB_USER: user
-#       DB_PASSWORD: password
-#       DB_DATABASE: database
-#     depends_on:
-#       - db
-#   db:
-#     container_name: katrusya-db
-#     image: mysql:8
-#     command: ["--default-authentication-plugin=mysql_native_password"]
-#     restart: always
-#     environment:
-#       MYSQL_ROOT_PASSWORD: Liverpool599570
-#       MYSQL_DATABASE: katrusya
-#       MYSQL_USER: root
-#       MYSQL_PASSWORD: Liverpool599570
-#     ports:
-#       - "3306:3306"
-#     volumes:
-#       - mysql:/var/lib/mysql
-# volumes:
-#   mysql:
-
 version: '3'
-
 services:
   app:
-    build:
-      context: .
-    container_name: katyusha-api
-    restart: always
+    build: .
     ports:
       - '3000:3000'
+    depends_on:
+      - db
     environment:
-      NODE_ENV: production
-      DB_HOST: localhost
-      DB_PORT: 3306
-      DB_USERNAME: root
-      DB_PASSWORD: Liverpool599570
-      DB_DATABASE: katrusya
-      JWT_SECRET: jwt-secret
+      DB_HOST: db
+      DB_PORT: 3037
+      DB_USER: MoSalah
+      DB_PASSWORD: qwerty123
+      DB_NAME: katrusya
+    command: bash -c "npm run db:migrate && npm run db:seed && npm run start:dev"  
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: zoom123123
+      MYSQL_USER: MoSalah
+      MYSQL_PASSWORD: qwerty123
+      MYSQL_DATABASE: katrusya
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '3037:3037'
+    # command: >
+    #   sh -c "mysql -uroot -p zoom123123 -e 'CREATE DATABASE IF NOT EXISTS katrusya;' && sleep infinity"  
+      

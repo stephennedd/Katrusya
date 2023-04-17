@@ -5,9 +5,6 @@ import { DatabaseService } from '../../../databases/database.service';
 import { UsersRepository } from '../../../auth/repositories/users.repository';
 import { CoursesRepository, UserCoursesRepository, TestsRepository } from '../../../courses/repositories/courses.repository';
 import { PurchasedCourse } from '../../models/purchasedCourse';
-// import { ValidateCreateUserPipe } from '../../users/pipes/validate-create-user/validate-create-user.pipe';
-// import { ValidateCreateUserPurchasePipe } from '../pipes/validate-create-user-purchase/validate-create-user-purchase.pipe';
-// import { ValidatePassBooleanQueryParamPipe } from '../pipes/validate-pass-boolean-query-param/validate-pass-boolean-query-param.pipe';
 
 describe('CoursesController', () => {
   let controller: CoursesController;

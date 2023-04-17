@@ -127,17 +127,6 @@ return course;
       number_of_sections: course.number_of_sections || 0,
     };
   });
-            
-          //    const courses = (await query).map(course => {
-          //   return {
-          //     ...course,
-          //     is_recommended: course.is_recommended === 1 ? true : false,
-          //     is_featured: course.is_featured === 1?true : false,
-          //     is_favorited: course.is_favorited === 1?true : false,
-          //     number_of_lessons: course.number_of_lessons || 0 
-          //   };
-          // });
-
         return courses;
       }
     

@@ -60,6 +60,12 @@ export class UsersService {
     return user;
   }
 
+  async deleteOtpsOfUser(userId: number): Promise<void> {
+    
+    await this.userRepository.deleteUserOtps(userId);
+  
+  }
+
   async getUserBasedOnEmail(email: String): Promise<UserEntity> {
 
     let userEntity = await this.userRepository.getUserBasedOnEmail(email); 

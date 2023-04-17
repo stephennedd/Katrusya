@@ -6,5 +6,10 @@
   "phone": "05092309432",
   "password": "ritjngirjnfriejfnreijn",
   "is_active": true,
-  "email_verified_at": "gmail"
+  "email_verified_at": "gmail",
+  "user_roles": ["student"],
+  "user_courses":[{
+    "user_id":1,
+    "course_id":1
+  }]
 }

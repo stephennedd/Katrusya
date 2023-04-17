@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../databases/database.service";
-import { CourseEntity } from "src/models/course/course";
-import { LessonEntity } from "src/models/section/section";
 import { UserCompletedLessonEntity, UserCompletedSectionEntity, UserCourseEntity, UserEntity, UserFavoriteCourseEntity, UserLessonEntity, UserResultEntity } from "../../models/user/user";
 import { BaseRepository } from "./base.repository";
 

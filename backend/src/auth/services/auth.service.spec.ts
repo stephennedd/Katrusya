@@ -2,18 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from './users/users.service';
 import { EmailService } from './messagings/email.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { DatabaseService } from '../../databases/database.service';
 import { UsersRepository, UserOtpsRepository } from '../repositories/users.repository';
 import { AuthenticationResponse } from '../../dto/responses/minimal-user-dto';
 import { CreateUserDto } from '../../dto/create-user.dto';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UserEntity } from '../../models/user/user';
 import * as bcrypt from 'bcrypt';
-import { MailerModule, MailerService } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { PassportModule } from '@nestjs/passport';
-import * as nodemailer from 'nodemailer';
 
 describe('AuthService', () => {
   let authService: AuthService;

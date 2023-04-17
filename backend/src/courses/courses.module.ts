@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UsersRepository } from 'src/auth/repositories/users.repository';
-import { DatabaseService } from 'src/databases/database.service';
+import { UsersRepository } from '../auth/repositories/users.repository';
+import { DatabaseService } from '../databases/database.service';
 import { CoursesController } from './controllers/courses/courses.controller';
 import { CoursesRepository, TestsRepository, UserCoursesRepository } from './repositories/courses.repository';
 import { CoursesService } from './services/courses/courses.service';

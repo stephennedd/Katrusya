@@ -72,7 +72,8 @@ export class UsersService {
    }
 
    async addUser(user: User): Promise<any> {
-    const users = await this.usersRepository.create(user);
+    const addedUser = await this.usersRepository.create(user);
+    return addedUser;
   }
 
   async addUserResult(userResult: UserResult): Promise<any> {
@@ -125,35 +126,8 @@ export class UsersService {
     if(!user){
       throw new BadRequestException(`The user with id ${userId} does not exist`);
     }
-    
-    // const favoriteCourses = await knex.select(
-    //   'courses.id as course_id',
-    //   'courses.name as course_name',
-    //   'courses.image as course_image',
-    //   'courses.price as course_price',
-    //   'courses.duration_in_hours',
-    //   'courses.review as course_review'
-    // ).from('user_favorite_courses')
-    // .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    // .where('user_favorite_courses.user_id', userId);
-
     const favoriteCourses = 
     await this.userFavoriteCoursesRepository.getFavoriteCourses(userId);
-    // await knex.select(
-    //   'courses.id as course_id',
-    //   'courses.name as course_name',
-    //   'courses.image as course_image',
-    //   'courses.price as course_price',
-    //   knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
-    //   'courses.duration_in_hours',
-    //   'courses.review as course_review'
-    // ).from('user_favorite_courses')
-    // .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    // .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
-    // .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
-    // .where('user_favorite_courses.user_id', userId)
-    // .groupBy('courses.id');
-
     return favoriteCourses;
   }
 
@@ -162,30 +136,7 @@ export class UsersService {
     if(!user){
       throw new BadRequestException(`The user with id ${userId} does not exist`);
     }
-    
     const courses = await this.coursesRepository.getUserCourses(userId);
-  //   await (await knex.select(
-  //     'courses.id as course_id',
-  //     'courses.name as course_name',
-  //     'courses.image as course_image',
-  //     'user_courses.is_completed as is_completed',
-  //     knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
-  //     knex.raw('COUNT(DISTINCT sections.id) as number_of_sections')
-  //   )
-  //     .from('courses')
-  //     .join('user_courses', 'user_courses.course_id', '=', 'courses.id')
-  //     .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
-  //     .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
-  //     .where('user_courses.user_id', '=', userId)
-  //     .groupBy('courses.id')
-  //     .orderBy('user_courses.id', 'asc'))
-  // .map((course) => {
-  //   return {
-  //     ...course,
-  //     is_completed: course.is_completed ? true : false,
-  //   };
-  // });
-
     return courses;
   }
 
@@ -200,53 +151,20 @@ export class UsersService {
       throw new BadRequestException(`The course with id ${courseId} does not exist`);
     }
     
-    
-    // await knex('user_favorite_courses').insert({
-    //   user_id: userId, // the ID of the user who is adding the favorite course
-    //   course_id: courseId // the ID of the course that the user is adding to their favorites
-    // });
-
     await this.userFavoriteCoursesRepository.addUserFavoriteCourse(userId,courseId);
 
-    const updatedUserFavoritedCourse =await this.userFavoriteCoursesRepository.getUpdatedUserFavoritedCourse(userId,courseId);
-    // await knex.select(
-    //   'courses.id as course_id',
-    //   'courses.name as course_name',
-    //   'courses.image as course_image',
-    //   'courses.price as course_price',
-    //   knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
-    //   'courses.duration_in_hours',
-    //   'courses.review as course_review'
-    // ).from('user_favorite_courses')
-    // .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    // .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
-    // .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
-    // .where({ user_id: userId, 'user_favorite_courses.course_id': courseId })
-    // .orderBy('courses.id', 'desc') // sort by created_at column in descending order
-    // .first(); 
-  return updatedUserFavoritedCourse;
+    const addedUserFavoritedCourse =await this.userFavoriteCoursesRepository.getUpdatedUserFavoritedCourse(userId,courseId);
+    
+  return addedUserFavoritedCourse;
   }
 
   async deleteCompletedByUserLesson(userId:number,completedLessonDto: AddCompletedLessonDto): Promise<any>{
-    const userOwnsCourse = await this.userCoursesRepository.doesUserOwnCourse(userId,completedLessonDto.course_id);
-    // await knex('user_courses')
-    // .select('id')
-    // .where({
-    //   user_id: userId,
-    //   course_id: completedLessonDto.course_id
-    // })
-    // .first();
-  
+    const userOwnsCourse = await this.userCoursesRepository.doesUserOwnCourse(userId,completedLessonDto.course_id);  
     if(!userOwnsCourse){
       throw new BadRequestException('User does not own the course');
     }
   
-    const userExists = await this.usersRepository.doesUserExist(userId);
-    // await knex('users')
-    // .select('id')
-    // .where('id', userId)
-    // .first();
-  
+    const userExists = await this.usersRepository.doesUserExist(userId);  
       if (!userExists) {
         throw new BadRequestException('User not found');
       }
@@ -257,32 +175,17 @@ export class UsersService {
     }
   
       const lessonExists = await this.lessonsRepository.doesLessonExist(completedLessonDto.lesson_id);
-      // await knex('lessons')
-      //   .select('id')
-      //   .where('id', completedLessonDto.lesson_id)
-      //   .first();
-  
+
       if (!lessonExists) {
         throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
       }
       
-      const sectionExists =await this.sectionsRepository.doesSectionExist(completedLessonDto.section_id);
-      // await knex('sections')
-      //   .select('id')
-      //   .where('id', completedLessonDto.section_id)
-      //   .first();
-  
+      const sectionExists =await this.sectionsRepository.doesSectionExist(completedLessonDto.section_id);  
       if (!sectionExists) {
         throw new HttpException('Section not found', HttpStatus.NOT_FOUND);
       }
 
     const lessonExistsInSection = await this.lessonsRepository.doesLessonExistsInSection(completedLessonDto.lesson_id,completedLessonDto.section_id)
-
-    //   await knex('lessons')
-  // .select('id')
-  // .where('id', completedLessonDto.lesson_id)
-  // .andWhere('section_id', completedLessonDto.section_id)
-  // .first();
 
    if (!lessonExistsInSection) {
      throw new HttpException('Lesson not found in the section', HttpStatus.NOT_FOUND);
@@ -290,11 +193,6 @@ export class UsersService {
    
    const sectionExistsInCourse = await this.sectionsRepository.doesSectionExistsInCourse(completedLessonDto.section_id,
     completedLessonDto.course_id);
-  //  await knex('sections')
-  // .select('id')
-  // .where('id', completedLessonDto.section_id)
-  // .andWhere('course_id', completedLessonDto.course_id)
-  // .first();
 
    if (!sectionExistsInCourse) {
      throw new HttpException('Section not found in the course', HttpStatus.NOT_FOUND);
@@ -306,38 +204,15 @@ export class UsersService {
     await this.userCompletedLessonsRepository.deleteUserCompletedLesson(
       userId,completedLessonDto.lesson_id,completedLessonDto.section_id
     )
-  //  await knex('user_completed_lessons')
-  //   .where({
-  //     user_id: userId,
-  //     lesson_id: completedLessonDto.lesson_id,
-  //     section_id: completedLessonDto.section_id,
-  //   })
-  //   .delete(); 
-
     const isSectionCompleted = await this.isSectionCompletedByUser(userId,completedLessonDto.section_id);
     if(wasSectionCompleted&&!isSectionCompleted){
       await this.userCompletedSectionsRepository.deleteUserCompletedSection(userId,completedLessonDto.course_id,
         completedLessonDto.section_id);
-    // await knex('user_completed_sections')
-    // .where({
-    //   user_id: userId,
-    //   course_id: completedLessonDto.course_id,
-    //   section_id: completedLessonDto.section_id,
-    // })
-    // .delete();
     }
 
     const isCourseCompleted = await this.isCourseCompletedByUser(userId,completedLessonDto.course_id);
     if(wasCourseCompleted&&!isCourseCompleted){
       await this.userCoursesRepository.markUserCourseAsUncompleted(userId,completedLessonDto.course_id);
-    // await knex('user_courses')
-    // .where({
-    //   user_id: userId,
-    //   course_id: completedLessonDto.course_id
-    // })
-    // .update({
-    //   is_completed: false
-    // }); 
   }
   const deletedElement = {
     user_id:parseInt(userId.toString(), 10),
@@ -361,27 +236,10 @@ export class UsersService {
     }
     
     const userOwnsCourse = await this.userCoursesRepository.doesUserOwnCourse(userId,courseId);
-    //await knex('user_courses')
-    // .select('id')
-    // .where({
-    //   user_id: userId,
-    //   course_id: courseId
-    // })
-    // .first();
-  
     if(!userOwnsCourse){
       throw new HttpException('User does not own the course', HttpStatus.BAD_REQUEST);
     }
     const completedLessons = await this.userCompletedLessonsRepository.getCompletedLessons(userId,courseId);
-  //   await knex('user_completed_lessons')
-  // .select('user_completed_lessons.user_id','user_completed_lessons.lesson_id','user_completed_lessons.section_id',
-  // 'sections.course_id')
-  // .join('sections', 'sections.id', '=', 'user_completed_lessons.section_id')
-  // .where({
-  //   'user_completed_lessons.user_id': userId,
-  //   'sections.course_id': courseId
-  // })
-  // .orderBy('user_completed_lessons.lesson_id', 'asc');
   return completedLessons;
   }
 
@@ -390,38 +248,17 @@ export class UsersService {
     if(!user){
       throw new BadRequestException(`The user with id ${userId} does not exist`);
     }
-
     const completedSections = await this.userCompletedSectionsRepository.getCompletedSections(userId)
-  //   await knex('user_completed_sections')
-  // .select('user_completed_sections.user_id','user_completed_sections.section_id',
-  // 'user_completed_sections.course_id')
-  // .where({
-  //   'user_completed_sections.user_id': userId
-  // })
-  // .orderBy('user_completed_sections.section_id', 'asc');
-  return completedSections;
+    return completedSections;
   }
 
   async addCompletedByUserLesson(userId:number,completedLessonDto: AddCompletedLessonDto): Promise<any>{  
     const userOwnsCourse = await this.userCoursesRepository.doesUserOwnCourse(userId,completedLessonDto.course_id);
-      
-  //     await knex('user_courses')
-  // .select('id')
-  // .where({
-  //   user_id: userId,
-  //   course_id: completedLessonDto.course_id
-  // })
-  // .first();
-
   if(!userOwnsCourse){
     throw new HttpException('User does not own the course', HttpStatus.BAD_REQUEST);
   }
 
   const userExists =await this.usersRepository.doesUserExist(userId);
-  // await knex('users')
-  // .select('id')
-  // .where('id', userId)
-  // .first();
 
     if (!userExists) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -433,22 +270,12 @@ export class UsersService {
     if(!courseExists){
       throw new BadRequestException(`The course with id ${completedLessonDto.course_id} does not exist`);
     }  
-    
-    // await knex('lessons')
-    //   .select('id')
-    //   .where('id', completedLessonDto.lesson_id)
-    //   .first();
 
     if (!lessonExists) {
       throw new HttpException('Lesson not found', HttpStatus.NOT_FOUND);
     }
 
     const sectionExists = await this.sectionsRepository.doesSectionExist(completedLessonDto.section_id);
-    
-    // await knex('sections')
-    //   .select('id')
-    //   .where('id', completedLessonDto.section_id)
-    //   .first();
 
     if (!sectionExists) {
       throw new HttpException('Section not found', HttpStatus.NOT_FOUND);
@@ -457,12 +284,6 @@ export class UsersService {
     const lessonExistsInSection = await this.lessonsRepository.doesLessonExistsInSection(completedLessonDto.lesson_id,
       completedLessonDto.section_id); 
     
-  //   await knex('lessons')
-  // .select('id')
-  // .where('id', completedLessonDto.lesson_id)
-  // .andWhere('section_id', completedLessonDto.section_id)
-  // .first();
-
    if (!lessonExistsInSection) {
      throw new HttpException('Lesson not found in the section', HttpStatus.NOT_FOUND);
    }
@@ -472,12 +293,6 @@ export class UsersService {
     completedLessonDto.course_id
    )
    
-  //  await knex('sections')
-  // .select('id')
-  // .where('id', completedLessonDto.section_id)
-  // .andWhere('course_id', completedLessonDto.course_id)
-  // .first();
-
    if (!sectionExistsInCourse) {
      throw new HttpException('Section not found in the course', HttpStatus.NOT_FOUND);
    }
@@ -490,7 +305,6 @@ export class UsersService {
     
     await this.userCompletedLessonsRepository.addUserCompletedLesson(userCompletedLesson);
 
-   // await knex('user_completed_lessons').insert(userCompletedLesson);
     const isSectionCompletedByUser = await this.isSectionCompletedByUser(userId,completedLessonDto.section_id);
 
     if(isSectionCompletedByUser){
@@ -500,20 +314,11 @@ export class UsersService {
         course_id: completedLessonDto.course_id,
       };
       await this.userCompletedSectionsRepository.addUserCompletedSection(userCompletedSection);
-     // await knex('user_completed_sections').insert(userCompletedSection);
-
+    
       const isCourseCompletedByUser = await this.isCourseCompletedByUser(userId,completedLessonDto.course_id);
 
       if(isCourseCompletedByUser){
         await this.userCoursesRepository.markUserCourseAsCompleted(userId,completedLessonDto.course_id);
-        // await knex('user_courses')
-        // .where({
-        //   user_id: userId,
-        //   course_id: completedLessonDto.course_id
-        // })
-        // .update({
-        //   is_completed: true
-        // }); 
       }
     }
 
@@ -534,15 +339,8 @@ export class UsersService {
     }
     
     const lessonsInThisSection = await this.lessonsRepository.getLessonsInSection(sectionId);
-    
-    // await knex('lessons')
-    // .select('id')
-    // .where('section_id', sectionId);
   
   const completedLessons = await this.userCompletedLessonsRepository.getCompletedLessonsToKnowWhetherSectionIsCompleted(lessonsInThisSection,userId)
-  // await knex('user_completed_lessons')
-  //   .whereIn('lesson_id', lessonsInThisSection.map(l => l.id))
-  //   .andWhere('user_id', userId);
   
   return lessonsInThisSection.length === completedLessons.length;
   }
@@ -560,18 +358,10 @@ export class UsersService {
     }
     
 
-    const sectionsInThisCourse = await this.sectionsRepository.getSectionsInCourse(courseId);
-    // await knex('sections')
-    // .select('id')
-    // .where('course_id', courseId);
+    const sectionsInThisCourse = await this.sectionsRepository.getSectionsInCourse(courseId);  
+    const completedSections = await this.userCompletedSectionsRepository.getCompletedSectionsToKnowWhetherSectionIsCompleted(sectionsInThisCourse,userId);
   
-  const completedSections = await this.userCompletedSectionsRepository.getCompletedSectionsToKnowWhetherSectionIsCompleted(sectionsInThisCourse,userId);
-  
-  // await knex('user_completed_sections')
-  //   .whereIn('section_id', sectionsInThisCourse.map(s => s.id))
-  //   .andWhere('user_id', userId);
-  
-  return sectionsInThisCourse.length === completedSections.length;
+    return sectionsInThisCourse.length === completedSections.length;
   }
 
   async deleteUserFavoriteCourse(userId: number, courseId: number): Promise<any>{
@@ -585,44 +375,13 @@ export class UsersService {
       throw new BadRequestException(`The course with id ${courseId} does not exist`);
     }
     const deletedUserFavoriteCourse = await this.userFavoriteCoursesRepository.getDeletedUserFavoriteCourse(userId,courseId);
-    // await knex.select(
-    //   'courses.id as course_id',
-    //   'courses.name as course_name',
-    //   'courses.image as course_image',
-    //   'courses.price as course_price',
-    //   knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
-    //   'courses.duration_in_hours',
-    //   'courses.review as course_review'
-    // ).from('user_favorite_courses')
-    // .join('courses', 'courses.id', '=', 'user_favorite_courses.course_id')
-    // .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
-    //   .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
-    //   .where({
-    //     user_id: userId,
-    //     'user_favorite_courses.course_id': courseId
-    //   })
-    //   .then(rows => {
-    //     const [deletedRow] = rows;
-    //     return deletedRow;
-    //   });
-
+   
     await this.userFavoriteCoursesRepository.deleteUserFavoriteCourse(userId,courseId);
-  //   await knex('user_favorite_courses')
-  // .where({
-  //   user_id: userId,
-  //   course_id: courseId
-  // })
-  // .del();
- 
   return deletedUserFavoriteCourse;
   }
 
   async flipTeacherMode(userId: number): Promise<any>{
     const user = await this.usersRepository.getById(userId);
-    // await knex('users')
-    // .where({ id: userId })
-    // .first();
-
   if (!user) {
     throw new BadRequestException(`User with ID ${userId} not found`);
   }
@@ -641,11 +400,6 @@ export class UsersService {
   
   await this.usersRepository.updateUserRoles(updatedRolesJson,
     userId);
-
-  // await knex('users')
-  //   .where({ id: userId })
-  //   .update({ roles: updatedRolesJson });
-
     return updatedRoles;
   }
 
@@ -660,12 +414,6 @@ export class UsersService {
       throw new BadRequestException(`The lesson with id ${lessonId} does not exist`);
     }
     await this.userLessonsRepository.addTimestampOfLastViewedMomentOfLesson(userId,lessonId);
-    // await knex('user_lessons')
-    // .insert({
-    //   user_id: userId,
-    //   lesson_id: lessonId,
-    //   timestamp_of_last_viewed_moment: null
-    // });
   } 
 
   async updateTimestampOfLastViewedMomentOfLesson(
@@ -683,9 +431,6 @@ export class UsersService {
       throw new BadRequestException(`The lesson with id ${lessonId} does not exist`);
     }
        return await this.userLessonsRepository.updateTimestampOfLastViewedMomentOfLesson(userId,lessonId,timestamp);
-      //  await knex('user_lessons')
-      // .where({ user_id: userId, lesson_id: lessonId })
-      // .update({ timestamp_of_last_viewed_moment: timestamp });
 }
 
 async getTimestampOfLastViewedMomentOfLesson(userId: number, lessonId:number):Promise<any>{
@@ -700,18 +445,15 @@ async getTimestampOfLastViewedMomentOfLesson(userId: number, lessonId:number):Pr
     }
     
   return await this.userLessonsRepository.getTimestampOfLastViewedMomentOfLesson(userId,lessonId);
-  // await knex.select('timestamp_of_last_viewed_moment')
-  // .from('user_lessons')
-  // .where('user_id', userId)
-  // .andWhere('lesson_id', lessonId)
-  // .then(rows => {
-  //   const timestamp = rows[0].timestamp_of_last_viewed_moment;
-  //   const formattedTimestamp = timestamp.toISOString().slice(0, 19).replace('T', ' ');
-  //   return formattedTimestamp
-  // })
-  // .catch(error => {
-  //   console.error(error);
-  // })
+}
+
+async deleteUser(id: number): Promise<string> {
+  const user: User = await this.usersRepository.getById(id);
+  if (!user) {
+    throw new BadRequestException(`User with ID ${id} does not exist`);
+  }
+  await this.usersRepository.delete(id);
+  return `User with ID ${id} deleted`;
 }
 
 }

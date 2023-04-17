@@ -18,6 +18,7 @@ interface User {
   password: string;
   is_active: boolean;
   email_verified_at: string;
+  roles: string[];
 }
 
 interface UserResults {
@@ -94,7 +95,8 @@ export async function seed(knex: Knex): Promise<void> {
   email: userData.email,
   password: userData.password,
   is_active: userData.is_active,
-  email_verified_at: userData.email_verified_at
+  email_verified_at: userData.email_verified_at,
+  roles:JSON.stringify(userData.user_roles)
   });
 
   for(let i = 0;i<categoryData.categories.length;i++){
@@ -191,4 +193,17 @@ for(let i = 0; i<courseData.courses.length;i++){
   }
   ));
 }
+
+for(let i = 0;i<userData.user_courses.length;i++){
+  await knex("user_courses").insert({
+  user_id: userData.user_courses[i].user_id,
+  course_id: userData.user_courses[i].course_id
+});}
+
+
+//   await knex("user_results").insert({
+//   user_id: userData.user_results.user_id,
+//   test_id: userData.user_results.test_id,
+//   number_of_hp_points: userData.user_results.number_of_hp_points
+// });
 }

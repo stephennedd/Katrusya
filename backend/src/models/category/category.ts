@@ -1,4 +1,5 @@
-export class CategoryEntity implements IEntity {
+export class CategoryEntity implements IEntity 
+{
     id: number;
     name: string;
     icon: string;

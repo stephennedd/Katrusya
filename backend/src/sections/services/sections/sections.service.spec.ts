@@ -3,7 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AnswersRepository, QuestionsRepository, SectionsRepository, TestsRepository } from '../../repositories/sections.repository';
 import { DatabaseService } from '../../../databases/database.service';
 import { SectionsService } from './sections.service';
-import { SectionEntity } from 'src/models/section/section';
+import { SectionEntity } from '../../../models/section/section';
+import { Section } from 'src/sections/models/section';
 
 describe('SectionsService', () => {
   let service: SectionsService;
@@ -51,33 +52,143 @@ describe('SectionsService', () => {
     answersRepository = module.get<AnswersRepository>(AnswersRepository);
   });
 
-  describe('getSection', () => {
-    it('should return a section by id', async () => {
-      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(mockSection);
-      expect(await service.getSection(mockSection.id)).toBe(mockSection);
-    });
+  describe('getSections', () => {
+    it('should return an array of sections', async () => {
+      // Arrange
+      
+      const sections: SectionEntity[] = [
+        {
+        id: 1, description: "New description",
+        title: 'New title',
+        image: 'New image',
+        duration_in_hours: 1,
+        course_id: 1
+        },
+        { id: 2, description: "New description 2",
+        title: 'New title 2',
+        image: 'New image 2',
+        duration_in_hours: 2,
+        course_id: 2 },
+      ];
+      jest.spyOn(sectionsRepository, 'getAll').mockResolvedValue(sections);
 
-    it('should throw a BadRequestException if section is not found', async () => {
-      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(undefined);
-      await expect(service.getSection(mockSection.id)).rejects.toThrow(BadRequestException);
+      // Act
+      const result = await service.getSections();
+
+      // Assert
+      expect(result).toEqual(sections);
     });
   });
 
-  describe('getTestBySectionId', () => {
-    it('should return a test with questions and answers for a given section id', async () => {
-      jest.spyOn(testsRepository, 'getSectionTest').mockResolvedValue(mockTest);
-      jest.spyOn(questionsRepository, 'getTestQuestions').mockResolvedValue([mockQuestion]);
-      jest.spyOn(answersRepository, 'getQuestionAnswers').mockResolvedValue([mockAnswer]);
+  describe('getSection', () => {
+    it('should return a section with the specified ID', async () => {
+      // Arrange
+      const section: SectionEntity = {
+        id: 1, description: "New description",
+        title: 'New title',
+        image: 'New image',
+        duration_in_hours: 1,
+        course_id: 1
+      };
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(section);
 
-      const result = await service.getTestBySectionId(mockSection.id);
+      // Act
+      const result = await service.getSection(section.id);
 
-      expect(result.id).toBe(mockTest.id);
-      expect(result.questions).toEqual([{ ...mockQuestion, answers: [mockAnswer] }]);
+      // Assert
+      expect(result).toEqual(section);
     });
 
-    it('should throw a BadRequestException if test is not found for given section id', async () => {
-      jest.spyOn(testsRepository, 'getSectionTest').mockResolvedValue(undefined);
-      await expect(service.getTestBySectionId(mockSection.id)).rejects.toThrow(BadRequestException);
+    it('should throw a BadRequestException if the section does not exist', async () => {
+      // Arrange
+      const sectionId = 1;
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(undefined);
+
+      // Act & Assert
+      await expect(service.getSection(sectionId)).rejects.toThrow(
+        new BadRequestException(`Section with ID ${sectionId} does not exist`),
+      );
+    });
+  });
+
+  describe('addSection', () => {
+    it('should create a section', async () => {
+      // Arrange
+      const section: SectionEntity = {
+        id: 1, description: "New description",
+        title: 'New title',
+        image: 'New image',
+        duration_in_hours: 1,
+        course_id: 1
+      };
+      jest.spyOn(sectionsRepository, 'create').mockResolvedValue(section);
+
+      // Act
+      const result = await service.addSection(section);
+
+      // Assert
+      expect(result).toEqual(section);
+    });
+  });
+
+  describe('updateSection', () => {
+    it('should update a section', async () => {
+      // Arrange
+      const section: SectionEntity = {
+        id: 1, description: "New description",
+        title: 'New title',
+        image: 'New image',
+        duration_in_hours: 1,
+        course_id: 1
+      };
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(section);
+      jest.spyOn(sectionsRepository, 'update').mockResolvedValue(section);
+
+      // Act
+      const result = await service.updateSection(section.id, section);
+
+      // Assert
+      expect(result).toEqual(section);
+    });
+
+    it('should throw a BadRequestException if section does not exist', async () => {
+      // Arrange
+      const sectionId = 1;
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(null);
+
+      // Act & Assert
+      await expect(service.updateSection(sectionId, null)).rejects.toThrow(BadRequestException);
+    });
+  });
+
+  describe('deleteSection', () => {
+    it('should delete a section', async () => {
+      // Arrange
+      const sectionId = 1;
+      const section: SectionEntity = {
+        id: 1, description: "New description",
+        title: 'New title',
+        image: 'New image',
+        duration_in_hours: 1,
+        course_id: 1
+      };
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(section);
+      jest.spyOn(sectionsRepository, 'delete').mockResolvedValue(null);
+
+      // Act
+      const result = await service.deleteSection(sectionId);
+
+      // Assert
+      expect(result).toEqual('Section with ID 1 deleted');
+    });
+
+    it('should throw a BadRequestException if section does not exist', async () => {
+      // Arrange
+      const sectionId = 1;
+      jest.spyOn(sectionsRepository, 'getById').mockResolvedValue(null);
+
+      // Act & Assert
+      await expect(service.deleteSection(sectionId)).rejects.toThrow(BadRequestException);
     });
   });
 });

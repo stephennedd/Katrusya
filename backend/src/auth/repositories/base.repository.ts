@@ -50,4 +50,8 @@ export abstract class BaseRepository<T extends IEntity> {
   async delete(id: number): Promise<void> {
     await this.db.getKnexInstance()(this.tableName).where({ id }).delete();
   }
+
+  async deleteUserOtps(id: number): Promise<void> {
+    await this.db.getKnexInstance()("user_otps").where({ userId: id }).delete();
+  }
 }

@@ -1,27 +1,32 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthController } from './auth.controller';
+import { AuthController } from '../controllers/auth.controller';
 import { AuthService } from '../services/auth.service';
-import { CreateUserDto } from '../../dto/create-user.dto';
 import { AuthenticationRequest } from '../../dto/create-user.dto';
-import { ResponseBase, ResponseGeneric } from '../../dto/response.dto';
 import { AuthenticationResponse } from '../../dto/responses/minimal-user-dto';
-import { ForgotPasswordDto } from '../../dto/forgot-password.dto';
-import { ChangePasswordDto } from '../../dto/change-password.dto';
 import { DatabaseService } from '../../databases/database.service';
 import { CorsMiddleware } from '../../middlewares/cors.middleware';
 import { JwtStrategy } from '../auth.strategy';
 import { UserOtpsRepository, UsersRepository } from '../repositories/users.repository';
 import { EmailService } from '../services/messagings/email.service';
-import { UsersService } from '../services/users/users.service';
+import { UsersService as UsersService2 } from '../../users/services/users/users.service';
+import { UsersService } from './users/users.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt'
+import { JwtModule } from '@nestjs/jwt';
 import * as nodemailer from 'nodemailer';
+import { UserCoursesRepository, CoursesRepository, TestsRepository } from '../../courses/repositories/courses.repository';
+import { LessonsRepository, SectionsRepository } from '../../sections/repositories/sections.repository';
+import {UsersRepository as UsersRepository2, UserCoursesRepository as UserCoursesRepository2, UserFavoriteCoursesRepository, UserCompletedLessonsRepository, UserCompletedSectionsRepository, UserResultsRepository, UserLessonsRepository } from '../../users/repositories/users.repository';
+import { ResponseBase } from '../../dto/response.dto';
+import { ForgotPasswordDto } from '../../dto/forgot-password.dto';
+import { ChangePasswordDto } from '../../dto/change-password.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;
   let authService: AuthService;
+  let usersService: UsersService;
+  let usersService2: UsersService2;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -54,50 +59,29 @@ describe('AuthController', () => {
          //   AuthModule
           ],
       controllers: [AuthController],
-      providers: [AuthService,CorsMiddleware, 
-        JwtStrategy,UsersService,EmailService, UserOtpsRepository,UsersRepository, DatabaseService],
+      providers: [UsersService2,AuthService,CorsMiddleware,
+        JwtStrategy,UsersService,EmailService, UserOtpsRepository,UsersRepository, DatabaseService,
+        DatabaseService,
+        UserFavoriteCoursesRepository,UserCompletedLessonsRepository,
+      UserCompletedSectionsRepository,UserCoursesRepository,UserCoursesRepository2,
+      UserResultsRepository,CoursesRepository,
+      LessonsRepository,SectionsRepository,UserLessonsRepository,
+      TestsRepository,UsersRepository2],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
     authService = module.get<AuthService>(AuthService);
-  });
-
-  describe('login', () => {
-    it('should return an authentication response', async () => {
-      const authenticationRequest: AuthenticationRequest = {
-        email: 'smisha5000@gmail.com',
-        password: 'password',
-      };
-      const authenticationResponse: AuthenticationResponse = {
-          accessToken: 'jwt.token.here',
-          expiresIn: 3600,
-          phoneNumber: "0505670644",
-          isAuthenticated: false,
-          role: "student",
-          isTeacher: false,
-          email: 'smisha5000@gmail.com',
-          userId: 0,
-          profileImageUrl: 'profileImageUrl',
-          firstName: 'Yehor',
-          lastName: 'Zhvarnytskyi',
-          descriptions: 'description',
-          created: undefined,
-          fullName: 'Yehor Zhvarnytskyi'
-      };
-      jest.spyOn(authService, 'loginUser').mockResolvedValue(authenticationResponse);
-
-      const result = await controller.login(authenticationRequest);
-
-      expect(result).toEqual(new ResponseGeneric<AuthenticationResponse>(authenticationResponse));
-    });
+    usersService = module.get<UsersService>(UsersService);
+    usersService2 = module.get<UsersService2>(UsersService2);
   });
 
   describe('register', () => {
     it('should return an authentication response', async () => {
-      const createUserDto: CreateUserDto = {
-          username: 'testuser',
-          email: 'testuser@example.com',
-          password: 'password',
+      const createUserDto = {
+          id:2,
+          username: 'sorokin',
+          email: 'smisha7000@gmail.com',
+          password: 'qwerty',
           phone: '',
           created_at: undefined,
           balance_of_tokens: 0,
@@ -119,52 +103,41 @@ describe('AuthController', () => {
           created: undefined,
           fullName: ''
       };
-      jest.spyOn(authService, 'registerUser').mockResolvedValue(authenticationResponse);
-
       const result = await controller.register(createUserDto);
 
-      expect(result).toEqual(new ResponseGeneric<AuthenticationResponse>(authenticationResponse));
+      expect(result.succeeded).toEqual(true);
     });
   });
 
-  describe('confirmEmail', () => {
-    it('should return a response', async () => {
-      const createConfirmEmailDto = {
-        userId: 1,
-        code: 'confirmation code',
+  describe('login', () => {
+    it('should return an authentication response', async () => {
+      const authenticationRequest: AuthenticationRequest = {
+        email: 'smisha7000@gmail.com',
+        password: 'qwerty',
       };
-      jest.spyOn(authService, 'confirmEmailAsync').mockResolvedValue(undefined);
-
-      const result = await controller.confirmEmail(createConfirmEmailDto);
-
-      expect(result).toEqual(ResponseBase.succeed("email successfully confirmed"));
+      const result = await controller.login(authenticationRequest);
+   
+      expect(result.succeeded).toEqual(true);
     });
   });
 
   describe('forgotPassword', () => {
     it('should return a success message', async () => {
       const forgotPasswordDto: ForgotPasswordDto = {
-        email: 'testuser@example.com',
+        email: 'smisha7000@gmail.com',
       };
-      jest.spyOn(authService, 'sendPasswordResetEmail').mockResolvedValue(undefined);
-
       const result = await controller.forgotPassword(forgotPasswordDto);
 
       expect(result).toEqual({ message: 'Password reset email sent successfully.' });
     });
   });
 
-  describe('changePassword', () => {
-    it('should return a response', async () => {
-      const changePasswordDto: ChangePasswordDto = {
-          password: ''
-      };
-      const token = 'jwt.token.here';
-      jest.spyOn(authService, 'changePassword').mockResolvedValue(undefined);
-
-      const result = await controller.changePassword(changePasswordDto, `Bearer ${token}`);
-
-      expect(result).toBeUndefined();
+describe('deleteUser', () => {
+    it('should delete a user by id', async () => {
+      
+      // Act
+      const result = await usersService.deleteOtpsOfUser(2);
+      const result2 = await usersService2.deleteUser(2);
     });
   });
 });

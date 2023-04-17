@@ -164,4 +164,9 @@ async removeFavoriteCourse(
 ) {
   return await this.usersService.deleteUserFavoriteCourse(userId, courseId);
   } 
+
+  @Delete(':id')
+  async deleteSection(@Param('id') id: number) {
+    return this.usersService.deleteUser(id);
+  }  
 }
