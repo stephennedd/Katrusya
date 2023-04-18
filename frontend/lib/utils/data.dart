@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+List settings = [
+  { "text" : "Edit Profile", "color" : Colors.black },
+];
+
 List milestones = [
   {"name" : "Quiz 1", "questions" : "10 questions"},
   {"name" : "Quiz 2", "questions" : "10 questions"},
