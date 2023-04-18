@@ -5,7 +5,7 @@ import { CreateUserPurchase } from 'src/courses/dtos/CreateUserPurchase.dtos';
 export class ValidateCreateUserPurchasePipe implements PipeTransform {
   transform(value: CreateUserPurchase, metadata: ArgumentMetadata) {
     if (!value.courseId || !value.userId) {
-      throw new BadRequestException('course_id and user_id are required');
+      throw new BadRequestException('courseId and userId are required');
     }
     return value;
   }

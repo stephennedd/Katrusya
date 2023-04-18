@@ -13,4 +13,8 @@ export class DatabaseService {
   getKnexInstance() {
     return this.knex;
   }
+
+  async close() {
+    await this.knex.destroy();
+  }
 }

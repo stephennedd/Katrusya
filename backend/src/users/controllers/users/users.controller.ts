@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AddCompletedLessonDto } from 'src/users/dtos/AddCompletedLesson.dtos';
-import { AddFavoriteCourseDto } from 'src/users/dtos/AddFavoriteCourse.dtos';
-import { CreateUserDto } from 'src/users/dtos/CreateUser.dtos';
-import { CreateUserResultsDto } from 'src/users/dtos/CreateUserResults.dtos';
-import { ValidateAddCompletedByUserLessonPipe } from 'src/users/pipes/validate-add-completed-by-user-lesson/validate-add-completed-by-user-lesson.pipe';
-import { ValidateAddFavoriteCoursePipe } from 'src/users/pipes/validate-add-favorite-course/validate-add-favorite-course.pipe';
-import { ValidateCreateUserResultsPipe } from 'src/users/pipes/validate-create-user-results/validate-create-user-results.pipe';
-import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
+import { AddCompletedLessonDto } from '../../../users/dtos/AddCompletedLesson.dtos';
+import { AddFavoriteCourseDto } from '../../../users/dtos/AddFavoriteCourse.dtos';
+import { CreateUserDto } from '../../../users/dtos/CreateUser.dtos';
+import { CreateUserResultsDto } from '../../../users/dtos/CreateUserResults.dtos';
+import { ValidateAddCompletedByUserLessonPipe } from '../../../users/pipes/validate-add-completed-by-user-lesson/validate-add-completed-by-user-lesson.pipe';
+import { ValidateAddFavoriteCoursePipe } from '../../../users/pipes/validate-add-favorite-course/validate-add-favorite-course.pipe';
+import { ValidateCreateUserResultsPipe } from '../../../users/pipes/validate-create-user-results/validate-create-user-results.pipe';
+import { ValidateCreateUserPipe } from '../../../users/pipes/validate-create-user/validate-create-user.pipe';
 import { UsersService } from '../../services/users/users.service';
 
 @Controller('users')
@@ -15,7 +15,7 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     
     @Get('')
-    @UseGuards(AuthGuard('jwt'))
+    //@UseGuards(AuthGuard('jwt'))
     async getUsers() {
       return this.usersService.getUsers();
     }
@@ -36,10 +36,10 @@ export class UsersController {
     }
 
     @Get(':userId/isCoursePurchased')
-    async isUserPurchasedTheCourse(@Param('userId') userId: number,
+    async hasUserPurchasedTheCourse(@Param('userId') userId: number,
     @Query('course_id') courseId: number
     ) {
-      return this.usersService.isUserPurchasedTheCourse(userId,courseId);
+      return this.usersService.hasUserPurchasedTheCourse(userId,courseId);
     }
 
     @Get(':id')
@@ -164,4 +164,9 @@ async removeFavoriteCourse(
 ) {
   return await this.usersService.deleteUserFavoriteCourse(userId, courseId);
   } 
+
+  @Delete(':id')
+  async deleteSection(@Param('id') id: number) {
+    return this.usersService.deleteUser(id);
+  }  
 }

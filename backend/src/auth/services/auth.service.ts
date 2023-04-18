@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { DatabaseService } from 'src/databases/database.service';
-import { AuthenticationRequest, CreateUserDto } from 'src/dto/create-user.dto';
-import { AuthenticationResponse } from 'src/dto/responses/minimal-user-dto';
+import { DatabaseService } from '../../databases/database.service';
+import { AuthenticationRequest, CreateUserDto } from '../../dto/create-user.dto';
+import { AuthenticationResponse } from '../../dto/responses/minimal-user-dto';
 import { UserOtpsRepository, UsersRepository } from '../repositories/users.repository';
 import { UsersService } from './users/users.service';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from 'src/models/user/user';
+import { UserEntity } from '../../models/user/user';
 import { plainToClass } from 'class-transformer';
 import { EmailService } from './messagings/email.service';
-import { ChangePasswordDto } from 'src/dto/change-password.dto';
+import { ChangePasswordDto } from '../../dto/change-password.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -66,7 +66,7 @@ export class AuthService {
     return null;
   }
 
-  private async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
+   async refreshTokenAsync(user: UserEntity): Promise<AuthenticationResponse> {
     if (user?.is_active == true) {
       return this.generateToken(user);
     }
@@ -157,5 +157,7 @@ async verifyToken(token: string): Promise<any> {
   return decoded;
 }
 
-
+async deleteUserOtps(userId: number): Promise<any> {
+  
+}
 }

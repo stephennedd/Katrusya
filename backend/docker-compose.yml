@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3037
+      DB_USER: MoSalah
+      DB_PASSWORD: qwerty123
+      DB_NAME: katrusya
+    command: bash -c "npm run db:migrate && npm run db:seed && npm run start:dev"  
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: zoom123123
+      MYSQL_USER: MoSalah
+      MYSQL_PASSWORD: qwerty123
+      MYSQL_DATABASE: katrusya
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '3037:3037'
+    # command: >
+    #   sh -c "mysql -uroot -p zoom123123 -e 'CREATE DATABASE IF NOT EXISTS katrusya;' && sleep infinity"  
+      

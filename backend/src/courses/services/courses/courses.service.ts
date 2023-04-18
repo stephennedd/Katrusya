@@ -1,5 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/databases/database.service';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { UsersRepository } from '../../../auth/repositories/users.repository';
+import { Course } from '../../models/course';
+import { CourseDetails, Section } from '../../models/courseDetails';
+import { CourseQuiz } from '../../models/courseQuiz';
+import { CoursesRepository, TestsRepository, UserCoursesRepository } from '../../repositories/courses.repository';
+import { DatabaseService } from '../../../databases/database.service';
+import { PurchasedCourse } from '../../models/purchasedCourse';
 
 
 interface QueryParams{
@@ -9,33 +15,41 @@ interface QueryParams{
     search?:string
 }
 
-interface Test{
-    id: number,
-    title: string,
-    image_url?: string,
-    description: string,
-    time_seconds: number
-}
-
 @Injectable()
 export class CoursesService {
 
-    constructor(private readonly dbService: DatabaseService) {} 
+    constructor(private readonly dbService: DatabaseService,
+      private readonly coursesRepository: CoursesRepository,
+      private readonly userCoursesRepository: UserCoursesRepository,
+      private readonly testsRepository: TestsRepository,
+      private readonly usersRepository: UsersRepository) {} 
   
 async addPurchasedCourse(courseId: number, userId: number) {
-    const knex = this.dbService.getKnexInstance();
-    try { await knex('user_courses').insert({
+  const courseExists = await this.coursesRepository.getById(courseId);
+  if (!courseExists) {
+    throw new BadRequestException(`Course with ID ${courseId} does not exist`);
+  }
+  
+  const userExists = await this.usersRepository.getById(userId);
+  
+  if (!userExists) {
+    throw new BadRequestException(`User with ID ${userId} does not exist`);
+  }
+  
+    try { 
+    const result = await this.userCoursesRepository.addUserCourse(courseId,userId);
+    const addedPurchasedCourse: PurchasedCourse = {
+      id: result[0],
       course_id: courseId,
       user_id: userId,
-      is_completed: false
-    });
-    return { success: true };
-}catch (err) {
-    // Log the error for debugging purposes    
+      is_completed: false,
+    };
+    return addedPurchasedCourse;
+}catch (err) { 
     // Check if the error is a unique constraint violation error
     if (err.sqlState === '23000' && err.code === 'ER_DUP_ENTRY') {
         const message = `The user with ID ${userId} has already purchased the course with ID ${courseId}`;
-        return { success: false, error: message };
+        throw new BadRequestException(message);
       } else {
       return {
         success: false,
@@ -46,42 +60,31 @@ async addPurchasedCourse(courseId: number, userId: number) {
   }
 
   async getCourseQuizzes(courseId: number): Promise<any>{
-    const knex = this.dbService.getKnexInstance();
-
-    const result = await knex.select('tests.title as quiz_title','tests.section_id as section_id',
-    'tests.image_url as image_url','tests.course_id')
-    .count('questions.id as number_of_questions')
-    .from('tests')
-    .leftJoin('questions', 'tests.id', 'questions.test_id')
-    .where('tests.course_id', courseId)
-    .groupBy('tests.id')
-    .orderBy('tests.section_id');
-
-    return result;
+    const courseExists = await this.coursesRepository.getById(courseId);
+  if (!courseExists) {
+    throw new BadRequestException(`Course with ID ${courseId} does not exist`);
+  }
+    const result = await this.testsRepository.getCourseQuizzes(courseId);
+   
+      const quizzes: CourseQuiz[] = result.map((quiz) => ({
+        image_url:quiz.image_url,
+        quiz_title: quiz.quiz_title,
+        section_id: quiz.section_id,
+        course_id: quiz.course_id,
+        number_of_questions: quiz.number_of_questions,
+      }));
+      
+    return quizzes;
   }
 
 async getCourseDetails(courseId: number): Promise<any>{
-const knex = this.dbService.getKnexInstance();
+  const courseExists = await this.coursesRepository.getById(courseId);
+  if (!courseExists) {
+    throw new BadRequestException(`Course with ID ${courseId} does not exist`);
+  }
+const result = await this.coursesRepository.getCourseDetails(courseId);
 
-const result = await knex("courses as c")
-  .leftJoin("sections as s", "c.id", "s.course_id")
-  .leftJoin("lessons as l", "s.id", "l.section_id")
-  .select(
-    "c.name as course_name",
-    "c.description as course_description",
-    "s.id as section_id",
-    "s.title as section_title",
-    "s.image as section_image",
-    "l.image as lesson_image",
-    "l.title as lesson_name",
-    "l.duration_in_hours as lesson_duration_in_hours",
-    "l.video_url",
-    "l.id as lesson_id"
-  )
-  .where("c.id", courseId)
-  .orderBy("s.id", "l.id");
-
-const course = {
+const course: CourseDetails = {
   course_name: result[0].course_name,
   course_description: result[0].course_description,
   sections: [],
@@ -89,7 +92,7 @@ const course = {
   course_duration_in_hours: 0
 };
 
-let currentSection = {id:0,title: "",  image: "", lessons: [], number_of_lessons: 0, section_duration_in_hours: 0};
+let currentSection: Section = {id:0,title: "",  image: "", lessons: [], number_of_lessons: 0, section_duration_in_hours: 0};
 for (const row of result) {
   if (currentSection.id !== row.section_id) {
     currentSection = {id:row.section_id, title: row.section_title, image: row.section_image, lessons: [], number_of_lessons: 0, section_duration_in_hours: 0 };
@@ -104,105 +107,28 @@ for (const row of result) {
 
 return course;
 }
-
-async getRecommendedCourses(isRecommended: boolean): Promise<any>{
-    const knex = this.dbService.getKnexInstance();
-    let query = await knex('courses').select('*')
-      .where('is_recommended', isRecommended ? 1 : 0);
-   
-    
-    const recommendedCourses = query.map(course => {
-        return {
-          ...course,
-          is_recommended: course.is_recommended === 1 ? true : false,
-          is_featured: course.is_featured === 1?true : false,
-          is_favorited: course.is_favorited === 1?true : false,
-        };
-      });
-    return recommendedCourses;
-  }
  
-    async getCourses(queryParams: QueryParams): Promise<any>{
-        const knex = this.dbService.getKnexInstance();
-      
-        // Create a base query
-        let query = knex('courses');
-      
-        // Apply filters based on query params
-        if (queryParams.category!==undefined) {
-            query = query
-            .join('course_categories', 'courses.id', 'course_categories.course_id')
-            .join('categories', 'categories.id', 'course_categories.category_id')
-            .where('categories.name', queryParams.category)
-        }
-      
-        if (queryParams.is_recommended!==undefined) {
-          query = query.where('is_recommended', queryParams.is_recommended? 1 : 0);
-        }
-      
-        if (queryParams.is_featured!==undefined) {
-          query = query.where('is_featured', queryParams.is_featured? 1 : 0);
-        }
-
-        if (queryParams.search!==undefined) {
-            query = query.whereRaw(`JSON_CONTAINS(tags->'$[*]', '["${queryParams.search}"]')`)
-          }
-
-           // Add a left join with the sections and lessons tables to count the number of lessons for each course
-  query = query
-  .leftJoin('sections', 'sections.course_id', '=', 'courses.id')
-  .leftJoin('lessons', 'lessons.section_id', '=', 'sections.id')
-  .select('courses.*', knex.raw('COUNT(DISTINCT lessons.id) as number_of_lessons'),
-  knex.raw('COUNT(DISTINCT sections.id) as number_of_sections'))
-  .groupBy('courses.id');
-            
-             const courses = (await query).map(course => {
-            return {
-              ...course,
-              is_recommended: course.is_recommended === 1 ? true : false,
-              is_featured: course.is_featured === 1?true : false,
-              is_favorited: course.is_favorited === 1?true : false,
-              number_of_lessons: course.number_of_lessons || 0 
-            };
-          });
-
+  async getCourses(queryParams: QueryParams): Promise<any>{  
+   let query = await this.coursesRepository.getCourses(queryParams);
+   const courses:Course[] = (await query).map(course => {
+    return {
+      id: course.id,
+      name: course.name,
+      description: course.description,
+      image: course.image,
+      price: course.price,
+      duration_in_hours: course.duration_in_hours,
+      review: course.review,
+      is_favorited: course.is_favorited === 1,
+      is_recommended: course.is_recommended === 1,
+      is_featured: course.is_featured === 1,
+      tags: course.tags,
+      number_of_lessons: course.number_of_lessons || 0,
+      number_of_sections: course.number_of_sections || 0,
+    };
+  });
         return courses;
       }
     
 
-        async getCoursesBasedOnCategoryName(categoryName:string): Promise<any>{
-            const knex = this.dbService.getKnexInstance();
-            const query = await knex('courses')
-              .join('course_categories', 'courses.id', 'course_categories.course_id')
-              .join('categories', 'categories.id', 'course_categories.category_id')
-              .where('categories.name', categoryName)
-              .select('courses.*');
-            
-              const courses = query.map(course => {
-                return {
-                  ...course,
-                  is_recommended: course.is_recommended === 1 ? true : false,
-                  is_featured: course.is_featured === 1?true : false,
-                  is_favorited: course.is_favorited === 1?true : false,
-                };
-              });
-            return courses;
-            }
-
-    async getFeaturedCourses(isFeatured: boolean): Promise<any>{
-        const knex = this.dbService.getKnexInstance();
-        let query = await knex('courses').select('*')
-        .where('is_featured', isFeatured ? 1 : 0);
-        
-        const featuredCourses = query.map(course => {
-            return {
-              ...course,
-              is_recommended: course.is_recommended === 1 ? true : false,
-              is_featured: course.is_featured === 1?true : false,
-              is_favorited: course.is_favorited === 1?true : false,
-            };
-          });
-
-        return featuredCourses;
-      }
-}
+    }

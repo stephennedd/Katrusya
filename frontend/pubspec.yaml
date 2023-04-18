@@ -61,6 +61,9 @@ dependencies:
   audioplayers: ^3.0.1
   lottie: ^2.3.2
   file_picker: ^5.2.7
+  mockito: ^5.0.0
+  mockingjay: ^0.3.0
+  syncfusion_flutter_charts: ^21.1.39
   # cupertino_icons: ^1.0.2
   # provider: ^6.0.4
   # palette_generator: ^0.3.3+2
@@ -73,6 +76,8 @@ dev_dependencies:
     sdk: flutter
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: ^0.13.0
+  integration_test:
+    sdk: flutter
 
 
 flutter_icons:
@@ -86,7 +91,7 @@ flutter_icons:
     theme_color: "#ffffff"
 
 flutter_native_splash:
-  color: "#3af1c3"
+  color: "#ffffff"
   image: images/logo_graphic.png
   color_dark: "#072d30"
   image_dark: images/logo_graphic.png
@@ -95,7 +100,7 @@ flutter_native_splash:
   web: true
   android_12:
     image: images/logo_graphic.png
-    icon_background_color: "#3af1c3"
+    icon_background_color: "#ffffff"
     image_dark: images/logo_graphic.png
     icon_background_color_dark: "#072d30"
 

@@ -1,0 +1,971 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "AppController_getHello",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses": {
+            "get": {
+                "operationId": "CoursesController_getCourses",
+                "parameters": [
+                    {
+                        "name": "is_recommended",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "is_featured",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{courseId}/details": {
+            "get": {
+                "operationId": "CoursesController_getCourseDetails",
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{courseId}/quizzes": {
+            "get": {
+                "operationId": "CoursesController_getCourseQuizzes",
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/purchasedCourses": {
+            "post": {
+                "operationId": "CoursesController_addPurchasedCourse",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserPurchase"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/sections/{id}": {
+            "get": {
+                "operationId": "SectionsController_getSection",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/sections/{id}/test": {
+            "get": {
+                "operationId": "SectionsController_getTestBasedOnSectionId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "operationId": "UsersController_getUsers",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "UsersController_createUser",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/favoriteCourses": {
+            "get": {
+                "operationId": "UsersController_getFavoriteCourses",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "operationId": "UsersController_addFavoriteCourse",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddFavoriteCourseDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/courses": {
+            "get": {
+                "operationId": "UsersController_getUserCourses",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/tests/{testId}/results": {
+            "get": {
+                "operationId": "UsersController_getUserResults",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "testId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/isCoursePurchased": {
+            "get": {
+                "operationId": "UsersController_hasUserPurchasedTheCourse",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "course_id",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "operationId": "UsersController_getUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/courses/{courseId}/completedLessons": {
+            "get": {
+                "operationId": "UsersController_getUserCompletedLessonsForCertainCourse",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/completedSections": {
+            "get": {
+                "operationId": "UsersController_getUserCompletedSectionsForCertainCourse",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/sections/{sectionId}/isCompleted": {
+            "get": {
+                "operationId": "UsersController_getIsSectionCompletedByUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "sectionId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/courses/{courseId}/isCompleted": {
+            "get": {
+                "operationId": "UsersController_getIsCourseCompletedByUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/testResults": {
+            "post": {
+                "operationId": "UsersController_createUserResult",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserResultsDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/completedLessons": {
+            "post": {
+                "operationId": "UsersController_addCompletedLesson",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddCompletedLessonDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "UsersController_deleteCompletedLesson",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddCompletedLessonDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/roles": {
+            "put": {
+                "operationId": "UsersController_flipTeacherMode",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/lessons/{lessonId}": {
+            "post": {
+                "operationId": "UsersController_addTimestampOfLastViewedMomentOfLesson",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "lessonId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            },
+            "put": {
+                "operationId": "UsersController_updateTimestampOfLastViewedMomentOfLesson",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "lessonId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            },
+            "get": {
+                "operationId": "UsersController_getLastViewedMoment",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "lessonId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/users/{userId}/favoriteCourses/{courseId}": {
+            "delete": {
+                "operationId": "UsersController_removeFavoriteCourse",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "courseId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "operationId": "CategoriesController_getCategories",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "operationId": "AuthController_login",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthenticationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseGeneric"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentication"
+                ]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "operationId": "AuthController_register",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseGeneric"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentication"
+                ]
+            }
+        },
+        "/auth/confirm/email": {
+            "post": {
+                "operationId": "AuthController_confirmEmail",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateConfirmEmailDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBase"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentication"
+                ]
+            }
+        },
+        "/auth/forgotPassword": {
+            "post": {
+                "operationId": "AuthController_forgotPassword",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ForgotPasswordDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Authentication"
+                ]
+            }
+        },
+        "/auth/changePassword": {
+            "put": {
+                "operationId": "AuthController_changePassword",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "required": true,
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangePasswordDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Authentication"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "My API",
+        "description": "API documentation",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "CreateUserPurchase": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateUserDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "balance_of_tokens": {
+                        "type": "number"
+                    },
+                    "roles": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email",
+                    "username",
+                    "phone",
+                    "password",
+                    "created_at",
+                    "balance_of_tokens",
+                    "roles"
+                ]
+            },
+            "CreateUserResultsDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "AddCompletedLessonDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "AddFavoriteCourseDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "AuthenticationRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "ResponseGeneric": {
+                "type": "object",
+                "properties": {
+                    "succeeded": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "succeeded",
+                    "message",
+                    "errors",
+                    "data"
+                ]
+            },
+            "CreateConfirmEmailDto": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "number"
+                    },
+                    "code": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "userId",
+                    "code"
+                ]
+            },
+            "ResponseBase": {
+                "type": "object",
+                "properties": {
+                    "succeeded": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "succeeded",
+                    "message",
+                    "errors"
+                ]
+            },
+            "ForgotPasswordDto": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email"
+                ]
+            },
+            "ChangePasswordDto": {
+                "type": "object",
+                "properties": {
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "password"
+                ]
+            }
+        }
+    }
+}
