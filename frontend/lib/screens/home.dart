@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Nexa-Trial',
+                      overflow: TextOverflow.ellipsis
                   ),
                 )),
           ]),

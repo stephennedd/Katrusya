@@ -4,6 +4,8 @@ import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/leaderboard.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? titleWidget;
@@ -43,7 +45,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               leading ??
                   Transform.translate(
                     offset: const Offset(-14, 0),
-                    child: const BackButton(),
+                    child: const BackButton(
+                      color: Colors.white,
+                    ),
                   ),
               if (showActionIcon)
                 Transform.translate(
@@ -54,7 +58,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             Colors.white), // Set the color of the back button
                     onPressed: onMenuActionTap ??
                         () {
-                          print("leaderboard");
+                          showDialog(context: context, builder: (BuildContext context) {
+                            return LeaderboardPopup();
+                          });
                         },
                     //Get.toNamed(TestOverviewScreen.routeName),
                   ),

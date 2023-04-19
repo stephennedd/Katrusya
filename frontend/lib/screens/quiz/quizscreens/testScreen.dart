@@ -124,8 +124,9 @@ class TestScreen extends GetView<QuestionsController> {
                               child: MainButton(
                                 onTap: () {
                                   controller.isLastQuestion
-                                      ? Get.toNamed(
-                                          TestOverviewScreen.routeName)
+                                      ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TestOverviewScreen()))
+                                          /*Get.toNamed(
+                                          TestOverviewScreen.routeName)*/
                                       : controller.nextQuestion();
                                 },
                                 title: controller.isLastQuestion

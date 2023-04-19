@@ -106,6 +106,7 @@ class _RootAppState extends State<RootApp> {
           children: List.generate(
               tabItems.length,
               (index) => BottomBarItem(
+                  key: Key("bottomBarItem$index"),
                   icon: tabItems[index]["icon"],
                   isActive: bottomBarProvider.activePageIndex == index,
                   onTap: () {

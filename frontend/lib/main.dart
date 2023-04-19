@@ -93,6 +93,7 @@ class MyApp extends StatelessWidget {
               ForgotPage.routeName: (context) => const ForgotPage(),
               SectionPage.routeName: (context) => const SectionPage(),
               TestScreen.routeName: (context) => const TestScreen(),
+              ResultScreen.routeName: (context) => ResultScreen(),
               MyCoursesPage.routeName: (context) => const MyCoursesPage(),
               FavoritesPage.routeName: (context) => const FavoritesPage(),
               AccountPage.routeName: (context) => const AccountPage(),

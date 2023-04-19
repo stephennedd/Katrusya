@@ -63,28 +63,38 @@ class _MyCoursesPageState extends State<MyCoursesPage>
             indicatorColor: primary,
             controller: _tabController,
             tabs: [
-          Tab(
-            child: Text(
-              // Done: update with real number
-              "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
-              style: const TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: textColor,
-                  overflow: TextOverflow.ellipsis),
+          Semantics(
+            child: Tab(
+              key: Key("progressTab"),
+              child: Text(
+                // Done: update with real number
+                "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
+                style: const TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: textColor,
+                    overflow: TextOverflow.ellipsis),
+              ),
             ),
+            onTap: () {
+              setState(() {
+              });
+            },
           ),
-          Tab(
-            child: Text(
-              // Done: update with real number
-              "Completed (${usersController.getNumberOfCompleteByUserCourses()})",
-              style: const TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: textColor,
-                  overflow: TextOverflow.ellipsis),
+          Semantics(
+            child: Tab(
+              key: Key("completeTab"),
+              child: Text(
+                // Done: update with real number
+                "Completed (${usersController.getNumberOfCompleteByUserCourses()})",
+                style: const TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: textColor,
+                    overflow: TextOverflow.ellipsis),
+              ),
             ),
           )
         ]));

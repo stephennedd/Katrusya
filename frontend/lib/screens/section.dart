@@ -4,6 +4,7 @@ import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/quizzes/quiz_model.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
+import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:get/get.dart';
@@ -81,30 +82,13 @@ class _SectionPageState extends State<SectionPage>
     return Scaffold(
         backgroundColor: appBarColor,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           elevation: 0,
           backgroundColor: appBarColor,
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-            ),
+            icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
             onPressed: () {
-              final course = courseController.courses.firstWhere((course) => course.id  == courseController.currentCourseId.value);
-
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          CourseLandingPage(course: course))
-              );
-              // Navigator.of(context).pushReplacement(
-              //     MaterialPageRoute(
-              //       builder: (context) => const RootApp(),
-              //       settings: const RouteSettings(
-              //         name: "/homepage"
-              //       )
-              //     )
-              // );
+              Navigator.pop(context);
             },
           ),
           centerTitle: true,
@@ -284,10 +268,10 @@ class _SectionPageState extends State<SectionPage>
     items.addAll(widget.data.lessons);
 
     items.addAll(courseController.sectionQuizzes);
-    //DEBUG
-    items.addAll(courseController.sectionQuizzes);
-    items.addAll(courseController.sectionQuizzes);
-    items.addAll(courseController.sectionQuizzes);
+    // //DEBUG
+    // items.addAll(courseController.sectionQuizzes);
+    // items.addAll(courseController.sectionQuizzes);
+    // items.addAll(courseController.sectionQuizzes);
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -300,7 +284,7 @@ class _SectionPageState extends State<SectionPage>
                 questionsController.reset();
                 await questionsController.startUpQuiz();
                 // TODO properly navigate to quiz page.
-                Navigator.pushNamed(context, TestScreen.routeName);
+                Navigator.pushReplacementNamed(context, TestScreen.routeName);
               },
             );
           }

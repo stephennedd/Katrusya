@@ -123,7 +123,7 @@ class QuestionsController extends GetxController {
       "number_of_hp_points": numberOfHpPoints
     };
     await sendTheUserResultsPerTest("/users/testResults", data);
-    Get.offAndToNamed(ResultScreen.routeName);
+    //Get.offAndToNamed(ResultScreen.routeName);
   }
 
   void reset() {

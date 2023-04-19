@@ -83,7 +83,9 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                               controller.completeTest(
                                   _getStorage.read("userId"),
                                   controller.questionPaperModel.id,
-                                  controller.points);
+                                  controller.points,
+                              );
+                              Navigator.pushReplacementNamed(context, ResultScreen.routeName);
                             },
                             title: 'Complete',
                           ))

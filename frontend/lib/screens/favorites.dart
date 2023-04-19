@@ -28,6 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
+        key: Key("favoritesAppBar"),
         backgroundColor: appBarOffWhite,
         title: "Wishlist",
         centerTitle: false,
@@ -45,6 +46,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
       child: ListView.builder(
+          key: Key("favoritesList"),
           scrollDirection: Axis.vertical,
           itemCount: userFavoriteCourses.length,
           itemBuilder: (context, index) {

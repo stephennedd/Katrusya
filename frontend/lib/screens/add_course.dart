@@ -21,6 +21,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
   int _currentPageIndex = 0;
   final PageController _pageController = PageController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController topicsController = TextEditingController();
@@ -141,6 +142,13 @@ class _AddCoursePageState extends State<AddCoursePage> {
                         const SizedBox(height: 16.0),
                         Form(
                           child: Column(children: [
+                            FormInput(
+                              text: 'price',
+                              type: TextInputType.numberWithOptions(decimal: true),
+                              validatorText: "a price",
+                              textController: priceController,
+                            ),
+                            const SizedBox(height: 16.0),
                             FormInput(
                               text: 'category',
                               type: TextInputType.text,
@@ -359,6 +367,21 @@ class _AddCoursePageState extends State<AddCoursePage> {
                           ),
                           Text(
                             nameController.value.text,
+                            style: const TextStyle(
+                                fontFamily: 'Nexa-Trial',
+                                fontWeight: FontWeight.w600,
+                                color: textColor),
+                          ),
+                          const SizedBox(height: 16,),
+                          const Text(
+                            "price",
+                            style: TextStyle(
+                                fontFamily: 'Nexa-Trial',
+                                fontWeight: FontWeight.w500,
+                                color: textColor),
+                          ),
+                          Text(
+                            priceController.value.text,
                             style: const TextStyle(
                                 fontFamily: 'Nexa-Trial',
                                 fontWeight: FontWeight.w600,

@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/login.dart';
 import 'package:frontend/widgets/text_input.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import '../Themes/app_colors.dart';
 import '../controllers/users/user_controller.dart';
 import '../widgets/button.dart';
@@ -29,6 +28,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController passwordController = TextEditingController();
 
   UsersController usersController = Get.put(UsersController());
+  final GetStorage _getStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
