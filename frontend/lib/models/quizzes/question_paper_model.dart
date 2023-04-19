@@ -25,12 +25,12 @@ class QuestionPaperModel {
             .toList();
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image_url'] = this.imageUrl;
-    data['description'] = this.description;
-    data['time_seconds'] = this.timeSeconds;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['image_url'] = imageUrl;
+    data['description'] = description;
+    data['time_seconds'] = timeSeconds;
     return data;
   }
 
@@ -68,13 +68,11 @@ class Questions {
         correctAnswer = json['correct_answer'];
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['question'] = this.question;
-    if (this.answers != null) {
-      data['answers'] = this.answers.map((v) => v.toJson()).toList();
-    }
-    data['correct_answer'] = this.correctAnswer;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['question'] = question;
+    data['answers'] = answers.map((v) => v.toJson()).toList();
+    data['correct_answer'] = correctAnswer;
     return data;
   }
 
@@ -100,9 +98,9 @@ class Answers {
         answer = json['answer'];
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['identifier'] = this.identifier;
-    data['answer'] = this.answer;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['identifier'] = identifier;
+    data['answer'] = answer;
     return data;
   }
 

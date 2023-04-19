@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Themes/ui_parameters.dart';
-import 'package:get/get.dart';
 
 Color answerSelectedColor() => primaryDark;
 

@@ -3,8 +3,6 @@ import 'package:frontend/models/course_query_params_model.dart';
 import 'package:frontend/models/courses/course_details_model.dart';
 import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
-import 'package:frontend/models/quizzes/question_paper_model.dart';
-import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +36,7 @@ class CourseController extends GetxController {
   Future<List<CourseModel>> getRecommendedCourses(String? category) async {
     loadingStatus.value = LoadingStatus.loading;
     RxList<CourseModel> data = await CallApi().getCourses(
-        new CourseQueryParamsModel(isRecommended: true, category: category));
+        CourseQueryParamsModel(isRecommended: true, category: category));
     recommendedCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return recommendedCourses;
@@ -67,7 +65,7 @@ class CourseController extends GetxController {
   Future<RxList<CourseModel>> getCourses() async {
     loadingStatus.value = LoadingStatus.loading;
     RxList<CourseModel> data = await CallApi()
-        .getCourses(new CourseQueryParamsModel(category: null, search: null));
+        .getCourses(CourseQueryParamsModel(category: null, search: null));
     courses.value = data;
     // if (category == null && search == null) {
     //   for (int i = 0; i < courses.value.length; i++) {
@@ -118,7 +116,7 @@ class CourseController extends GetxController {
   Future<List<CourseModel>> getFeaturedCourses(String? category) async {
     loadingStatus.value = LoadingStatus.loading;
     RxList<CourseModel> data = await CallApi().getCourses(
-        new CourseQueryParamsModel(isFeatured: true, category: category));
+        CourseQueryParamsModel(isFeatured: true, category: category));
     featuredCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return featuredCourses;
@@ -128,7 +126,7 @@ class CourseController extends GetxController {
       String? category, String? search) async {
     loadingStatus.value = LoadingStatus.loading;
     RxList<CourseModel> data = await CallApi().getCourses(
-        new CourseQueryParamsModel(category: category, search: search));
+        CourseQueryParamsModel(category: category, search: search));
     searchedCourses.value = data;
     loadingStatus.value = LoadingStatus.completed;
     return courses;

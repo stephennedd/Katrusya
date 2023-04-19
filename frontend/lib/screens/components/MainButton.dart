@@ -35,7 +35,7 @@ class MainButton extends StatelessWidget {
                         Center(
                           child: Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'Nexa-Trial',
                                 fontWeight: FontWeight.bold,
                                 color: primaryDark,

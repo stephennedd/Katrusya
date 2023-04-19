@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 
 import 'leaderboard_item.dart';
@@ -15,13 +14,13 @@ class LeaderboardPopup extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   colors: [primary, Colors.white],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter),
               borderRadius: BorderRadius.circular(25)),
           child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: appBarOffWhite,
                   borderRadius: BorderRadius.circular(25),
@@ -30,14 +29,14 @@ class LeaderboardPopup extends StatelessWidget {
                         color: shadowColor.withOpacity(0.1),
                         blurRadius: 1,
                         spreadRadius: 1,
-                        offset: Offset(1, 1))
+                        offset: const Offset(1, 1))
                   ]),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 15, left: 15),
-                    child: Text(
+                    padding: const EdgeInsets.only(top: 15, left: 15),
+                    child: const Text(
                       "leaderboard",
                       style: TextStyle(
                           fontFamily: 'Nexa-Trial',
@@ -47,7 +46,7 @@ class LeaderboardPopup extends StatelessWidget {
                   ),
                   Container(
                     height: 700,
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+                    padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
                     child: getLeaderboardItems(),
                   )
                 ],

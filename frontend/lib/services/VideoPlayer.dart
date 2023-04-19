@@ -6,7 +6,7 @@ class VideoPlayer extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
   final bool isLoop;
   const VideoPlayer(
-      {required this.isLoop, required this.videoPlayerController});
+      {super.key, required this.isLoop, required this.videoPlayerController});
 
   @override
   State<VideoPlayer> createState() => _VideoPlayerState();
@@ -36,7 +36,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
 class VideoDisplay extends StatefulWidget {
   final String videoUrl;
-  VideoDisplay({required this.videoUrl});
+  const VideoDisplay({super.key, required this.videoUrl});
   @override
   _VideoDisplayState createState() => _VideoDisplayState();
 }

@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/models/courses/purchase_model.dart';
@@ -67,7 +65,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
         title: "Details",
         onTap: () {
           showDialog(context: context, builder: (BuildContext context) {
-            return LeaderboardPopup();
+            return const LeaderboardPopup();
           });
           print("open leaderboard");
         },
@@ -76,7 +74,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       backgroundColor: appBarColor,
       bottomNavigationBar: Obx(
         () => courseController.isCurrentCoursePurchased.value
-            ? SizedBox.shrink(
+            ? const SizedBox.shrink(
               key: Key("hiddenBottomBar"),
             )
             : getBottomBar(),
@@ -90,7 +88,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
             child: Hero(
               tag: widget.course.id.toString() + widget.course.image,
               child: CustomImage(
@@ -102,7 +100,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(left: 15, right: 15), child: getInfo()),
+              padding: const EdgeInsets.only(left: 15, right: 15), child: getInfo()),
           const SizedBox(
             height: 10,
           ),
@@ -149,7 +147,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getTabBarPages() {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       height: 400,
       width: double.infinity,
       child: TabBarView(
@@ -185,9 +183,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getMilestones() {
     return ListView.builder(
-        itemCount: courseController.courseQuizzes.value!.length,
+        itemCount: courseController.courseQuizzes.value.length,
         itemBuilder: (context, index) => QuizItem(
-              data: courseController.courseQuizzes.value![index],
+              data: courseController.courseQuizzes.value[index],
               onTap: () async {
                 questionsController.reset();
                 await questionsController.startUpQuiz();
@@ -241,7 +239,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children: const [
               CircleAvatar(
                 radius: 13,
                 //TODO update this data to the actual user's image and name
@@ -394,7 +392,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
           ),
           Expanded(
             child: ButtonSimple(
-              key: Key("buyCourseButton"),
+              key: const Key("buyCourseButton"),
               text: "Buy course",
               color: primary,
               textColor: primaryDark,

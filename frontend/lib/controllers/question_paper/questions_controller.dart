@@ -1,12 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:frontend/api/my_api.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
-import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
-import 'package:frontend/screens/watchCourseScreen.dart';
-import 'package:frontend/controllers/data_sender_controller.dart';
-import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/models/loading_status_model.dart';
 import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:get/get.dart';
@@ -107,9 +102,7 @@ class QuestionsController extends GetxController {
       } else {
         int minutes = remainSeconds ~/ 60;
         int seconds = remainSeconds % 60;
-        time.value = minutes.toString().padLeft(2, "0") +
-            ":" +
-            seconds.toString().padLeft(2, "0");
+        time.value = "${minutes.toString().padLeft(2, "0")}:${seconds.toString().padLeft(2, "0")}";
         remainSeconds--;
       }
     });

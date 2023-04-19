@@ -14,10 +14,10 @@ class CompletedSectionModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['course_id'] = this.courseId;
-    data['section_id'] = this.sectionId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['course_id'] = courseId;
+    data['section_id'] = sectionId;
     return data;
   }
 

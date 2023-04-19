@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../Themes/app_colors.dart';
 import '../controllers/marketplace/courses/course_controller.dart';

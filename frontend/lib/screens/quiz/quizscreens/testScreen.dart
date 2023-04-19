@@ -8,7 +8,6 @@ import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
 import 'package:frontend/screens/quiz/quizcomponents/CountdownTimer.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
-import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/models/loading_status_model.dart';
 import 'package:get/get.dart';
@@ -67,7 +66,7 @@ class TestScreen extends GetView<QuestionsController> {
                                   return ListView.separated(
                                       shrinkWrap: true,
                                       padding: const EdgeInsets.only(top: 25),
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         final answer = controller
@@ -112,7 +111,7 @@ class TestScreen extends GetView<QuestionsController> {
                                       onTap: () {
                                         controller.prevQuestion();
                                       },
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.arrow_back_ios_new,
                                         color: primaryDark,
                                       ),

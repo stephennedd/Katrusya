@@ -14,9 +14,9 @@ class ContentArea extends StatelessWidget {
       type: MaterialType.transparency,
       child: Ink(
         decoration:
-            BoxDecoration(color: const Color.fromARGB(255, 240, 237, 255)),
+            const BoxDecoration(color: Color.fromARGB(255, 240, 237, 255)),
         padding: addPadding
-            ? EdgeInsets.only(top: 25, left: 25, right: 25)
+            ? const EdgeInsets.only(top: 25, left: 25, right: 25)
             : EdgeInsets.zero,
         child: child,
       ),

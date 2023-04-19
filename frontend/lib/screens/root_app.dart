@@ -10,7 +10,6 @@ import 'package:frontend/widgets/bottombar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/search.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/users/user_controller.dart';
@@ -72,11 +71,11 @@ class _RootAppState extends State<RootApp> {
   }
 
   List tabItems = [
-    {"icon": "assets/icons/home.svg", "page": HomePage()},
-    {"icon": "assets/icons/search.svg", "page": SearchPage()},
-    {"icon": "assets/icons/play.svg", "page": MyCoursesPage()},
-    {"icon": "assets/icons/heart.svg", "page": FavoritesPage()},
-    {"icon": "assets/icons/profile.svg", "page": AccountPage()}
+    {"icon": "assets/icons/home.svg", "page": const HomePage()},
+    {"icon": "assets/icons/search.svg", "page": const SearchPage()},
+    {"icon": "assets/icons/play.svg", "page": const MyCoursesPage()},
+    {"icon": "assets/icons/heart.svg", "page": const FavoritesPage()},
+    {"icon": "assets/icons/profile.svg", "page": const AccountPage()}
   ];
 
   int activePageIndex = 0;
@@ -116,9 +115,9 @@ class _RootAppState extends State<RootApp> {
   }
 
   List teacherTabItems = [
-    {"icon": "assets/icons/home.svg", "page": DashboardPage()},
-    {"icon": "assets/icons/square-plus.svg", "page": AddCoursePage()},
-    {"icon": "assets/icons/profile.svg", "page": AccountPage()}
+    {"icon": "assets/icons/home.svg", "page": const DashboardPage()},
+    {"icon": "assets/icons/square-plus.svg", "page": const AddCoursePage()},
+    {"icon": "assets/icons/profile.svg", "page": const AccountPage()}
   ];
 
   Widget buildTeacherBottomBar() {

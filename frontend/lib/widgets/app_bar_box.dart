@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/root_app.dart';
 import '../Themes/app_colors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {

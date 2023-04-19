@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
-import 'package:frontend/controllers/data_uploader_controller.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
@@ -67,16 +66,16 @@ class _WatchCourseState extends State<WatchCourse> {
       ),
       body: Container(
           decoration: _playArea == false
-              ? BoxDecoration(
+              ? const BoxDecoration(
                   gradient: LinearGradient(
                   colors: [
                     Color(0xff0f17ad), //gradientFirst,
                     Color(0xff6985e8)
                   ],
-                  begin: const FractionalOffset(0.0, 0.4),
+                  begin: FractionalOffset(0.0, 0.4),
                   end: Alignment.topRight,
                 ))
-              : BoxDecoration(color: Color(0xff6985e8)),
+              : const BoxDecoration(color: Color(0xff6985e8)),
           child: Column(
             children: [
               _playArea == false
@@ -95,38 +94,38 @@ class _WatchCourseState extends State<WatchCourse> {
                                   Navigator.push(
                                     context,
                                     PageTransition(
-                                        child: MyCourses(),
+                                        child: const MyCourses(),
                                         type: PageTransitionType
                                             .leftToRightWithFade),
                                   );
                                 },
-                                child: Icon(Icons.arrow_back_ios,
+                                child: const Icon(Icons.arrow_back_ios,
                                     size: 20, color: Color(0xfffafafe)),
                               ),
                               Expanded(child: Container()),
-                              Icon(Icons.info_outline,
+                              const Icon(Icons.info_outline,
                                   size: 20, color: Color(0xfffafafe))
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text(
+                          const Text(
                             "Legs Toning",
                             style: TextStyle(
                               fontSize: 25,
                               color: Color(0xfff4f5fd),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "and Glutes Workout",
                             style: TextStyle(
                                 fontSize: 25, color: Color(0xfff4f5fd)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           ),
                           Row(
@@ -136,7 +135,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                   height: 30,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         colors: [
                                           Color(0xff0f17ad), //gradientFirst,
                                           Color(0xff6985e8)
@@ -146,7 +145,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                       )),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         Icons.timer,
                                         size: 20,
@@ -163,7 +162,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                       )
                                     ],
                                   )),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20,
                               ),
                               Container(
@@ -171,7 +170,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                   height: 30,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         colors: [
                                           Color(0xff0f17ad), //gradientFirst,
                                           Color(0xff6985e8)
@@ -181,7 +180,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                       )),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         Icons.handyman_outlined,
                                         size: 20,
@@ -202,7 +201,9 @@ class _WatchCourseState extends State<WatchCourse> {
                           )
                         ],
                       ))
-                  : Container(
+                  : SizedBox(
+                      width: 300,
+                      height: 380,
                       child: Column(
                         children: [
                           Container(
@@ -217,10 +218,10 @@ class _WatchCourseState extends State<WatchCourse> {
                                           _playArea = false;
                                         });
                                       },
-                                      child: Icon(Icons.arrow_back_ios,
+                                      child: const Icon(Icons.arrow_back_ios,
                                           size: 20, color: Colors.white)),
                                   Expanded(child: Container()),
-                                  Icon(Icons.info_outline,
+                                  const Icon(Icons.info_outline,
                                       size: 20, color: Colors.white)
                                 ],
                               )),
@@ -228,26 +229,24 @@ class _WatchCourseState extends State<WatchCourse> {
                           _controlView(context),
                         ],
                       ),
-                      width: 300,
-                      height: 380,
                     ),
               Expanded(
                   child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius:
                               BorderRadius.only(topRight: Radius.circular(70))),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
-                              Text(
+                              const Text(
                                 "Circuit 1: Legs Toning",
                                 style: TextStyle(
                                     fontSize: 20,
@@ -256,7 +255,7 @@ class _WatchCourseState extends State<WatchCourse> {
                               ),
                               Expanded(child: Container()),
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.loop,
                                       size: 30, color: Color(0xff0f17ad)),
                                   SizedBox(
@@ -269,12 +268,12 @@ class _WatchCourseState extends State<WatchCourse> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 40,
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           FutureBuilder<List<dynamic>>(
                             future: _loadVideoInfo(),
                             builder: (BuildContext context,
@@ -283,7 +282,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                 List<dynamic> videoInfo = snapshot.data!;
                                 return Expanded(
                                   child: ListView.builder(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 30, vertical: 8),
                                     itemCount: videoInfo.length,
                                     itemBuilder: (_, int index) {
@@ -300,7 +299,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                             _onTapQuiz();
                                           }
                                         },
-                                        child: Container(
+                                        child: SizedBox(
                                           height: 135,
                                           child: Column(
                                             children: [
@@ -321,7 +320,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                                           fit: BoxFit.cover),
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
                                                   Column(
@@ -335,18 +334,18 @@ class _WatchCourseState extends State<WatchCourse> {
                                                       Text(
                                                         videoInfo[index]
                                                             ["title"],
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 10,
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
+                                                            const EdgeInsets.only(
                                                                 top: 3),
                                                         child: Text(
                                                           videoInfo[index]
@@ -356,14 +355,14 @@ class _WatchCourseState extends State<WatchCourse> {
                                                                   .grey[500]),
                                                         ),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 10,
                                                       ),
                                                     ],
                                                   )
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 18,
                                               ),
                                               Row(
@@ -373,12 +372,12 @@ class _WatchCourseState extends State<WatchCourse> {
                                                       height: 20,
                                                       decoration: BoxDecoration(
                                                         color:
-                                                            Color(0xffeaeefc),
+                                                            const Color(0xffeaeefc),
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10),
                                                       ),
-                                                      child: Center(
+                                                      child: const Center(
                                                         child: Text(
                                                           "15s rest",
                                                           style: TextStyle(
@@ -396,7 +395,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                                                 width: 3,
                                                                 height: 1,
                                                                 decoration: BoxDecoration(
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xff839fed),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
@@ -419,7 +418,7 @@ class _WatchCourseState extends State<WatchCourse> {
                                   ),
                                 );
                               } else {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               }
@@ -455,19 +454,17 @@ class _WatchCourseState extends State<WatchCourse> {
       debugPrint("controller can not be initialized");
       return;
     }
-    if (_duration == null) {
-      _duration = _controller?.value.duration;
-    }
+    _duration ??= _controller?.value.duration;
     var duration = _duration;
     if (duration == null) return;
 
-    var position = controller?.value.position;
+    var position = controller.value.position;
     _position = position;
     final playing = controller.value.isPlaying;
     if (playing) {
       if (_disposed) return;
       setState(() {
-        _progress = position!.inMilliseconds.ceilToDouble() /
+        _progress = position.inMilliseconds.ceilToDouble() /
             duration.inMilliseconds.ceilToDouble();
       });
     }
@@ -507,7 +504,7 @@ class _WatchCourseState extends State<WatchCourse> {
   }
 
   Widget _controlView(BuildContext context) {
-    final noMute = (_controller?.value?.volume ?? 0) > 0;
+    final noMute = (_controller?.value.volume ?? 0) > 0;
     final duration = _duration?.inSeconds ?? 0;
     final head = _position?.inSeconds ?? 0;
     final remained = max(0, duration - head);
@@ -518,18 +515,18 @@ class _WatchCourseState extends State<WatchCourse> {
         data: SliderTheme.of(context).copyWith(
           activeTrackColor: Colors.red[700],
           inactiveTrackColor: Colors.red[100],
-          trackShape: RoundedRectSliderTrackShape(),
+          trackShape: const RoundedRectSliderTrackShape(),
           trackHeight: 2.0,
-          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
           thumbColor: Colors.redAccent,
           overlayColor: Colors.red.withAlpha(32),
-          overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
-          tickMarkShape: RoundSliderTickMarkShape(),
+          overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
+          tickMarkShape: const RoundSliderTickMarkShape(),
           activeTickMarkColor: Colors.red[700],
           inactiveTickMarkColor: Colors.red[100],
-          valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+          valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
           valueIndicatorColor: Colors.redAccent,
-          valueIndicatorTextStyle: TextStyle(
+          valueIndicatorTextStyle: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -548,7 +545,7 @@ class _WatchCourseState extends State<WatchCourse> {
             _controller?.pause();
           },
           onChangeEnd: (value) {
-            final duration = _controller?.value?.duration;
+            final duration = _controller?.value.duration;
             if (duration != null) {
               var newValue = max(0, min(value, 99)) * 0.01;
               var millis = (duration.inMilliseconds * newValue).toInt();
@@ -562,17 +559,17 @@ class _WatchCourseState extends State<WatchCourse> {
         height: 40,
         margin: const EdgeInsets.only(bottom: 10),
         width: MediaQuery.of(context).size.width,
-        color: Color(0xff6985e8),
+        color: const Color(0xff6985e8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: Container(
                     decoration:
-                        BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                        const BoxDecoration(shape: BoxShape.circle, boxShadow: [
                       BoxShadow(
                         offset: Offset(0.0, 0.0),
                         blurRadius: 4.0,
@@ -594,19 +591,19 @@ class _WatchCourseState extends State<WatchCourse> {
             ElevatedButton(
                 onPressed: () async {
                   final index = _isPlayingIndex - 1;
-                  if (index >= 0 && videoInfo.length > 0) {
+                  if (index >= 0 && videoInfo.isNotEmpty) {
                     _onTapVideo(index);
                   } else {
                     Get.snackbar("Video list", "",
                         snackPosition: SnackPosition.BOTTOM,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.face,
                           size: 30,
                           color: Colors.white,
                         ),
-                        backgroundColor: Color(0xff6985e8),
+                        backgroundColor: const Color(0xff6985e8),
                         colorText: Colors.white,
-                        messageText: Text(
+                        messageText: const Text(
                           "No more videos in the list",
                           style: TextStyle(
                             fontSize: 20,
@@ -615,7 +612,7 @@ class _WatchCourseState extends State<WatchCourse> {
                         ));
                   }
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.fast_rewind,
                   size: 36,
                   color: Colors.white,
@@ -647,14 +644,14 @@ class _WatchCourseState extends State<WatchCourse> {
                   } else {
                     Get.snackbar("Video list", "",
                         snackPosition: SnackPosition.BOTTOM,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.face,
                           size: 30,
                           color: Colors.white,
                         ),
-                        backgroundColor: Color(0xff6985e8),
+                        backgroundColor: const Color(0xff6985e8),
                         colorText: Colors.white,
-                        messageText: Text(
+                        messageText: const Text(
                           "No more videos in the list",
                           style: TextStyle(
                             fontSize: 20,
@@ -663,13 +660,13 @@ class _WatchCourseState extends State<WatchCourse> {
                         ));
                   }
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.fast_forward,
                   size: 36,
                   color: Colors.white,
                 )),
             Text("$mins:$secs",
-                style: TextStyle(color: Colors.white, shadows: <Shadow>[
+                style: const TextStyle(color: Colors.white, shadows: <Shadow>[
                   Shadow(
                       offset: Offset(0.0, 1.0),
                       blurRadius: 4.0,
@@ -689,7 +686,7 @@ class _WatchCourseState extends State<WatchCourse> {
         child: VideoPlayer(controller),
       );
     } else {
-      return AspectRatio(
+      return const AspectRatio(
         aspectRatio: 16 / 9,
         child: Center(
             child: Text("Preparing...",

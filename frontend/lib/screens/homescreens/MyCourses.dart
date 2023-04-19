@@ -1,13 +1,9 @@
-import 'dart:convert';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/Screens/MyList.dart';
-import 'package:frontend/screens/components/ProgressingBar.dart';
 import 'package:frontend/screens/watchCourseScreen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:get/get.dart';
 
 class MyCourses extends StatefulWidget {
   const MyCourses({super.key});
@@ -48,7 +44,7 @@ class _MyCoursesState extends State<MyCourses> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("My learning"),
+          title: const Text("My learning"),
           backgroundColor: Colors.black,
           actions: [
             Padding(
@@ -56,12 +52,12 @@ class _MyCoursesState extends State<MyCourses> {
               child: Container(
                 alignment: Alignment.center,
                 child: InkWell(
-                  child: Icon(EvaIcons.shoppingCartOutline),
+                  child: const Icon(EvaIcons.shoppingCartOutline),
                   onTap: () {
                     Navigator.push(
                       context,
                       PageTransition(
-                          child: MyList(),
+                          child: const MyList(),
                           type: PageTransitionType.leftToRightWithFade),
                     );
                   },
@@ -71,7 +67,7 @@ class _MyCoursesState extends State<MyCourses> {
           ],
         ),
         body: Scaffold(
-            backgroundColor: Color(0xfffbfcff), //homePageBackground
+            backgroundColor: const Color(0xfffbfcff), //homePageBackground
             body: Container(
                 padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: Column(
@@ -103,7 +99,7 @@ class _MyCoursesState extends State<MyCourses> {
                             size: 20, color: Color(0xff3b3c5c))
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(children: [
                       const Text(
                         "My course",
@@ -113,11 +109,11 @@ class _MyCoursesState extends State<MyCourses> {
                             fontWeight: FontWeight.w700),
                       ),
                       Expanded(child: Container()),
-                      Text("Details",
+                      const Text("Details",
                           style: TextStyle(
                               fontSize: 20,
                               color: Color(0xff6588f4))), //homePageDetail
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       InkWell(
@@ -125,15 +121,15 @@ class _MyCoursesState extends State<MyCourses> {
                             Navigator.push(
                               context,
                               PageTransition(
-                                  child: WatchCourse(),
+                                  child: const WatchCourse(),
                                   type: PageTransitionType.leftToRightWithFade),
                             );
                             // Get.to(() => WatchCourse());
                           },
-                          child: Icon(Icons.arrow_forward,
+                          child: const Icon(Icons.arrow_forward,
                               size: 20, color: Colors.blue))
                     ]),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -164,38 +160,38 @@ class _MyCoursesState extends State<MyCourses> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Next workout",
+                              const Text("Next workout",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Color(
                                           0xfff4f5fd) //homePageContainerTextSmall
                                       )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text(
+                              const Text(
                                 "Legs Toning",
                                 style: TextStyle(
                                   fontSize: 25,
                                   color: Color(0xfff4f5fd),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text(
+                              const Text(
                                 "and Glutes Workout",
                                 style: TextStyle(
                                     fontSize: 25, color: Color(0xfff4f5fd)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 25,
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Row(
-                                    children: [
+                                    children: const [
                                       Icon(Icons.timer,
                                           size: 20, color: Color(0xfff4f5fd)),
                                       SizedBox(
@@ -213,13 +209,13 @@ class _MyCoursesState extends State<MyCourses> {
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(60),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                               color: Color(0xff0f17ad),
                                               blurRadius: 10,
                                               offset: Offset(4, 8))
                                         ]),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.play_circle_fill,
                                       color: Colors.white,
                                       size: 60,
@@ -230,10 +226,10 @@ class _MyCoursesState extends State<MyCourses> {
                             ],
                           )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
-                    Container(
+                    SizedBox(
                         height: 180,
                         width: MediaQuery.of(context).size.width,
                         child: Stack(
@@ -250,13 +246,13 @@ class _MyCoursesState extends State<MyCourses> {
                                     boxShadow: [
                                       BoxShadow(
                                           blurRadius: 40,
-                                          offset: Offset(8, 10),
-                                          color: Color(0xff6985e8)
+                                          offset: const Offset(8, 10),
+                                          color: const Color(0xff6985e8)
                                               .withOpacity(0.3)),
                                       BoxShadow(
                                           blurRadius: 10,
-                                          offset: Offset(-1, -5),
-                                          color: Color(0xff6985e8)
+                                          offset: const Offset(-1, -5),
+                                          color: const Color(0xff6985e8)
                                               .withOpacity(0.3))
                                     ])),
                             Container(
@@ -279,18 +275,18 @@ class _MyCoursesState extends State<MyCourses> {
                                     const EdgeInsets.only(left: 150, top: 30),
                                 child: Column(
                                   children: [
-                                    Text(
+                                    const Text(
                                       "You are doing great",
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xff414160)),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     RichText(
-                                        text: TextSpan(
+                                        text: const TextSpan(
                                             text: "Keep it up\n",
                                             style: TextStyle(
                                               color: Color(0xff414160),

@@ -26,14 +26,14 @@ class UserModel {
         userRoles = json['roles'] as List<dynamic>;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['created_at'] = this.createdAt;
-    data['balance_of_tokens'] = this.balanceOfTokens;
-    data['roles'] = this.userRoles;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['password'] = password;
+    data['created_at'] = createdAt;
+    data['balance_of_tokens'] = balanceOfTokens;
+    data['roles'] = userRoles;
     return data;
   }
 

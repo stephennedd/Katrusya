@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/Screens/home.dart';
-import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/screens/login.dart';
 import 'package:frontend/screens/signup.dart';
@@ -30,7 +28,7 @@ class _StartPageState extends State<StartPage> {
           child: Column(
             children: [
               ButtonSimple(
-                key: Key("getStartedButton"),
+                key: const Key("getStartedButton"),
                 width: double.infinity,
                 text: "get started",
                 color: primary,
@@ -45,7 +43,7 @@ class _StartPageState extends State<StartPage> {
               ),
 
               ButtonSimple(
-                key: Key("toLoginButton"),
+                key: const Key("toLoginButton"),
                 width: double.infinity,
                 text: "already have an account",
                 color: Colors.white,
@@ -105,7 +103,7 @@ class _StartPageState extends State<StartPage> {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Text(
                   "Don't just learn, earn with Katrusya",
                   maxLines: 2,
@@ -118,7 +116,7 @@ class _StartPageState extends State<StartPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Text(
                   "Invest in your education and your future. sign up now!",
                   maxLines: 2,

@@ -18,25 +18,25 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: MyAppBar(
         title: "Dashboard",
         hasBackButton: false,
-        backgroundColor: Color(0xFFEDEDED),
+        backgroundColor: const Color(0xFFEDEDED),
       ),
       body: _buildBody(),
-      backgroundColor: Color(0xFFEDEDED),
+      backgroundColor: const Color(0xFFEDEDED),
     );
   }
 
   Widget _buildBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      padding: EdgeInsets.only(left: 15, right: 15, top: 20),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
       child: Column(
         children: [
           getBalance(),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           getCompletionChart(),
-          SizedBox(height: 30,),
+          const SizedBox(height: 30,),
           getEarnings(),
         ],
       ),
@@ -45,7 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget getBalance() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       height: 130,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -56,13 +56,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: shadowColor.withOpacity(.1),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: Offset(1, 1))
+                offset: const Offset(1, 1))
           ]),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "balance",
             style: TextStyle(
                 fontFamily: 'Nexa-Trial',
@@ -73,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
-            children: [
+            children: const [
               Text(
                 "\$",
                 style: TextStyle(
@@ -104,7 +104,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget getCompletionChart() {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       height: 350,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -115,12 +115,12 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: shadowColor.withOpacity(.1),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: Offset(1, 1))
+                offset: const Offset(1, 1))
           ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "completion rate 2023",
             style: TextStyle(
                 fontFamily: 'Nexa-Trial',
@@ -131,7 +131,7 @@ class _DashboardPageState extends State<DashboardPage> {
           // Graph of completion rate of your courses.
           SfCartesianChart(
               primaryXAxis: CategoryAxis(),
-              primaryYAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0), interval: 10),
+              primaryYAxis: CategoryAxis(majorGridLines: const MajorGridLines(width: 0), interval: 10),
               legend: Legend(isVisible: true, position: LegendPosition.bottom, ),
               series: <ChartSeries<SalesData, String>>[
                 SplineSeries<SalesData, String>(
@@ -155,7 +155,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ],
                     xValueMapper: (SalesData sales, _) => sales.month,
                     yValueMapper: (SalesData sales, _) => sales.completedCourses,
-                    dataLabelSettings: DataLabelSettings(isVisible: true)
+                    dataLabelSettings: const DataLabelSettings(isVisible: true)
                 )
               ])
         ],
@@ -165,7 +165,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget getEarnings() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       height: 140,
       decoration: BoxDecoration(
           color: primaryDark,
@@ -175,12 +175,12 @@ class _DashboardPageState extends State<DashboardPage> {
                 color: shadowColor.withOpacity(.1),
                 spreadRadius: 1,
                 blurRadius: 1,
-                offset: Offset(1, 1))
+                offset: const Offset(1, 1))
           ]),
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               Text("earnings",
                 style: TextStyle(
                     fontFamily: 'Nexa-Trial',
@@ -198,7 +198,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "this month",
                     style: TextStyle(
                         fontFamily: 'Nexa-Trial',
@@ -206,13 +206,13 @@ class _DashboardPageState extends State<DashboardPage> {
                         fontWeight: FontWeight.w600,
                         color: primary),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
-                    children: [
+                    children: const [
                       Text(
                         "\$",
                         style: TextStyle(
@@ -241,7 +241,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "this year",
                     style: TextStyle(
                         fontFamily: 'Nexa-Trial',
@@ -249,13 +249,13 @@ class _DashboardPageState extends State<DashboardPage> {
                         fontWeight: FontWeight.w600,
                         color: primary),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
-                      children: [
+                      children: const [
                         Text(
                           "\$",
                           style: TextStyle(

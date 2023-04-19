@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/file_upload_box.dart';
 import 'package:frontend/widgets/uploaded_file_box.dart';
-import '../themes/app_colors.dart';
 import '../widgets/button.dart';
 import '../widgets/text_input.dart';
 
@@ -144,7 +142,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
                           child: Column(children: [
                             FormInput(
                               text: 'price',
-                              type: TextInputType.numberWithOptions(decimal: true),
+                              type: const TextInputType.numberWithOptions(decimal: true),
                               validatorText: "a price",
                               textController: priceController,
                             ),
@@ -306,7 +304,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
                               height: 10,
                             ),
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               height: 200,
                               width: double.infinity,
                               child: ListView.builder(

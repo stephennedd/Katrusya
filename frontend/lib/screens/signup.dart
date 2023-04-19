@@ -4,7 +4,6 @@ import 'package:frontend/models/users/user_model.dart';
 import 'package:frontend/screens/login.dart';
 import 'package:frontend/widgets/text_input.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import '../Themes/app_colors.dart';
 import '../controllers/users/user_controller.dart';
@@ -94,7 +93,7 @@ class _SignupPageState extends State<SignupPage> {
                     child: Column(
                       children: [
                         FormInput(
-                            key: Key("usernameField"),
+                            key: const Key("usernameField"),
                             text: 'username',
                             icon: "assets/icons/user.svg",
                             type: TextInputType.text,
@@ -104,7 +103,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 20,
                         ),
                         FormInput(
-                          key: Key("phoneField"),
+                          key: const Key("phoneField"),
                           text: 'phone',
                           icon: "assets/icons/phone.svg",
                           type: TextInputType.phone,
@@ -115,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                           height: 20,
                         ),
                         FormInput(
-                          key: Key("emailField"),
+                          key: const Key("emailField"),
                           text: 'email',
                           icon: "assets/icons/email.svg",
                           type: TextInputType.emailAddress,
@@ -127,7 +126,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         //TODO The password should be possible to see
                         FormInput(
-                          key: Key("passwordField"),
+                          key: const Key("passwordField"),
                           text: 'password',
                           icon: "assets/icons/password.svg",
                           type: TextInputType.text,
@@ -156,7 +155,7 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: [
             ButtonSimple(
-              key: Key("signupButton"),
+              key: const Key("signupButton"),
                 width: double.infinity,
                 text: "sign up",
                 color: primary,
@@ -169,7 +168,7 @@ class _SignupPageState extends State<SignupPage> {
                     String email = emailController.text;
                     String password = passwordController.text;
                     var response = await usersController.registerUser(
-                        new UserModel(
+                        UserModel(
                             username: username,
                             phone: phone,
                             email: email,
@@ -178,7 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                     if (response.statusCode == 201) {
                       // successful login, navigate to the next page
                       Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) => LoginPage())
+                          builder: (context) => const LoginPage())
                       );
                     } else {
                       // unsuccessful login, display error messages
@@ -190,11 +189,11 @@ class _SignupPageState extends State<SignupPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('There is an error'),
+                              title: const Text('There is an error'),
                               content: Text(errorMessage),
                               actions: [
                                 ElevatedButton(
-                                  child: Text("OK"),
+                                  child: const Text("OK"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -213,7 +212,7 @@ class _SignupPageState extends State<SignupPage> {
               color: appBarColor,
               onPressed: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) => LoginPage()));
+                    builder: (context) => const LoginPage()));
               },
             )
           ],

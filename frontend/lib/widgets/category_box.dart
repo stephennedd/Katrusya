@@ -24,7 +24,7 @@ class CategoryBox extends StatelessWidget {
       child: Column(
         children: [
           AnimatedContainer(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.fastOutSlowIn,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(

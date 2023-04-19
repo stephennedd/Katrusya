@@ -9,7 +9,6 @@ import 'package:frontend/screens/quiz/quizcomponents/QuestionNumberCard.dart';
 import 'package:frontend/screens/quiz/quizcomponents/CountdownTimer.dart';
 import 'package:frontend/screens/quiz/quizscreens/resultScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
-import 'package:frontend/Themes/ui_parameters.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
@@ -38,7 +37,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                 children: [
                   Row(
                     children: [
-                      CountdownTimer(
+                      const CountdownTimer(
                         color: primaryDark,
                         time: '',
                       ),
@@ -55,7 +54,7 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                       child: GridView.builder(
                           itemCount: controller.allQuestions.length,
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: Get.width ~/ 75,
@@ -63,14 +62,14 @@ class TestOverviewScreen extends GetView<QuestionsController> {
                                   crossAxisSpacing: 8,
                                   mainAxisSpacing: 8),
                           itemBuilder: (_, index) {
-                            AnswerStatus? _answerStatus;
+                            AnswerStatus? answerStatus;
                             if (controller.allQuestions[index].selectedAnswer !=
                                 null) {
-                              _answerStatus = AnswerStatus.answered;
+                              answerStatus = AnswerStatus.answered;
                             }
                             return QuestionNumberCard(
                                 index: index + 1,
-                                status: _answerStatus,
+                                status: answerStatus,
                                 onTap: () => controller.jumpToQuestion(index));
                           })),
                   ColoredBox(

@@ -11,20 +11,20 @@ class SettingsItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(top: 5),
+        margin: const EdgeInsets.only(top: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               itemText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Nexa-Trial',
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: textColor
               ),
             ),
-            Icon(Icons.arrow_forward_ios_rounded)
+            const Icon(Icons.arrow_forward_ios_rounded)
           ],
         ),
       ),

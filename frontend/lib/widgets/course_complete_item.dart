@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../Themes/app_colors.dart';
-import '../controllers/users/user_controller.dart';
 import 'custom_image.dart';
 import 'lesson_progress.dart';
 
@@ -19,7 +16,7 @@ class CourseCompleteItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -67,7 +64,7 @@ class CourseCompleteItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.play_circle_outline,
                         size: 14,
                         color: labelColor,
@@ -94,7 +91,7 @@ class CourseCompleteItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 15,),
-            Icon(
+            const Icon(
               Icons.play_arrow_rounded,
               color: primaryDark,
               size: 30,

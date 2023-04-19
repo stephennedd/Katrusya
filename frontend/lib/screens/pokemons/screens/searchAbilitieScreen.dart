@@ -71,16 +71,16 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                   Text('Ability Description:',
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .titleLarge
                           ?.copyWith(color: Colors.grey)),
                   const SizedBox(height: constants.smallPadding),
                   Text(flavorText,
-                      style: Theme.of(context).textTheme.headline6),
+                      style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: constants.largePadding),
                   Text('Pokemons who use this ability:',
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .titleLarge
                           ?.copyWith(color: Colors.grey)),
                   Expanded(
                     child: ListView.builder(
@@ -95,7 +95,7 @@ class _SearchedAbilityScreenState extends State<SearchedAbilityScreen> {
                                 const SizedBox(height: constants.mediumPadding),
                                 Text(
                                   '${index + 1}.$pokemonName',
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 const SizedBox(height: constants.mediumPadding),
                                 const Divider(height: 5),

@@ -14,12 +14,12 @@ class _AccountState extends State<Account> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Account',
+          title: const Text('Account',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.shoppingCartOutline),
+              icon: const Icon(EvaIcons.shoppingCartOutline),
               onPressed: () {
                 print('Basket window');
               },
@@ -41,7 +41,7 @@ class _AccountState extends State<Account> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('Yehor Zhvarnytskyi',
+                            const Text('Yehor Zhvarnytskyi',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 24.0)),
                             Padding(
@@ -49,7 +49,7 @@ class _AccountState extends State<Account> {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: [
+                                  children: const [
                                     Icon(EvaIcons.google, color: Colors.white),
                                     Text(
                                       'smisha3000@gmail.com',
@@ -62,18 +62,18 @@ class _AccountState extends State<Account> {
                                 padding: const EdgeInsets.only(top: 30.0),
                                 child: MaterialButton(
                                   onPressed: () {},
-                                  child: Text('Become an instructor',
+                                  child: const Text('Become an instructor',
                                       style: TextStyle(
                                           color: Colors.lightBlue,
                                           fontWeight: FontWeight.bold)),
                                 ))
                           ],
                         )),
-                    Text(
+                    const Text(
                       'Video preferences',
                       style: TextStyle(color: Colors.grey, fontSize: 14.0),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -81,7 +81,7 @@ class _AccountState extends State<Account> {
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -89,7 +89,7 @@ class _AccountState extends State<Account> {
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -97,7 +97,7 @@ class _AccountState extends State<Account> {
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -105,7 +105,7 @@ class _AccountState extends State<Account> {
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -113,11 +113,11 @@ class _AccountState extends State<Account> {
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Diagnostics',
                       style: TextStyle(color: Colors.grey, fontSize: 14.0),
                     ),
-                    ListTile(
+                    const ListTile(
                       trailing:
                           Icon(Icons.arrow_forward_ios, color: Colors.white),
                       title: Text(
@@ -128,13 +128,13 @@ class _AccountState extends State<Account> {
                     Center(
                         child: MaterialButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Sign out',
                         style: TextStyle(color: Colors.lightBlue),
                       ),
                     )),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
+                    const Padding(
+                        padding: EdgeInsets.only(top: 50.0),
                         child: Center(
                           child: Text(
                             'Udemy clone v1.0.0',

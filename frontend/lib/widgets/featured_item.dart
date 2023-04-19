@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Themes/app_colors.dart';
 
 class FeaturedItem extends StatelessWidget {
-  FeaturedItem({Key? key, required this.data, this.onTap}) : super(key: key);
+  const FeaturedItem({Key? key, required this.data, this.onTap}) : super(key: key);
   final data;
   final GestureTapCallback? onTap;
 
@@ -66,7 +66,7 @@ class FeaturedItem extends StatelessWidget {
             Positioned(
               top: 210,
               left: 10,
-              child: Container(
+              child: SizedBox(
                 width: 270,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

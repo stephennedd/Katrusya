@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/screens/quiz/quizcomponents/AnswerCard.dart';
@@ -9,8 +7,6 @@ import 'package:frontend/screens/components/ContentArea.dart';
 import 'package:frontend/screens/components/CustomAppBar.dart';
 import 'package:frontend/screens/components/MainButton.dart';
 import 'package:frontend/screens/section.dart';
-import 'package:frontend/screens/watchCourseScreen.dart';
-import 'package:frontend/Themes/custom_text_styles.dart';
 import 'package:frontend/controllers/question_paper/questions_controller.dart';
 import 'package:frontend/controllers/question_paper/questions_controller_extension.dart';
 import 'package:get/get.dart';
@@ -86,20 +82,20 @@ class ResultScreen extends GetView<QuestionsController> {
                                   crossAxisSpacing: 8,
                                   mainAxisSpacing: 8),
                           itemBuilder: (_, index) {
-                            final _question = controller.allQuestions[index];
-                            AnswerStatus _status = AnswerStatus.notanswered;
-                            final _selectedAnswer = _question.selectedAnswer;
-                            final _correctAnswer = _question.correctAnswer;
-                            if (_selectedAnswer == _correctAnswer) {
-                              _status = AnswerStatus.correct;
-                            } else if (_question.selectedAnswer == null) {
-                              _status = AnswerStatus.wrong;
+                            final question = controller.allQuestions[index];
+                            AnswerStatus status = AnswerStatus.notanswered;
+                            final selectedAnswer = question.selectedAnswer;
+                            final correctAnswer = question.correctAnswer;
+                            if (selectedAnswer == correctAnswer) {
+                              status = AnswerStatus.correct;
+                            } else if (question.selectedAnswer == null) {
+                              status = AnswerStatus.wrong;
                             } else {
-                              _status = AnswerStatus.wrong;
+                              status = AnswerStatus.wrong;
                             }
                             return QuestionNumberCard(
                               index: index + 1,
-                              status: _status,
+                              status: status,
                               onTap: () {
                                 controller.jumpToQuestion(index,
                                     isGoBack: false);

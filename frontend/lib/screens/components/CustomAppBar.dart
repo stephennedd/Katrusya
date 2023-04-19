@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/quiz/quizscreens/testOverviewScreen.dart';
 import 'package:frontend/Themes/custom_text_styles.dart';
-import 'package:frontend/Themes/ui_parameters.dart';
-import 'package:get/get.dart';
 
 import '../../widgets/leaderboard.dart';
 
@@ -59,7 +56,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     onPressed: onMenuActionTap ??
                         () {
                           showDialog(context: context, builder: (BuildContext context) {
-                            return LeaderboardPopup();
+                            return const LeaderboardPopup();
                           });
                         },
                     //Get.toNamed(TestOverviewScreen.routeName),

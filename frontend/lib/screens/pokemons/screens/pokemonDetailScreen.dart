@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/home.dart';
-import 'package:frontend/screens/homescreens/Featured.dart';
-import 'package:frontend/screens/root_app.dart';
-import 'package:frontend/screens/watchCourseScreen.dart';
 import '../../../controllers/pokemons/pokemon_basic_controller.dart';
 import '../../../controllers/pokemons/pokemon_favorite_controller.dart';
-import '../../../utils/pokemons/colors_generator.dart';
 import '../../../utils/pokemons/constants.dart' as constants;
 import '../../../models/pokemons/pokemon_basic_data.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +69,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                                 : constants.backIconLightThemeColor,
                             size: constants.detailScreenIconSize)),
                     Text(pokemon.name,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: isDark
                                 ? constants.pokemonNameDarkThemeColor
@@ -129,10 +124,10 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                               },
                               style: ButtonStyle(
                                 minimumSize: MaterialStateProperty.all<Size>(
-                                    Size(120, 40)),
+                                    const Size(120, 40)),
                                 // You can adjust the width and height of the button by changing the values in Size
                               ),
-                              child: Text('Select'),
+                              child: const Text('Select'),
                             ),
                           ),
                         ],

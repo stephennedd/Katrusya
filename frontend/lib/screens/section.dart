@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Screens/root_app.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/models/quizzes/quiz_model.dart';
-import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/quiz/quizscreens/testScreen.dart';
-import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/lesson_item.dart';
 import 'package:frontend/widgets/quiz_item.dart';
 import 'package:get/get.dart';
@@ -86,7 +83,7 @@ class _SectionPageState extends State<SectionPage>
           elevation: 0,
           backgroundColor: appBarColor,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
+            icon: const Icon(Icons.arrow_back_rounded, color: Colors.black,),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -141,9 +138,9 @@ class _SectionPageState extends State<SectionPage>
                       ),
                     )
                   : _isLoading
-                      ? Container(
+                      ? const SizedBox(
                           height: 200,
-                          child: const Center(
+                          child: Center(
                             child: CircularProgressIndicator(
                               color: primary,
                             ),
@@ -249,7 +246,7 @@ class _SectionPageState extends State<SectionPage>
 
   Widget getTabBarPages() {
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       height: 360,
       width: double.infinity,
       child: TabBarView(
@@ -349,6 +346,7 @@ class _SectionPageState extends State<SectionPage>
               progressValue: _videoProgress,
             );
           }
+          return null;
         });
   }
 
@@ -361,7 +359,7 @@ class _SectionPageState extends State<SectionPage>
           content: Text(message),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/widgets/section_progress.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../Themes/app_colors.dart';
 import 'custom_image.dart';
 

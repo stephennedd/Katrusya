@@ -6,7 +6,6 @@ import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/course_complete_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'course_landing_page.dart';
 
@@ -65,7 +64,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
             tabs: [
           Semantics(
             child: Tab(
-              key: Key("progressTab"),
+              key: const Key("progressTab"),
               child: Text(
                 // Done: update with real number
                 "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
@@ -84,7 +83,7 @@ class _MyCoursesPageState extends State<MyCoursesPage>
           ),
           Semantics(
             child: Tab(
-              key: Key("completeTab"),
+              key: const Key("completeTab"),
               child: Text(
                 // Done: update with real number
                 "Completed (${usersController.getNumberOfCompleteByUserCourses()})",

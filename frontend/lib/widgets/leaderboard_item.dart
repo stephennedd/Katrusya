@@ -11,7 +11,7 @@ class LeaderboardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       height: 55,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -22,15 +22,15 @@ class LeaderboardItem extends StatelessWidget {
             color: shadowColor.withOpacity(0.1),
             blurRadius: 1,
             spreadRadius: 1,
-            offset: Offset(1,1),
+            offset: const Offset(1,1),
           )
         ]
       ),
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("$index." ,style: TextStyle(fontFamily: 'Poppins', fontSize: 15, fontWeight: FontWeight.w500),),
+          Text("$index." ,style: const TextStyle(fontFamily: 'Poppins', fontSize: 15, fontWeight: FontWeight.w500),),
           CircleAvatar(
             backgroundColor: lightGrey,
             radius: 19,
@@ -39,8 +39,8 @@ class LeaderboardItem extends StatelessWidget {
               backgroundImage: AssetImage(image),
             ),
           ),
-          Text(name, style: TextStyle(fontFamily: 'Poppins', fontSize: 15, fontWeight: FontWeight.w600),),
-          Text("$score pts", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: labelColor),)
+          Text(name, style: const TextStyle(fontFamily: 'Poppins', fontSize: 15, fontWeight: FontWeight.w600),),
+          Text("$score pts", style: const TextStyle(fontFamily: 'Poppins', fontSize: 15, color: labelColor),)
         ],
       ),
     );

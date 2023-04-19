@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Themes/app_colors.dart';
 
 class RecommendItem extends StatelessWidget {
-  RecommendItem({Key? key, required this.data, this.onTap}) : super(key: key);
+  const RecommendItem({Key? key, required this.data, this.onTap}) : super(key: key);
   final data;
   final GestureTapCallback? onTap;
 

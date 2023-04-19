@@ -2,8 +2,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Screens/MyList.dart';
 import 'package:frontend/screens/detailsScreen.dart';
-import 'package:frontend/Services/DataController.dart';
-import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -55,18 +53,18 @@ class _FeauturedState extends State<Feautured> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Featured',
             style: TextStyle(color: Colors.white),
           ),
           actions: [
             IconButton(
-              icon: Icon(EvaIcons.shoppingCartOutline),
+              icon: const Icon(EvaIcons.shoppingCartOutline),
               onPressed: () => {
                 Navigator.push(
                   context,
                   PageTransition(
-                      child: MyList(),
+                      child: const MyList(),
                       type: PageTransitionType.leftToRightWithFade),
                 )
               },
@@ -85,7 +83,7 @@ class _FeauturedState extends State<Feautured> {
                 width: 400.0,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         fit: BoxFit.cover,
                         image: AssetImage('images/udemy_logo.png'))),
               ),
@@ -99,7 +97,7 @@ class _FeauturedState extends State<Feautured> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text('Courses now on sale',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20.0)),
@@ -110,8 +108,8 @@ class _FeauturedState extends State<Feautured> {
                                 fontWeight: FontWeight.bold))
                       ])),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0),
               child: Text('Featured',
                   style: TextStyle(
                       color: Colors.black,
@@ -130,7 +128,7 @@ class _FeauturedState extends State<Feautured> {
                             Navigator.pushReplacement(
                                 context,
                                 PageTransition(
-                                    child: DetailsScreen(),
+                                    child: const DetailsScreen(),
                                     type: PageTransitionType.bottomToTop));
                           },
                           child: Padding(
@@ -144,7 +142,7 @@ class _FeauturedState extends State<Feautured> {
                                   width: 350.0,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                           fit: BoxFit.cover,
                                           image: NetworkImage(
                                               'images/courseImage.jpg'))),
@@ -154,10 +152,10 @@ class _FeauturedState extends State<Feautured> {
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Container(
                                       constraints:
-                                          BoxConstraints(maxWidth: 200.0),
+                                          const BoxConstraints(maxWidth: 200.0),
                                       child: Text(
                                         data[index].title,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0),
                                       ))),
@@ -165,20 +163,20 @@ class _FeauturedState extends State<Feautured> {
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Text(
                                     data[index].author,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black, fontSize: 12.0),
                                   )),
                               Row(
                                 children: [
-                                  Icon(EvaIcons.star,
+                                  const Icon(EvaIcons.star,
                                       color: Colors.yellowAccent),
-                                  Icon(EvaIcons.star,
+                                  const Icon(EvaIcons.star,
                                       color: Colors.yellowAccent),
-                                  Icon(EvaIcons.star,
+                                  const Icon(EvaIcons.star,
                                       color: Colors.yellowAccent),
-                                  Icon(EvaIcons.star,
+                                  const Icon(EvaIcons.star,
                                       color: Colors.yellowAccent),
-                                  Icon(EvaIcons.star,
+                                  const Icon(EvaIcons.star,
                                       color: Colors.yellowAccent),
                                   Padding(
                                       padding: const EdgeInsets.only(left: 4.0),

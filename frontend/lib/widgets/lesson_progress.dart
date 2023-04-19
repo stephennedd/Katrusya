@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyLinearProgressIndicator extends StatefulWidget {
   final double value;
 
-  MyLinearProgressIndicator({this.value = 0.0});
+  const MyLinearProgressIndicator({super.key, this.value = 0.0});
 
   @override
   _MyCircularProgressIndicatorState createState() =>
@@ -19,7 +19,7 @@ class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     _animation =
         Tween(begin: 0.0, end: widget.value).animate(_animationController)
           ..addListener(() {
@@ -50,7 +50,7 @@ class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
     return Stack(
       children: [
         Center(
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: 10,
             child: ClipRRect(
@@ -58,7 +58,7 @@ class _MyCircularProgressIndicatorState extends State<MyLinearProgressIndicator>
               child: LinearProgressIndicator(
                 value: _animation.value,
                 backgroundColor: Colors.grey[300],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
             ),
           ),

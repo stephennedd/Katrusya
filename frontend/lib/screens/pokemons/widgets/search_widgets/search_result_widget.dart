@@ -51,7 +51,7 @@ class _SearchResultItemWidgetState extends State<SearchResultItemWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: constants.mediumPadding),
-          Text(widget.resultText, style: Theme.of(context).textTheme.headline6),
+          Text(widget.resultText, style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: constants.mediumPadding),
           const Divider(height: 10),
         ],

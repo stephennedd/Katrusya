@@ -70,7 +70,7 @@ class _FormInputState extends State<FormInput> {
               child: widget.hasIcon ? SvgPicture.asset(widget.icon!) : null,
             ),
             suffixIcon: widget.isPassword ? AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: IconButton(
                 icon: widget.isObscured ? SvgPicture.asset("assets/icons/eye.svg", width: 25,) : SvgPicture.asset("assets/icons/eye-closed.svg", width: 25,) ,
                 onPressed: () {

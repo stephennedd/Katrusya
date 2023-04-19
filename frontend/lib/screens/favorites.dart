@@ -5,7 +5,6 @@ import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/favorites_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
 import '../controllers/users/user_controller.dart';
@@ -28,7 +27,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        key: Key("favoritesAppBar"),
+        key: const Key("favoritesAppBar"),
         backgroundColor: appBarOffWhite,
         title: "Wishlist",
         centerTitle: false,
@@ -46,7 +45,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Container(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
       child: ListView.builder(
-          key: Key("favoritesList"),
+          key: const Key("favoritesList"),
           scrollDirection: Axis.vertical,
           itemCount: userFavoriteCourses.length,
           itemBuilder: (context, index) {
@@ -61,7 +60,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   // TODO remove from the favorites
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Course removed")),
+                  const SnackBar(content: Text("Course removed")),
                 );
               },
               background: Container(
@@ -69,10 +68,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.red,
                 ),
-                margin: EdgeInsets.only(top: 10, bottom: 10),
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 alignment: AlignmentDirectional.centerStart,
-                child: Icon(
+                child: const Icon(
                   Icons.delete,
                   color: Colors.white,
                 ),
@@ -119,7 +118,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             content: Text("Are you sure you want to $action the course?"),
             actions: <Widget>[
               CupertinoDialogAction(
-                child: Text("Ok"),
+                child: const Text("Ok"),
                 onPressed: () {
                   // Dismiss the dialog and
                   // also dismiss the swiped item
@@ -127,7 +126,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 },
               ),
               CupertinoDialogAction(
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   // Dismiss the dialog but don't
                   // dismiss the swiped item

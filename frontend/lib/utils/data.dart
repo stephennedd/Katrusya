@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 List milestones = [
   {"name" : "Quiz 1", "questions" : "10 questions"},

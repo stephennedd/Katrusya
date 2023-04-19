@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/quizzes/question_paper_model.dart';
 
 class DataServices {
   // String _baseUsl = 'http://145.2.226.196:3000';
-  String _baseUrl = 'http://172.22.240.1:3000';
+  final String _baseUrl = 'http://172.22.240.1:3000';
 
   Future<void> addUserResultsPerTest(userId, testId, numberOfHpPoints) async {
     final body = jsonEncode({
@@ -23,7 +22,7 @@ class DataServices {
   }
 
   Future<QuestionPaperModel> getTestBasedOnSectionId(sectionId) async {
-    var apiUrl = '/sections/${sectionId}/test';
+    var apiUrl = '/sections/$sectionId/test';
 
     http.Response response = await http.get(Uri.parse(_baseUrl + apiUrl),
         headers: {

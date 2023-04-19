@@ -73,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Expanded(
             child: Container(
-              key: Key("searchBar"),
+              key: const Key("searchBar"),
               height: 50,
               padding: const EdgeInsets.only(bottom: 3, top: 3),
               decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
                   ]),
               // Done filter results based on search query
               child: TextField(
-                key: Key("searchTextField"),
+                key: const Key("searchTextField"),
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
                     border: InputBorder.none,
@@ -145,7 +145,7 @@ class _SearchPageState extends State<SearchPage> {
   int selectedItemIndex = 0;
   getCategories() {
     return SingleChildScrollView(
-      key: Key("categories"),
+      key: const Key("categories"),
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.only(left: 15, top: 10, bottom: 5),
       child: Row(
