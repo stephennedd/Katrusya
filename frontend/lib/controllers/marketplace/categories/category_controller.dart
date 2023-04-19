@@ -1,8 +1,6 @@
 import 'package:frontend/api/my_api.dart';
 import 'package:frontend/models/categories/category_model.dart';
-import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/models/loading_status_model.dart';
-import 'package:frontend/screens/homescreens/MyCourses.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {

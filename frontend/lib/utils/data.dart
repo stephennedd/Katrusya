@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 List settings = [
   { "text" : "Edit Profile", "color" : Colors.black },

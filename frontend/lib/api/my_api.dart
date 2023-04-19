@@ -55,7 +55,7 @@ class CallApi {
 
   getTestBasedOnSectionId(int sectionId) async {
     http.Response response = await http.get(
-        Uri.parse(_baseUrl + "/sections/${sectionId}/test"),
+        Uri.parse("$_baseUrl/sections/$sectionId/test"),
         headers: _setHeaders());
 
     try {
@@ -73,7 +73,7 @@ class CallApi {
   }
 
   addUser(UserModel user) async {
-    var fullUrl = _baseUrl + "/auth/register";
+    var fullUrl = "$_baseUrl/auth/register";
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(user), headers: _setHeaders());
@@ -82,7 +82,7 @@ class CallApi {
   }
 
   loginUser(LoginModel loginnedUser) async {
-    var fullUrl = _baseUrl + "/auth/login";
+    var fullUrl = "$_baseUrl/auth/login";
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(loginnedUser), headers: _setHeaders());
@@ -91,7 +91,7 @@ class CallApi {
   }
 
   addPurchasedCourse(PurchaseModel purchase) async {
-    var fullUrl = _baseUrl + "/courses/purchasedCourses";
+    var fullUrl = "$_baseUrl/courses/purchasedCourses";
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(purchase), headers: _setHeaders());
@@ -141,7 +141,7 @@ class CallApi {
   }
 
   getCourseDetails(int courseId) async {
-    String apiUrl = "/courses/${courseId}/details";
+    String apiUrl = "/courses/$courseId/details";
 
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
@@ -161,7 +161,7 @@ class CallApi {
   }
 
   getCourseQuizzes(int courseId) async {
-    String apiUrl = "/courses/${courseId}/quizzes";
+    String apiUrl = "/courses/$courseId/quizzes";
 
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
@@ -230,7 +230,7 @@ class CallApi {
   }
 
   getCoursesBasedOnCategory(category) async {
-    String apiUrl = "/courses?category=${category}";
+    String apiUrl = "/courses?category=$category";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -275,7 +275,7 @@ class CallApi {
   }
 
   getUserFavoriteCourses(int userId) async {
-    String apiUrl = "/users/${userId}/favoriteCourses";
+    String apiUrl = "/users/$userId/favoriteCourses";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -296,7 +296,7 @@ class CallApi {
   }
 
   getUserCourses(int userId) async {
-    String apiUrl = "/users/${userId}/courses";
+    String apiUrl = "/users/$userId/courses";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -317,7 +317,7 @@ class CallApi {
   }
 
   getCompletedByUserLessonsForCertainCourse(int userId, int courseId) async {
-    String apiUrl = "/users/${userId}/courses/${courseId}/completedLessons";
+    String apiUrl = "/users/$userId/courses/$courseId/completedLessons";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -339,7 +339,7 @@ class CallApi {
   }
 
   getCompletedByUserSections(int userId) async {
-    String apiUrl = "/users/${userId}/completedSections";
+    String apiUrl = "/users/$userId/completedSections";
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -360,7 +360,7 @@ class CallApi {
   addCourseToUserFavorites(int userId, int courseId) async {
     //CHANGE
     final favoriteCourse = {'course_id': courseId};
-    String apiUrl = "/users/${userId}/favoriteCourses";
+    String apiUrl = "/users/$userId/favoriteCourses";
     http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(favoriteCourse), headers: _setHeaders());
     if (response.statusCode == 201) {
@@ -375,7 +375,7 @@ class CallApi {
   }
 
   deleteCourseFromUserFavorites(int userId, int courseId) async {
-    String apiUrl = "/users/${userId}/favoriteCourses/${courseId}";
+    String apiUrl = "/users/$userId/favoriteCourses/$courseId";
     http.Response response =
         await http.delete(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     if (response.statusCode == 200) {
@@ -397,7 +397,7 @@ class CallApi {
       'section_id': sectionId,
       'lesson_id': lessonId
     };
-    String apiUrl = "/users/${userId}/completedLessons";
+    String apiUrl = "/users/$userId/completedLessons";
     http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(completedByUserLesson), headers: _setHeaders());
     if (response.statusCode == 201) {
@@ -419,7 +419,7 @@ class CallApi {
       'section_id': sectionId,
       'lesson_id': lessonId
     };
-    String apiUrl = "/users/${userId}/completedLessons";
+    String apiUrl = "/users/$userId/completedLessons";
     http.Response response = await http.delete(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(completedByUserLesson), headers: _setHeaders());
     if (response.statusCode == 200) {

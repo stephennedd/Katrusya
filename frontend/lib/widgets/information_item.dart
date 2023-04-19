@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class InformationItem extends StatelessWidget {
   InformationItem({Key? key, required this.icon, required this.text, required this.type}) : super(key: key);
@@ -9,7 +8,7 @@ class InformationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

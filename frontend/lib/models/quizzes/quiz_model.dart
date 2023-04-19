@@ -20,12 +20,12 @@ class QuizModel {
         courseId = json['course_id'];
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['quiz_title'] = this.title;
-    data['number_of_questions'] = this.numberOfQuestions;
-    data['image_url'] = this.imageUrl;
-    data['section_id'] = this.sectionId;
-    data['course_id'] = this.courseId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['quiz_title'] = title;
+    data['number_of_questions'] = numberOfQuestions;
+    data['image_url'] = imageUrl;
+    data['section_id'] = sectionId;
+    data['course_id'] = courseId;
     return data;
   }
 

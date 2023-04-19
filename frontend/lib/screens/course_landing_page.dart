@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/Themes/app_colors.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
 import 'package:frontend/models/courses/purchase_model.dart';
@@ -17,8 +15,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import '../controllers/marketplace/courses/course_controller.dart';
+import '../controllers/question_paper/questions_controller.dart';
 import '../models/courses/course_model.dart';
 import 'login.dart';
+import 'quiz/quizscreens/testScreen.dart';
 
 class CourseLandingPage extends StatefulWidget {
   const CourseLandingPage({Key? key, required this.course}) : super(key: key);
@@ -33,7 +33,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   late CourseModel courseData;
-
+  QuestionsController questionsController = Get.put(QuestionsController());
   CourseController courseController = Get.put(CourseController());
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
@@ -58,13 +58,14 @@ class _CourseLandingPageState extends State<CourseLandingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar:
+      MyAppBar(
         hasAction: true,
         icon: const Icon(Icons.leaderboard_rounded,color: labelColor,),
         title: "Details",
         onTap: () {
           showDialog(context: context, builder: (BuildContext context) {
-            return LeaderboardPopup();
+            return const LeaderboardPopup();
           });
           print("open leaderboard");
         },
@@ -73,7 +74,9 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       backgroundColor: appBarColor,
       bottomNavigationBar: Obx(
         () => courseController.isCurrentCoursePurchased.value
-            ? SizedBox.shrink()
+            ? const SizedBox.shrink(
+              key: Key("hiddenBottomBar"),
+            )
             : getBottomBar(),
       ),
     );
@@ -85,7 +88,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 15, right: 15, top: 10),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
             child: Hero(
               tag: widget.course.id.toString() + widget.course.image,
               child: CustomImage(
@@ -97,7 +100,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(left: 15, right: 15), child: getInfo()),
+              padding: const EdgeInsets.only(left: 15, right: 15), child: getInfo()),
           const SizedBox(
             height: 10,
           ),
@@ -144,7 +147,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getTabBarPages() {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       height: 400,
       width: double.infinity,
       child: TabBarView(
@@ -169,7 +172,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
                     .currentCourseDetails.value!.sections[index].sectionId);
                 courseController.currentSectionId.value = courseController
                     .currentCourseDetails.value!.sections[index].sectionId;
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SectionPage(
                           data: courseController
                               .currentCourseDetails.value!.sections[index],
@@ -180,11 +183,14 @@ class _CourseLandingPageState extends State<CourseLandingPage>
 
   Widget getMilestones() {
     return ListView.builder(
-        itemCount: courseController.courseQuizzes.value!.length,
+        itemCount: courseController.courseQuizzes.value.length,
         itemBuilder: (context, index) => QuizItem(
-              data: courseController.courseQuizzes.value![index],
-              onTap: () {
-                print("goto quiz");
+              data: courseController.courseQuizzes.value[index],
+              onTap: () async {
+                questionsController.reset();
+                await questionsController.startUpQuiz();
+                // TODO properly navigate to quiz page.
+                Navigator.pushNamed(context, TestScreen.routeName);
               },
             ));
   }
@@ -233,7 +239,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children: const [
               CircleAvatar(
                 radius: 13,
                 //TODO update this data to the actual user's image and name
@@ -386,6 +392,7 @@ class _CourseLandingPageState extends State<CourseLandingPage>
           ),
           Expanded(
             child: ButtonSimple(
+              key: const Key("buyCourseButton"),
               text: "Buy course",
               color: primary,
               textColor: primaryDark,

@@ -9,7 +9,7 @@ class UploadedFilesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0,4,0,4),
+      margin: const EdgeInsets.fromLTRB(0,4,0,4),
       decoration: BoxDecoration(
           color: appBarColor,
           borderRadius: BorderRadius.circular(10),
@@ -37,7 +37,7 @@ class UploadedFilesItem extends StatelessWidget {
         ),
         title: Text(
           data.fileName,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Poppins',
             fontSize: 14
           ),

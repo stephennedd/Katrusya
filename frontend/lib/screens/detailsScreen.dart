@@ -1,13 +1,7 @@
-import 'package:chewie/chewie.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_share/flutter_share.dart';
 import 'package:frontend/Services/VideoPlayer.dart';
-import 'package:get/get.dart';
-import 'package:package_info/package_info.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:video_player/video_player.dart';
 
 import 'MyList.dart';
 
@@ -36,7 +30,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: Container(
               alignment: Alignment.center,
               child: InkWell(
-                child: Icon(EvaIcons.share),
+                child: const Icon(EvaIcons.share),
                 onTap: () {
                   // share();
                 },
@@ -48,12 +42,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: Container(
               alignment: Alignment.center,
               child: InkWell(
-                child: Icon(EvaIcons.shoppingCartOutline),
+                child: const Icon(EvaIcons.shoppingCartOutline),
                 onTap: () {
                   Navigator.push(
                     context,
                     PageTransition(
-                        child: MyList(),
+                        child: const MyList(),
                         type: PageTransitionType.leftToRightWithFade),
                   );
                 },
@@ -68,15 +62,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Course title",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28.0,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+              const Padding(
+                padding: EdgeInsets.only(top: 10.0),
                 child: Text(
                   "Course description",
                   style: TextStyle(
@@ -99,7 +93,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star,
                               color: Colors.white,
@@ -125,7 +119,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star,
                               color: Colors.white,
@@ -159,7 +153,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star,
                               color: Colors.white,
@@ -193,7 +187,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star,
                               color: Colors.white,
@@ -219,7 +213,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star,
                               color: Colors.white,
@@ -278,7 +272,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     width: 400.0,
                     child: Center(
                       child: Stack(
-                        children: [
+                        children: const [
                           ColorFiltered(
                             colorFilter: ColorFilter.mode(
                                 Colors.black54, BlendMode.darken),
@@ -326,7 +320,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     color: Colors.redAccent,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Buy Now",
                       style: TextStyle(
@@ -351,7 +345,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Add to Cart",
                             style: TextStyle(
@@ -371,7 +365,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Add to Wishlist",
                             style: TextStyle(

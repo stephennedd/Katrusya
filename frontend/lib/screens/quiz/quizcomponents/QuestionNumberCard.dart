@@ -16,26 +16,26 @@ class QuestionNumberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _backgroundColor = Theme.of(context).primaryColor;
+    Color backgroundColor = Theme.of(context).primaryColor;
     switch (status) {
       case AnswerStatus.answered:
-        _backgroundColor = primaryDark;
+        backgroundColor = primaryDark;
         break;
 
       case AnswerStatus.correct:
-        _backgroundColor = primary;
+        backgroundColor = primary;
         break;
 
       case AnswerStatus.wrong:
-        _backgroundColor = primaryDark;
+        backgroundColor = primaryDark;
         break;
 
       case AnswerStatus.notanswered:
-        _backgroundColor = primaryDark.withOpacity(0.1);
+        backgroundColor = primaryDark.withOpacity(0.1);
         break;
 
       default:
-        _backgroundColor = primaryDark.withOpacity(0.1);
+        backgroundColor = primaryDark.withOpacity(0.1);
     }
     return InkWell(
       borderRadius: UIParameters.cardBorderRadius,
@@ -43,7 +43,7 @@ class QuestionNumberCard extends StatelessWidget {
       child: Ink(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: _backgroundColor,
+            color: backgroundColor,
             borderRadius: UIParameters.cardBorderRadius),
         child: Center(
           child: Text(

@@ -13,7 +13,7 @@ class _MyListState extends State<MyList> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Text(
+          title: const Text(
             'My List',
             style: TextStyle(color: Colors.white),
           ),

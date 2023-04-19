@@ -11,14 +11,13 @@ import 'package:frontend/widgets/profile_image_box.dart';
 import 'package:frontend/widgets/settings_item.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import '../controllers/users/user_controller.dart';
 import '../storage/secure_storage.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
-  static const String routeName = "/account";
+  static const String routeName = '/account';
 
   @override
   State<AccountPage> createState() => _AccountPageState();
@@ -51,13 +50,14 @@ class _AccountPageState extends State<AccountPage> {
       home: Scaffold(
         backgroundColor: primaryDark,
         appBar: MyAppBar(
+          key: const Key('accountAppBar'),
           backgroundColor: primaryDark,
-          title: "Account",
+          title: 'Account',
           centerTitle: false,
           hasBackButton: false,
           hasAction: true,
           icon: SvgPicture.asset(
-            "assets/icons/logout.svg",
+            'assets/icons/logout.svg',
             colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
           ),
           onTap: () async {
@@ -74,11 +74,9 @@ class _AccountPageState extends State<AccountPage> {
 
   List settings = [
     {
-      "text": "Edit Profile",
-      "page": Container(
-        child: const Center(
-          child: Text("Edit Profile"),
-        ),
+      'text': 'Edit Profile',
+      'page': const Center(
+        child: Text('Edit Profile'),
       )
     },
   ];
@@ -87,7 +85,7 @@ class _AccountPageState extends State<AccountPage> {
     var bottomBarProvider =
     Provider.of<BottomBarProvider>(context, listen: false);
 
-    // TODO get the user's balance of tokens
+    // Done: get the user's balance of tokens
     var balance = usersController.balanceOfTokens.value;
     return Container(
       decoration: const BoxDecoration(
@@ -109,6 +107,7 @@ class _AccountPageState extends State<AccountPage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ProfileImageBox(
+                key: const Key('profileImage'),
                 image: _profileImage,
                 onTap: () async {
                   FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -131,6 +130,7 @@ class _AccountPageState extends State<AccountPage> {
           ),
 
           Container(
+            key: const Key('teacherModeSwitch'),
             margin: const EdgeInsets.only(top: 20, left: 25, right: 25),
             padding: const EdgeInsets.only(left: 15),
             height: 50,
@@ -148,14 +148,14 @@ class _AccountPageState extends State<AccountPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  "Teacher mode",
+                  'Teacher mode',
                   style: TextStyle(
                       fontFamily: 'Nexa-Trial',
                       fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   child: SizedBox(
                     height: 33,
                     width: 45,
@@ -168,9 +168,8 @@ class _AccountPageState extends State<AccountPage> {
                           value: usersController.isUserTeacher(),
                           onChanged: (bool value) async {
                             await usersController
-                                .flipTeacherMode(_getStorage.read("userId"));
+                                .flipTeacherMode(_getStorage.read('userId'));
                              setState(() {
-                            //bottomBarProvider.isTeacherMode = value;
                               if (usersController.isUserTeacher()) {
                                 bottomBarProvider.activePageIndex = 2;
                               } else {
@@ -189,17 +188,18 @@ class _AccountPageState extends State<AccountPage> {
           ),
           // Done: get the logged in username
           Text(
-            _getStorage.read("username") ?? "null",
+            _getStorage.read('username') ?? 'null',
             style: const TextStyle(
                 fontFamily: 'Nexa-Trial',
                 fontWeight: FontWeight.w700,
                 fontSize: 16),
           ),
           Row(
+            key: const Key('balance'),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "personal balance: $balance",
+                'personal balance: $balance',
                 style: const TextStyle(
                     fontFamily: 'Nexa-Trial',
                     fontWeight: FontWeight.w500,
@@ -211,7 +211,7 @@ class _AccountPageState extends State<AccountPage> {
               const SizedBox(
                 width: 4,
               ),
-              SvgPicture.asset("assets/icons/crypto.svg")
+              SvgPicture.asset('assets/icons/crypto.svg')
             ],
           ),
           const SizedBox(
@@ -219,10 +219,11 @@ class _AccountPageState extends State<AccountPage> {
           ),
           Expanded(
             child: Column(
+              key: const Key('information'),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Information",
+                  'Information',
                   style: TextStyle(
                       fontFamily: 'Nexa-Trial',
                       fontSize: 18,
@@ -238,7 +239,7 @@ class _AccountPageState extends State<AccountPage> {
                     size: 20,
                   ),
                   text: usersController.email.value,
-                  type: "Email",
+                  type: 'Email',
                 ),
                 const SizedBox(
                   height: 15,
@@ -250,7 +251,7 @@ class _AccountPageState extends State<AccountPage> {
                     size: 20,
                   ),
                   text: usersController.phone.value,
-                  type: "Phone",
+                  type: 'Phone',
                 ),
                 const SizedBox(
                   height: 15,
@@ -261,8 +262,8 @@ class _AccountPageState extends State<AccountPage> {
                     weight: 100,
                     size: 20,
                   ),
-                  text: _getStorage.read("createdAt") ?? "no user",
-                  type: "Joined",
+                  text: _getStorage.read('createdAt') ?? 'no user',
+                  type: 'Joined',
                 ),
               ],
             ),
@@ -271,28 +272,30 @@ class _AccountPageState extends State<AccountPage> {
             height: 15,
           ),
           SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: SettingsItem(
-                itemText: settings[0]["text"],
-                onTap: () {
-                  showPopup();
-                },
-              ))
+            key: const Key('settingsBar'),
+            height: 50,
+            width: double.infinity,
+            child: SettingsItem(
+              itemText: settings[0]['text'],
+              onTap: () {
+                showPopup();
+              },
+            )
+          )
         ],
       ),
     );
   }
 
   void showPopup() async {
-    String item = settings[0]["text"];
+    String item = settings[0]['text'];
     showCupertinoModalPopup(
         context: context,
         builder: (context) => CupertinoAlertDialog(
-              content: Text("You tapped on $item"),
+              content: Text('You tapped on $item'),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text("OK"),
+                  child: const Text('OK'),
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },

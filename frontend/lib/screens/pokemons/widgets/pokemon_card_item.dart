@@ -82,7 +82,7 @@ class _PokemonCardItemState extends State<PokemonCardItem> {
                           : constants.pokemonNameLightThemeColor,
                       fontWeight: FontWeight.bold,
                       fontSize:
-                          Theme.of(context).textTheme.headline6?.fontSize),
+                          Theme.of(context).textTheme.titleLarge?.fontSize),
                 ),
                 Text(widget.id,
                     style: TextStyle(

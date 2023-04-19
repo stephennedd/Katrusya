@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/themes/app_colors.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/file_upload_box.dart';
 import 'package:frontend/widgets/uploaded_file_box.dart';
-import '../themes/app_colors.dart';
 import '../widgets/button.dart';
 import '../widgets/text_input.dart';
 
@@ -21,6 +19,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
   int _currentPageIndex = 0;
   final PageController _pageController = PageController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController topicsController = TextEditingController();
@@ -141,6 +140,13 @@ class _AddCoursePageState extends State<AddCoursePage> {
                         const SizedBox(height: 16.0),
                         Form(
                           child: Column(children: [
+                            FormInput(
+                              text: 'price',
+                              type: const TextInputType.numberWithOptions(decimal: true),
+                              validatorText: "a price",
+                              textController: priceController,
+                            ),
+                            const SizedBox(height: 16.0),
                             FormInput(
                               text: 'category',
                               type: TextInputType.text,
@@ -298,7 +304,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
                               height: 10,
                             ),
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               height: 200,
                               width: double.infinity,
                               child: ListView.builder(
@@ -359,6 +365,21 @@ class _AddCoursePageState extends State<AddCoursePage> {
                           ),
                           Text(
                             nameController.value.text,
+                            style: const TextStyle(
+                                fontFamily: 'Nexa-Trial',
+                                fontWeight: FontWeight.w600,
+                                color: textColor),
+                          ),
+                          const SizedBox(height: 16,),
+                          const Text(
+                            "price",
+                            style: TextStyle(
+                                fontFamily: 'Nexa-Trial',
+                                fontWeight: FontWeight.w500,
+                                color: textColor),
+                          ),
+                          Text(
+                            priceController.value.text,
                             style: const TextStyle(
                                 fontFamily: 'Nexa-Trial',
                                 fontWeight: FontWeight.w600,

@@ -2,11 +2,11 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/screens/myList.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:page_transition/page_transition.dart';
 
 class WishList extends StatefulWidget {
+  const WishList({super.key});
+
   @override
   _WishListState createState() => _WishListState();
 }
@@ -56,7 +56,7 @@ class _WishListState extends State<WishList> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text("Wishlist"),
+          title: const Text("Wishlist"),
           backgroundColor: Colors.black,
           actions: [
             Padding(
@@ -64,12 +64,12 @@ class _WishListState extends State<WishList> {
               child: Container(
                 alignment: Alignment.center,
                 child: InkWell(
-                  child: Icon(EvaIcons.shoppingCartOutline),
+                  child: const Icon(EvaIcons.shoppingCartOutline),
                   onTap: () {
                     Navigator.push(
                       context,
                       PageTransition(
-                          child: MyList(),
+                          child: const MyList(),
                           type: PageTransitionType.leftToRightWithFade),
                     );
                   },
@@ -84,7 +84,7 @@ class _WishListState extends State<WishList> {
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
               direction: DismissDirection.startToEnd,
-              resizeDuration: Duration(milliseconds: 200),
+              resizeDuration: const Duration(milliseconds: 200),
               key: ObjectKey(data[index]),
               onDismissed: (direction) {},
               child: GestureDetector(
@@ -103,7 +103,7 @@ class _WishListState extends State<WishList> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            child: FadeInImage(
+                            child: const FadeInImage(
                               height: 90.0,
                               width: 100.0,
                               fit: BoxFit.fill,
@@ -137,27 +137,27 @@ class _WishListState extends State<WishList> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.yellow,
                                       size: 18.0,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.yellow,
                                       size: 18.0,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.yellow,
                                       size: 18.0,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.yellow,
                                       size: 18.0,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Colors.yellow,
                                       size: 18.0,
@@ -170,7 +170,7 @@ class _WishListState extends State<WishList> {
                                       ),
                                     ),
                                     Text(
-                                      " (" + data[index].enrolled + ")",
+                                      " (${data[index].enrolled})",
                                       style: TextStyle(
                                         color: Colors.grey.shade500,
                                         fontSize: 14.0,
@@ -180,25 +180,25 @@ class _WishListState extends State<WishList> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(FontAwesomeIcons.dollarSign,
+                                    const Icon(FontAwesomeIcons.dollarSign,
                                         color: Colors.white),
                                     Text(
                                       data[index].discount != ""
                                           ? data[index].discount
                                           : data[index].price,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18.0,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 7.0,
                                     ),
                                     Text(
                                       data[index].discount != ""
                                           ? data[index].price
                                           : "",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15.0,
                                         decoration: TextDecoration.lineThrough,

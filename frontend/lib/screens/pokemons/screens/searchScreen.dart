@@ -27,7 +27,7 @@ class SearchScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Search Pokemons By:',
-                style: Theme.of(context).textTheme.headline6?.copyWith(
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: isDark
                           ? constants.chooseFilterTextDarkThemeColor
                           : constants.chooseFilterTextLightThemeColor,

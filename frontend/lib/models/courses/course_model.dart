@@ -40,18 +40,18 @@ class CourseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['image'] = this.image;
-    data['price'] = this.price;
-    data['duration_in_hours'] = this.durationInHours;
-    data['number_of_lessons'] = this.numberOfLessons;
-    data['review'] = this.review;
-    data['is_favorited'] = this.isFavorited;
-    data['description'] = this.description;
-    data['is_recommended'] = this.isRecommended;
-    data['is_featured'] = this.isFeatured;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['image'] = image;
+    data['price'] = price;
+    data['duration_in_hours'] = durationInHours;
+    data['number_of_lessons'] = numberOfLessons;
+    data['review'] = review;
+    data['is_favorited'] = isFavorited;
+    data['description'] = description;
+    data['is_recommended'] = isRecommended;
+    data['is_featured'] = isFeatured;
     return data;
   }
 

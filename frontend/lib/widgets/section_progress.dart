@@ -4,7 +4,7 @@ class MyCircularProgressIndicator extends StatefulWidget {
   final double strokeWidth;
   final double value;
 
-  MyCircularProgressIndicator({this.strokeWidth = 4.0, this.value = 0.0});
+  const MyCircularProgressIndicator({super.key, this.strokeWidth = 4.0, this.value = 0.0});
 
   @override
   _MyCircularProgressIndicatorState createState() =>
@@ -21,7 +21,7 @@ class _MyCircularProgressIndicatorState
   void initState() {
     super.initState();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
     _animation =
         Tween(begin: 0.0, end: widget.value).animate(_animationController)
           ..addListener(() {
@@ -92,7 +92,7 @@ class _MyCircularProgressIndicatorState
           child: Center(
             child: Text(
               "${(_animation.value * 100).toStringAsFixed(0)}%",
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 14.0,
                 fontWeight: FontWeight.w600,

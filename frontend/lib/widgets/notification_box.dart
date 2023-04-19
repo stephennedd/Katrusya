@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../Themes/app_colors.dart';
 
 class NotificationBox extends StatelessWidget {
-  NotificationBox({Key? key, this.notifiedNumber = 0, this.onTap}) : super(key: key);
+  const NotificationBox({Key? key, this.notifiedNumber = 0, this.onTap}) : super(key: key);
   final int notifiedNumber;
   final GestureTapCallback? onTap;
 
@@ -12,8 +12,8 @@ class NotificationBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(5),
+        decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: appBarColor,
             ),

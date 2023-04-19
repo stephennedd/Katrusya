@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Themes/custom_text_styles.dart';
 
 class CountdownTimer extends StatelessWidget {
   final Color? color;

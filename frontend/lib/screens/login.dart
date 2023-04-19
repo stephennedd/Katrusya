@@ -10,7 +10,6 @@ import 'package:frontend/storage/secure_storage.dart';
 import 'package:frontend/widgets/button.dart';
 import 'package:frontend/widgets/text_input.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../controllers/users/user_controller.dart';
@@ -90,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                 offset: const Offset(0, 0))
                           ]),
                       child: TextFormField(
-                        key: Key("emailField"),
+                        key: const Key("emailField"),
                         onChanged: (value) => {emailController.text = value},
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -125,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     FormInput(
-                      key: Key("passwordField"),
+                      key: const Key("passwordField"),
                       hasIcon: true,
                       icon: "assets/icons/password.svg",
                       text: 'password',
@@ -169,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             ButtonSimple(
-              key: Key("loginButton"),
+              key: const Key("loginButton"),
               width: double.infinity,
               text: "login",
               color: primary,
@@ -179,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                   String password = passwordController.text.removeAllWhitespace;
 
                   var response = await usersController.loginUser(
-                      new LoginModel(email: email, password: password));
+                      LoginModel(email: email, password: password));
                   if (response.statusCode == 201) {
                     // successful login, navigate to the next page
 
@@ -227,12 +226,12 @@ class _LoginPageState extends State<LoginPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            key: Key("errorDialog"),
+                            key: const Key("errorDialog"),
                             title: Text(errorMessage),
-                            content: Text("Invalid email or password."),
+                            content: const Text("Invalid email or password."),
                             actions: [
                               ElevatedButton(
-                                child: Text("OK"),
+                                child: const Text("OK"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -262,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             ButtonSimple(
-              key: Key("createAccountButton"),
+              key: const Key("createAccountButton"),
               width: double.infinity,
               text: "create an account",
               color: primaryDark,
@@ -271,7 +270,7 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignupPage(),
+                      builder: (context) => const SignupPage(),
                     ));
               },
             ),

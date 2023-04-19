@@ -14,10 +14,10 @@ class CourseQueryParamsModel {
         search = json['search'];
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['category_name'] = this.category;
-    data['is_recommended'] = this.isRecommended;
-    data['search'] = this.search;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['category_name'] = category;
+    data['is_recommended'] = isRecommended;
+    data['search'] = search;
     return data;
   }
 

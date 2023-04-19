@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../Themes/app_colors.dart';
 
 class BookmarkBox extends StatelessWidget {
-  BookmarkBox({Key? key, this.isFavorited = false, this.onTap})
+  const BookmarkBox({Key? key, this.isFavorited = false, this.onTap})
       : super(key: key);
   final bool isFavorited;
   final GestureTapCallback? onTap;
@@ -29,7 +29,7 @@ class BookmarkBox extends StatelessWidget {
             ]),
         child: SvgPicture.asset(
           "assets/icons/bookmark.svg",
-          colorFilter: ColorFilter.mode(primaryDark, BlendMode.srcIn),
+          colorFilter: const ColorFilter.mode(primaryDark, BlendMode.srcIn),
           width: 22,
           height: 22,
         ),

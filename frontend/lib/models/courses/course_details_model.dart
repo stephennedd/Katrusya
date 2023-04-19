@@ -1,4 +1,3 @@
-import '../quizzes/quiz_model.dart';
 
 class CourseDetailsModel {
   String courseName;

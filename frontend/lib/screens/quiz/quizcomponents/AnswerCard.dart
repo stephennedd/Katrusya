@@ -51,7 +51,7 @@ class AnswerCard extends StatelessWidget {
 
 class CorrectAnswer extends StatelessWidget {
   final String answer;
-  const CorrectAnswer({Key? key, required this.answer});
+  const CorrectAnswer({super.key, required this.answer});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class CorrectAnswer extends StatelessWidget {
 
 class WrongAnswer extends StatelessWidget {
   final String answer;
-  const WrongAnswer({Key? key, required this.answer});
+  const WrongAnswer({super.key, required this.answer});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class WrongAnswer extends StatelessWidget {
 
 class NotAnswered extends StatelessWidget {
   final String answer;
-  const NotAnswered({Key? key, required this.answer});
+  const NotAnswered({super.key, required this.answer});
 
   @override
   Widget build(BuildContext context) {

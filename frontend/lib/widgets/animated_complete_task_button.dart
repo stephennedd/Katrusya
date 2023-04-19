@@ -96,7 +96,7 @@ class AnimatedCompleteTaskButton extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isCompleted;
 
-  AnimatedCompleteTaskButton({required this.onPressed, required this.isCompleted});
+  const AnimatedCompleteTaskButton({super.key, required this.onPressed, required this.isCompleted});
 
   @override
   _AnimatedCompleteTaskButtonState createState() =>

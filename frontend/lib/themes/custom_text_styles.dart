@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Themes/app_colors.dart';
-import 'package:frontend/Themes/ui_parameters.dart';
-import 'package:get/get.dart';
 
 const questionTS = TextStyle(
     fontFamily: 'Nexa-Trial',
@@ -15,7 +13,7 @@ const appBarTS =
         fontSize: 16,
         color: Colors.white);
 TextStyle countDownTimerTs() =>
-    TextStyle(
+    const TextStyle(
         letterSpacing: 2,
         color: primaryDark
     );

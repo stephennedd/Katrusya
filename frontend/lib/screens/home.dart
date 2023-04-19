@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/controllers/marketplace/categories/category_controller.dart';
 import 'package:frontend/controllers/marketplace/courses/course_controller.dart';
 import 'package:frontend/controllers/users/user_controller.dart';
-import 'package:frontend/screens/account.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/start.dart';
 import 'package:frontend/storage/secure_storage.dart';
@@ -64,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
               "welcome",
               style: TextStyle(
                 fontFamily: 'Nexa-Trial',
@@ -74,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             ),
             // Done get logged in users username and show here instead of hardcoded name
             Obx(() => Text(
-                  key: Key("usernameText"),
+                  key: const Key("usernameText"),
                   usersController.isUserLoggedIn.value
                       ? "${_getStorage.read("username")}"
                       : "Traveller",
@@ -83,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 25,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Nexa-Trial',
+                      overflow: TextOverflow.ellipsis
                   ),
                 )),
           ]),
@@ -91,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               showLogoutDialog(context);
             },
-            child: CircleAvatar(
+            child: const CircleAvatar(
               key: Key("userProfilePicture"),
               radius: 16,
               backgroundImage: AssetImage("images/ape.png"),
@@ -180,7 +179,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget getRecommended() {
     return CarouselSlider(
-        key: Key("recommendedCarousel"),
+        key: const Key("recommendedCarousel"),
         options: CarouselOptions(
             enableInfiniteScroll: false,
             height: 130,
@@ -231,7 +230,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget getFeatured() {
     return CarouselSlider(
-        key: Key("featuredCarousel"),
+        key: const Key("featuredCarousel"),
         options: CarouselOptions(
             initialPage: 1,
             enableInfiniteScroll: false,
@@ -280,7 +279,7 @@ class _HomePageState extends State<HomePage> {
   int selectedCategoryIndex = 0;
   Widget getCategories() {
     return SingleChildScrollView(
-      key: Key("categoriesScroll"),
+      key: const Key("categoriesScroll"),
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -311,17 +310,17 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text("Log Out"),
-          content: Text("Are you sure you want to log out?"),
+          title: const Text("Log Out"),
+          content: const Text("Are you sure you want to log out?"),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
             CupertinoDialogAction(
-              child: Text("Log Out"),
+              child: const Text("Log Out"),
               onPressed: () async {
                 // Perform log out action here
                 Navigator.of(context).pop();

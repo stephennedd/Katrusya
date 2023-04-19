@@ -4,7 +4,7 @@ import '../../Services/pokemons/pokemon_basic_service.dart';
 import '../../models/pokemons/pokemon_basic_data.dart';
 
 class PokemonBasicDataController with ChangeNotifier {
-  List<PokemonBasicData> _pokemons = [];
+  final List<PokemonBasicData> _pokemons = [];
 
   List<PokemonBasicData> get pokemons {
     return [..._pokemons];

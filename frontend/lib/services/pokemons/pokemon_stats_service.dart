@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../../models/pokemons/pokemon_basic_data.dart';
-import '../../models/pokemons/pokemon_stats_data.dart';
 
 class PokemonStatsService {
   Future<Map<String, dynamic>> fetchPokemonStats(

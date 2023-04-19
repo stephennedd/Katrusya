@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../controllers/pokemons/pokemon_about_controller.dart';
 import '../../../../controllers/pokemons/pokemon_more_info_controller.dart';
 import '../../../../controllers/pokemons/pokemon_stat_controller.dart';
-import '../../../../services/pokemons/pokemon_stats_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../utils/pokemons/constants.dart' as constants;
-import '../../../../services/pokemons/pokemon_about_data_service.dart';
-import '../../../../services/pokemons/pokemon_more_info_service.dart';
 import '../../../../models/pokemons/pokemon_basic_data.dart';
 import '../white_sheet_widgets/moves_widget.dart';
 import 'stats_row_widget.dart';

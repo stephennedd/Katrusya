@@ -36,7 +36,7 @@ class CustomSliverAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(constants.homeScreenTitle,
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         color: isDark
                             ? constants.homeScreenTitleDarkThemeColor
                             : constants.homeScreenTitleLightThemeColor,
@@ -55,7 +55,7 @@ class CustomSliverAppBar extends StatelessWidget {
             const SizedBox(height: constants.mediumPadding),
             Text(
               constants.homeScreenSubtitle,
-              style: Theme.of(context).textTheme.subtitle2?.copyWith(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   color: isDark
                       ? constants.homesScreenSubtitleDarkThemeColor
                       : constants.homesScreenSubtitleLightThemeColor),

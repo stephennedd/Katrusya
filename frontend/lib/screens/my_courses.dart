@@ -6,7 +6,6 @@ import 'package:frontend/models/courses/course_model.dart';
 import 'package:frontend/widgets/app_bar_box.dart';
 import 'package:frontend/widgets/course_complete_item.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'course_landing_page.dart';
 
@@ -63,28 +62,38 @@ class _MyCoursesPageState extends State<MyCoursesPage>
             indicatorColor: primary,
             controller: _tabController,
             tabs: [
-          Tab(
-            child: Text(
-              // Done: update with real number
-              "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
-              style: const TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: textColor,
-                  overflow: TextOverflow.ellipsis),
+          Semantics(
+            child: Tab(
+              key: const Key("progressTab"),
+              child: Text(
+                // Done: update with real number
+                "Progress (${usersController.getNumberOfIncompleteByUserCourses()})",
+                style: const TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: textColor,
+                    overflow: TextOverflow.ellipsis),
+              ),
             ),
+            onTap: () {
+              setState(() {
+              });
+            },
           ),
-          Tab(
-            child: Text(
-              // Done: update with real number
-              "Completed (${usersController.getNumberOfCompleteByUserCourses()})",
-              style: const TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: textColor,
-                  overflow: TextOverflow.ellipsis),
+          Semantics(
+            child: Tab(
+              key: const Key("completeTab"),
+              child: Text(
+                // Done: update with real number
+                "Completed (${usersController.getNumberOfCompleteByUserCourses()})",
+                style: const TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: textColor,
+                    overflow: TextOverflow.ellipsis),
+              ),
             ),
           )
         ]));

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class MyProgressIndicator extends StatefulWidget {
+  const MyProgressIndicator({super.key});
+
   @override
   _MyProgressIndicatorState createState() => _MyProgressIndicatorState();
 }
@@ -23,7 +25,7 @@ class _MyProgressIndicatorState extends State<MyProgressIndicator> {
   void initState() {
     super.initState();
     // Call _updateProgress() every 100 milliseconds
-    Timer.periodic(Duration(milliseconds: 100), (timer) {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
       _updateProgress();
     });
   }
@@ -32,14 +34,14 @@ class _MyProgressIndicatorState extends State<MyProgressIndicator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Progress Indicator'),
+        title: const Text('Progress Indicator'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Loading...'),
-            SizedBox(height: 16.0),
+            const Text('Loading...'),
+            const SizedBox(height: 16.0),
             LinearProgressIndicator(value: _progressValue),
           ],
         ),

@@ -39,7 +39,7 @@ class AnswerCheckScreen extends GetView<QuestionsController> {
                       child: Column(
                         children: [
                           Text(controller.currentQuestion.value!.question),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           GetBuilder<QuestionsController>(
@@ -47,7 +47,7 @@ class AnswerCheckScreen extends GetView<QuestionsController> {
                             builder: (_) {
                               return ListView.separated(
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (_, index) {
                                     final answer = controller
                                         .currentQuestion.value!.answers[index];
