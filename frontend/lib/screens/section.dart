@@ -79,38 +79,40 @@ class _SectionPageState extends State<SectionPage>
     return Scaffold(
         backgroundColor: appBarColor,
         appBar: AppBar(
-          automaticallyImplyLeading: true,
-          elevation: 0,
-          backgroundColor: appBarColor,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded, color: Colors.black,),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          centerTitle: true,
-          title: const Text(
-            "Section",
-            style: TextStyle(
-                fontFamily: 'Nexa-Trial',
-                fontSize: 24,
-                color: textColor,
-                fontWeight: FontWeight.w700),
-          ),
-          actions: <Widget>[
-            IconButton(
-                icon: const Icon(
-                  Icons.file_download_outlined,
-                  color: Colors.black,
-                  size: 25,
-                ),
-                color: textColor,
-                tooltip: 'Go to leaderboard',
-                onPressed: () {
-                  print("downloads");
-                })
-          ]
-        ),
+            automaticallyImplyLeading: true,
+            elevation: 0,
+            backgroundColor: appBarColor,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            centerTitle: true,
+            title: const Text(
+              "Section",
+              style: TextStyle(
+                  fontFamily: 'Nexa-Trial',
+                  fontSize: 24,
+                  color: textColor,
+                  fontWeight: FontWeight.w700),
+            ),
+            actions: <Widget>[
+              IconButton(
+                  icon: const Icon(
+                    Icons.file_download_outlined,
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                  color: textColor,
+                  tooltip: 'Go to leaderboard',
+                  onPressed: () {
+                    print("downloads");
+                  })
+            ]),
         body: buildBody());
   }
 

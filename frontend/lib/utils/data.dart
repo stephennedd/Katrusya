@@ -1,16 +1,17 @@
+import 'package:flutter/material.dart';
 
 List settings = [
-  { "text" : "Edit Profile", "color" : Colors.black },
+  {"text": "Edit Profile", "color": Colors.black},
 ];
 
 List milestones = [
-  {"name" : "Quiz 1", "questions" : "10 questions"},
-  {"name" : "Quiz 2", "questions" : "10 questions"},
-  {"name" : "Quiz 3", "questions" : "10 questions"},
-  {"name" : "Quiz 4", "questions" : "10 questions"},
-  {"name" : "Quiz 5", "questions" : "10 questions"},
-  {"name" : "Quiz 6", "questions" : "10 questions"},
-  {"name" : "Quiz 7", "questions" : "10 questions"},
+  {"name": "Quiz 1", "questions": "10 questions"},
+  {"name": "Quiz 2", "questions": "10 questions"},
+  {"name": "Quiz 3", "questions": "10 questions"},
+  {"name": "Quiz 4", "questions": "10 questions"},
+  {"name": "Quiz 5", "questions": "10 questions"},
+  {"name": "Quiz 6", "questions": "10 questions"},
+  {"name": "Quiz 7", "questions": "10 questions"},
 ];
 
 List categories = [
@@ -262,73 +263,84 @@ List courses = [
 
 List lessons = [
   {
-    "name" : "Introduction to UI/UX Design",
-    "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "45 minutes",
-    "video_url" : "",
+    "name": "Introduction to UI/UX Design",
+    "image":
+        "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "45 minutes",
+    "video_url": "",
   },
   {
-    "name" : "UI/UX Research",
-    "image" : "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "55 minutes",
-    "video_url" : "",
+    "name": "UI/UX Research",
+    "image":
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "55 minutes",
+    "video_url": "",
   },
   {
-    "name" : "Wireframe and Prototype",
-    "image" : "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "65 minutes",
-    "video_url" : "",
+    "name": "Wireframe and Prototype",
+    "image":
+        "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "65 minutes",
+    "video_url": "",
   },
   {
-    "name" : "Usability Testing",
-    "image" : "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "45 minutes",
-    "video_url" : "",
+    "name": "Usability Testing",
+    "image":
+        "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "45 minutes",
+    "video_url": "",
   },
   {
-    "name" : "Tools and Mockup",
-    "image" : "https://images.unsplash.com/photo-1634084462412-b54873c0a56d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "80 minutes",
-    "video_url" : "",
+    "name": "Tools and Mockup",
+    "image":
+        "https://images.unsplash.com/photo-1634084462412-b54873c0a56d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "80 minutes",
+    "video_url": "",
   },
   {
-    "name" : "UI/UX Design Jobs",
-    "image" : "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "duration" : "50 minutes",
-    "video_url" : "",
+    "name": "UI/UX Design Jobs",
+    "image":
+        "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "duration": "50 minutes",
+    "video_url": "",
   }
 ];
 
 List sections = [
   {
-    "name" : "Introduction to UI/UX Design",
-    "image" : "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "4 lessons",
+    "name": "Introduction to UI/UX Design",
+    "image":
+        "https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "4 lessons",
   },
   {
-    "name" : "UI/UX Research",
-    "image" : "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "3 lessons",
+    "name": "UI/UX Research",
+    "image":
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "3 lessons",
   },
   {
-    "name" : "Wireframe and Prototype",
-    "image" : "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "2 lessons",
+    "name": "Wireframe and Prototype",
+    "image":
+        "https://images.unsplash.com/photo-1586717799252-bd134ad00e26?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "2 lessons",
   },
   {
-    "name" : "Usability Testing",
-    "image" : "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "4 lessons",
+    "name": "Usability Testing",
+    "image":
+        "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "4 lessons",
   },
   {
-    "name" : "Tools and Mockup",
-    "image" : "https://images.unsplash.com/photo-1634084462412-b54873c0a56d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "4 lessons",
+    "name": "Tools and Mockup",
+    "image":
+        "https://images.unsplash.com/photo-1634084462412-b54873c0a56d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "4 lessons",
   },
   {
-    "name" : "UI/UX Design Jobs",
-    "image" : "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
-    "lessons" : "4 lessons",
+    "name": "UI/UX Design Jobs",
+    "image":
+        "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+    "lessons": "4 lessons",
   }
-
 ];
