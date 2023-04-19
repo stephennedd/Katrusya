@@ -25,6 +25,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+
   UsersController usersController = Get.put(UsersController());
   final GetStorage _getStorage = GetStorage();
   final MaterialStateProperty<Icon?> thumbIcon =
@@ -66,7 +67,7 @@ class _AccountPageState extends State<AccountPage> {
             Navigator.pushNamed(context, StartPage.routeName);
           },
         ),
-        body: Obx(() => buildBody()),
+        body: buildBody(),
       ),
     );
   }
@@ -83,11 +84,11 @@ class _AccountPageState extends State<AccountPage> {
   ];
 
   Widget buildBody() {
+    var bottomBarProvider =
+    Provider.of<BottomBarProvider>(context, listen: false);
+
     // TODO get the user's balance of tokens
     var balance = usersController.balanceOfTokens.value;
-    final bottomBarProvider =
-        Provider.of<BottomBarProvider>(context, listen: false);
-
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -168,14 +169,14 @@ class _AccountPageState extends State<AccountPage> {
                           onChanged: (bool value) async {
                             await usersController
                                 .flipTeacherMode(_getStorage.read("userId"));
-                            //  setState(() {
+                             setState(() {
                             //bottomBarProvider.isTeacherMode = value;
-                            if (usersController.isUserTeacher()) {
-                              bottomBarProvider.activePageIndex = 2;
-                            } else {
-                              bottomBarProvider.activePageIndex = 4;
-                            }
-                            // });
+                              if (usersController.isUserTeacher()) {
+                                bottomBarProvider.activePageIndex = 2;
+                              } else {
+                                bottomBarProvider.activePageIndex = 4;
+                              }
+                            });
                           })),
                     ),
                   ),
@@ -188,7 +189,7 @@ class _AccountPageState extends State<AccountPage> {
           ),
           // Done: get the logged in username
           Text(
-            _getStorage.read("username"),
+            _getStorage.read("username") ?? "null",
             style: const TextStyle(
                 fontFamily: 'Nexa-Trial',
                 fontWeight: FontWeight.w700,
@@ -230,27 +231,27 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Obx(() => InformationItem(
-                      icon: const Icon(
-                        Icons.alternate_email_outlined,
-                        weight: 100,
-                        size: 20,
-                      ),
-                      text: usersController.email.value,
-                      type: "Email",
-                    )),
+                InformationItem(
+                  icon: const Icon(
+                    Icons.alternate_email_outlined,
+                    weight: 100,
+                    size: 20,
+                  ),
+                  text: usersController.email.value,
+                  type: "Email",
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                Obx(() => InformationItem(
-                      icon: const Icon(
-                        Icons.call_outlined,
-                        weight: 100,
-                        size: 20,
-                      ),
-                      text: usersController.phone.value,
-                      type: "Phone",
-                    )),
+                InformationItem(
+                  icon: const Icon(
+                    Icons.call_outlined,
+                    weight: 100,
+                    size: 20,
+                  ),
+                  text: usersController.phone.value,
+                  type: "Phone",
+                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -260,7 +261,7 @@ class _AccountPageState extends State<AccountPage> {
                     weight: 100,
                     size: 20,
                   ),
-                  text: _getStorage.read("createdAt"),
+                  text: _getStorage.read("createdAt") ?? "no user",
                   type: "Joined",
                 ),
               ],

@@ -10,7 +10,9 @@ import 'package:frontend/models/courses/favorite_course_model.dart';
 import 'package:frontend/models/courses/my_course_model.dart';
 import 'package:frontend/models/quizzes/question_paper_model.dart';
 import 'package:frontend/models/quizzes/quiz_model.dart';
+import 'package:frontend/storage/secure_storage.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -97,7 +99,7 @@ class CallApi {
     return response;
   }
 
-  //final String ip = "192.168.178.151";
+  final String ip = "192.168.178.151";
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
