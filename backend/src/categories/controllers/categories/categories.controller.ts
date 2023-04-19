@@ -8,14 +8,15 @@ export class CategoriesController {
   
     @Get('')
     async getCategories() {
-        return this.categoriesService.getCategories();
-      }
+      return this.categoriesService.getCategories();
+    }
       
-      @Get(':id')
+    @Get(':id')
     async getCategory(@Param('id') id: number) {
-        return this.categoriesService.getCategory(id);
-      }
-      @Post()
+      return this.categoriesService.getCategory(id);
+    }
+    
+    @Post()
       async addCategory(@Body() category: CategoryEntity) {
         return this.categoriesService.addCategory(category);
       }

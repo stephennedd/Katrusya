@@ -89,6 +89,7 @@ describe('UsersController', () => {
     });
   });
 
+  describe('hasUserPurchasedCourse', () => {
   it('should return whether the user has purchased the course or not', async () => {
     // Arrange
     const userId = 1;
@@ -102,6 +103,7 @@ describe('UsersController', () => {
     // Assert
     expect(result).toEqual(expectedResponse);
   });
+});
 
   describe('getUser', () => {
     it('should return a user object for the given user id', async () => {
@@ -137,7 +139,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('getUserCompletedSectionsForCertainCourse', () => {
+  describe('getCompleteByUserSections', () => {
     it('should return the completed sections for a user', async () => {
       // Arrange
       const userId = 1;
@@ -187,7 +189,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('createUser', () => {
+  describe('addUser', () => {
     it('should create a new user', async () => {
       // Arrange
       const createUserDto: CreateUserDto = {
@@ -210,7 +212,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('createUserResult', () => {
+  describe('addUserResult', () => {
     it('should create a new user result', async () => {
       // Arrange
       const createUserResultsDto: CreateUserResultsDto = {
@@ -229,7 +231,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('addCompletedLesson', () => {
+  describe('addCompletedByUserLesson', () => {
     it('should add a completed lesson for a user', async () => {
       // Arrange
       const userId = 1;
@@ -273,7 +275,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('addFavoriteCourse', () => {
+  describe('addUserFavoriteCourse', () => {
     it('should add a favorite course for a user', async () => {
       // Arrange
       const userId = 1;
@@ -376,7 +378,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('removeFavoriteCourse', () => {
+  describe('deleteUserFavoriteCourse', () => {
     it('should remove the favorite course', async () => {
       const userId = 1;
       const courseId = 2;

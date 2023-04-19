@@ -1,11 +1,17 @@
 version: '3'
+networks:
+  my-network:
+    driver: bridge
 services:
   app:
+    networks:
+      - my-network
     build: .
     ports:
       - '3000:3000'
     depends_on:
-      - db
+      db:
+       condition: service_healthy
     environment:
       DB_HOST: db
       DB_PORT: 3037
@@ -13,7 +19,14 @@ services:
       DB_PASSWORD: qwerty123
       DB_NAME: katrusya
     command: bash -c "npm run db:migrate && npm run db:seed && npm run start:dev"  
+
   db:
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      interval: 10s
+      retries: 10
+    networks:
+      - my-network
     image: mysql:latest
     restart: always
     environment:

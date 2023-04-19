@@ -223,7 +223,7 @@ describe('UsersService', () => {
     });
   });
 
-  describe('hasUserPurchasedTheCourse', () => {
+  describe('hasUserPurchasedCourse', () => {
     it('should return true when the user has purchased the course', async () => {
         const userId = 1;
         const courseId = 1;
@@ -342,7 +342,7 @@ describe('UsersService', () => {
     });
 });
 
-  describe('getUserFavoriteCourses', () => {
+  describe('getFavoriteCourses', () => {
     it('should return an array of user favorite courses', async () => {
       const userId = 1;
       const courseId = 2;
@@ -381,7 +381,7 @@ describe('getCompleteByUserLessonsForCertainCourse', () => {
 
 });
 
-describe('isSectionCompletedByUser', () => {
+describe('getIsSectionCompletedByUser', () => {
     it('should return false if user has not completed all lessons in the section', async () => {
   
         // Check if the section is completed by the user
@@ -414,7 +414,7 @@ describe('isSectionCompletedByUser', () => {
 
 });
 
-describe('isCourseCompletedByUser', () => { 
+describe('getIsCourseCompletedByUser', () => { 
     it('should return true if user has completed all sections in the course', async () => {
       const isCourseCompletedByUser = await service.isCourseCompletedByUser(1, 1);
       expect(isCourseCompletedByUser).toBe(true);
@@ -429,7 +429,7 @@ describe('isCourseCompletedByUser', () => {
     });
 });
 
-describe('deleteCompletedByUserLesson', () => {
+describe('deleteCompletedLesson', () => {
     it('should delete a lesson from the user completed lessons', async () => {
       const userId = 1;
 

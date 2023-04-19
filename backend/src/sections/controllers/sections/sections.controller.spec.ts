@@ -30,7 +30,7 @@ describe('SectionsController', () => {
   //   });
   // });
 
-  describe('getTestBasedOnSectionId', () => {
+  describe('getTestBySectionId', () => {
     it('should return a test by section ID', async () => {
       const sectionId = 1;
       const test = { id: 1, name: 'test 1', sectionId };

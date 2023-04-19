@@ -3,17 +3,17 @@ import { Knex } from 'knex';
 const config: Knex.Config = {
     client: 'mysql2',
     connection: {
-        host: 'localhost',
-        user: 'root',
-        password: 'Liverpool599570',
-        database: 'katrusya',
-        timezone: '+00:00'
-        // host: 'db',
-        // port: 3037,
-        // user: 'MoSalah',
-        // password: 'qwerty123',
+        // host: 'localhost',
+        // user: 'root',
+        // password: 'Liverpool599570',
         // database: 'katrusya',
-        // timezone: '+00:00' // set session timezone to UTC
+        // timezone: '+00:00'
+        host: 'db', 
+        port: 3306,
+        user: 'MoSalah',
+        password: 'qwerty123',
+        database: 'katrusya',
+        timezone: '+00:00' // set session timezone to UTC
 //         host: process.env.DB_HOST,
 //   port: process.env.DB_PORT,
 //   user: process.env.DB_USER,

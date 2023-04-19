@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, UseGuards, Query, Put } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body, Param, UsePipes, ValidationPipe, Delete, Query, Put } from '@nestjs/common';
 import { AddCompletedLessonDto } from '../../../users/dtos/AddCompletedLesson.dtos';
 import { AddFavoriteCourseDto } from '../../../users/dtos/AddFavoriteCourse.dtos';
 import { CreateUserDto } from '../../../users/dtos/CreateUser.dtos';
@@ -15,7 +14,6 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     
     @Get('')
-    //@UseGuards(AuthGuard('jwt'))
     async getUsers() {
       return this.usersService.getUsers();
     }
@@ -46,8 +44,6 @@ export class UsersController {
     async getUser(@Param('id') userId: number) {
       return this.usersService.getUser(userId);
     }
-
-    //getCompleteByUserLessonsForCertainCourse
 
     @Get(':userId/courses/:courseId/completedLessons')
     async getUserCompletedLessonsForCertainCourse(@Param('userId') userId: number,@Param('courseId') courseId: number) {

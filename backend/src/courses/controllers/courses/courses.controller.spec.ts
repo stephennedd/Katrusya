@@ -21,6 +21,31 @@ describe('CoursesController', () => {
     service = module.get<CoursesService>(CoursesService);
   });
 
+  describe('getCourseQuizzes', () => {
+    it('should return an array of quizzes for a course', async () => {
+      const quizzes = [{ id: 1, name: 'quiz 1' }, { id: 2, name: 'quiz 2' }];
+      jest.spyOn(service, 'getCourseQuizzes').mockResolvedValue(quizzes);
+
+      const result = await controller.getCourseQuizzes(1);
+
+      expect(result).toBe(quizzes);
+      expect(service.getCourseQuizzes).toHaveBeenCalledWith(1);
+    });
+  });
+
+  describe('addPurchasedCourse', () => {
+    it('should add a purchased course', async () => {
+      const purchase = {id:1, courseId: 1, userId: 1 };
+      const purchasedCourse: PurchasedCourse = { ...purchase, course_id: purchase.courseId, user_id: purchase.userId, is_completed: false };
+      jest.spyOn(service, 'addPurchasedCourse').mockResolvedValue({ id: 1, ...purchasedCourse });
+  
+      const result = await controller.addPurchasedCourse(purchase);
+  
+      expect(result).toEqual({ id: 1, ...purchasedCourse });
+      expect(service.addPurchasedCourse).toHaveBeenCalledWith(purchase.courseId, purchase.userId);
+    });
+  });
+
   describe('getCourses', () => {
     it('should return an array of courses', async () => {
       const courses = [{ id: 1, name: 'course 1' }, { id: 2, name: 'course 2' }];
@@ -47,31 +72,6 @@ describe('CoursesController', () => {
 
       expect(result).toBe(courseDetails);
       expect(service.getCourseDetails).toHaveBeenCalledWith(1);
-    });
-  });
-
-  describe('getCourseQuizzes', () => {
-    it('should return an array of quizzes for a course', async () => {
-      const quizzes = [{ id: 1, name: 'quiz 1' }, { id: 2, name: 'quiz 2' }];
-      jest.spyOn(service, 'getCourseQuizzes').mockResolvedValue(quizzes);
-
-      const result = await controller.getCourseQuizzes(1);
-
-      expect(result).toBe(quizzes);
-      expect(service.getCourseQuizzes).toHaveBeenCalledWith(1);
-    });
-  });
-
-  describe('addPurchasedCourse', () => {
-    it('should add a purchased course', async () => {
-      const purchase = {id:1, courseId: 1, userId: 1 };
-      const purchasedCourse: PurchasedCourse = { ...purchase, course_id: purchase.courseId, user_id: purchase.userId, is_completed: false };
-      jest.spyOn(service, 'addPurchasedCourse').mockResolvedValue({ id: 1, ...purchasedCourse });
-  
-      const result = await controller.addPurchasedCourse(purchase);
-  
-      expect(result).toEqual({ id: 1, ...purchasedCourse });
-      expect(service.addPurchasedCourse).toHaveBeenCalledWith(purchase.courseId, purchase.userId);
     });
   });
 });
