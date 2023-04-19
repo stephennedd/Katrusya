@@ -96,8 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter an email';
-                          //} else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\s*$')
+                            //} else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          } else if (!RegExp(
+                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\s*$')
                               .hasMatch(value)) {
                             return 'Please enter a valid email address';
                           }
@@ -188,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                     _getStorage.write("userId", loggedInUser["data"]["id"]);
                     await SecureStorage.setAccessToken(
                         loggedInUser["data"]["accessToken"]);
-                    // print(loggedInUser["data"]["accessToken"]);
+
                     print(loggedInUser["data"]);
 
                     var token = await SecureStorage.getAccessToken();
@@ -196,16 +197,16 @@ class _LoginPageState extends State<LoginPage> {
                         "username", loggedInUser["data"]["username"]);
 
                     DateTime date =
-                    DateTime.parse(loggedInUser["data"]["created_at"]);
+                        DateTime.parse(loggedInUser["data"]["created_at"]);
                     String formattedDate = DateFormat('d MMMM, y').format(date);
                     _getStorage.write("createdAt", formattedDate);
                     // _getStorage.write("phone", loggedInUser["data"]["phone"]);
 
                     usersController.isUserLoggedIn.value = true;
                     usersController.balanceOfTokens.value =
-                    loggedInUser["data"]["balance_of_tokens"];
+                        loggedInUser["data"]["balance_of_tokens"];
                     usersController.userRoles.value =
-                    loggedInUser["data"]["roles"];
+                        loggedInUser["data"]["roles"];
                     usersController.phone.value = loggedInUser["data"]["phone"];
                     usersController.email.value = loggedInUser["data"]["email"];
 

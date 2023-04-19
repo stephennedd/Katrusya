@@ -21,13 +21,8 @@ import '../models/users/user_model.dart';
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
 
-<<<<<<< HEAD
   final String _baseUrl = 'http://localhost:3000';
-  //final String _baseUrl = 'http://192.168.178.151:3000';
-=======
-  //final String _baseUrl = 'http://localhost:3000';
-  final String _baseUrl = 'http://192.168.178.151:3000';
->>>>>>> 84a2dbe3441a0266cf0901df8cdad74a6b6c1123
+  // final String _baseUrl = 'http://192.168.178.151:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -291,6 +286,8 @@ class CallApi {
                   FavoriteCourseModel.fromJson(favoriteCourseJson)));
       return favoriteCourses;
     } else {
+      dynamic decoded = await json.decode(response.body);
+      print(decoded);
       print("Something went wrong");
       throw Error();
     }
