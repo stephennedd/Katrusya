@@ -78,7 +78,7 @@ describe('AuthController', () => {
   describe('register', () => {
     it('should return an authentication response', async () => {
       const createUserDto = {
-          id:2,
+          id:4,
           username: 'sorokin',
           email: 'smisha7000@gmail.com',
           password: 'qwerty',
@@ -136,8 +136,8 @@ describe('deleteUser', () => {
     it('should delete a user by id', async () => {
       
       // Act
-      const result = await usersService.deleteOtpsOfUser(2);
-      const result2 = await usersService2.deleteUser(2);
+      const result = await usersService.deleteOtpsOfUser(4);
+      const result2 = await usersService2.deleteUser(4);
     });
   });
 });

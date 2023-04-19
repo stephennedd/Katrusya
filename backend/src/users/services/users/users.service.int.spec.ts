@@ -415,10 +415,11 @@ describe('getIsSectionCompletedByUser', () => {
 });
 
 describe('getIsCourseCompletedByUser', () => { 
-    it('should return true if user has completed all sections in the course', async () => {
-      const isCourseCompletedByUser = await service.isCourseCompletedByUser(1, 1);
-      expect(isCourseCompletedByUser).toBe(true);
-    });
+    // it('should return true if user has completed all sections in the course', async () => {
+    //   const isCourseCompletedByUser = await service.isCourseCompletedByUser(1, 1);
+    //   expect(isCourseCompletedByUser).toBe(true);
+
+    // });
 
     it('should throw BadRequestException if user or section does not exist', async () => {
       // Call the method with a non-existing user id

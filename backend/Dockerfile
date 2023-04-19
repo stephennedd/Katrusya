@@ -21,6 +21,4 @@ COPY . .
 # Expose port 3000 for the application
 EXPOSE 3000
 
-# Start the application
-CMD ["./wait-for-it.sh", "db:3037", "--", "npm", "run", "start:dev"]
 # CMD ["npm", "run", "start:dev"]

@@ -4,6 +4,7 @@ networks:
     driver: bridge
 services:
   app:
+    container_name: katrusya-api-container
     networks:
       - my-network
     build: .
@@ -18,9 +19,10 @@ services:
       DB_USER: MoSalah
       DB_PASSWORD: qwerty123
       DB_NAME: katrusya
-    command: bash -c "npm run db:migrate && npm run db:seed && npm run start:dev"  
+    command: bash -c "npm run db:rollback && npm run db:migrate && npm run db:seed && npm run start:dev"  
 
   db:
+    container_name: katrusya-db-container
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
       interval: 10s
@@ -39,6 +41,4 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '3037:3037'
-    # command: >
-    #   sh -c "mysql -uroot -p zoom123123 -e 'CREATE DATABASE IF NOT EXISTS katrusya;' && sleep infinity"  
       
