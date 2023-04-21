@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/Screens/search.dart';
 import 'package:frontend/screens/course_landing_page.dart';
 import 'package:frontend/screens/favorites.dart';
+import 'package:frontend/screens/home.dart';
 import 'package:frontend/screens/login.dart';
 import 'package:frontend/screens/root_app.dart';
 import 'package:frontend/widgets/bookmark_box.dart';
@@ -20,18 +21,11 @@ import 'package:frontend/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  //TODO add tests for deleting user account
   String uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
   group('Signup Test', () {
     // T1: create a new account
-    testWidgets('signup test GW', (widgetTester) async {
-      // FlutterError.onError = (FlutterErrorDetails details) {
-      //   if(details.exception is TypeError) {
-      //     return;
-      //   }
-      //   FlutterError.dumpErrorToConsole(details);
-      // };
+    testWidgets('T1: signup test GW', (widgetTester) async {
       app.main();
       await widgetTester.pumpAndSettle();
       
@@ -47,14 +41,15 @@ void main() {
       await widgetTester.tap(find.byKey(const Key('signupButton')));
       await widgetTester.pumpAndSettle();
 
-      //
+      // verify the login page is shown and no errors
+      expect(find.byType(AlertDialog), findsNothing);
       expect(find.byType(LoginPage), findsOneWidget);
     });
 
     // T2: create account using a email that already exists in database
-    testWidgets('signup test BW (user already exists)', (widgetTester) async {
+    testWidgets('T2 signup test BW (user already exists)', (widgetTester) async {
 
-      // login
+      // sign up
       app.main();
       await widgetTester.pumpAndSettle();
 
@@ -62,8 +57,8 @@ void main() {
       await widgetTester.tap(toSignupScreenButton);
       await widgetTester.pumpAndSettle();
 
-      await widgetTester.enterText(find.byKey(const Key('usernameField')), 'Test User');
-      await widgetTester.enterText(find.byKey(const Key('phoneField')), '651654984');
+      await widgetTester.enterText(find.byKey(const Key('usernameField')), 'Test User $uniqueId');
+      await widgetTester.enterText(find.byKey(const Key('phoneField')), uniqueId);
       await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser$uniqueId@gmail.com');
       await widgetTester.enterText(find.byKey(const Key('passwordField')), 'pass');
       await widgetTester.pumpAndSettle();
@@ -78,7 +73,7 @@ void main() {
 
   group('Login Test', () {
     // T3: login and assert that you are navigated to homepage
-    testWidgets('login test GW (existing user found)', (widgetTester) async {
+    testWidgets('T3 login test GW (existing user found)', (widgetTester) async {
 
       // login
       app.main();
@@ -100,7 +95,7 @@ void main() {
     });
 
     //T4: login with a email that does not exist in database
-    testWidgets('login test BW (no existing user found)', (widgetTester) async {
+    testWidgets('T4 login test BW (no existing user found)', (widgetTester) async {
       // login
       app.main();
       await widgetTester.pumpAndSettle();
@@ -122,7 +117,7 @@ void main() {
     });
 
     //T5: try tapping the login button with all fields empty (should not validate form)
-    testWidgets('login test BW (all empty fields)', (widgetTester) async {
+    testWidgets('T5 login test BW (all empty fields)', (widgetTester) async {
       app.main();
       await widgetTester.pumpAndSettle();
 
@@ -141,7 +136,7 @@ void main() {
   
   group('Homepage Test', () {
     //T6: load homepage and assert that all widgets are loaded
-    testWidgets('homepage data loaded GW', (widgetTester) async {
+    testWidgets('T6 homepage data loaded GW', (widgetTester) async {
       // login
       app.main();
       await widgetTester.pumpAndSettle();
@@ -169,7 +164,7 @@ void main() {
     });
 
     //T7: Verify that tapping on a featured item navigates to the correct page the CourseLandingPage, using the onTap callback of the FeaturedItem widget.
-    testWidgets('navigate to featured item GW', (widgetTester) async {
+    testWidgets('T7 navigate to featured item GW', (widgetTester) async {
       app.main();
       await widgetTester.pumpAndSettle();
       await widgetTester.tap(find.byKey(const Key('toLoginButton')));
@@ -182,13 +177,13 @@ void main() {
       await widgetTester.tap(find.byKey(const Key('loginButton')));
       await widgetTester.pumpAndSettle();
 
-      await widgetTester.tap(find.byType(FeaturedItem).at(1));
+      await widgetTester.tap(find.byKey(const Key('featuredItem1')));
       await widgetTester.pumpAndSettle();
       expect(find.byType(CourseLandingPage), findsOneWidget);
     });
 
     //T8: Verify that tapping on a recommended item navigates to the correct page the CourseLandingPage, using the onTap callback of the RecommendItem widget.
-    testWidgets('navigate to recommended item GW', (widgetTester) async {
+    testWidgets('T8 navigate to recommended item GW', (widgetTester) async {
 
       app.main();
       await widgetTester.pumpAndSettle();
@@ -208,7 +203,7 @@ void main() {
     });
 
     //T9: Verify that tapping a category will update the featured carousel and recommended carousel.
-    testWidgets('tap a category', (widgetTester) async {
+    testWidgets('T9 tap a category', (widgetTester) async {
 
       app.main();
       // login
@@ -234,7 +229,7 @@ void main() {
 
   group('Search-page test', () {
     //T10: Verify that the SearchPage renders without any errors and displays the expected UI components.
-    testWidgets('searchpage loaded GW', (widgetTester) async {
+    testWidgets('T10 search-page loaded GW', (widgetTester) async {
       app.main();
       // login
       await widgetTester.pumpAndSettle();
@@ -260,7 +255,7 @@ void main() {
     });
 
     //T11: Enter a search query in the search box and submit it. Verify that the getSearchedCourses() method is called with the correct parameters, and the searched courses are displayed accordingly.
-    testWidgets('search for course query GW', (widgetTester) async {
+    testWidgets('T11 search for course query GW', (widgetTester) async {
       app.main();
       // login
       await widgetTester.pumpAndSettle();
@@ -288,7 +283,7 @@ void main() {
     });
     
     //T12: Verify that clicking a category updates the search result to only show courses from that category.
-    testWidgets('search results based on category GW', (widgetTester) async {
+    testWidgets('T12 search results based on category GW', (widgetTester) async {
       app.main();
       // login
       await widgetTester.pumpAndSettle();
@@ -318,7 +313,7 @@ void main() {
     });
 
     //T13: Verify that clicking the favorites button on a course adds it to your list of favorites and clicking the favorite button twice removes it.
-    testWidgets('adding a course to favorites GW', (widgetTester) async {
+    testWidgets('T13 adding a course to favorites GW', (widgetTester) async {
       app.main();
       // login
       await widgetTester.pumpAndSettle();
@@ -368,7 +363,7 @@ void main() {
 
   group('My courses test', () {
     //T14: Verify all widgets are loaded properly on the page
-    testWidgets('My courses page loaded GW', (widgetTester) async {
+    testWidgets('T14 my courses page loaded GW', (widgetTester) async {
       // login
       app.main();
       await widgetTester.pumpAndSettle();
@@ -392,7 +387,7 @@ void main() {
     });
 
     //T15: Verify that courses that are purchased are added to my courses
-    testWidgets('My courses shows courses that are purchased GW', (widgetTester) async {
+    testWidgets('T15 my courses shows courses that are purchased GW', (widgetTester) async {
       // login
       app.main();
       await widgetTester.pumpAndSettle();
@@ -436,16 +431,16 @@ void main() {
   });
 
   group('Wishlist test', () {
-    //T:18 Verify the wishlist page loads and all the widgets are shown
-    testWidgets('Widgets loaded GW', (widgetTester) async {
+    //T:16 Verify the wishlist page loads and all the widgets are shown
+    testWidgets('T16 widgets loaded GW', (widgetTester) async {
       app.main();
       // login
       await widgetTester.pumpAndSettle();
       await widgetTester.tap(find.byKey(const Key('toLoginButton')));
       await widgetTester.pumpAndSettle();
 
-      //await widgetTester.enterText(find.byKey(Key("emailField")), "newuser$uniqueId@gmail.com");
-      await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser@gmail.com');
+      await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser$uniqueId@gmail.com');
+      //await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser@gmail.com');
       await widgetTester.enterText(find.byKey(const Key('passwordField')), 'pass');
       await widgetTester.pumpAndSettle();
 
@@ -461,15 +456,15 @@ void main() {
       expect(find.byKey(const Key('favoritesAppBar')), findsOneWidget);
     });
 
-    //T:19 Verify that favorites can be removed by swiping
-    testWidgets('Swipe to remove', (widgetTester) async {
+    //T:17 Verify that favorites can be removed by swiping
+    testWidgets('T17 Swipe to remove', (widgetTester) async {
       app.main();
+      // login
       await widgetTester.pumpAndSettle();
-
       await widgetTester.tap(find.byKey(const Key('toLoginButton')));
       await widgetTester.pumpAndSettle();
 
-      await widgetTester.enterText(find.byKey(Key("emailField")), "newuser$uniqueId@gmail.com");
+      await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser$uniqueId@gmail.com');
       //await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser@gmail.com');
       await widgetTester.enterText(find.byKey(const Key('passwordField')), 'pass');
       await widgetTester.pumpAndSettle();
@@ -483,36 +478,40 @@ void main() {
       await widgetTester.tap(find.byType(BookmarkBox).first);
       await widgetTester.pumpAndSettle();
 
-      //(find.byType(BookmarkBox).first.evaluate().first.widget., matcher)
-
+      // goto homepage
       await widgetTester.tap(find.byType(BackButton));
       await widgetTester.pumpAndSettle();
+      expect(find.byType(HomePage), findsOneWidget);
 
       // go to wishlist page
       await widgetTester.tap(find.byType(BottomBarItem).at(3));
       await widgetTester.pumpAndSettle();
-
+      expect(find.byType(FavoritesPage), findsOneWidget);
       expect(find.byType(FavoritesItem), findsWidgets);
+
+      // drag the item off the screen and assert that the dialog box shows
       await widgetTester.drag(find.byType(FavoritesItem).first, const Offset(200, 0));
       await widgetTester.pumpAndSettle();
-
       expect(find.byType(CupertinoAlertDialog), findsOneWidget);
     });
 
-    // T20: Verify that users can navigate to the course from the favorites page
-    testWidgets('User navigates to course GW', (widgetTester) async {
+    // T18: Verify that users can navigate to the course from the favorites page
+    testWidgets('T18 User navigates to course GW', (widgetTester) async {
       app.main();
-      await widgetTester.pumpAndSettle();
       // login
-      await widgetTester.enterText(find.byKey(Key("emailField")), "newuser$uniqueId@gmail.com");
-      //await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser@gmail.com');
+      await widgetTester.pumpAndSettle();
+      await widgetTester.tap(find.byKey(const Key('toLoginButton')));
+      await widgetTester.pumpAndSettle();
+
+      //await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser$uniqueId@gmail.com');
+      await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser@gmail.com');
       await widgetTester.enterText(find.byKey(const Key('passwordField')), 'pass');
       await widgetTester.pumpAndSettle();
 
       await widgetTester.tap(find.byKey(const Key('loginButton')));
       await widgetTester.pumpAndSettle();
 
-      await widgetTester.tap(find.byType(CourseItem).first);
+      await widgetTester.tap(find.byType(RecommendItem).first);
       await widgetTester.pumpAndSettle();
 
       await widgetTester.tap(find.byType(BookmarkBox).first);
@@ -533,23 +532,21 @@ void main() {
     });
   });
 
-  group('Account page Test', () {
-    // T21: Verify that users can navigate to the account page and it loads properly
-    testWidgets('Verify widgets load properly GW', (widgetTester) async {
+  group('Account page test', () {
+    // T19: Verify that all widgets loaded properly
+    testWidgets('T19 Account page loaded GW', (widgetTester) async {
       app.main();
       await widgetTester.pumpAndSettle();
-      // login
-      await widgetTester.enterText(find.byKey(Key("emailField")), "newuser$uniqueId@gmail.com");
+      await widgetTester.tap(find.byKey(const Key('toLoginButton')));
+      await widgetTester.pumpAndSettle();
+
+      await widgetTester.enterText(find.byKey(const Key('emailField')), 'newuser$uniqueId@gmail.com');
       await widgetTester.enterText(find.byKey(const Key('passwordField')), 'pass');
       await widgetTester.pumpAndSettle();
-
-      await widgetTester.tap(find.byKey(const Key('loginButton')));
-      await widgetTester.pumpAndSettle();
-
-      // navigate to Account page
+      
       await widgetTester.tap(find.byType(BottomBarItem).at(4));
       await widgetTester.pumpAndSettle();
-
+      
       // appbar
       expect(find.byKey(const Key('accountAppBar')), findsOneWidget);
       // profile image

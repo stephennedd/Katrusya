@@ -240,6 +240,7 @@ class _HomePageState extends State<HomePage> {
         items: List.generate(
             courseController.featuredCourses.length,
             (index) => FeaturedItem(
+                key: Key('featuredItem$index'),
                 data: courseController.featuredCourses[index],
                 onTap: () async {
                   bool isTheCoursePurchased =
