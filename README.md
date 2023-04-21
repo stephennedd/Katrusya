@@ -1,6 +1,7 @@
 ![Logo](frontend/images/logo_small.png)
 ## Katrusya
 [![Generic badge](https://img.shields.io/badge/Version-1.0.0-<COLOR>.svg)](https://shields.io/)
+
 Katrusya is an online-course platform that uses gamification techniques to increase the completion rate of each course. The platform provides a fun and engaging learning experience that motivates users to complete courses and achieve their learning goals.
 
 The platform is built using Flutter for the frontend, Nest.js for the backend, and MySQL for the database. The frontend provides a responsive and intuitive user interface, while the backend handles user authentication, course management, and data storage.
