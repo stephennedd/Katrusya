@@ -7,6 +7,7 @@ The platform is built using Flutter for the frontend, Nest.js for the backend, a
 
 ## Technologies
 Project was created with:
+
 [![Generic badge](https://img.shields.io/badge/Flutter-3.7.7-<COLOR>.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/Nest.js-9.0.0-<COLOR>.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/MySql-3.2.0-<COLOR>.svg)](https://shields.io/)
