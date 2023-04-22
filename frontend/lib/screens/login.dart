@@ -105,6 +105,9 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
+                            errorStyle: const TextStyle(
+                              color: Colors.blue
+                            ),
                             prefixIcon: Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: SvgPicture.asset("assets/icons/email.svg"),
@@ -124,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     FormInput(
+
                       key: const Key("passwordField"),
                       hasIcon: true,
                       icon: "assets/icons/password.svg",

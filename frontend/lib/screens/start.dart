@@ -7,7 +7,7 @@ import 'package:frontend/widgets/button.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
-  static const String routeName = "/start";
+  static const String routeName = '/start';
 
   @override
   State<StartPage> createState() => _StartPageState();
@@ -28,9 +28,9 @@ class _StartPageState extends State<StartPage> {
           child: Column(
             children: [
               ButtonSimple(
-                key: const Key("getStartedButton"),
+                key: const Key('getStartedButton'),
                 width: double.infinity,
-                text: "get started",
+                text: 'get started',
                 color: primary,
                 textColor: primaryDark,
                 onPressed: () {
@@ -43,9 +43,9 @@ class _StartPageState extends State<StartPage> {
               ),
 
               ButtonSimple(
-                key: const Key("toLoginButton"),
+                key: const Key('toLoginButton'),
                 width: double.infinity,
-                text: "already have an account",
+                text: 'already have an account',
                 color: Colors.white,
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, LoginPage.routeName);
@@ -65,7 +65,7 @@ class _StartPageState extends State<StartPage> {
       backgroundColor: appBarColor,
       centerTitle: true,
       title: const Text(
-        "Katrusya",
+        'Katrusya',
         style: TextStyle(
           fontFamily: 'Nexa-Trial',
           fontSize: 25,
@@ -90,7 +90,7 @@ class _StartPageState extends State<StartPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                  "images/hero_cropped.svg",
+                  'images/hero_cropped.svg',
                 width: screenWidth * 0.75
               ),
             ],
@@ -118,7 +118,7 @@ class _StartPageState extends State<StartPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Text(
-                  "Invest in your education and your future. sign up now!",
+                  'Invest in your education and your future. sign up now!',
                   maxLines: 2,
                   style: TextStyle(
                       fontFamily: 'Poppins',

@@ -23,8 +23,8 @@ import '../models/users/user_model.dart';
 class CallApi {
   // final String _baseUrl = 'http://172.22.240.1:3000';
 
-  final String _baseUrl = 'http://localhost:3000';
-  // final String _baseUrl = 'http://192.168.178.151:3000';
+  //final String _baseUrl = 'http://localhost:3000';
+   final String _baseUrl = 'http://192.168.178.151:3000';
 
   _setHeaders() => {
         'Content-type': 'application/json',
@@ -55,7 +55,7 @@ class CallApi {
 
   getTestBasedOnSectionId(int sectionId) async {
     http.Response response = await http.get(
-        Uri.parse("$_baseUrl/sections/$sectionId/test"),
+        Uri.parse('$_baseUrl/sections/$sectionId/test'),
         headers: _setHeaders());
 
     try {
@@ -63,7 +63,7 @@ class CallApi {
         dynamic decoded = await json.decode(response.body);
         return QuestionPaperModel.fromJson(decoded);
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -73,7 +73,7 @@ class CallApi {
   }
 
   addUser(UserModel user) async {
-    var fullUrl = "$_baseUrl/auth/register";
+    var fullUrl = '$_baseUrl/auth/register';
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(user), headers: _setHeaders());
@@ -82,7 +82,7 @@ class CallApi {
   }
 
   loginUser(LoginModel loginnedUser) async {
-    var fullUrl = "$_baseUrl/auth/login";
+    var fullUrl = '$_baseUrl/auth/login';
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(loginnedUser), headers: _setHeaders());
@@ -91,7 +91,7 @@ class CallApi {
   }
 
   addPurchasedCourse(PurchaseModel purchase) async {
-    var fullUrl = "$_baseUrl/courses/purchasedCourses";
+    var fullUrl = '$_baseUrl/courses/purchasedCourses';
 
     var response = await http.post(Uri.parse(fullUrl),
         body: jsonEncode(purchase), headers: _setHeaders());
@@ -99,11 +99,11 @@ class CallApi {
     return response;
   }
 
-  final String ip = "192.168.178.151";
+  final String ip = '192.168.178.151';
   getCourses(CourseQueryParamsModel queryParams) async {
     Uri apiUrl = Uri(
       scheme: 'http',
-      host: 'localhost',
+      host: ip,
       port: 3000,
       path: '/courses',
       queryParameters: {
@@ -112,7 +112,7 @@ class CallApi {
           'is_featured': queryParams.isFeatured.toString(),
         if (queryParams.isRecommended != null)
           'is_recommended': queryParams.isRecommended.toString(),
-        if (queryParams.search != null && queryParams.search != "")
+        if (queryParams.search != null && queryParams.search != '')
           'search': queryParams.search.toString(),
       },
     );
@@ -131,7 +131,7 @@ class CallApi {
             coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)));
         return courses;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -141,7 +141,7 @@ class CallApi {
   }
 
   getCourseDetails(int courseId) async {
-    String apiUrl = "/courses/$courseId/details";
+    String apiUrl = '/courses/$courseId/details';
 
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
@@ -151,7 +151,7 @@ class CallApi {
         dynamic decoded = await json.decode(response.body);
         return CourseDetailsModel.fromJson(decoded);
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -161,7 +161,7 @@ class CallApi {
   }
 
   getCourseQuizzes(int courseId) async {
-    String apiUrl = "/courses/$courseId/quizzes";
+    String apiUrl = '/courses/$courseId/quizzes';
 
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
@@ -174,7 +174,7 @@ class CallApi {
             quizzesJson.map((quizJson) => QuizModel.fromJson(quizJson)));
         return quizzes;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -184,7 +184,7 @@ class CallApi {
   }
 
   getRecommendedCourses() async {
-    String apiUrl = "/courses/?is_recommended=true";
+    String apiUrl = '/courses/?is_recommended=true';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -197,7 +197,7 @@ class CallApi {
             .toList();
         return courses;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -207,7 +207,7 @@ class CallApi {
   }
 
   getFeaturedCourses() async {
-    String apiUrl = "/courses/?is_featured=true";
+    String apiUrl = '/courses/?is_featured=true';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -220,7 +220,7 @@ class CallApi {
             .toList();
         return courses;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -230,7 +230,7 @@ class CallApi {
   }
 
   getCoursesBasedOnCategory(category) async {
-    String apiUrl = "/courses?category=$category";
+    String apiUrl = '/courses?category=$category';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -242,7 +242,7 @@ class CallApi {
             coursesJson.map((courseJson) => CourseModel.fromJson(courseJson)));
         return courses;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -252,7 +252,7 @@ class CallApi {
   }
 
   getCategories() async {
-    String apiUrl = "/categories";
+    String apiUrl = '/categories';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -265,7 +265,7 @@ class CallApi {
             .toList();
         return categories;
       } else {
-        print("Something went wrong");
+        print('Something went wrong');
         throw Error();
       }
     } catch (e) {
@@ -275,7 +275,7 @@ class CallApi {
   }
 
   getUserFavoriteCourses(int userId) async {
-    String apiUrl = "/users/$userId/favoriteCourses";
+    String apiUrl = '/users/$userId/favoriteCourses';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -290,13 +290,13 @@ class CallApi {
     } else {
       dynamic decoded = await json.decode(response.body);
       print(decoded);
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
 
   getUserCourses(int userId) async {
-    String apiUrl = "/users/$userId/courses";
+    String apiUrl = '/users/$userId/courses';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -308,7 +308,7 @@ class CallApi {
               .map((userCourseJson) => MyCourseModel.fromJson(userCourseJson)));
       return userCourses;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       // final GetStorage _getStorage = GetStorage();
       // await SecureStorage.deleteAccessToken();
       // _getStorage.erase();
@@ -317,7 +317,7 @@ class CallApi {
   }
 
   getCompletedByUserLessonsForCertainCourse(int userId, int courseId) async {
-    String apiUrl = "/users/$userId/courses/$courseId/completedLessons";
+    String apiUrl = '/users/$userId/courses/$courseId/completedLessons';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -330,7 +330,7 @@ class CallApi {
                   CompletedLessonModel.fromJson(completedLessonJson)));
       return completedLessonsForCertainCourse;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       // final GetStorage _getStorage = GetStorage();
       // await SecureStorage.deleteAccessToken();
       // _getStorage.erase();
@@ -339,7 +339,7 @@ class CallApi {
   }
 
   getCompletedByUserSections(int userId) async {
-    String apiUrl = "/users/$userId/completedSections";
+    String apiUrl = '/users/$userId/completedSections';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
 
@@ -352,7 +352,7 @@ class CallApi {
                   CompletedSectionModel.fromJson(completedSectionJson)));
       return completedSectionsForCertainCourse;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
@@ -360,7 +360,7 @@ class CallApi {
   addCourseToUserFavorites(int userId, int courseId) async {
     //CHANGE
     final favoriteCourse = {'course_id': courseId};
-    String apiUrl = "/users/$userId/favoriteCourses";
+    String apiUrl = '/users/$userId/favoriteCourses';
     http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(favoriteCourse), headers: _setHeaders());
     if (response.statusCode == 201) {
@@ -369,13 +369,13 @@ class CallApi {
           FavoriteCourseModel.fromJson(decoded);
       return addedFavoriteCourse;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
 
   deleteCourseFromUserFavorites(int userId, int courseId) async {
-    String apiUrl = "/users/$userId/favoriteCourses/$courseId";
+    String apiUrl = '/users/$userId/favoriteCourses/$courseId';
     http.Response response =
         await http.delete(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     if (response.statusCode == 200) {
@@ -384,7 +384,7 @@ class CallApi {
           FavoriteCourseModel.fromJson(decoded);
       return deletedFavoriteCourse;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
@@ -397,7 +397,7 @@ class CallApi {
       'section_id': sectionId,
       'lesson_id': lessonId
     };
-    String apiUrl = "/users/$userId/completedLessons";
+    String apiUrl = '/users/$userId/completedLessons';
     http.Response response = await http.post(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(completedByUserLesson), headers: _setHeaders());
     if (response.statusCode == 201) {
@@ -406,7 +406,7 @@ class CallApi {
           CompletedLessonModel.fromJson(decoded);
       return addedCompletedLessson;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
@@ -419,7 +419,7 @@ class CallApi {
       'section_id': sectionId,
       'lesson_id': lessonId
     };
-    String apiUrl = "/users/$userId/completedLessons";
+    String apiUrl = '/users/$userId/completedLessons';
     http.Response response = await http.delete(Uri.parse(_baseUrl + apiUrl),
         body: jsonEncode(completedByUserLesson), headers: _setHeaders());
     if (response.statusCode == 200) {
@@ -428,20 +428,20 @@ class CallApi {
           CompletedLessonModel.fromJson(decoded);
       return deletedCompletedLessson;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }
 
   hasUserPurchasedTheCourse(int userId, int courseId) async {
-    String apiUrl = "/users/$userId/isCoursePurchased?course_id=$courseId";
+    String apiUrl = '/users/$userId/isCoursePurchased?course_id=$courseId';
     http.Response response =
         await http.get(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     return response;
   }
 
   flipTeacherMode(int userId) async {
-    String apiUrl = "/users/$userId/roles";
+    String apiUrl = '/users/$userId/roles';
     http.Response response =
         await http.put(Uri.parse(_baseUrl + apiUrl), headers: _setHeaders());
     if (response.statusCode == 200) {
@@ -449,7 +449,7 @@ class CallApi {
       List<dynamic> updatedRoles = decoded as List<dynamic>;
       return updatedRoles;
     } else {
-      print("Something went wrong");
+      print('Something went wrong');
       throw Error();
     }
   }

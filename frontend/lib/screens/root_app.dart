@@ -17,7 +17,7 @@ import 'add_course.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
-  static const String routeName = "/root";
+  static const String routeName = '/root';
 
   @override
   State<RootApp> createState() => _RootAppState();
@@ -57,7 +57,7 @@ class _RootAppState extends State<RootApp> {
         //index: activePageIndex,
         index: bottomBarProvider.activePageIndex,
         children:
-            List.generate(tabItems.length, (index) => tabItems[index]["page"]));
+            List.generate(tabItems.length, (index) => tabItems[index]['page']));
   }
 
   Widget buildBodyTeacherMode() {
@@ -67,15 +67,15 @@ class _RootAppState extends State<RootApp> {
         //index: activePageIndex,
         index: bottomBarProvider.activePageIndex,
         children: List.generate(
-            teacherTabItems.length, (index) => teacherTabItems[index]["page"]));
+            teacherTabItems.length, (index) => teacherTabItems[index]['page']));
   }
 
   List tabItems = [
-    {"icon": "assets/icons/home.svg", "page": const HomePage()},
-    {"icon": "assets/icons/search.svg", "page": const SearchPage()},
-    {"icon": "assets/icons/play.svg", "page": const MyCoursesPage()},
-    {"icon": "assets/icons/heart.svg", "page": const FavoritesPage()},
-    {"icon": "assets/icons/profile.svg", "page": const AccountPage()}
+    {'icon': 'assets/icons/home.svg', 'page': const HomePage()},
+    {'icon': 'assets/icons/search.svg', 'page': const SearchPage()},
+    {'icon': 'assets/icons/play.svg', 'page': const MyCoursesPage()},
+    {'icon': 'assets/icons/heart.svg', 'page': const FavoritesPage()},
+    {'icon': 'assets/icons/profile.svg', 'page': const AccountPage()}
   ];
 
   int activePageIndex = 0;
@@ -105,8 +105,8 @@ class _RootAppState extends State<RootApp> {
           children: List.generate(
               tabItems.length,
               (index) => BottomBarItem(
-                  key: Key("bottomBarItem$index"),
-                  icon: tabItems[index]["icon"],
+                  key: Key('bottomBarItem$index'),
+                  icon: tabItems[index]['icon'],
                   isActive: bottomBarProvider.activePageIndex == index,
                   onTap: () {
                     onPageIndexChanged(index);
@@ -115,9 +115,9 @@ class _RootAppState extends State<RootApp> {
   }
 
   List teacherTabItems = [
-    {"icon": "assets/icons/home.svg", "page": const DashboardPage()},
-    {"icon": "assets/icons/square-plus.svg", "page": const AddCoursePage()},
-    {"icon": "assets/icons/profile.svg", "page": const AccountPage()}
+    {'icon': 'assets/icons/home.svg', 'page': const DashboardPage()},
+    {'icon': 'assets/icons/square-plus.svg', 'page': const AddCoursePage()},
+    {'icon': 'assets/icons/profile.svg', 'page': const AccountPage()}
   ];
 
   Widget buildTeacherBottomBar() {
@@ -144,7 +144,7 @@ class _RootAppState extends State<RootApp> {
           children: List.generate(
               teacherTabItems.length,
               (index) => BottomBarItem(
-                  icon: teacherTabItems[index]["icon"],
+                  icon: teacherTabItems[index]['icon'],
                   isActive: bottomBarProvider.activePageIndex == index,
                   onTap: () {
                     onPageIndexChanged(index);
