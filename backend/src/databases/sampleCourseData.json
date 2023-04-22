@@ -1,0 +1,64 @@
+{
+    "name": "Learn Web Development",
+    "description": "This course teaches you how to build web applications.",
+    "image": "https://example.com/course-image.jpg",
+    "price": 99.99,
+    "duration_in_hours": 40,
+    "review": 4.5,
+    "is_favorited": true,
+    "is_recommended": true,
+    "is_featured": true,
+    "tags": ["web development", "javascript"],
+    "categories": [1, 2, 3],
+    "sections": [
+      {
+        "title": "Introduction to Web Development",
+        "description": "Learn the basics of web development.",
+        "image": "https://example.com/section-image.jpg",
+        "duration_in_hours": 2,
+        "lessons": [
+          {
+            "title": "What is HTML?",
+            "description": "Learn the basics of HTML.",
+            "video_url": "https://example.com/lesson-video.mp4",
+            "image": "https://example.com/lesson-image.jpg",
+            "duration_in_hours": 1
+          },
+          {
+            "title": "What is CSS?",
+            "description": "Learn the basics of CSS.",
+            "video_url": "https://example.com/lesson-video.mp4",
+            "image": "https://example.com/lesson-image.jpg",
+            "duration_in_hours": 1
+          }
+        ],
+        "tests": [
+          {
+            "title": "HTML Basics Test",
+            "image_url": "https://example.com/test-image.jpg",
+            "description": "Test your knowledge of HTML basics.",
+            "time_seconds": 300,
+            "questions": [
+              {
+                "question": "What does HTML stand for?",
+                "correct_answer": "Hypertext Markup Language",
+                "selected_answer": "Hypertext Markup Language",
+                "answers": [
+                  {
+                    "identifier": "A",
+                    "answer": "Hypertext Makeup Language"
+                  },
+                  {
+                    "identifier": "B",
+                    "answer": "Hypertext Markup Language"
+                  },
+                  {
+                    "identifier": "C",
+                    "answer": "Hypertext Marking Language"
+                  }
+                ]
+              }
+            ]
+        }]
+      }]
+}

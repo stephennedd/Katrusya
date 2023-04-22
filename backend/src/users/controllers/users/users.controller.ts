@@ -19,9 +19,9 @@ export class UsersController {
     }
 
     @Get(':userId/favoriteCourses')
-  async getFavoriteCourses(@Param('userId') userId: number) {
+    async getFavoriteCourses(@Param('userId') userId: number) {
     return this.usersService.getUserFavoriteCourses(userId);
-  }
+    }
 
   @Get(':userId/courses')
   async getUserCourses(@Param('userId') userId: number) {

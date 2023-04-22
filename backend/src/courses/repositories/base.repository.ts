@@ -129,6 +129,132 @@ async getUserCourses(userId:number){
     return result;
   }
 
+  async addCourse(courseData){
+    const [newCourseId] = await this.db.getKnexInstance()('courses')
+        .insert({
+          name: courseData.name,
+          description: courseData.description,
+          image: courseData.image,
+          price: courseData.price,
+          duration_in_hours: courseData.duration_in_hours,
+          review: courseData.review,
+          is_favorited: courseData.is_favorited,
+          is_recommended: courseData.is_recommended,
+          is_featured: courseData.is_featured,
+          tags: courseData.tags,
+        })
+
+        console.log("Liza1");
+        console.log(courseData.categories);
+      // create new course categories records in the course_categories table
+      const courseCategories = courseData.categories.map((categoryId) => ({
+        course_id: newCourseId,
+        category_id: categoryId,
+      }));
+
+      console.log("Liza2");
+      
+      const [newCourseCategoryId] = await this.db.getKnexInstance()('course_categories').insert(courseCategories);
+
+      console.log("Liza3");
+        
+      // create new sections records in the sections table
+      const sections = courseData.sections.map((section) => ({
+        title: section.title,
+        description: section.description,
+        image: section.image,
+        duration_in_hours: section.duration_in_hours,
+        course_id: newCourseId,
+      }));
+       
+      console.log("Liza4");
+
+      let addedSectionsIds = [];
+      for(let i = 0;i<sections.length;i++){
+        const [newSectionId] = await this.db.getKnexInstance()('sections').insert(sections[i]);
+        addedSectionsIds.push(newSectionId);
+      }
+
+      console.log("Liza5");
+  
+      // create new lessons records in the lessons table
+      const lessons = courseData.sections.flatMap((section, index) => {
+        const sectionId = addedSectionsIds[index];
+        return section.lessons.map((lesson) => ({
+          title: lesson.title,
+          description: lesson.description,
+          video_url: lesson.video_url,
+          image: lesson.image,
+          duration_in_hours: lesson.duration_in_hours,
+          section_id: sectionId,
+        }));
+      });
+      console.log("Liza6");
+      this.db.getKnexInstance()('lessons').insert(lessons);
+
+      console.log("Liza7");
+  
+      // create new tests records in the tests table
+      const tests = courseData.sections.flatMap((section, index) => {
+        const sectionId = addedSectionsIds[index];
+        return section.tests.map((test) => ({
+          title: test.title,
+          image_url: test.image_url,
+          description: test.description,
+          time_seconds: test.time_seconds,
+          section_id: sectionId,
+          course_id: newCourseId,
+        }));
+      });
+      console.log("Liza8");
+      let addedTests = [];
+      for(let i = 0;i<tests.length;i++){
+        const [newTestId] = await this.db.getKnexInstance()('tests').insert(tests[i]);
+        addedTests.push({test_id:newTestId,section_id:tests[i].section_id});
+      }
+      console.log("Liza9");
+     
+      // create new questions and answers records in the questions and answers tables
+      const questions = courseData.sections.flatMap((section, index) => {
+        const sectionId = addedSectionsIds[index];
+        const testId = addedTests.find((test) => test.section_id === sectionId).test_id;
+  
+        return section.tests.flatMap((test) => {
+          return test.questions.map((question) => {
+            const answers = question.answers.map((answer) => ({
+              identifier: answer.identifier,
+              answer: answer.answer,
+            }));
+            return {
+              question: question.question,
+              correct_answer: question.correct_answer,
+              selected_answer: question.selected_answer,
+              test_id: testId,
+              answers,
+            };
+          });
+        });
+      });
+
+      console.log("Liza10");
+      let addedQuestionsIds = [];
+      for(let i = 0;i<questions.length;i++){
+        const [newQuestionId] = await this.db.getKnexInstance()('questions').insert(questions[i]);
+        addedQuestionsIds.push(newQuestionId);
+      }
+      console.log("Liza11");
+      const answers = questions.flatMap((question, index) => {
+        const questionId = addedQuestionsIds[index];
+        return question.answers.map((answer) => ({
+          identifier: answer.identifier,
+          answer: answer.answer,
+          question_id: questionId,
+        }));
+    });
+    console.log("Liza12");
+    const insertedAnswers = await this.db.getKnexInstance()('answers').insert(answers)
+}
+
   async create(entity: T): Promise<T> {
     const [id] = await this.db.getKnexInstance()(this.tableName)
       .insert(entity)

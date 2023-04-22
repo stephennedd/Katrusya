@@ -29,9 +29,14 @@ async getCourseQuizzes(@Param('courseId') courseId: number) {
     return this.coursesService.getCourseQuizzes(courseId);
 }
 
-@Post('/purchasedCourses')
-  async addPurchasedCourse(@Body(ValidateCreateUserPurchasePipe) createPurchase: CreateUserPurchase) {
-    const { courseId, userId } = createPurchase;
-    return this.coursesService.addPurchasedCourse(courseId, userId);
+@Post('')
+  async addCourse(@Body() courseInfo) {
+    return this.coursesService.addCourse(courseInfo);
   }
+
+@Post('/purchasedCourses')
+async addPurchasedCourse(@Body(ValidateCreateUserPurchasePipe) createPurchase: CreateUserPurchase) {
+  const { courseId, userId } = createPurchase;
+  return this.coursesService.addPurchasedCourse(courseId, userId);
+}
 }

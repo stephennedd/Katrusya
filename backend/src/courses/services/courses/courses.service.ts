@@ -24,39 +24,44 @@ export class CoursesService {
       private readonly testsRepository: TestsRepository,
       private readonly usersRepository: UsersRepository) {} 
   
-async addPurchasedCourse(courseId: number, userId: number) {
-  const courseExists = await this.coursesRepository.getById(courseId);
-  if (!courseExists) {
-    throw new BadRequestException(`Course with ID ${courseId} does not exist`);
-  }
-  
-  const userExists = await this.usersRepository.getById(userId);
-  
-  if (!userExists) {
-    throw new BadRequestException(`User with ID ${userId} does not exist`);
-  }
-  
-    try { 
-    const result = await this.userCoursesRepository.addUserCourse(courseId,userId);
-    const addedPurchasedCourse: PurchasedCourse = {
-      id: result[0],
-      course_id: courseId,
-      user_id: userId,
-      is_completed: false,
-    };
-    return addedPurchasedCourse;
-}catch (err) { 
-    // Check if the error is a unique constraint violation error
-    if (err.sqlState === '23000' && err.code === 'ER_DUP_ENTRY') {
-        const message = `The user with ID ${userId} has already purchased the course with ID ${courseId}`;
-        throw new BadRequestException(message);
-      } else {
-      return {
-        success: false,
-        error: 'An error occurred while adding the course to the user',
-      };
-    }
-  }
+      async addPurchasedCourse(courseId: number, userId: number) {
+        const courseExists = await this.coursesRepository.getById(courseId);
+        if (!courseExists) {
+          throw new BadRequestException(`Course with ID ${courseId} does not exist`);
+        }
+        
+        const userExists = await this.usersRepository.getById(userId);
+        
+        if (!userExists) {
+          throw new BadRequestException(`User with ID ${userId} does not exist`);
+        }
+        
+          try { 
+          const result = await this.userCoursesRepository.addUserCourse(courseId,userId);
+          const addedPurchasedCourse: PurchasedCourse = {
+            id: result[0],
+            course_id: courseId,
+            user_id: userId,
+            is_completed: false,
+          };
+          return addedPurchasedCourse;
+      }catch (err) { 
+          // Check if the error is a unique constraint violation error
+          if (err.sqlState === '23000' && err.code === 'ER_DUP_ENTRY') {
+              const message = `The user with ID ${userId} has already purchased the course with ID ${courseId}`;
+              throw new BadRequestException(message);
+            } else {
+            return {
+              success: false,
+              error: 'An error occurred while adding the course to the user',
+            };
+          }
+        }
+        }
+
+  async addCourse(courseInfo): Promise<any>{
+    const result = await this.coursesRepository.addCourse(courseInfo);
+    return result;
   }
 
   async getCourseQuizzes(courseId: number): Promise<any>{
